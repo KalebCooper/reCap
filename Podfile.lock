@@ -1,34 +1,41 @@
 PODS:
-  - Firebase/Auth (4.3.0):
+  - AWSCore (2.6.11)
+  - AWSPolly (2.6.11):
+    - AWSCore (= 2.6.11)
+  - ButtonProgressBar-iOS (1.0.0)
+  - ClusterKit/Core (0.3.3)
+  - ClusterKit/MapKit (0.3.3):
+    - ClusterKit/Core
+  - Firebase/Auth (4.8.2):
     - Firebase/Core
-    - FirebaseAuth (= 4.2.1)
-  - Firebase/Core (4.3.0):
-    - FirebaseAnalytics (= 4.0.4)
-    - FirebaseCore (= 4.0.8)
-  - Firebase/Database (4.3.0):
+    - FirebaseAuth (= 4.4.2)
+  - Firebase/Core (4.8.2):
+    - FirebaseAnalytics (= 4.0.9)
+    - FirebaseCore (= 4.0.14)
+  - Firebase/Database (4.8.2):
     - Firebase/Core
-    - FirebaseDatabase (= 4.1.0)
-  - Firebase/Storage (4.3.0):
+    - FirebaseDatabase (= 4.1.4)
+  - Firebase/Storage (4.8.2):
     - Firebase/Core
-    - FirebaseStorage (= 2.0.2)
-  - FirebaseAnalytics (4.0.4):
+    - FirebaseStorage (= 2.1.2)
+  - FirebaseAnalytics (4.0.9):
     - FirebaseCore (~> 4.0)
     - FirebaseInstanceID (~> 2.0)
     - GoogleToolboxForMac/NSData+zlib (~> 2.1)
     - nanopb (~> 0.3)
-  - FirebaseAuth (4.2.1):
+  - FirebaseAuth (4.4.2):
     - FirebaseAnalytics (~> 4.0)
     - GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)
     - GTMSessionFetcher/Core (~> 1.1)
-  - FirebaseCore (4.0.8):
+  - FirebaseCore (4.0.14):
     - GoogleToolboxForMac/NSData+zlib (~> 2.1)
-    - nanopb (~> 0.3)
-  - FirebaseDatabase (4.1.0):
+  - FirebaseDatabase (4.1.4):
     - FirebaseAnalytics (~> 4.0)
     - FirebaseCore (~> 4.0)
     - leveldb-library (~> 1.18)
-  - FirebaseInstanceID (2.0.4)
-  - FirebaseStorage (2.0.2):
+  - FirebaseInstanceID (2.0.8):
+    - FirebaseCore (~> 4.0)
+  - FirebaseStorage (2.1.2):
     - FirebaseAnalytics (~> 4.0)
     - FirebaseCore (~> 4.0)
     - GTMSessionFetcher/Core (~> 1.1)
@@ -42,39 +49,106 @@ PODS:
     - GoogleToolboxForMac/Defines (= 2.1.3)
     - GoogleToolboxForMac/NSString+URLArguments (= 2.1.3)
   - GoogleToolboxForMac/NSString+URLArguments (2.1.3)
-  - GTMSessionFetcher/Core (1.1.12)
-  - Hero (0.3.6)
-  - leveldb-library (1.18.3)
+  - GTMSessionFetcher/Core (1.1.13)
+  - Hero (1.0.1)
+  - IBAnimatable (5.0.0)
+  - leveldb-library (1.20)
+  - LTMorphingLabel (0.5.6)
+  - Mapbox-iOS-SDK (3.7.3)
+  - MapboxCoreNavigation (0.13.0):
+    - MapboxDirections.swift (~> 0.16.0)
+    - MapboxMobileEvents (~> 0.2)
+    - Turf (~> 0.0.4)
+  - MapboxDirections.swift (0.16.0):
+    - Polyline (~> 4.2)
+  - MapboxGeocoder.swift (0.8.0)
+  - MapboxMobileEvents (0.2.10)
+  - MapboxNavigation (0.13.0):
+    - AWSPolly (~> 2.6)
+    - Mapbox-iOS-SDK (~> 3.6)
+    - MapboxCoreNavigation (= 0.13.0)
+    - SDWebImage (~> 4.1)
+    - Solar (~> 2.1)
+    - Turf (~> 0.0.4)
+  - Material (2.13.5):
+    - Material/Core (= 2.13.5)
+  - Material/Core (2.13.5):
+    - Motion (~> 1.3.0)
+  - Motion (1.3.4):
+    - Motion/Core (= 1.3.4)
+  - Motion/Core (1.3.4)
   - nanopb (0.3.8):
     - nanopb/decode (= 0.3.8)
     - nanopb/encode (= 0.3.8)
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
-  - SwiftyJSON (3.1.4)
+  - PMSuperButton (2.0.4)
+  - Polyline (4.2.0)
+  - SDWebImage (4.3.0):
+    - SDWebImage/Core (= 4.3.0)
+  - SDWebImage/Core (4.3.0)
+  - Solar (2.1.0)
+  - SwiftLocation (3.1.0):
+    - SwiftyJSON (~> 4.0.0-alpha.1)
+  - SwiftyCam (2.6.0)
+  - SwiftyJSON (4.0.0)
+  - Turf (0.0.4)
 
 DEPENDENCIES:
+  - ButtonProgressBar-iOS
+  - ClusterKit/MapKit
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
   - Firebase/Storage
   - Hero
+  - IBAnimatable
+  - LTMorphingLabel
+  - Mapbox-iOS-SDK
+  - MapboxGeocoder.swift
+  - MapboxNavigation
+  - Material
+  - PMSuperButton
+  - SwiftLocation
+  - SwiftyCam
   - SwiftyJSON
 
 SPEC CHECKSUMS:
-  Firebase: 83283761a1ef6dc9846e03d08059f51421afbd65
-  FirebaseAnalytics: 722b53c7b32bfc7806b06e0093a2f5180d4f2c5a
-  FirebaseAuth: d7f047fbeab98062b98ea933b8d934e0fb1190e2
-  FirebaseCore: 69b1a5ac5f857ba6d5fd9d5fe794f4786dd5e579
-  FirebaseDatabase: 607284a103e961d7f5863ee603cab5e85f443bd6
-  FirebaseInstanceID: 70c2b877e9338971b2429ea5a4293df6961aa44e
-  FirebaseStorage: 0cca42d9b889a0227c3a50121f45a4469fc9eb27
+  AWSCore: a461695bf302a32a366768bf36056be3a2c87d8d
+  AWSPolly: fa1600710f3eb20624caeb1d0566d77a44ae4902
+  ButtonProgressBar-iOS: 41f596a677947c565acd2be029f09892aa1aaf0e
+  ClusterKit: 52177be19bda5d9c09cb172e61842185268e6b5c
+  Firebase: 7d3b8cd837ad9fcd391657734c0d56dab8e9a5a3
+  FirebaseAnalytics: 388b630c15713f5dbf364071f5f3d6077fb52f4e
+  FirebaseAuth: bd2738c5c1e92b108ba5f7f7335908097a4e50bb
+  FirebaseCore: 2e0b98fb2d64ca8140136beff15772bdd14d2dd7
+  FirebaseDatabase: de4446507ccd3257fca37d16f40e1540324571fd
+  FirebaseInstanceID: 81df5805a08001e69138664bdd02c6719a9ac80f
+  FirebaseStorage: 181bb543d39ee3c53e0558de7ba86b1286a0427f
   GoogleToolboxForMac: 2501e2ad72a52eb3dfe7bd9aee7dad11b858bd20
-  GTMSessionFetcher: ebaa1f79a5366922c1735f1566901f50beba23b7
-  Hero: d3c6f4dd80cdcdbb339be64e57ae3b5c3ab9938c
-  leveldb-library: 10fb39c39e243db4af1828441162405bbcec1404
+  GTMSessionFetcher: 5bb1eae636127de695590f50e7d248483eb891e6
+  Hero: cee286821578e170d8c0c9c9cda7897357401112
+  IBAnimatable: aa2286a9cf8fb4ae2e1be85c5287ae56143b024f
+  leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
+  LTMorphingLabel: bdb51d4682e9822da89da6f567bd8aa456fd6650
+  Mapbox-iOS-SDK: 5304bd9605babe6da9050ea4cb23c1671420b737
+  MapboxCoreNavigation: 3c964ad1854179dc619b4cceb5f85f428b68fe14
+  MapboxDirections.swift: 168cc83745b188d792c5482bfb0653c233d1455c
+  MapboxGeocoder.swift: 16e8488bbb81a5036b9a11d4d7714200337db86b
+  MapboxMobileEvents: 9e48b59d0eed04508595dcb04a77b7632e1c3054
+  MapboxNavigation: 81502953735c3860cefa8fa645c5870825bed158
+  Material: ced3fd11882147b135f897ca20227174bb104ad0
+  Motion: 85b8777db2e68801c03a5c629e918c35dd184c8d
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
-  SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
+  PMSuperButton: 148f52039b68d13b9335a3e8af81f37aec55cfa8
+  Polyline: 3d69f75bb136357e27291d439d0436c6ebda57a4
+  SDWebImage: 6da6c8bca115addc4de8613362e1b15f66333825
+  Solar: 2dc6e7cc39186cb0c8228fa08df76fb50c7d8f24
+  SwiftLocation: 8f5ef4f510a45e43239de57a3145b3669301e898
+  SwiftyCam: 86c114177a1b1f5dc2c82384577d0c20b922a31b
+  SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
+  Turf: 6c169618fa671e3f8a7b764b5b3332053ad6110e
 
-PODFILE CHECKSUM: 4c836744c8776ec0df1d235f7d602f1bf21868f3
+PODFILE CHECKSUM: d52cea2ebaad26709635016ab1d9410bcdb06fbd
 
 COCOAPODS: 1.3.1

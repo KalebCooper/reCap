@@ -1,0 +1,80 @@
+Pods we are using:
+
+Database:
+	Firebase
+		-pod 'Firebase/Core'
+  		-pod 'Firebase/Auth'
+  		-pod 'Firebase/Database'
+  		-pod 'Firebase/Storage'
+
+
+Camera:
+	SwiftyCam - Snapchat-like camera view
+		-https://github.com/Awalz/SwiftyCam
+		-pod "SwiftyCam"
+	
+
+UI:
+	Hero - Transitions between views
+		-https://github.com/lkzhao/Hero
+		-pod 'Hero'
+
+	Material - Material Transitions/Animations and UI Elements
+		-https://github.com/CosmicMind/Material
+		-pod 'Material'
+
+	LTMorphingLabel - Label Animation
+		-https://github.com/lexrus/LTMorphingLabel
+		-pod 'LTMorphingLabel'
+
+	ButtonProgressBar-iOS - Button progress animation
+		-https://github.com/thePsguy/ButtonProgressBar-iOS
+		-pod "ButtonProgressBar-iOS"
+
+	PMSuperButton - Simple Button Animations
+		-https://github.com/Codeido/PMSuperButton
+		-pod 'PMSuperButton'
+
+	IBAnimatable - Transitions and Animations
+		-https://github.com/IBAnimatable/IBAnimatable
+		-pod 'IBAnimatable'
+
+	
+
+JSON:
+	SwiftyJSON - Easier parsing of JSON files
+		-https://github.com/SwiftyJSON/SwiftyJSON
+		-pod 'SwiftyJSON'
+
+
+
+Device Metrics
+	
+
+	SwiftLocation - Better GPS monitoring
+		-https://github.com/malcommac/SwiftLocation
+		-pod 'SwiftLocation'
+
+
+Maps:
+	Mapbox - Open Source map library
+		-https://github.com/mapbox/mapbox-gl-native/tree/master/platform/ios
+		-pod 'Mapbox-iOS-SDK'
+
+	Mapbox Navigation - Navigation SDK for Mapbox
+		-https://github.com/mapbox/mapbox-navigation-ios
+		-pod 'MapboxNavigation'
+
+	Mapbox Geocoder - Allows search for locations or returning locations from GPS coordinates
+		-https://github.com/mapbox/MapboxGeocoder.swift
+		-pod 'MapboxGeocoder.swift'
+
+	ClusterKit - Map view clustering pins
+		-https://github.com/hulab/ClusterKit
+		-pod 'ClusterKit/MapKit'
+
+	DrawerKit - Pull up menu for map page
+		-https://github.com/Babylonpartners/DrawerKit
+		-pod 'DrawerKit' (THIS DOESN'T APPEAR TO EXIST)
+
+

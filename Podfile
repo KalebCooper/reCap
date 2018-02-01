@@ -12,6 +12,17 @@ target 'reCap' do
   pod 'Firebase/Storage'
   pod 'SwiftyJSON'
   pod 'Hero'
+  pod "SwiftyCam"
+  pod 'Material'
+  pod 'LTMorphingLabel'
+  pod "ButtonProgressBar-iOS"
+  pod 'PMSuperButton'
+  pod 'IBAnimatable'
+  pod 'SwiftLocation'
+  pod 'Mapbox-iOS-SDK'
+  pod 'MapboxNavigation'
+  pod 'MapboxGeocoder.swift'
+  pod 'ClusterKit/MapKit'
 
   target 'reCapTests' do
     inherit! :search_paths
