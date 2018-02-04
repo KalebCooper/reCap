@@ -29,6 +29,9 @@
 		7A4D8A4A2027818A0043878E /* ProfileSettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4D8A492027818A0043878E /* ProfileSettingsVC.swift */; };
 		7A4D8A4E202781CF0043878E /* TableCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4D8A4C202781CF0043878E /* TableCollectionView.swift */; };
 		7A4D8A4F202781CF0043878E /* TableCollectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7A4D8A4D202781CF0043878E /* TableCollectionView.xib */; };
+		7A4D8A52202782670043878E /* FBDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4D8A51202782670043878E /* FBDatabase.swift */; };
+		7A4D8A56202783090043878E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4D8A55202783090043878E /* User.swift */; };
+		7A4D8A58202789AA0043878E /* PictureData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4D8A57202789AA0043878E /* PictureData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +81,9 @@
 		7A4D8A492027818A0043878E /* ProfileSettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsVC.swift; sourceTree = "<group>"; };
 		7A4D8A4C202781CF0043878E /* TableCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableCollectionView.swift; sourceTree = "<group>"; };
 		7A4D8A4D202781CF0043878E /* TableCollectionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableCollectionView.xib; sourceTree = "<group>"; };
+		7A4D8A51202782670043878E /* FBDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBDatabase.swift; sourceTree = "<group>"; };
+		7A4D8A55202783090043878E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		7A4D8A57202789AA0043878E /* PictureData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureData.swift; sourceTree = "<group>"; };
 		9CD7EFB0164AE95822E97FC9 /* Pods_reCapUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_reCapUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E55F61F0BAC3591F8A02BA9 /* Pods-reCapUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-reCapUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-reCapUITests/Pods-reCapUITests.release.xcconfig"; sourceTree = "<group>"; };
 		BA8DD26FBE17C9DE1FEA2661 /* Pods-reCapTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-reCapTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-reCapTests/Pods-reCapTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -151,6 +157,8 @@
 		344C93E820226E280025E4C5 /* reCap */ = {
 			isa = PBXGroup;
 			children = (
+				7A4D8A53202782DB0043878E /* Custom Objects */,
+				7A4D8A50202782480043878E /* Database */,
 				7A4D8A3820277DFF0043878E /* View Controllers */,
 				344C93E920226E280025E4C5 /* AppDelegate.swift */,
 				344C93ED20226E280025E4C5 /* Main.storyboard */,
@@ -205,6 +213,23 @@
 				7A4D8A4D202781CF0043878E /* TableCollectionView.xib */,
 			);
 			path = Reusable;
+			sourceTree = "<group>";
+		};
+		7A4D8A50202782480043878E /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				7A4D8A51202782670043878E /* FBDatabase.swift */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
+		7A4D8A53202782DB0043878E /* Custom Objects */ = {
+			isa = PBXGroup;
+			children = (
+				7A4D8A55202783090043878E /* User.swift */,
+				7A4D8A57202789AA0043878E /* PictureData.swift */,
+			);
+			path = "Custom Objects";
 			sourceTree = "<group>";
 		};
 		C6FF080457583B7CA4FEF83E /* Frameworks */ = {
@@ -567,16 +592,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A4D8A46202780A00043878E /* RecentPicturesVC.swift in Sources */,
+				7A4D8A58202789AA0043878E /* PictureData.swift in Sources */,
 				7A4D8A3C20277E960043878E /* CameraVC.swift in Sources */,
 				344C93F220226E280025E4C5 /* reCap.xcdatamodeld in Sources */,
 				7A4D8A3E20277EF60043878E /* LeaderboardVC.swift in Sources */,
 				7A4D8A442027801E0043878E /* NavigationVC.swift in Sources */,
 				7A4D8A3720277DF90043878E /* SignInVC.swift in Sources */,
+				7A4D8A56202783090043878E /* User.swift in Sources */,
 				7A4D8A4A2027818A0043878E /* ProfileSettingsVC.swift in Sources */,
 				7A4D8A4E202781CF0043878E /* TableCollectionView.swift in Sources */,
 				7A4D8A4020277F450043878E /* MapVC.swift in Sources */,
 				7A4D8A3A20277E4F0043878E /* SignUpVC.swift in Sources */,
 				344C93EA20226E280025E4C5 /* AppDelegate.swift in Sources */,
+				7A4D8A52202782670043878E /* FBDatabase.swift in Sources */,
 				7A4D8A4220277FA00043878E /* ChallengesVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
