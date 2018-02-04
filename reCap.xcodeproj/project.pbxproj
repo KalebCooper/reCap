@@ -15,6 +15,14 @@
 		344C93F720226E280025E4C5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 344C93F520226E280025E4C5 /* LaunchScreen.storyboard */; };
 		344C940220226E280025E4C5 /* reCapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344C940120226E280025E4C5 /* reCapTests.swift */; };
 		344C940D20226E280025E4C5 /* reCapUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344C940C20226E280025E4C5 /* reCapUITests.swift */; };
+		34A7ACA8202787DA00ACFB12 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A7ACA7202787DA00ACFB12 /* PageViewController.swift */; };
+		34A7ACAC202788C000ACFB12 /* MapContainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A7ACAB202788C000ACFB12 /* MapContainerVC.swift */; };
+		34A7ACAE202788CE00ACFB12 /* CameraContainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A7ACAD202788CE00ACFB12 /* CameraContainerVC.swift */; };
+		34A7ACB020278CA700ACFB12 /* LeaderboardContainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A7ACAF20278CA700ACFB12 /* LeaderboardContainerVC.swift */; };
+		34A7ACB22027A4DF00ACFB12 /* PageView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34A7ACB12027A4DF00ACFB12 /* PageView.storyboard */; };
+		34A7ACB42027A4EB00ACFB12 /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34A7ACB32027A4EB00ACFB12 /* Map.storyboard */; };
+		34A7ACB62027A4F500ACFB12 /* Camera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34A7ACB52027A4F500ACFB12 /* Camera.storyboard */; };
+		34A7ACB82027A51700ACFB12 /* Leaderboards.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34A7ACB72027A51700ACFB12 /* Leaderboards.storyboard */; };
 		3BD76B62D24CA017D72CCCDA /* Pods_reCapUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CD7EFB0164AE95822E97FC9 /* Pods_reCapUITests.framework */; };
 		4166566AA68139D9E70F183A /* Pods_reCap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0C6A1AA7E56B3B8DAD1F814 /* Pods_reCap.framework */; };
 		431B5E71E2A82C2D5591C9FD /* Pods_reCapTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A855F58760B4E1DE5F6226D /* Pods_reCapTests.framework */; };
@@ -69,6 +77,14 @@
 		344C940820226E280025E4C5 /* reCapUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = reCapUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		344C940C20226E280025E4C5 /* reCapUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = reCapUITests.swift; sourceTree = "<group>"; };
 		344C940E20226E280025E4C5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		34A7ACA7202787DA00ACFB12 /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
+		34A7ACAB202788C000ACFB12 /* MapContainerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MapContainerVC.swift; path = "../../../../../../../kaleb/Documents/SideProjects/reCap/reCap/View Controllers/PageViewControllers/MapContainerVC.swift"; sourceTree = "<group>"; };
+		34A7ACAD202788CE00ACFB12 /* CameraContainerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraContainerVC.swift; sourceTree = "<group>"; };
+		34A7ACAF20278CA700ACFB12 /* LeaderboardContainerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardContainerVC.swift; sourceTree = "<group>"; };
+		34A7ACB12027A4DF00ACFB12 /* PageView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = PageView.storyboard; path = ../../../../../../kaleb/Documents/SideProjects/reCap/reCap/Storyboards/PageView.storyboard; sourceTree = "<group>"; };
+		34A7ACB32027A4EB00ACFB12 /* Map.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Map.storyboard; sourceTree = "<group>"; };
+		34A7ACB52027A4F500ACFB12 /* Camera.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Camera.storyboard; sourceTree = "<group>"; };
+		34A7ACB72027A51700ACFB12 /* Leaderboards.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Leaderboards.storyboard; sourceTree = "<group>"; };
 		6E7F0BE298641A4C1885D691 /* Pods-reCap.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-reCap.debug.xcconfig"; path = "Pods/Target Support Files/Pods-reCap/Pods-reCap.debug.xcconfig"; sourceTree = "<group>"; };
 		7A4D8A3620277DF90043878E /* SignInVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInVC.swift; sourceTree = "<group>"; };
 		7A4D8A3920277E4F0043878E /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
@@ -157,13 +173,15 @@
 		344C93E820226E280025E4C5 /* reCap */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< Updated upstream
 				7A4D8A53202782DB0043878E /* Custom Objects */,
 				7A4D8A50202782480043878E /* Database */,
+=======
+				34A7ACA62027878E00ACFB12 /* Storyboards */,
+>>>>>>> Stashed changes
 				7A4D8A3820277DFF0043878E /* View Controllers */,
 				344C93E920226E280025E4C5 /* AppDelegate.swift */,
-				344C93ED20226E280025E4C5 /* Main.storyboard */,
 				344C93F320226E280025E4C5 /* Assets.xcassets */,
-				344C93F520226E280025E4C5 /* LaunchScreen.storyboard */,
 				344C93F820226E280025E4C5 /* Info.plist */,
 				344C93F020226E280025E4C5 /* reCap.xcdatamodeld */,
 				3422D37E20226FE600570374 /* GoogleService-Info.plist */,
@@ -189,15 +207,40 @@
 			path = reCapUITests;
 			sourceTree = "<group>";
 		};
+		34A7ACA62027878E00ACFB12 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				344C93ED20226E280025E4C5 /* Main.storyboard */,
+				344C93F520226E280025E4C5 /* LaunchScreen.storyboard */,
+				34A7ACB12027A4DF00ACFB12 /* PageView.storyboard */,
+				34A7ACB32027A4EB00ACFB12 /* Map.storyboard */,
+				34A7ACB52027A4F500ACFB12 /* Camera.storyboard */,
+				34A7ACB72027A51700ACFB12 /* Leaderboards.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		34A7ACAA2027886800ACFB12 /* PageViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				34A7ACA7202787DA00ACFB12 /* PageViewController.swift */,
+				34A7ACAB202788C000ACFB12 /* MapContainerVC.swift */,
+				7A4D8A3F20277F450043878E /* MapVC.swift */,
+				34A7ACAD202788CE00ACFB12 /* CameraContainerVC.swift */,
+				7A4D8A3B20277E960043878E /* CameraVC.swift */,
+				34A7ACAF20278CA700ACFB12 /* LeaderboardContainerVC.swift */,
+				7A4D8A3D20277EF60043878E /* LeaderboardVC.swift */,
+			);
+			path = PageViewControllers;
+			sourceTree = "<group>";
+		};
 		7A4D8A3820277DFF0043878E /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				34A7ACAA2027886800ACFB12 /* PageViewControllers */,
 				7A4D8A4B202781A80043878E /* Reusable */,
 				7A4D8A3620277DF90043878E /* SignInVC.swift */,
 				7A4D8A3920277E4F0043878E /* SignUpVC.swift */,
-				7A4D8A3B20277E960043878E /* CameraVC.swift */,
-				7A4D8A3D20277EF60043878E /* LeaderboardVC.swift */,
-				7A4D8A3F20277F450043878E /* MapVC.swift */,
 				7A4D8A4120277FA00043878E /* ChallengesVC.swift */,
 				7A4D8A432027801E0043878E /* NavigationVC.swift */,
 				7A4D8A45202780A00043878E /* RecentPicturesVC.swift */,
@@ -358,6 +401,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34A7ACB22027A4DF00ACFB12 /* PageView.storyboard in Resources */,
+				34A7ACB82027A51700ACFB12 /* Leaderboards.storyboard in Resources */,
+				34A7ACB62027A4F500ACFB12 /* Camera.storyboard in Resources */,
+				34A7ACB42027A4EB00ACFB12 /* Map.storyboard in Resources */,
 				344C93F720226E280025E4C5 /* LaunchScreen.storyboard in Resources */,
 				3422D37F20226FE600570374 /* GoogleService-Info.plist in Resources */,
 				344C93F420226E280025E4C5 /* Assets.xcassets in Resources */,
@@ -409,6 +456,7 @@
 				"${BUILT_PRODUCTS_DIR}/Material/Material.framework",
 				"${BUILT_PRODUCTS_DIR}/Motion/Motion.framework",
 				"${BUILT_PRODUCTS_DIR}/PMSuperButton/PMSuperButton.framework",
+				"${BUILT_PRODUCTS_DIR}/Pageboy/Pageboy.framework",
 				"${BUILT_PRODUCTS_DIR}/Polyline/Polyline.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/Solar/Solar.framework",
@@ -440,6 +488,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Material.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Motion.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PMSuperButton.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Pageboy.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Polyline.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Solar.framework",
@@ -592,7 +641,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A4D8A46202780A00043878E /* RecentPicturesVC.swift in Sources */,
+<<<<<<< Updated upstream
 				7A4D8A58202789AA0043878E /* PictureData.swift in Sources */,
+=======
+				34A7ACAE202788CE00ACFB12 /* CameraContainerVC.swift in Sources */,
+>>>>>>> Stashed changes
 				7A4D8A3C20277E960043878E /* CameraVC.swift in Sources */,
 				344C93F220226E280025E4C5 /* reCap.xcdatamodeld in Sources */,
 				7A4D8A3E20277EF60043878E /* LeaderboardVC.swift in Sources */,
@@ -600,9 +653,12 @@
 				7A4D8A3720277DF90043878E /* SignInVC.swift in Sources */,
 				7A4D8A56202783090043878E /* User.swift in Sources */,
 				7A4D8A4A2027818A0043878E /* ProfileSettingsVC.swift in Sources */,
+				34A7ACB020278CA700ACFB12 /* LeaderboardContainerVC.swift in Sources */,
 				7A4D8A4E202781CF0043878E /* TableCollectionView.swift in Sources */,
 				7A4D8A4020277F450043878E /* MapVC.swift in Sources */,
+				34A7ACAC202788C000ACFB12 /* MapContainerVC.swift in Sources */,
 				7A4D8A3A20277E4F0043878E /* SignUpVC.swift in Sources */,
+				34A7ACA8202787DA00ACFB12 /* PageViewController.swift in Sources */,
 				344C93EA20226E280025E4C5 /* AppDelegate.swift in Sources */,
 				7A4D8A52202782670043878E /* FBDatabase.swift in Sources */,
 				7A4D8A4220277FA00043878E /* ChallengesVC.swift in Sources */,

@@ -2,6 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Shows your location on the map and helps improve OpenStreetMap.</string>
+	<key>MGLMapboxAccessToken</key>
+	<string>pk.eyJ1Ijoia2FsZWJjb29wZXIiLCJhIjoiY2pkNTZiZzJrMHpwMDMxcnp2ajN1bW9hdSJ9.JL1iaSYTODzMnNps55qgnA</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -23,7 +27,7 @@
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
-	<string>Main</string>
+	<string>PageView</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

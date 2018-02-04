@@ -23,6 +23,7 @@ target 'reCap' do
   pod 'MapboxNavigation'
   pod 'MapboxGeocoder.swift'
   pod 'ClusterKit/MapKit'
+  pod 'Pageboy'
 
   target 'reCapTests' do
     inherit! :search_paths

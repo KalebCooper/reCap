@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'E709458800D81A554C3FB0F98AFCDED9'
+               BlueprintIdentifier = '83C1452C76FDD09E300796E2C58F4419'
                BlueprintName = 'SwiftyCam'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'SwiftyCam.framework'>

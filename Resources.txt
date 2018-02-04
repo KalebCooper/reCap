@@ -38,6 +38,9 @@ UI:
 	IBAnimatable - Transitions and Animations
 		-https://github.com/IBAnimatable/IBAnimatable
 		-pod 'IBAnimatable'
+	Pageboy - PageViewController
+		-https://github.com/uias/Pageboy
+		-pod 'Pageboy'
 
 	
 

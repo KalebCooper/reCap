@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14087.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="5XJ-LK-hPZ">
+    <device id="retina5_9" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14075.4"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Map ContainerVC-->
+        <scene sceneID="AL5-Gi-mr9">
+            <objects>
+                <viewController storyboardIdentifier="MapContainerVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="5XJ-LK-hPZ" customClass="MapContainerVC" customModule="reCap" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="9rw-6c-VS2">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dit-uf-8xj">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                                <connections>
+                                    <segue destination="gOT-wK-JaJ" kind="embed" id="9aj-oc-vzc"/>
+                                </connections>
+                            </containerView>
+                            <searchBar contentMode="redraw" barStyle="black" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="ZNm-Me-YWF">
+                                <rect key="frame" x="0.0" y="44" width="375" height="56"/>
+                                <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <textInputTraits key="textInputTraits" textContentType="location"/>
+                                <connections>
+                                    <outlet property="delegate" destination="5XJ-LK-hPZ" id="J5i-EG-XhY"/>
+                                </connections>
+                            </searchBar>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NeT-1R-haj">
+                                <rect key="frame" x="355" y="0.0" width="20" height="812"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oMv-Hh-yoh">
+                                <rect key="frame" x="0.0" y="0.0" width="20" height="812"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Dit-uf-8xj" firstAttribute="trailing" secondItem="ZNm-Me-YWF" secondAttribute="trailing" id="2bP-Bh-8aY"/>
+                            <constraint firstItem="oMv-Hh-yoh" firstAttribute="top" secondItem="NeT-1R-haj" secondAttribute="top" id="3iz-y0-yrT"/>
+                            <constraint firstItem="oMv-Hh-yoh" firstAttribute="bottom" secondItem="NeT-1R-haj" secondAttribute="bottom" id="8e7-v7-Mzm"/>
+                            <constraint firstItem="ZNm-Me-YWF" firstAttribute="top" secondItem="3ga-dN-IQR" secondAttribute="top" id="A0j-3I-sBB"/>
+                            <constraint firstItem="Dit-uf-8xj" firstAttribute="leading" secondItem="9rw-6c-VS2" secondAttribute="leading" id="Cjg-C7-Urh"/>
+                            <constraint firstItem="oMv-Hh-yoh" firstAttribute="leading" secondItem="Dit-uf-8xj" secondAttribute="leading" id="JLp-31-fg0"/>
+                            <constraint firstItem="Dit-uf-8xj" firstAttribute="top" secondItem="9rw-6c-VS2" secondAttribute="top" id="L01-vx-LbB"/>
+                            <constraint firstAttribute="bottom" secondItem="Dit-uf-8xj" secondAttribute="bottom" id="TXb-XC-PY5"/>
+                            <constraint firstAttribute="trailing" secondItem="oMv-Hh-yoh" secondAttribute="trailing" constant="355" id="UQs-na-jyZ"/>
+                            <constraint firstItem="Dit-uf-8xj" firstAttribute="leading" secondItem="ZNm-Me-YWF" secondAttribute="leading" id="XuW-za-gSS"/>
+                            <constraint firstAttribute="trailing" secondItem="Dit-uf-8xj" secondAttribute="trailing" id="bVt-N6-Kj7"/>
+                            <constraint firstItem="oMv-Hh-yoh" firstAttribute="bottom" secondItem="Dit-uf-8xj" secondAttribute="bottom" id="fVC-Bx-4hd"/>
+                            <constraint firstItem="oMv-Hh-yoh" firstAttribute="top" secondItem="Dit-uf-8xj" secondAttribute="top" id="hWg-il-c8d"/>
+                            <constraint firstItem="NeT-1R-haj" firstAttribute="leading" secondItem="9rw-6c-VS2" secondAttribute="leading" constant="355" id="ngf-kj-iKh"/>
+                            <constraint firstItem="NeT-1R-haj" firstAttribute="trailing" secondItem="ZNm-Me-YWF" secondAttribute="trailing" id="sjc-59-hlh"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="3ga-dN-IQR"/>
+                    </view>
+                    <connections>
+                        <outlet property="searchDisplayController" destination="PNb-hq-4dT" id="kv0-G1-jRI"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zGd-CD-znf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="PNb-hq-4dT">
+                    <connections>
+                        <outlet property="delegate" destination="5XJ-LK-hPZ" id="DbB-AC-Y8g"/>
+                        <outlet property="searchBar" destination="ZNm-Me-YWF" id="bsf-bD-D02"/>
+                        <outlet property="searchContentsController" destination="5XJ-LK-hPZ" id="dx5-oM-N0t"/>
+                        <outlet property="searchResultsDataSource" destination="5XJ-LK-hPZ" id="0E8-EZ-UsS"/>
+                        <outlet property="searchResultsDelegate" destination="5XJ-LK-hPZ" id="PQD-XI-ICh"/>
+                    </connections>
+                </searchDisplayController>
+            </objects>
+            <point key="canvasLocation" x="-58.399999999999999" y="-226.10837438423647"/>
+        </scene>
+        <!--MapVC-->
+        <scene sceneID="RzU-WY-fCZ">
+            <objects>
+                <viewController id="gOT-wK-JaJ" customClass="MapVC" customModule="reCap" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Gck-yg-c4Z">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LM1-qn-Qhh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="913" y="-226"/>
+        </scene>
+    </scenes>
+</document>

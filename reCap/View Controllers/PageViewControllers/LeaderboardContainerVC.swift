@@ -1,14 +1,14 @@
 //
-//  MapVC.swift
+//  LeaderboardContainerVC.swift
 //  reCap
 //
-//  Created by Jackson Delametter on 2/4/18.
+//  Created by Kaleb Cooper on 2/4/18.
 //  Copyright © 2018 Kaleb Cooper. All rights reserved.
 //
 
 import UIKit
 
-class MapVC: UIViewController {
+class LeaderboardContainerVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
