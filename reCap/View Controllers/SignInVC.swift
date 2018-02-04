@@ -10,16 +10,29 @@ import UIKit
 import Firebase
 
 class SignInVC: UIViewController {
+    
+    // MARK: - View Controller Methods
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let ref = Database.database().reference()
-        FBDatabase.createUser(ref: ref, email: "jackson@gmail.com", password: "Admin6163!", name: "Jackson", with_completion: {(user, error) in
-            if let activeUser = user {
-                print("Create user in SignInVC")
+        FBDatabase.createUserAuth(email: "Jackson@gmail.com", password: "password", name: "Jackson", with_completion: {(id, error) in
+            if let activeID = id {
+                print("Got id in SignIn VC")
+                let user = User(id: activeID, name: "Jackson", email: "jackson@gmail.com")
+                FBDatabase.addUpdateUser(user: user, with_completion: {(error) in
+                    if let realError = error {
+                        // Error
+                        print("Did not write user to database in SignInVC")
+                        print(realError)
+                    }
+                    else {
+                        // No error
+                        print("Wrote user to database in SignInVC")
+                    }
+                })
             }
             else {
-                print("Did not create user in SignInVC")
+                print("Did not get id in SignIn VC")
                 print(error!)
             }
         })
@@ -29,6 +42,34 @@ class SignInVC: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    // MARK: - Outlet Actions
+    
+    /*
+     Called when the normal sign in button
+     is pressed
+    */
+    func signInPressed() {
+        let ref = Database.database().reference()
+        FBDatabase.signInUser(email: "Jackson@gmail.com", password: "password", with_completion: {(id, error) in
+            if let activeID = id {
+                print("Got user id in sign in VC")
+                FBDatabase.getUser(with_id: activeID, ref: ref, with_completion: {(user) in
+                    if let activeUser = user {
+                        print("Got user in SignIn VC")
+                    }
+                    else {
+                        print("Did not get user in SignIn VC")
+                    }
+                })
+            }
+            else {
+                print("Did not get user id in sign in VC")
+                print(error!)
+            }
+        })
+
     }
     
 
