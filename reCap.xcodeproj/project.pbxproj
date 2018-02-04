@@ -638,11 +638,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A4D8A46202780A00043878E /* RecentPicturesVC.swift in Sources */,
-<<<<<<< Updated upstream
 				7A4D8A58202789AA0043878E /* PictureData.swift in Sources */,
-=======
 				34A7ACAE202788CE00ACFB12 /* CameraContainerVC.swift in Sources */,
->>>>>>> Stashed changes
 				7A4D8A3C20277E960043878E /* CameraVC.swift in Sources */,
 				344C93F220226E280025E4C5 /* reCap.xcdatamodeld in Sources */,
 				7A4D8A3E20277EF60043878E /* LeaderboardVC.swift in Sources */,
