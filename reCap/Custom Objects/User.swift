@@ -13,14 +13,13 @@ class User {
     // MARK: - Properties
     var id: String!
     var name: String!
-    var pictures: [String]!
+    var pictures: [String]?
     var email: String!
     
     // MARK: - Initializers
-    public init(id: String, name: String, pictures: [String], email: String) {
+    public init(id: String, name: String, email: String) {
         self.id = id
         self.name = name
-        self.pictures = pictures
         self.email = email
     }
     

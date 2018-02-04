@@ -7,12 +7,22 @@
 //
 
 import UIKit
+import Firebase
 
 class SignInVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        let ref = Database.database().reference()
+        FBDatabase.createUser(ref: ref, email: "jackson@gmail.com", password: "Admin6163!", name: "Jackson", with_completion: {(user, error) in
+            if let activeUser = user {
+                print("Create user in SignInVC")
+            }
+            else {
+                print("Did not create user in SignInVC")
+                print(error!)
+            }
+        })
         // Do any additional setup after loading the view.
     }
 
