@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:reCap.xcodeproj">
+      location = "container:../../../../kaleb/Documents/SideProjects/reCap/reCap.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">
