@@ -173,12 +173,9 @@
 		344C93E820226E280025E4C5 /* reCap */ = {
 			isa = PBXGroup;
 			children = (
-<<<<<<< Updated upstream
 				7A4D8A53202782DB0043878E /* Custom Objects */,
 				7A4D8A50202782480043878E /* Database */,
-=======
 				34A7ACA62027878E00ACFB12 /* Storyboards */,
->>>>>>> Stashed changes
 				7A4D8A3820277DFF0043878E /* View Controllers */,
 				344C93E920226E280025E4C5 /* AppDelegate.swift */,
 				344C93F320226E280025E4C5 /* Assets.xcassets */,
