@@ -2,7 +2,7 @@
 //  CameraContainerVC.swift
 //  reCap
 //
-//  Created by Kaleb Cooper on 2/4/18.
+//  Created by Kaleb Cooper on 2/6/18.
 //  Copyright © 2018 Kaleb Cooper. All rights reserved.
 //
 
@@ -10,26 +10,36 @@ import UIKit
 
 class CameraContainerVC: UIViewController {
 
+    @IBOutlet weak var cameraButton: UIButton!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        setupShadows()
+        configureButton()
         // Do any additional setup after loading the view.
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func configureButton() {
+        
+        cameraButton.layer.borderColor = UIColor.white.cgColor
+        cameraButton.layer.borderWidth = 2
+        cameraButton.layer.cornerRadius = 40
+        
     }
-    */
+    func setupShadows() {
+        let topShadow = EdgeShadowLayer(forView: view, edge: .Top)
+        view.layer.insertSublayer(topShadow, at: 1)
+        
+        let bottomShadow = EdgeShadowLayer(forView: view, edge: .Bottom)
+        view.layer.insertSublayer(bottomShadow, at: 1)
+    }
 
+    
 }
+

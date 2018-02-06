@@ -15,8 +15,12 @@
 		344C93F720226E280025E4C5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 344C93F520226E280025E4C5 /* LaunchScreen.storyboard */; };
 		344C940220226E280025E4C5 /* reCapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344C940120226E280025E4C5 /* reCapTests.swift */; };
 		344C940D20226E280025E4C5 /* reCapUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344C940C20226E280025E4C5 /* reCapUITests.swift */; };
+		3474B70B202A3816005D71E3 /* CameraContainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3474B70A202A3816005D71E3 /* CameraContainerVC.swift */; };
+		347A069C202A0B9E00961024 /* Logo Text.png in Resources */ = {isa = PBXBuildFile; fileRef = 347A069B202A0B9E00961024 /* Logo Text.png */; };
+		347A069E202A123B00961024 /* SignIn.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 347A069D202A123B00961024 /* SignIn.storyboard */; };
+		347A06A4202A14BB00961024 /* SignInTransitionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347A06A3202A14BB00961024 /* SignInTransitionVC.swift */; };
+		347D6879202A2C44000EDF56 /* EdgeShadowLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347D6878202A2C44000EDF56 /* EdgeShadowLayer.swift */; };
 		34A7ACA8202787DA00ACFB12 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A7ACA7202787DA00ACFB12 /* PageViewController.swift */; };
-		34A7ACAE202788CE00ACFB12 /* CameraContainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A7ACAD202788CE00ACFB12 /* CameraContainerVC.swift */; };
 		34A7ACB020278CA700ACFB12 /* LeaderboardContainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A7ACAF20278CA700ACFB12 /* LeaderboardContainerVC.swift */; };
 		34A7ACB42027A4EB00ACFB12 /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34A7ACB32027A4EB00ACFB12 /* Map.storyboard */; };
 		34A7ACB62027A4F500ACFB12 /* Camera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34A7ACB52027A4F500ACFB12 /* Camera.storyboard */; };
@@ -77,8 +81,12 @@
 		344C940820226E280025E4C5 /* reCapUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = reCapUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		344C940C20226E280025E4C5 /* reCapUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = reCapUITests.swift; sourceTree = "<group>"; };
 		344C940E20226E280025E4C5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3474B70A202A3816005D71E3 /* CameraContainerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CameraContainerVC.swift; path = "../../../../../../../kaleb/Documents/SideProjects/reCap/reCap/View Controllers/PageViewControllers/CameraContainerVC.swift"; sourceTree = "<group>"; };
+		347A069B202A0B9E00961024 /* Logo Text.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Logo Text.png"; path = "../../../../../kaleb/Documents/SideProjects/reCap/reCap/Assets.xcassets/Logo Text.png"; sourceTree = "<group>"; };
+		347A069D202A123B00961024 /* SignIn.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = SignIn.storyboard; path = ../../../../../../kaleb/Documents/SideProjects/reCap/reCap/Storyboards/SignIn.storyboard; sourceTree = "<group>"; };
+		347A06A3202A14BB00961024 /* SignInTransitionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInTransitionVC.swift; sourceTree = "<group>"; };
+		347D6878202A2C44000EDF56 /* EdgeShadowLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EdgeShadowLayer.swift; path = "../../../../../../kaleb/Documents/SideProjects/reCap/reCap/Custom Objects/EdgeShadowLayer.swift"; sourceTree = "<group>"; };
 		34A7ACA7202787DA00ACFB12 /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
-		34A7ACAD202788CE00ACFB12 /* CameraContainerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraContainerVC.swift; sourceTree = "<group>"; };
 		34A7ACAF20278CA700ACFB12 /* LeaderboardContainerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardContainerVC.swift; sourceTree = "<group>"; };
 		34A7ACB32027A4EB00ACFB12 /* Map.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Map.storyboard; sourceTree = "<group>"; };
 		34A7ACB52027A4F500ACFB12 /* Camera.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Camera.storyboard; sourceTree = "<group>"; };
@@ -179,6 +187,7 @@
 				7A4D8A3820277DFF0043878E /* View Controllers */,
 				344C93E920226E280025E4C5 /* AppDelegate.swift */,
 				344C93F320226E280025E4C5 /* Assets.xcassets */,
+				347A069B202A0B9E00961024 /* Logo Text.png */,
 				344C93F820226E280025E4C5 /* Info.plist */,
 				344C93F020226E280025E4C5 /* reCap.xcdatamodeld */,
 				3422D37E20226FE600570374 /* GoogleService-Info.plist */,
@@ -207,9 +216,10 @@
 		34A7ACA62027878E00ACFB12 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
+				344C93F520226E280025E4C5 /* LaunchScreen.storyboard */,
+				347A069D202A123B00961024 /* SignIn.storyboard */,
 				7A3C60102027B99A00ABC9E1 /* PageView.storyboard */,
 				344C93ED20226E280025E4C5 /* Main.storyboard */,
-				344C93F520226E280025E4C5 /* LaunchScreen.storyboard */,
 				34A7ACB32027A4EB00ACFB12 /* Map.storyboard */,
 				34A7ACB52027A4F500ACFB12 /* Camera.storyboard */,
 				34A7ACB72027A51700ACFB12 /* Leaderboards.storyboard */,
@@ -220,10 +230,10 @@
 		34A7ACAA2027886800ACFB12 /* PageViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				7A3C60122027BAE200ABC9E1 /* MapContainerVC.swift */,
+				3474B70A202A3816005D71E3 /* CameraContainerVC.swift */,
 				34A7ACA7202787DA00ACFB12 /* PageViewController.swift */,
+				7A3C60122027BAE200ABC9E1 /* MapContainerVC.swift */,
 				7A4D8A3F20277F450043878E /* MapVC.swift */,
-				34A7ACAD202788CE00ACFB12 /* CameraContainerVC.swift */,
 				7A4D8A3B20277E960043878E /* CameraVC.swift */,
 				34A7ACAF20278CA700ACFB12 /* LeaderboardContainerVC.swift */,
 				7A4D8A3D20277EF60043878E /* LeaderboardVC.swift */,
@@ -236,6 +246,7 @@
 			children = (
 				34A7ACAA2027886800ACFB12 /* PageViewControllers */,
 				7A4D8A4B202781A80043878E /* Reusable */,
+				347A06A3202A14BB00961024 /* SignInTransitionVC.swift */,
 				7A4D8A3620277DF90043878E /* SignInVC.swift */,
 				7A4D8A3920277E4F0043878E /* SignUpVC.swift */,
 				7A4D8A4120277FA00043878E /* ChallengesVC.swift */,
@@ -268,6 +279,7 @@
 			children = (
 				7A4D8A55202783090043878E /* User.swift */,
 				7A4D8A57202789AA0043878E /* PictureData.swift */,
+				347D6878202A2C44000EDF56 /* EdgeShadowLayer.swift */,
 			);
 			path = "Custom Objects";
 			sourceTree = "<group>";
@@ -398,11 +410,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				347A069C202A0B9E00961024 /* Logo Text.png in Resources */,
 				34A7ACB82027A51700ACFB12 /* Leaderboards.storyboard in Resources */,
 				7A3C60112027B99A00ABC9E1 /* PageView.storyboard in Resources */,
 				34A7ACB62027A4F500ACFB12 /* Camera.storyboard in Resources */,
 				34A7ACB42027A4EB00ACFB12 /* Map.storyboard in Resources */,
 				344C93F720226E280025E4C5 /* LaunchScreen.storyboard in Resources */,
+				347A069E202A123B00961024 /* SignIn.storyboard in Resources */,
 				3422D37F20226FE600570374 /* GoogleService-Info.plist in Resources */,
 				344C93F420226E280025E4C5 /* Assets.xcassets in Resources */,
 				344C93EF20226E280025E4C5 /* Main.storyboard in Resources */,
@@ -639,7 +653,6 @@
 			files = (
 				7A4D8A46202780A00043878E /* RecentPicturesVC.swift in Sources */,
 				7A4D8A58202789AA0043878E /* PictureData.swift in Sources */,
-				34A7ACAE202788CE00ACFB12 /* CameraContainerVC.swift in Sources */,
 				7A4D8A3C20277E960043878E /* CameraVC.swift in Sources */,
 				344C93F220226E280025E4C5 /* reCap.xcdatamodeld in Sources */,
 				7A4D8A3E20277EF60043878E /* LeaderboardVC.swift in Sources */,
@@ -648,7 +661,10 @@
 				7A4D8A56202783090043878E /* User.swift in Sources */,
 				7A4D8A4A2027818A0043878E /* ProfileSettingsVC.swift in Sources */,
 				34A7ACB020278CA700ACFB12 /* LeaderboardContainerVC.swift in Sources */,
+				3474B70B202A3816005D71E3 /* CameraContainerVC.swift in Sources */,
 				7A4D8A4E202781CF0043878E /* TableCollectionView.swift in Sources */,
+				347A06A4202A14BB00961024 /* SignInTransitionVC.swift in Sources */,
+				347D6879202A2C44000EDF56 /* EdgeShadowLayer.swift in Sources */,
 				7A4D8A4020277F450043878E /* MapVC.swift in Sources */,
 				7A3C60132027BAE300ABC9E1 /* MapContainerVC.swift in Sources */,
 				7A4D8A3A20277E4F0043878E /* SignUpVC.swift in Sources */,
@@ -822,6 +838,7 @@
 			baseConfigurationReference = 6E7F0BE298641A4C1885D691 /* Pods-reCap.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VPT5835T5T;
 				INFOPLIST_FILE = reCap/Info.plist;
@@ -838,6 +855,7 @@
 			baseConfigurationReference = FD711CD9070EBA00B0CC489C /* Pods-reCap.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VPT5835T5T;
 				INFOPLIST_FILE = reCap/Info.plist;

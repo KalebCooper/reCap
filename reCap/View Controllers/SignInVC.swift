@@ -11,10 +11,37 @@ import Firebase
 
 class SignInVC: UIViewController {
     
+    var gradientLayer: CAGradientLayer!
+    
     // MARK: - View Controller Methods
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        createGradientLayer()
+        //createUser()
+        // Do any additional setup after loading the view.
+    }
+
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
+    func createGradientLayer() {
+        gradientLayer = CAGradientLayer()
+        
+        gradientLayer.frame = self.view.bounds
+        
+        let bottomColor = UIColor(displayP3Red: 99/255, green: 207/255, blue: 155/255, alpha: 1).cgColor
+        let topColor = UIColor(displayP3Red: 9/255, green: 85/255, blue: 95/255, alpha: 1).cgColor
+        
+        gradientLayer.colors = [topColor, bottomColor]
+        
+        self.view.layer.insertSublayer(gradientLayer, at: 0)
+    }
+    
+    func createUser() {
+        
         FBDatabase.createUserAuth(email: "Jackson@gmail.com", password: "password", name: "Jackson", with_completion: {(id, error) in
             if let activeID = id {
                 print("Got id in SignIn VC")
@@ -36,12 +63,6 @@ class SignInVC: UIViewController {
                 print(error!)
             }
         })
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     // MARK: - Outlet Actions

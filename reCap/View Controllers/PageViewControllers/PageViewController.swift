@@ -11,8 +11,6 @@ import Pageboy
 
 class PageViewController: PageboyViewController, PageboyViewControllerDataSource {
     
-    
-    
     let viewControllersArray: [UIViewController] = {
         
         let mapStoryboard = UIStoryboard(name: "Map", bundle: Bundle.main)
@@ -28,17 +26,13 @@ class PageViewController: PageboyViewController, PageboyViewControllerDataSource
         viewControllers.append(cameraVC)
         viewControllers.append(leaderboardsVC)
         
-        
-        
         return viewControllers
     }()
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         self.dataSource = self
-        // Do any additional setup after loading the view.
     }
 
     

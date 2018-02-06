@@ -12,13 +12,15 @@ class MapContainerVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let topShadow = EdgeShadowLayer(forView: view, edge: .Top)
+        view.layer.addSublayer(topShadow)
 
         // Do any additional setup after loading the view.
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
     
 

@@ -20,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         //Firebase initialization
         FirebaseApp.configure()
+        UIApplication.shared.statusBarStyle = .lightContent
         return true
     }
 

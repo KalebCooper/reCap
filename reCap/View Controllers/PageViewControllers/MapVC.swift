@@ -14,10 +14,19 @@ class MapVC: UIViewController, MGLMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupMap()
+        
 
         // Do any additional setup after loading the view.
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        let topShadow = EdgeShadowLayer(forView: view, edge: .Top)
+        view.layer.addSublayer(topShadow)
+        
+        setupMap()
+    }
+    
 
 
     func setupMap() {

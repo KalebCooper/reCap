@@ -24,7 +24,7 @@
                                     <segue destination="gOT-wK-JaJ" kind="embed" id="9aj-oc-vzc"/>
                                 </connections>
                             </containerView>
-                            <searchBar contentMode="redraw" barStyle="black" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="ZNm-Me-YWF">
+                            <searchBar tag="2" contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="ZNm-Me-YWF">
                                 <rect key="frame" x="0.0" y="44" width="375" height="56"/>
                                 <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <textInputTraits key="textInputTraits" textContentType="location"/>
@@ -86,6 +86,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="gyg-8r-U5Q"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LM1-qn-Qhh" userLabel="First Responder" sceneMemberID="firstResponder"/>
