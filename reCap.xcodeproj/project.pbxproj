@@ -15,11 +15,7 @@
 		344C93F720226E280025E4C5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 344C93F520226E280025E4C5 /* LaunchScreen.storyboard */; };
 		344C940220226E280025E4C5 /* reCapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344C940120226E280025E4C5 /* reCapTests.swift */; };
 		344C940D20226E280025E4C5 /* reCapUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344C940C20226E280025E4C5 /* reCapUITests.swift */; };
-		3474B70B202A3816005D71E3 /* CameraContainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3474B70A202A3816005D71E3 /* CameraContainerVC.swift */; };
-		347A069C202A0B9E00961024 /* Logo Text.png in Resources */ = {isa = PBXBuildFile; fileRef = 347A069B202A0B9E00961024 /* Logo Text.png */; };
-		347A069E202A123B00961024 /* SignIn.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 347A069D202A123B00961024 /* SignIn.storyboard */; };
 		347A06A4202A14BB00961024 /* SignInTransitionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347A06A3202A14BB00961024 /* SignInTransitionVC.swift */; };
-		347D6879202A2C44000EDF56 /* EdgeShadowLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347D6878202A2C44000EDF56 /* EdgeShadowLayer.swift */; };
 		34A7ACA8202787DA00ACFB12 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A7ACA7202787DA00ACFB12 /* PageViewController.swift */; };
 		34A7ACB020278CA700ACFB12 /* LeaderboardContainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A7ACAF20278CA700ACFB12 /* LeaderboardContainerVC.swift */; };
 		34A7ACB42027A4EB00ACFB12 /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34A7ACB32027A4EB00ACFB12 /* Map.storyboard */; };
@@ -28,6 +24,12 @@
 		3BD76B62D24CA017D72CCCDA /* Pods_reCapUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CD7EFB0164AE95822E97FC9 /* Pods_reCapUITests.framework */; };
 		4166566AA68139D9E70F183A /* Pods_reCap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0C6A1AA7E56B3B8DAD1F814 /* Pods_reCap.framework */; };
 		431B5E71E2A82C2D5591C9FD /* Pods_reCapTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A855F58760B4E1DE5F6226D /* Pods_reCapTests.framework */; };
+		7A38A275202AB56100DF239F /* PhotoChallengeTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A38A274202AB56100DF239F /* PhotoChallengeTableCell.swift */; };
+		7A38A277202AB56C00DF239F /* PhotoLibChallengeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A38A276202AB56C00DF239F /* PhotoLibChallengeVC.swift */; };
+		7A38A279202AB57600DF239F /* PhotoLibChalleng.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A38A278202AB57600DF239F /* PhotoLibChalleng.storyboard */; };
+		7A3B468C202AB3FC001D19B6 /* EdgeShadowLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3B468B202AB3FC001D19B6 /* EdgeShadowLayer.swift */; };
+		7A3B468E202AB407001D19B6 /* SignIn.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A3B468D202AB407001D19B6 /* SignIn.storyboard */; };
+		7A3B4690202AB413001D19B6 /* CameraContainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3B468F202AB413001D19B6 /* CameraContainerVC.swift */; };
 		7A3C60112027B99A00ABC9E1 /* PageView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A3C60102027B99A00ABC9E1 /* PageView.storyboard */; };
 		7A3C60132027BAE300ABC9E1 /* MapContainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3C60122027BAE200ABC9E1 /* MapContainerVC.swift */; };
 		7A4D8A3720277DF90043878E /* SignInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4D8A3620277DF90043878E /* SignInVC.swift */; };
@@ -81,17 +83,19 @@
 		344C940820226E280025E4C5 /* reCapUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = reCapUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		344C940C20226E280025E4C5 /* reCapUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = reCapUITests.swift; sourceTree = "<group>"; };
 		344C940E20226E280025E4C5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3474B70A202A3816005D71E3 /* CameraContainerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CameraContainerVC.swift; path = "../../../../../../../kaleb/Documents/SideProjects/reCap/reCap/View Controllers/PageViewControllers/CameraContainerVC.swift"; sourceTree = "<group>"; };
-		347A069B202A0B9E00961024 /* Logo Text.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Logo Text.png"; path = "../../../../../kaleb/Documents/SideProjects/reCap/reCap/Assets.xcassets/Logo Text.png"; sourceTree = "<group>"; };
-		347A069D202A123B00961024 /* SignIn.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = SignIn.storyboard; path = ../../../../../../kaleb/Documents/SideProjects/reCap/reCap/Storyboards/SignIn.storyboard; sourceTree = "<group>"; };
 		347A06A3202A14BB00961024 /* SignInTransitionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInTransitionVC.swift; sourceTree = "<group>"; };
-		347D6878202A2C44000EDF56 /* EdgeShadowLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EdgeShadowLayer.swift; path = "../../../../../../kaleb/Documents/SideProjects/reCap/reCap/Custom Objects/EdgeShadowLayer.swift"; sourceTree = "<group>"; };
 		34A7ACA7202787DA00ACFB12 /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		34A7ACAF20278CA700ACFB12 /* LeaderboardContainerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardContainerVC.swift; sourceTree = "<group>"; };
 		34A7ACB32027A4EB00ACFB12 /* Map.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Map.storyboard; sourceTree = "<group>"; };
 		34A7ACB52027A4F500ACFB12 /* Camera.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Camera.storyboard; sourceTree = "<group>"; };
 		34A7ACB72027A51700ACFB12 /* Leaderboards.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Leaderboards.storyboard; sourceTree = "<group>"; };
 		6E7F0BE298641A4C1885D691 /* Pods-reCap.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-reCap.debug.xcconfig"; path = "Pods/Target Support Files/Pods-reCap/Pods-reCap.debug.xcconfig"; sourceTree = "<group>"; };
+		7A38A274202AB56100DF239F /* PhotoChallengeTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoChallengeTableCell.swift; sourceTree = "<group>"; };
+		7A38A276202AB56C00DF239F /* PhotoLibChallengeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoLibChallengeVC.swift; sourceTree = "<group>"; };
+		7A38A278202AB57600DF239F /* PhotoLibChalleng.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PhotoLibChalleng.storyboard; sourceTree = "<group>"; };
+		7A3B468B202AB3FC001D19B6 /* EdgeShadowLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EdgeShadowLayer.swift; sourceTree = "<group>"; };
+		7A3B468D202AB407001D19B6 /* SignIn.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SignIn.storyboard; sourceTree = "<group>"; };
+		7A3B468F202AB413001D19B6 /* CameraContainerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraContainerVC.swift; sourceTree = "<group>"; };
 		7A3C60102027B99A00ABC9E1 /* PageView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PageView.storyboard; sourceTree = "<group>"; };
 		7A3C60122027BAE200ABC9E1 /* MapContainerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapContainerVC.swift; sourceTree = "<group>"; };
 		7A4D8A3620277DF90043878E /* SignInVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInVC.swift; sourceTree = "<group>"; };
@@ -187,7 +191,6 @@
 				7A4D8A3820277DFF0043878E /* View Controllers */,
 				344C93E920226E280025E4C5 /* AppDelegate.swift */,
 				344C93F320226E280025E4C5 /* Assets.xcassets */,
-				347A069B202A0B9E00961024 /* Logo Text.png */,
 				344C93F820226E280025E4C5 /* Info.plist */,
 				344C93F020226E280025E4C5 /* reCap.xcdatamodeld */,
 				3422D37E20226FE600570374 /* GoogleService-Info.plist */,
@@ -216,12 +219,13 @@
 		34A7ACA62027878E00ACFB12 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
+				7A3B468D202AB407001D19B6 /* SignIn.storyboard */,
 				344C93F520226E280025E4C5 /* LaunchScreen.storyboard */,
-				347A069D202A123B00961024 /* SignIn.storyboard */,
 				7A3C60102027B99A00ABC9E1 /* PageView.storyboard */,
 				344C93ED20226E280025E4C5 /* Main.storyboard */,
 				34A7ACB32027A4EB00ACFB12 /* Map.storyboard */,
 				34A7ACB52027A4F500ACFB12 /* Camera.storyboard */,
+				7A38A278202AB57600DF239F /* PhotoLibChalleng.storyboard */,
 				34A7ACB72027A51700ACFB12 /* Leaderboards.storyboard */,
 			);
 			path = Storyboards;
@@ -230,7 +234,8 @@
 		34A7ACAA2027886800ACFB12 /* PageViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				3474B70A202A3816005D71E3 /* CameraContainerVC.swift */,
+				7A38A273202AB54800DF239F /* PhotoLibChallenge */,
+				7A3B468F202AB413001D19B6 /* CameraContainerVC.swift */,
 				34A7ACA7202787DA00ACFB12 /* PageViewController.swift */,
 				7A3C60122027BAE200ABC9E1 /* MapContainerVC.swift */,
 				7A4D8A3F20277F450043878E /* MapVC.swift */,
@@ -239,6 +244,15 @@
 				7A4D8A3D20277EF60043878E /* LeaderboardVC.swift */,
 			);
 			path = PageViewControllers;
+			sourceTree = "<group>";
+		};
+		7A38A273202AB54800DF239F /* PhotoLibChallenge */ = {
+			isa = PBXGroup;
+			children = (
+				7A38A274202AB56100DF239F /* PhotoChallengeTableCell.swift */,
+				7A38A276202AB56C00DF239F /* PhotoLibChallengeVC.swift */,
+			);
+			path = PhotoLibChallenge;
 			sourceTree = "<group>";
 		};
 		7A4D8A3820277DFF0043878E /* View Controllers */ = {
@@ -277,9 +291,9 @@
 		7A4D8A53202782DB0043878E /* Custom Objects */ = {
 			isa = PBXGroup;
 			children = (
+				7A3B468B202AB3FC001D19B6 /* EdgeShadowLayer.swift */,
 				7A4D8A55202783090043878E /* User.swift */,
 				7A4D8A57202789AA0043878E /* PictureData.swift */,
-				347D6878202A2C44000EDF56 /* EdgeShadowLayer.swift */,
 			);
 			path = "Custom Objects";
 			sourceTree = "<group>";
@@ -410,13 +424,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				347A069C202A0B9E00961024 /* Logo Text.png in Resources */,
 				34A7ACB82027A51700ACFB12 /* Leaderboards.storyboard in Resources */,
+				7A38A279202AB57600DF239F /* PhotoLibChalleng.storyboard in Resources */,
 				7A3C60112027B99A00ABC9E1 /* PageView.storyboard in Resources */,
 				34A7ACB62027A4F500ACFB12 /* Camera.storyboard in Resources */,
+				7A3B468E202AB407001D19B6 /* SignIn.storyboard in Resources */,
 				34A7ACB42027A4EB00ACFB12 /* Map.storyboard in Resources */,
 				344C93F720226E280025E4C5 /* LaunchScreen.storyboard in Resources */,
-				347A069E202A123B00961024 /* SignIn.storyboard in Resources */,
 				3422D37F20226FE600570374 /* GoogleService-Info.plist in Resources */,
 				344C93F420226E280025E4C5 /* Assets.xcassets in Resources */,
 				344C93EF20226E280025E4C5 /* Main.storyboard in Resources */,
@@ -652,6 +666,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A4D8A46202780A00043878E /* RecentPicturesVC.swift in Sources */,
+				7A38A277202AB56C00DF239F /* PhotoLibChallengeVC.swift in Sources */,
+				7A3B4690202AB413001D19B6 /* CameraContainerVC.swift in Sources */,
 				7A4D8A58202789AA0043878E /* PictureData.swift in Sources */,
 				7A4D8A3C20277E960043878E /* CameraVC.swift in Sources */,
 				344C93F220226E280025E4C5 /* reCap.xcdatamodeld in Sources */,
@@ -661,12 +677,12 @@
 				7A4D8A56202783090043878E /* User.swift in Sources */,
 				7A4D8A4A2027818A0043878E /* ProfileSettingsVC.swift in Sources */,
 				34A7ACB020278CA700ACFB12 /* LeaderboardContainerVC.swift in Sources */,
-				3474B70B202A3816005D71E3 /* CameraContainerVC.swift in Sources */,
 				7A4D8A4E202781CF0043878E /* TableCollectionView.swift in Sources */,
 				347A06A4202A14BB00961024 /* SignInTransitionVC.swift in Sources */,
-				347D6879202A2C44000EDF56 /* EdgeShadowLayer.swift in Sources */,
 				7A4D8A4020277F450043878E /* MapVC.swift in Sources */,
 				7A3C60132027BAE300ABC9E1 /* MapContainerVC.swift in Sources */,
+				7A38A275202AB56100DF239F /* PhotoChallengeTableCell.swift in Sources */,
+				7A3B468C202AB3FC001D19B6 /* EdgeShadowLayer.swift in Sources */,
 				7A4D8A3A20277E4F0043878E /* SignUpVC.swift in Sources */,
 				34A7ACA8202787DA00ACFB12 /* PageViewController.swift in Sources */,
 				344C93EA20226E280025E4C5 /* AppDelegate.swift in Sources */,
