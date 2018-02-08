@@ -9,18 +9,42 @@
 import UIKit
 
 class MapContainerVC: UIViewController {
+    
+    var portraitShadow: EdgeShadowLayer? = nil
+    var landscapeShadow: EdgeShadowLayer? = nil
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let topShadow = EdgeShadowLayer(forView: view, edge: .Top)
-        view.layer.addSublayer(topShadow)
-
+        portraitShadow = EdgeShadowLayer(forView: view, edge: .Top)
+        self.view.layer.insertSublayer(portraitShadow!, at: 1)
         // Do any additional setup after loading the view.
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        let when = DispatchTime.now() + 0.15 // change 2 to desired number of seconds
+        DispatchQueue.main.asyncAfter(deadline: when) {
+            
+            if UIDevice.current.orientation.isLandscape {
+                if (self.view.layer.sublayers?.contains(self.portraitShadow!))! {
+                    self.portraitShadow?.removeFromSuperlayer()
+                }
+                self.landscapeShadow = EdgeShadowLayer(forView: self.view, edge: .Top)
+                self.view.layer.insertSublayer(self.landscapeShadow!, at: 1)
+            }
+            else {
+                if (self.view.layer.sublayers?.contains(self.landscapeShadow!))! {
+                    self.landscapeShadow?.removeFromSuperlayer()
+                }
+                self.portraitShadow = EdgeShadowLayer(forView: self.view, edge: .Top)
+                self.view.layer.insertSublayer(self.portraitShadow!, at: 1)
+            }
+        }
+        
+        
     }
     
 

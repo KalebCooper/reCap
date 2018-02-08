@@ -20,9 +20,9 @@ public class EdgeShadowLayer: CAGradientLayer {
     
     public init(forView view: UIView,
                 edge: Edge = Edge.Top,
-                shadowRadius radius: CGFloat = 125.0,
+                shadowRadius radius: CGFloat = 100.0,
                 toColor: UIColor = UIColor(displayP3Red: 0, green: 0, blue: 0, alpha: 0),
-                fromColor: UIColor = UIColor.lightGray) {
+                fromColor: UIColor = UIColor.darkGray) {
         super.init()
         self.colors = [fromColor.cgColor, toColor.cgColor]
         self.shadowRadius = radius

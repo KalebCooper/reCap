@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14087.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="5XJ-LK-hPZ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14087.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="mFD-Q5-NGh">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -24,14 +24,6 @@
                                     <segue destination="gOT-wK-JaJ" kind="embed" id="9aj-oc-vzc"/>
                                 </connections>
                             </containerView>
-                            <searchBar tag="2" contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="ZNm-Me-YWF">
-                                <rect key="frame" x="0.0" y="44" width="375" height="56"/>
-                                <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <textInputTraits key="textInputTraits" textContentType="location"/>
-                                <connections>
-                                    <outlet property="delegate" destination="5XJ-LK-hPZ" id="J5i-EG-XhY"/>
-                                </connections>
-                            </searchBar>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NeT-1R-haj">
                                 <rect key="frame" x="355" y="0.0" width="20" height="812"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -40,27 +32,41 @@
                                 <rect key="frame" x="0.0" y="0.0" width="20" height="812"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
+                            <imageView userInteractionEnabled="NO" tag="10" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo Text" translatesAutoresizingMaskIntoConstraints="NO" id="VUu-8o-Y32">
+                                <rect key="frame" x="137" y="44" width="100" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="dQK-10-wcG"/>
+                                    <constraint firstAttribute="width" constant="100" id="w2Z-DO-VoA"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="logoID"/>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="Dit-uf-8xj" firstAttribute="trailing" secondItem="ZNm-Me-YWF" secondAttribute="trailing" id="2bP-Bh-8aY"/>
-                            <constraint firstItem="oMv-Hh-yoh" firstAttribute="top" secondItem="NeT-1R-haj" secondAttribute="top" id="3iz-y0-yrT"/>
-                            <constraint firstItem="oMv-Hh-yoh" firstAttribute="bottom" secondItem="NeT-1R-haj" secondAttribute="bottom" id="8e7-v7-Mzm"/>
-                            <constraint firstItem="ZNm-Me-YWF" firstAttribute="top" secondItem="3ga-dN-IQR" secondAttribute="top" id="A0j-3I-sBB"/>
-                            <constraint firstItem="Dit-uf-8xj" firstAttribute="leading" secondItem="9rw-6c-VS2" secondAttribute="leading" id="Cjg-C7-Urh"/>
-                            <constraint firstItem="oMv-Hh-yoh" firstAttribute="leading" secondItem="Dit-uf-8xj" secondAttribute="leading" id="JLp-31-fg0"/>
-                            <constraint firstItem="Dit-uf-8xj" firstAttribute="top" secondItem="9rw-6c-VS2" secondAttribute="top" id="L01-vx-LbB"/>
-                            <constraint firstAttribute="bottom" secondItem="Dit-uf-8xj" secondAttribute="bottom" id="TXb-XC-PY5"/>
-                            <constraint firstAttribute="trailing" secondItem="oMv-Hh-yoh" secondAttribute="trailing" constant="355" id="UQs-na-jyZ"/>
-                            <constraint firstItem="Dit-uf-8xj" firstAttribute="leading" secondItem="ZNm-Me-YWF" secondAttribute="leading" id="XuW-za-gSS"/>
-                            <constraint firstAttribute="trailing" secondItem="Dit-uf-8xj" secondAttribute="trailing" id="bVt-N6-Kj7"/>
-                            <constraint firstItem="oMv-Hh-yoh" firstAttribute="bottom" secondItem="Dit-uf-8xj" secondAttribute="bottom" id="fVC-Bx-4hd"/>
-                            <constraint firstItem="oMv-Hh-yoh" firstAttribute="top" secondItem="Dit-uf-8xj" secondAttribute="top" id="hWg-il-c8d"/>
-                            <constraint firstItem="NeT-1R-haj" firstAttribute="leading" secondItem="9rw-6c-VS2" secondAttribute="leading" constant="355" id="ngf-kj-iKh"/>
-                            <constraint firstItem="NeT-1R-haj" firstAttribute="trailing" secondItem="ZNm-Me-YWF" secondAttribute="trailing" id="sjc-59-hlh"/>
+                            <constraint firstItem="Dit-uf-8xj" firstAttribute="bottom" secondItem="NeT-1R-haj" secondAttribute="bottom" id="0FI-iN-pib"/>
+                            <constraint firstItem="VUu-8o-Y32" firstAttribute="top" secondItem="3ga-dN-IQR" secondAttribute="top" id="Awh-PV-kPa"/>
+                            <constraint firstItem="oMv-Hh-yoh" firstAttribute="leading" secondItem="Dit-uf-8xj" secondAttribute="leading" id="HNz-0s-TBf"/>
+                            <constraint firstAttribute="trailing" secondItem="NeT-1R-haj" secondAttribute="trailing" id="Mq4-ln-QUz"/>
+                            <constraint firstAttribute="bottom" secondItem="Dit-uf-8xj" secondAttribute="bottom" id="O77-NB-uUE"/>
+                            <constraint firstItem="Dit-uf-8xj" firstAttribute="trailing" secondItem="NeT-1R-haj" secondAttribute="trailing" id="R7o-YY-69E"/>
+                            <constraint firstItem="oMv-Hh-yoh" firstAttribute="top" secondItem="9rw-6c-VS2" secondAttribute="top" id="RSh-X0-Bfn"/>
+                            <constraint firstItem="oMv-Hh-yoh" firstAttribute="top" secondItem="NeT-1R-haj" secondAttribute="top" id="YVA-DT-eR7"/>
+                            <constraint firstItem="oMv-Hh-yoh" firstAttribute="leading" secondItem="9rw-6c-VS2" secondAttribute="leading" id="aMQ-BE-lPs"/>
+                            <constraint firstItem="Dit-uf-8xj" firstAttribute="centerX" secondItem="VUu-8o-Y32" secondAttribute="centerX" id="bAP-d9-Lk0"/>
+                            <constraint firstItem="Dit-uf-8xj" firstAttribute="top" secondItem="oMv-Hh-yoh" secondAttribute="top" id="bfg-2J-fS9"/>
+                            <constraint firstItem="oMv-Hh-yoh" firstAttribute="bottom" secondItem="NeT-1R-haj" secondAttribute="bottom" id="kOP-Le-1BE"/>
+                            <constraint firstItem="NeT-1R-haj" firstAttribute="leading" secondItem="9rw-6c-VS2" secondAttribute="leading" constant="355" id="mcr-P9-DTB"/>
+                            <constraint firstAttribute="trailing" secondItem="oMv-Hh-yoh" secondAttribute="trailing" constant="355" id="sKb-jG-Hll"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="3ga-dN-IQR"/>
                     </view>
+                    <navigationItem key="navigationItem" id="eMp-qV-Syr"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="searchDisplayController" destination="PNb-hq-4dT" id="kv0-G1-jRI"/>
                     </connections>
@@ -69,14 +75,13 @@
                 <searchDisplayController id="PNb-hq-4dT">
                     <connections>
                         <outlet property="delegate" destination="5XJ-LK-hPZ" id="DbB-AC-Y8g"/>
-                        <outlet property="searchBar" destination="ZNm-Me-YWF" id="bsf-bD-D02"/>
                         <outlet property="searchContentsController" destination="5XJ-LK-hPZ" id="dx5-oM-N0t"/>
                         <outlet property="searchResultsDataSource" destination="5XJ-LK-hPZ" id="0E8-EZ-UsS"/>
                         <outlet property="searchResultsDelegate" destination="5XJ-LK-hPZ" id="PQD-XI-ICh"/>
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="-58.399999999999999" y="-226.10837438423647"/>
+            <point key="canvasLocation" x="884" y="-226.10837438423647"/>
         </scene>
         <!--MapVC-->
         <scene sceneID="RzU-WY-fCZ">
@@ -91,7 +96,28 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LM1-qn-Qhh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="913" y="-226"/>
+            <point key="canvasLocation" x="1855.2" y="-226.10837438423647"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="1gV-0n-8N4">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="mFD-Q5-NGh" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Mh4-Cp-f4H">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="5XJ-LK-hPZ" kind="relationship" relationship="rootViewController" id="jTT-mk-i58"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5Nf-jN-1N4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-58.399999999999999" y="-226.10837438423647"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Logo Text" width="682" height="682"/>
+    </resources>
 </document>

@@ -18,7 +18,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GUf-4c-ZH4">
+                            <containerView opaque="NO" tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GUf-4c-ZH4">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                                 <connections>
                                     <segue destination="1fq-vj-ShT" kind="embed" id="ctP-Qd-pZh"/>
@@ -35,7 +35,8 @@
                             <imageView userInteractionEnabled="NO" tag="10" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo Text" translatesAutoresizingMaskIntoConstraints="NO" id="PPX-Rz-LL0">
                                 <rect key="frame" x="137" y="44" width="100" height="35"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="W32-Hz-Pat"/>
+                                    <constraint firstAttribute="height" constant="35" id="AaH-SY-xFx"/>
+                                    <constraint firstAttribute="width" constant="100" id="gsG-3R-2vq"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
@@ -45,30 +46,28 @@
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gc9-NS-DgZ">
                                 <rect key="frame" x="147" y="698" width="80" height="80"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="80" id="B5g-a9-6KD"/>
+                                    <constraint firstAttribute="height" constant="80" id="STH-t2-Dv6"/>
+                                    <constraint firstAttribute="width" constant="80" id="vPZ-fe-IDo"/>
                                 </constraints>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.1333333333" green="0.1333333333" blue="0.1333333333" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
-                            <constraint firstItem="GUf-4c-ZH4" firstAttribute="centerX" secondItem="PPX-Rz-LL0" secondAttribute="centerX" id="BOB-h5-nG0"/>
-                            <constraint firstItem="GUf-4c-ZH4" firstAttribute="bottom" secondItem="jhG-8G-Tti" secondAttribute="bottom" id="EQb-MG-BK0"/>
-                            <constraint firstItem="zTk-7w-cgT" firstAttribute="leading" secondItem="PPX-Rz-LL0" secondAttribute="trailing" constant="98" id="IT7-ce-DZn"/>
-                            <constraint firstItem="h5t-gw-Uin" firstAttribute="bottom" secondItem="PPX-Rz-LL0" secondAttribute="bottom" constant="699" id="MEH-MH-QWN"/>
-                            <constraint firstItem="jhG-8G-Tti" firstAttribute="top" secondItem="GUf-4c-ZH4" secondAttribute="top" id="PiB-Li-1OT"/>
-                            <constraint firstItem="GUf-4c-ZH4" firstAttribute="bottom" secondItem="zTk-7w-cgT" secondAttribute="bottom" id="Sn0-sf-kp3"/>
-                            <constraint firstItem="PPX-Rz-LL0" firstAttribute="leading" secondItem="jhG-8G-Tti" secondAttribute="trailing" constant="97" id="TLq-qV-zP4"/>
-                            <constraint firstItem="PPX-Rz-LL0" firstAttribute="top" secondItem="h5t-gw-Uin" secondAttribute="top" id="Z0l-zG-2xg"/>
-                            <constraint firstItem="GUf-4c-ZH4" firstAttribute="leading" secondItem="jhG-8G-Tti" secondAttribute="leading" id="fT7-Gt-Ud4"/>
-                            <constraint firstAttribute="trailing" secondItem="zTk-7w-cgT" secondAttribute="trailing" id="hFt-3J-eMr"/>
-                            <constraint firstAttribute="bottom" secondItem="jhG-8G-Tti" secondAttribute="bottom" id="jE3-hT-8yu"/>
-                            <constraint firstItem="GUf-4c-ZH4" firstAttribute="leading" secondItem="Ili-fW-OPC" secondAttribute="leading" id="oZt-4E-OEG"/>
-                            <constraint firstItem="jhG-8G-Tti" firstAttribute="top" secondItem="Ili-fW-OPC" secondAttribute="top" id="oaP-I9-t76"/>
-                            <constraint firstItem="gc9-NS-DgZ" firstAttribute="leading" secondItem="PPX-Rz-LL0" secondAttribute="leading" constant="10" id="tpH-ma-QbV"/>
-                            <constraint firstItem="gc9-NS-DgZ" firstAttribute="bottom" secondItem="h5t-gw-Uin" secondAttribute="bottom" id="tzK-Oz-t5u"/>
-                            <constraint firstItem="zTk-7w-cgT" firstAttribute="trailing" secondItem="GUf-4c-ZH4" secondAttribute="trailing" id="wt3-Vm-cTP"/>
-                            <constraint firstItem="GUf-4c-ZH4" firstAttribute="top" secondItem="zTk-7w-cgT" secondAttribute="top" id="xBX-Dm-BX2"/>
-                            <constraint firstItem="gc9-NS-DgZ" firstAttribute="trailing" secondItem="PPX-Rz-LL0" secondAttribute="trailing" constant="-10" id="xez-aJ-ohi"/>
+                            <constraint firstItem="jhG-8G-Tti" firstAttribute="top" secondItem="Ili-fW-OPC" secondAttribute="top" id="5dI-lb-3KN"/>
+                            <constraint firstItem="GUf-4c-ZH4" firstAttribute="leading" secondItem="jhG-8G-Tti" secondAttribute="leading" id="AmG-sE-a7t"/>
+                            <constraint firstItem="GUf-4c-ZH4" firstAttribute="top" secondItem="zTk-7w-cgT" secondAttribute="top" id="Dhn-i0-5sY"/>
+                            <constraint firstItem="PPX-Rz-LL0" firstAttribute="top" secondItem="h5t-gw-Uin" secondAttribute="top" id="HyK-TA-qt6"/>
+                            <constraint firstItem="PPX-Rz-LL0" firstAttribute="leading" secondItem="jhG-8G-Tti" secondAttribute="trailing" constant="97" id="Jtg-d8-RMl"/>
+                            <constraint firstItem="jhG-8G-Tti" firstAttribute="top" secondItem="GUf-4c-ZH4" secondAttribute="top" id="Lg6-Il-lP0"/>
+                            <constraint firstItem="GUf-4c-ZH4" firstAttribute="centerX" secondItem="gc9-NS-DgZ" secondAttribute="centerX" id="P5f-xz-ecH"/>
+                            <constraint firstItem="gc9-NS-DgZ" firstAttribute="bottom" secondItem="h5t-gw-Uin" secondAttribute="bottom" id="ZOb-A5-IeC"/>
+                            <constraint firstItem="jhG-8G-Tti" firstAttribute="bottom" secondItem="GUf-4c-ZH4" secondAttribute="bottom" id="aeU-QD-I9f"/>
+                            <constraint firstItem="GUf-4c-ZH4" firstAttribute="trailing" secondItem="zTk-7w-cgT" secondAttribute="trailing" id="bb5-Ip-Yft"/>
+                            <constraint firstAttribute="trailing" secondItem="GUf-4c-ZH4" secondAttribute="trailing" id="cTD-7H-nYg"/>
+                            <constraint firstItem="jhG-8G-Tti" firstAttribute="bottom" secondItem="zTk-7w-cgT" secondAttribute="bottom" id="ibm-7l-bUN"/>
+                            <constraint firstItem="PPX-Rz-LL0" firstAttribute="centerX" secondItem="gc9-NS-DgZ" secondAttribute="centerX" id="jsc-hC-Xiq"/>
+                            <constraint firstItem="zTk-7w-cgT" firstAttribute="leading" secondItem="PPX-Rz-LL0" secondAttribute="trailing" constant="98" id="uGK-0C-Evs"/>
+                            <constraint firstItem="GUf-4c-ZH4" firstAttribute="leading" secondItem="Ili-fW-OPC" secondAttribute="leading" id="ywu-Ta-6GV"/>
+                            <constraint firstAttribute="bottom" secondItem="jhG-8G-Tti" secondAttribute="bottom" id="z7R-JI-OQ0"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="h5t-gw-Uin"/>
                     </view>
@@ -96,6 +95,9 @@
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
                     </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outlet property="previewView" destination="uyc-GF-xlz" id="jpZ-jE-YmN"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tjw-v0-b86" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
