@@ -12,7 +12,6 @@ target 'reCap' do
   pod 'Firebase/Storage'
   pod 'SwiftyJSON'
   pod 'Hero'
-  pod "SwiftyCam"
   pod 'Material'
   pod 'LTMorphingLabel'
   pod "ButtonProgressBar-iOS"

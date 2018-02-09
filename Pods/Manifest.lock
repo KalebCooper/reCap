@@ -50,39 +50,40 @@ PODS:
     - GoogleToolboxForMac/NSString+URLArguments (= 2.1.3)
   - GoogleToolboxForMac/NSString+URLArguments (2.1.3)
   - GTMSessionFetcher/Core (1.1.13)
-  - Hero (1.0.1)
+  - Hero (1.1.0)
   - IBAnimatable (5.0.0)
   - leveldb-library (1.20)
   - LTMorphingLabel (0.5.6)
   - Mapbox-iOS-SDK (3.7.3)
-  - MapboxCoreNavigation (0.13.0):
+  - MapboxCoreNavigation (0.13.1):
     - MapboxDirections.swift (~> 0.16.0)
     - MapboxMobileEvents (~> 0.2)
     - Turf (~> 0.0.4)
   - MapboxDirections.swift (0.16.0):
     - Polyline (~> 4.2)
   - MapboxGeocoder.swift (0.8.0)
-  - MapboxMobileEvents (0.2.10)
-  - MapboxNavigation (0.13.0):
+  - MapboxMobileEvents (0.3.0)
+  - MapboxNavigation (0.13.1):
     - AWSPolly (~> 2.6)
     - Mapbox-iOS-SDK (~> 3.6)
-    - MapboxCoreNavigation (= 0.13.0)
+    - MapboxCoreNavigation (= 0.13.1)
     - SDWebImage (~> 4.1)
     - Solar (~> 2.1)
     - Turf (~> 0.0.4)
-  - Material (2.13.5):
-    - Material/Core (= 2.13.5)
-  - Material/Core (2.13.5):
+  - Material (2.13.6):
+    - Material/Core (= 2.13.6)
+  - Material/Core (2.13.6):
     - Motion (~> 1.3.0)
-  - Motion (1.3.4):
-    - Motion/Core (= 1.3.4)
-  - Motion/Core (1.3.4)
+  - Motion (1.3.5):
+    - Motion/Core (= 1.3.5)
+  - Motion/Core (1.3.5)
   - nanopb (0.3.8):
     - nanopb/decode (= 0.3.8)
     - nanopb/encode (= 0.3.8)
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
   - Pageboy (2.3.3)
+  - PivotSlider (1.2)
   - PMSuperButton (2.0.4)
   - Polyline (4.2.0)
   - SDWebImage (4.3.0):
@@ -91,7 +92,6 @@ PODS:
   - Solar (2.1.0)
   - SwiftLocation (3.1.0):
     - SwiftyJSON (~> 4.0.0-alpha.1)
-  - SwiftyCam (2.6.0)
   - SwiftyJSON (4.0.0)
   - Turf (0.0.4)
 
@@ -110,9 +110,9 @@ DEPENDENCIES:
   - MapboxNavigation
   - Material
   - Pageboy
+  - PivotSlider (~> 1.2)
   - PMSuperButton
   - SwiftLocation
-  - SwiftyCam
   - SwiftyJSON
 
 SPEC CHECKSUMS:
@@ -129,29 +129,29 @@ SPEC CHECKSUMS:
   FirebaseStorage: 181bb543d39ee3c53e0558de7ba86b1286a0427f
   GoogleToolboxForMac: 2501e2ad72a52eb3dfe7bd9aee7dad11b858bd20
   GTMSessionFetcher: 5bb1eae636127de695590f50e7d248483eb891e6
-  Hero: cee286821578e170d8c0c9c9cda7897357401112
+  Hero: ce59e81c79390613d97b43da7179e2c5e1017e04
   IBAnimatable: aa2286a9cf8fb4ae2e1be85c5287ae56143b024f
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   LTMorphingLabel: bdb51d4682e9822da89da6f567bd8aa456fd6650
   Mapbox-iOS-SDK: 5304bd9605babe6da9050ea4cb23c1671420b737
-  MapboxCoreNavigation: 3c964ad1854179dc619b4cceb5f85f428b68fe14
+  MapboxCoreNavigation: c89faebae9137b90d7e82b32c86dba8b226c3005
   MapboxDirections.swift: 168cc83745b188d792c5482bfb0653c233d1455c
   MapboxGeocoder.swift: 16e8488bbb81a5036b9a11d4d7714200337db86b
-  MapboxMobileEvents: 9e48b59d0eed04508595dcb04a77b7632e1c3054
-  MapboxNavigation: 81502953735c3860cefa8fa645c5870825bed158
-  Material: ced3fd11882147b135f897ca20227174bb104ad0
-  Motion: 85b8777db2e68801c03a5c629e918c35dd184c8d
+  MapboxMobileEvents: 246843e366f6687f697098673ef78a858c0d8619
+  MapboxNavigation: 62e8b4b71208a1dacbd30f2abdd2e68ebbc7ec94
+  Material: ef704dcc1bced32ab7c91ece2ba734da557e3f36
+  Motion: 9f74d115d7f72bb5380a8e3cde2f8a1fc898ac36
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   Pageboy: 0ea6c85f6e6cfd4d54d427fc640a51223ca9ebc7
+  PivotSlider: 854e5505abf8082f45658742ebdece6b16c2ae57
   PMSuperButton: 148f52039b68d13b9335a3e8af81f37aec55cfa8
   Polyline: 3d69f75bb136357e27291d439d0436c6ebda57a4
   SDWebImage: 6da6c8bca115addc4de8613362e1b15f66333825
   Solar: 2dc6e7cc39186cb0c8228fa08df76fb50c7d8f24
   SwiftLocation: 8f5ef4f510a45e43239de57a3145b3669301e898
-  SwiftyCam: 86c114177a1b1f5dc2c82384577d0c20b922a31b
   SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
   Turf: 6c169618fa671e3f8a7b764b5b3332053ad6110e
 
-PODFILE CHECKSUM: b055926a1b75f37c50b1a9182224b3ff33d96440
+PODFILE CHECKSUM: 4ac830af7acfa03cd458d80a6530c79939be141f
 
 COCOAPODS: 1.3.1

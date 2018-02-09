@@ -15,13 +15,24 @@ class MapContainerVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        portraitShadow = EdgeShadowLayer(forView: view, edge: .Top)
-        self.view.layer.insertSublayer(portraitShadow!, at: 1)
+        initializeShadow()
+        
         // Do any additional setup after loading the view.
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
+    }
+    
+    func initializeShadow() {
+        if UIDevice.current.orientation.isLandscape {
+            landscapeShadow = EdgeShadowLayer(forView: view, edge: .Top)
+            self.view.layer.insertSublayer(landscapeShadow!, at: 1)
+        }
+        else {
+            portraitShadow = EdgeShadowLayer(forView: view, edge: .Top)
+            self.view.layer.insertSublayer(portraitShadow!, at: 1)
+        }
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {

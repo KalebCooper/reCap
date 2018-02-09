@@ -21,6 +21,8 @@
                         <viewLayoutGuide key="safeArea" id="kW5-mU-8W0"/>
                     </view>
                     <navigationItem key="navigationItem" id="SNd-PS-oOu"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
                     </userDefinedRuntimeAttributes>

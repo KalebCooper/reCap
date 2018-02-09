@@ -2,6 +2,26 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>UIAppFonts</key>
+	<array>
+		<string>triomphe-bold-autoinstr.ttf</string>
+		<string>triomphe-bold-italic-autoinstr.ttf</string>
+		<string>triomphe-italic-autoinstr.ttf</string>
+		<string>triomphe-light-autoinstr.ttf</string>
+		<string>triomphe-light-italic-autoinstr.ttf</string>
+		<string>triomphe-regular-autoinstr.ttf</string>
+	</array>
+	<key>NSLocationUsageDescription</key>
+	<string>To assist tracking for camera as well as maps.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>To assist tracking for camera as well as maps.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>To assist tracking for camera as well as maps.</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>

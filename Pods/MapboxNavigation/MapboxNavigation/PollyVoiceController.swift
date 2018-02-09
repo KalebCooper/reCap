@@ -30,7 +30,7 @@ public class PollyVoiceController: RouteVoiceController {
     /**
      Number of seconds a Polly request can wait before it is canceled and the default speech synthesizer speaks the instruction.
      */
-    @objc public var timeoutIntervalForRequest:TimeInterval = 5
+    @objc public var timeoutIntervalForRequest: TimeInterval = 5
     
     /**
      Number of steps ahead of the current step to cache spoken instructions.
@@ -59,7 +59,7 @@ public class PollyVoiceController: RouteVoiceController {
         let configuration = AWSServiceConfiguration(region: regionType, credentialsProvider: credentialsProvider)
         AWSServiceManager.default().defaultServiceConfiguration = configuration
         
-        sessionConfiguration.timeoutIntervalForRequest = timeoutIntervalForRequest;
+        sessionConfiguration.timeoutIntervalForRequest = timeoutIntervalForRequest
         urlSession = URLSession(configuration: sessionConfiguration)
         cacheURLSession = URLSession(configuration: URLSessionConfiguration.default)
         
@@ -84,7 +84,7 @@ public class PollyVoiceController: RouteVoiceController {
         super.didPassSpokenInstructionPoint(notification: notification)
     }
     
-    func pollyURL(for instruction: String) ->  AWSPollySynthesizeSpeechURLBuilderRequest {
+    func pollyURL(for instruction: String) -> AWSPollySynthesizeSpeechURLBuilderRequest {
         let input = AWSPollySynthesizeSpeechURLBuilderRequest()
         input.textType = .ssml
         input.outputFormat = .mp3
@@ -97,6 +97,8 @@ public class PollyVoiceController: RouteVoiceController {
         }
         
         switch (langCode, countryCode) {
+        case ("da", _):
+            input.voiceId = .naja
         case ("de", _):
             input.voiceId = .marlene
         case ("en", "CA"):
@@ -119,6 +121,12 @@ public class PollyVoiceController: RouteVoiceController {
             input.voiceId = .giorgio
         case ("nl", _):
             input.voiceId = .lotte
+        case ("pl", _):
+            input.voiceId = .ewa
+        case ("pt", "PT"):
+            input.voiceId = .ines
+        case ("pt", "BR"):
+            input.voiceId = .vitoria
         case ("ro", _):
             input.voiceId = .carmen
         case ("ru", _):

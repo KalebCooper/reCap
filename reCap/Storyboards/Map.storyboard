@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14075.4"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -27,10 +28,18 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NeT-1R-haj">
                                 <rect key="frame" x="355" y="0.0" width="20" height="812"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="NeT-1R-haj" secondAttribute="height" multiplier="5:203" id="9Ye-Rf-t2Q"/>
+                                    <constraint firstAttribute="width" constant="20" id="nsq-Cl-mIT"/>
+                                </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oMv-Hh-yoh">
                                 <rect key="frame" x="0.0" y="0.0" width="20" height="812"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="20" id="Bgt-Cs-dxZ"/>
+                                    <constraint firstAttribute="width" secondItem="oMv-Hh-yoh" secondAttribute="height" multiplier="5:203" id="XFb-1F-3bJ"/>
+                                </constraints>
                             </view>
                             <imageView userInteractionEnabled="NO" tag="10" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo Text" translatesAutoresizingMaskIntoConstraints="NO" id="VUu-8o-Y32">
                                 <rect key="frame" x="137" y="44" width="100" height="35"/>
@@ -47,19 +56,20 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Dit-uf-8xj" firstAttribute="bottom" secondItem="NeT-1R-haj" secondAttribute="bottom" id="0FI-iN-pib"/>
+                            <constraint firstItem="NeT-1R-haj" firstAttribute="trailing" secondItem="3ga-dN-IQR" secondAttribute="trailing" id="1rD-Ib-gGl"/>
                             <constraint firstItem="VUu-8o-Y32" firstAttribute="top" secondItem="3ga-dN-IQR" secondAttribute="top" id="Awh-PV-kPa"/>
                             <constraint firstItem="oMv-Hh-yoh" firstAttribute="leading" secondItem="Dit-uf-8xj" secondAttribute="leading" id="HNz-0s-TBf"/>
+                            <constraint firstItem="NeT-1R-haj" firstAttribute="trailing" secondItem="3ga-dN-IQR" secondAttribute="trailing" id="I3V-nI-GCC"/>
                             <constraint firstAttribute="trailing" secondItem="NeT-1R-haj" secondAttribute="trailing" id="Mq4-ln-QUz"/>
                             <constraint firstAttribute="bottom" secondItem="Dit-uf-8xj" secondAttribute="bottom" id="O77-NB-uUE"/>
                             <constraint firstItem="Dit-uf-8xj" firstAttribute="trailing" secondItem="NeT-1R-haj" secondAttribute="trailing" id="R7o-YY-69E"/>
                             <constraint firstItem="oMv-Hh-yoh" firstAttribute="top" secondItem="9rw-6c-VS2" secondAttribute="top" id="RSh-X0-Bfn"/>
+                            <constraint firstItem="oMv-Hh-yoh" firstAttribute="leading" secondItem="3ga-dN-IQR" secondAttribute="leading" id="WiX-4Y-i8L"/>
                             <constraint firstItem="oMv-Hh-yoh" firstAttribute="top" secondItem="NeT-1R-haj" secondAttribute="top" id="YVA-DT-eR7"/>
                             <constraint firstItem="oMv-Hh-yoh" firstAttribute="leading" secondItem="9rw-6c-VS2" secondAttribute="leading" id="aMQ-BE-lPs"/>
                             <constraint firstItem="Dit-uf-8xj" firstAttribute="centerX" secondItem="VUu-8o-Y32" secondAttribute="centerX" id="bAP-d9-Lk0"/>
                             <constraint firstItem="Dit-uf-8xj" firstAttribute="top" secondItem="oMv-Hh-yoh" secondAttribute="top" id="bfg-2J-fS9"/>
                             <constraint firstItem="oMv-Hh-yoh" firstAttribute="bottom" secondItem="NeT-1R-haj" secondAttribute="bottom" id="kOP-Le-1BE"/>
-                            <constraint firstItem="NeT-1R-haj" firstAttribute="leading" secondItem="9rw-6c-VS2" secondAttribute="leading" constant="355" id="mcr-P9-DTB"/>
-                            <constraint firstAttribute="trailing" secondItem="oMv-Hh-yoh" secondAttribute="trailing" constant="355" id="sKb-jG-Hll"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="3ga-dN-IQR"/>
                     </view>

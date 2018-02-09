@@ -1,6 +1,7 @@
 #import "MMELocationManager.h"
 #import "MMEUIApplicationWrapper.h"
 #import "MMEDependencyManager.h"
+#import <CoreLocation/CoreLocation.h>
 
 static const NSTimeInterval MMELocationManagerHibernationTimeout = 300.0;
 static const NSTimeInterval MMELocationManagerHibernationPollInterval = 5.0;
@@ -10,13 +11,14 @@ const CLLocationDistance MMELocationManagerDistanceFilter = 5.0;
 
 NSString * const MMELocationManagerRegionIdentifier = @"MMELocationManagerRegionIdentifier.fence.center";
 
-@interface MMELocationManager ()
+@interface MMELocationManager () <CLLocationManagerDelegate>
 
 @property (nonatomic) id<MMEUIApplicationWrapper> application;
-@property (nonatomic) id<MMECLLocationManagerWrapper> locationManager;
+@property (nonatomic) CLLocationManager *locationManager;
 @property (nonatomic, getter=isUpdatingLocation, readwrite) BOOL updatingLocation;
 @property (nonatomic) NSDate *backgroundLocationServiceTimeoutAllowedDate;
 @property (nonatomic) NSTimer *backgroundLocationServiceTimeoutTimer;
+@property (nonatomic) BOOL hostAppHasBackgroundCapability;
 
 @end
 
@@ -25,7 +27,9 @@ NSString * const MMELocationManagerRegionIdentifier = @"MMELocationManagerRegion
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _application = [[MMEUIApplicationWrapper alloc] init];        
+        _application = [[MMEUIApplicationWrapper alloc] init];
+        NSArray *backgroundModes = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"UIBackgroundModes"];
+        _hostAppHasBackgroundCapability = [backgroundModes containsObject:@"location"];
     }
     return self;
 }
@@ -34,7 +38,7 @@ NSString * const MMELocationManagerRegionIdentifier = @"MMELocationManagerRegion
     if ([self isUpdatingLocation]) {
         return;
     }
-    self.locationManager = [[MMEDependencyManager sharedManager] locationManagerWrapperInstance];
+    self.locationManager = [[MMEDependencyManager sharedManager] locationManagerInstance];
     [self configurePassiveLocationManager];
     [self startLocationServices];
 }
@@ -63,9 +67,15 @@ NSString * const MMELocationManagerRegionIdentifier = @"MMELocationManagerRegion
 - (void)setMetricsEnabledForInUsePermissions:(BOOL)metricsEnabledForInUsePermissions {
     _metricsEnabledForInUsePermissions = metricsEnabledForInUsePermissions;
     
-    CLAuthorizationStatus authorizationStatus = [self.locationManager authorizationStatus];
-    if (authorizationStatus == kCLAuthorizationStatusAuthorizedWhenInUse) {
-        self.locationManager.allowsBackgroundLocationUpdates = self.isMetricsEnabledForInUsePermissions;
+    CLAuthorizationStatus authorizationStatus = [CLLocationManager authorizationStatus];
+    if (authorizationStatus == kCLAuthorizationStatusAuthorizedWhenInUse && self.hostAppHasBackgroundCapability) {
+        // On iOS 9 and above also allow background location updates
+        if ([self.locationManager respondsToSelector:@selector(allowsBackgroundLocationUpdates)]) {
+            #pragma clang diagnostic push
+            #pragma clang diagnostic ignored "-Wunguarded-availability"
+                self.locationManager.allowsBackgroundLocationUpdates = self.isMetricsEnabledForInUsePermissions;
+            #pragma clang diagnostic pop
+        }
     }
 }
 
@@ -78,7 +88,7 @@ NSString * const MMELocationManagerRegionIdentifier = @"MMELocationManagerRegion
 }
 
 - (void)startLocationServices {
-    CLAuthorizationStatus authorizationStatus = [self.locationManager authorizationStatus];
+    CLAuthorizationStatus authorizationStatus = [CLLocationManager authorizationStatus];
 
     BOOL authorizedAlways = authorizationStatus == kCLAuthorizationStatusAuthorizedAlways;
 
@@ -86,10 +96,15 @@ NSString * const MMELocationManagerRegionIdentifier = @"MMELocationManagerRegion
 
         // If the host app can run in the background with `always` location permissions then allow background
         // updates and start the significant location change service and background timeout timer
-        if (authorizedAlways && self.locationManager.hostAppHasBackgroundCapability) {
+        if (authorizedAlways && self.hostAppHasBackgroundCapability) {
             [self.locationManager startMonitoringSignificantLocationChanges];
             [self startBackgroundTimeoutTimer];
-            self.locationManager.allowsBackgroundLocationUpdates = YES;
+            if ([self.locationManager respondsToSelector:@selector(allowsBackgroundLocationUpdates)]) {
+                #pragma clang diagnostic push
+                #pragma clang diagnostic ignored "-Wunguarded-availability"
+                    self.locationManager.allowsBackgroundLocationUpdates = YES;
+                #pragma clang diagnostic pop
+            }
         }
           
         // If authorization status is when in use specifically, allow background location updates based on
@@ -97,8 +112,13 @@ NSString * const MMELocationManagerRegionIdentifier = @"MMELocationManagerRegion
         // background timer (just above) since all use cases for background collection with in use only
         // permissions involve navigation where a user would want and expect the app to be running / navigating
         // even if it is not in the foreground
-        if (authorizationStatus == kCLAuthorizationStatusAuthorizedWhenInUse) {
-            self.locationManager.allowsBackgroundLocationUpdates = self.isMetricsEnabledForInUsePermissions;
+        if (authorizationStatus == kCLAuthorizationStatusAuthorizedWhenInUse && self.hostAppHasBackgroundCapability) {
+            if ([self.locationManager respondsToSelector:@selector(allowsBackgroundLocationUpdates)]) {
+                #pragma clang diagnostic push
+                #pragma clang diagnostic ignored "-Wunguarded-availability"
+                    self.locationManager.allowsBackgroundLocationUpdates = self.isMetricsEnabledForInUsePermissions;
+                #pragma clang diagnostic pop
+            }
         }
 
         [self.locationManager startUpdatingLocation];
@@ -144,9 +164,9 @@ NSString * const MMELocationManagerRegionIdentifier = @"MMELocationManagerRegion
     [self.locationManager startMonitoringForRegion:region];
 }
 
-#pragma mark - MMECLLocationManagerDelegate
+#pragma mark - CLLocationManagerDelegate
 
-- (void)locationManagerWrapper:(id<MMECLLocationManagerWrapper>)locationManagerWrapper didChangeAuthorizationStatus:(CLAuthorizationStatus)status; {
+- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
     if (status == kCLAuthorizationStatusAuthorizedAlways ||
         status == kCLAuthorizationStatusAuthorizedWhenInUse) {
         [self startUpdatingLocation];
@@ -155,7 +175,7 @@ NSString * const MMELocationManagerRegionIdentifier = @"MMELocationManagerRegion
     }
 }
 
-- (void)locationManagerWrapper:(id<MMECLLocationManagerWrapper>)locationManagerWrapper didUpdateLocations:(NSArray<CLLocation *> *)locations {
+- (void)locationManager:(CLLocationManager *)locationManager didUpdateLocations:(NSArray<CLLocation *> *)locations {
     CLLocation *location = locations.lastObject;
     if (location.speed > 0.0) {
         [self startBackgroundTimeoutTimer];
@@ -168,12 +188,12 @@ NSString * const MMELocationManagerRegionIdentifier = @"MMELocationManagerRegion
     }
 }
 
-- (void)locationManagerWrapper:(id<MMECLLocationManagerWrapper>)locationManagerWrapper didExitRegion:(CLRegion *)region {
+- (void)locationManager:(CLLocationManager *)locationManager didExitRegion:(CLRegion *)region {
     [self startBackgroundTimeoutTimer];
     [self.locationManager startUpdatingLocation];
 }
 
-- (void)locationManagerWrapperDidPauseLocationUpdates:(id<MMECLLocationManagerWrapper>)locationManagerWrapper {
+- (void)locationManagerDidPauseLocationUpdates:(CLLocationManager *)locationManager {
     if ([self.delegate respondsToSelector:@selector(locationManagerBackgroundLocationUpdatesDidAutomaticallyPause:)]) {
         [self.delegate locationManagerBackgroundLocationUpdatesDidAutomaticallyPause:self];
     }

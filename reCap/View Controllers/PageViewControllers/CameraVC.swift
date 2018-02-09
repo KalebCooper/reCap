@@ -10,6 +10,7 @@ import UIKit
 import AVFoundation
 import AVKit
 
+
 class CameraVC: UIViewController {
     
     var session: AVCaptureSession?
@@ -24,10 +25,22 @@ class CameraVC: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+        setupCamera()
+
+        
+    }
+    
+    
+    public func setupCamera() {
+
         session = AVCaptureSession()
         session!.sessionPreset = AVCaptureSession.Preset.hd4K3840x2160
-        
+    
         let backCamera = AVCaptureDevice.default(for: AVMediaType.video)
+        
+        try! backCamera?.lockForConfiguration()
+        backCamera?.focusMode = .continuousAutoFocus
+        backCamera?.unlockForConfiguration()
         
         var error: NSError?
         var input: AVCaptureDeviceInput!
@@ -40,18 +53,35 @@ class CameraVC: UIViewController {
         }
         
         if error == nil && session!.canAddInput(input) {
+            
             session!.addInput(input)
             // ...
             // The remainder of the session setup will go here...
             stillImageOutput = AVCapturePhotoOutput()
             stillImageOutput?.photoSettingsForSceneMonitoring?.livePhotoVideoCodecType = .jpeg
             
+            
             if session!.canAddOutput(stillImageOutput!) {
                 session!.addOutput(stillImageOutput!)
                 // Configure the Live Preview here...
                 videoPreviewLayer = AVCaptureVideoPreviewLayer(session: session!)
                 videoPreviewLayer!.videoGravity = AVLayerVideoGravity.resizeAspectFill
-                videoPreviewLayer!.connection?.videoOrientation = AVCaptureVideoOrientation.portrait
+                
+                if UIDevice.current.orientation == .portrait {
+                    print("Portrait")
+                    videoPreviewLayer!.connection?.videoOrientation = AVCaptureVideoOrientation.portrait
+                }
+                else if UIDevice.current.orientation == .landscapeLeft {
+                    print("Landscape left")
+                    videoPreviewLayer!.connection?.videoOrientation = AVCaptureVideoOrientation.landscapeLeft
+                }
+                else if UIDevice.current.orientation == .landscapeRight {
+                    print("Landscape right")
+                    videoPreviewLayer!.connection?.videoOrientation = AVCaptureVideoOrientation.landscapeRight
+                }
+                
+                
+                
                 previewView.layer.addSublayer(videoPreviewLayer!)
                 session!.startRunning()
                 
@@ -59,33 +89,14 @@ class CameraVC: UIViewController {
         }
     }
     
-
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        
-        let when = DispatchTime.now() + 0.15 // change 2 to desired number of seconds
-        DispatchQueue.main.asyncAfter(deadline: when) {
-            if UIDevice.current.orientation == UIDeviceOrientation.portrait{
-                self.videoPreviewLayer!.connection?.videoOrientation = AVCaptureVideoOrientation.portrait
-            }
-            else if UIDevice.current.orientation == UIDeviceOrientation.portraitUpsideDown {
-                self.videoPreviewLayer!.connection?.videoOrientation = AVCaptureVideoOrientation.portraitUpsideDown
-            }
-            else if UIDevice.current.orientation == UIDeviceOrientation.landscapeRight {
-                self.videoPreviewLayer!.connection?.videoOrientation = AVCaptureVideoOrientation.landscapeLeft
-            }
-            else {
-                self.videoPreviewLayer!.connection?.videoOrientation = AVCaptureVideoOrientation.landscapeRight
-            }
-            
-        }
-        
-        
-    }
+    
+    
     
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         videoPreviewLayer!.frame = previewView.bounds
+
     }
     
     
@@ -104,4 +115,5 @@ class CameraVC: UIViewController {
      */
     
 }
+
 

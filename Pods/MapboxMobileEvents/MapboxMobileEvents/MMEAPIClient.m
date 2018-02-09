@@ -7,9 +7,7 @@
 @interface MMEAPIClient ()
 
 @property (nonatomic) id<MMENSURLSessionWrapper> sessionWrapper;
-@property (nonatomic, copy) NSURL *baseURL;
 @property (nonatomic) NSBundle *applicationBundle;
-@property (nonatomic) NSBundle *sdkBundle;
 @property (nonatomic, copy) NSString *userAgent;
 
 @end
@@ -24,21 +22,11 @@
         _hostSDKVersion = hostSDKVersion;
         _sessionWrapper = [[MMENSURLSessionWrapper alloc] init];
         _applicationBundle = [NSBundle mainBundle];
-        _sdkBundle = [self resolveAndReturnSDKBundle];
+        _baseURL = [NSURL URLWithString:MMEAPIClientBaseURL];
         
-        [self setupBaseURL];
         [self setupUserAgent];
     }
     return self;
-}
-
-- (NSBundle *)resolveAndReturnSDKBundle {
-    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
-    // If packaged as a static library, look for the resources bundle in the host app's bundle
-    if (![bundle.infoDictionary[@"CFBundlePackageType"] isEqualToString:@"FMWK"]) {
-        bundle = [NSBundle bundleWithPath:[_applicationBundle pathForResource:@"resources" ofType:@"bundle"]];
-    }
-    return bundle;
 }
 
 - (void)postEvents:(NSArray *)events completionHandler:(nullable void (^)(NSError * _Nullable error))completionHandler {
@@ -47,8 +35,8 @@
         NSError *statusError = nil;
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
         if (httpResponse.statusCode >= 400) {
-            NSString *descriptionFormat = [self.sdkBundle localizedStringForKey:@"API_CLIENT_400_DESC" value:@"" table:nil];
-            NSString *reasonFormat = [self.sdkBundle localizedStringForKey:@"API_CLIENT_400_REASON" value:@"" table:nil];
+            NSString *descriptionFormat = @"The session data task failed. Original request was: %@";
+            NSString *reasonFormat = @"The status code was %ld";
             NSString *description = [NSString stringWithFormat:descriptionFormat, request];
             NSString *reason = [NSString stringWithFormat:reasonFormat, (long)httpResponse.statusCode];
             NSDictionary *userInfo = @{NSLocalizedDescriptionKey: description,
@@ -66,12 +54,12 @@
     [self postEvents:@[event] completionHandler:completionHandler];
 }
 
-- (NSString *)accessToken {
-    NSString *stagingAccessToken = [[NSUserDefaults standardUserDefaults] objectForKey:MMETelemetryStagingAccessToken];
-    if (stagingAccessToken) {
-        return stagingAccessToken;
+- (void)setBaseURL:(NSURL *)baseURL {
+    if (baseURL && [baseURL.scheme isEqualToString:@"https"]) {
+        _baseURL = baseURL;
+    } else {
+        _baseURL = [NSURL URLWithString:MMEAPIClientBaseURL];
     }
-    return _accessToken;
 }
 
 #pragma mark - Utilities
@@ -97,30 +85,16 @@
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:eventAttributes options:0 error:nil];
     
     // Compressing less than 2 events can have a negative impact on the size.
-    if (events.count > 1) {
+    if (events.count >= 2) {
         NSData *compressedData = [jsonData mme_gzippedData];
         [request setValue:@"gzip" forHTTPHeaderField:MMEAPIClientHeaderFieldContentEncodingKey];
         [request setHTTPBody:compressedData];
-    }
-
-    // Set JSON data if events.count were less than 3 or something went wrong with compressing HTTP body data.
-    if (!request.HTTPBody) {
+    } else {
         [request setValue:nil forHTTPHeaderField:MMEAPIClientHeaderFieldContentEncodingKey];
         [request setHTTPBody:jsonData];
     }
     
     return [request copy];
-}
-
-- (void)setupBaseURL {
-    NSString *testServerURLString = [[NSUserDefaults standardUserDefaults] stringForKey:MMETelemetryTestServerURL];
-    NSURL *testServerURL = [NSURL URLWithString:testServerURLString];
-    if (testServerURL && [testServerURL.scheme isEqualToString:@"https"]) {
-        self.baseURL = testServerURL;
-        self.sessionWrapper.usesTestServer = YES;
-    } else {
-        self.baseURL = [NSURL URLWithString:MMEAPIClientBaseURL];
-    }
 }
 
 - (void)setupUserAgent {
