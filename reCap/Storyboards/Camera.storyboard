@@ -26,6 +26,9 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zzR-PA-LKL">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="imageID"/>
+                                </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FOv-tB-rnB">
                                 <rect key="frame" x="40" y="708" width="60" height="60"/>
@@ -78,6 +81,9 @@
                                         <exclude reference="uxE-1F-usj"/>
                                     </mask>
                                 </variation>
+                                <connections>
+                                    <action selector="buttonPressed:" destination="eaR-CF-qzQ" eventType="touchUpInside" id="hdq-7Z-iCW"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oeN-Wr-Wxk">
                                 <rect key="frame" x="0.0" y="690" width="375" height="0.0"/>
@@ -140,7 +146,7 @@
                         <outlet property="logoText" destination="PPX-Rz-LL0" id="IoR-CC-TNj"/>
                         <outlet property="previewView" destination="zzR-PA-LKL" id="dUD-nD-OZP"/>
                         <segue destination="5FS-bp-BS6" kind="popoverPresentation" popoverAnchorView="zzR-PA-LKL" id="hGZ-ck-Mcw">
-                            <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                            <popoverArrowDirection key="popoverArrowDirection" up="YES"/>
                         </segue>
                     </connections>
                 </viewController>
@@ -171,18 +177,68 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vqy-2h-WBF">
-                                <rect key="frame" x="56" y="353" width="240" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Vqy-2h-WBF">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Vqy-2h-WBF" firstAttribute="leading" secondItem="T12-q7-Icm" secondAttribute="leading" id="PyW-RS-OHJ"/>
+                            <constraint firstAttribute="bottom" secondItem="Vqy-2h-WBF" secondAttribute="bottom" id="SkU-C8-S8h"/>
+                            <constraint firstAttribute="trailing" secondItem="Vqy-2h-WBF" secondAttribute="trailing" id="UzO-6N-aCz"/>
+                            <constraint firstItem="Vqy-2h-WBF" firstAttribute="top" secondItem="T12-q7-Icm" secondAttribute="top" id="n1W-6F-q8D"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="jUs-EW-Fzl"/>
                     </view>
+                    <toolbarItems>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="a4S-nm-Me9"/>
+                        <barButtonItem title="Cancel" id="ewf-c2-Ukp">
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <connections>
+                                <segue destination="eaR-CF-qzQ" kind="custom" customClass="DismissSegue" customModule="IBAnimatable" id="lg0-GH-HOH"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem width="127" style="plain" systemItem="fixedSpace" id="uz5-UR-9R8"/>
+                        <barButtonItem title="Confirm" id="5jm-b8-eIx">
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <connections>
+                                <segue destination="yyB-jy-Tx0" kind="show" id="kTP-S5-qze"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="HZZ-wU-2XG"/>
+                    </toolbarItems>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics" barStyle="black"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tm5-14-1Ca" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2154" y="-155"/>
+            <point key="canvasLocation" x="2152.8000000000002" y="-155.17241379310346"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="nms-kt-ESX">
+            <objects>
+                <viewController id="yyB-jy-Tx0" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="YzK-as-eNk">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="frF-LK-OWF">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="frF-LK-OWF" firstAttribute="leading" secondItem="YzK-as-eNk" secondAttribute="leading" id="OsL-tX-n9A"/>
+                            <constraint firstAttribute="trailing" secondItem="frF-LK-OWF" secondAttribute="trailing" id="hCL-LU-3Qh"/>
+                            <constraint firstItem="frF-LK-OWF" firstAttribute="top" secondItem="YzK-as-eNk" secondAttribute="top" id="tvB-1d-qLv"/>
+                            <constraint firstAttribute="bottom" secondItem="frF-LK-OWF" secondAttribute="bottom" id="wqW-5g-Cna"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Ne-dw-kCR"/>
+                    </view>
+                    <nil key="simulatedBottomBarMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pbz-00-wsE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3168.8000000000002" y="-148.52216748768473"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="BrH-vS-niz">
@@ -31330,4 +31386,8 @@ pgAceq4AHHqxABx6wwAcesYAHHrLAAAAAAAABAEAAAAAAAAAWQAAAAAAAAAAAAAAAAAces0
 </mutableData>
         </image>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="hGZ-ck-Mcw"/>
+        <segue reference="lg0-GH-HOH"/>
+    </inferredMetricsTieBreakers>
 </document>

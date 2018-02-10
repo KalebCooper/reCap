@@ -28,6 +28,12 @@ class CameraContainerVC: UIViewController {
     
     var captureDevice: AVCaptureDevice?
     
+    @IBAction func buttonPressed(_ sender: Any) {
+        
+        
+        
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,11 +53,16 @@ class CameraContainerVC: UIViewController {
     public func setupCamera() {
         
         session = AVCaptureSession()
-        session!.sessionPreset = AVCaptureSession.Preset.hd4K3840x2160
+        session!.sessionPreset = AVCaptureSession.Preset.high
         
         
         
         let backCamera = AVCaptureDevice.default(for: AVMediaType.video)
+        
+        try! backCamera?.lockForConfiguration()
+        backCamera?.focusMode = .continuousAutoFocus
+        backCamera?.isSmoothAutoFocusEnabled = true
+        backCamera?.unlockForConfiguration()
         
         var error: NSError?
         var input: AVCaptureDeviceInput!
@@ -215,6 +226,7 @@ class CameraContainerVC: UIViewController {
         
     }
     
+
     
     
     
