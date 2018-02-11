@@ -15,6 +15,7 @@ class User {
     var name: String!
     var pictures: [String]
     var email: String!
+    var points: Int!
     
     // MARK: - Initializers
     public init(id: String, name: String, email: String, pictures: [String] = []) {
@@ -22,6 +23,7 @@ class User {
         self.name = name
         self.email = email
         self.pictures = pictures
+        self.points = 0
     }
     
 }

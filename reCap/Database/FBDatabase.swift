@@ -17,7 +17,10 @@ class FBDatabase {
     private static let USER_NAME = "Name"
     private static let USER_PICTURES = "Pictures"
     private static let USER_EMAIL = "E-mail"
+    private static let USER_POINTS = "Points"
+    
     private static let EMPTY_VALUE = "Empty"
+    
     private static let PICTURE_DATA_NAME = "Name"
     private static let PICTURE_DATA_GPS = "Coordinates"
     private static let PICTURE_DATA_ORIENTATION = "Orientation"
@@ -83,7 +86,7 @@ class FBDatabase {
     */
     class func addUpdateUser(user: User, with_completion completion: @escaping (_ error: String?) -> ()) {
         let ref = Database.database().reference()
-        let jsonObject: [String : Any] = [USER_USER_ID : user.id, USER_NAME : user.name, USER_PICTURES : user.pictures, USER_EMAIL : user.email]
+        let jsonObject: [String : Any] = [USER_USER_ID : user.id, USER_NAME : user.name, USER_PICTURES : user.pictures, USER_EMAIL : user.email, USER_POINTS : user.points]
         ref.child(USER_NODE).child(user.id).setValue(jsonObject, withCompletionBlock: {(error, ref) in
             if let realError = error {
                 // Error occured
