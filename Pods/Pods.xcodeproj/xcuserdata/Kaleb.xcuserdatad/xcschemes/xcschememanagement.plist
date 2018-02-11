@@ -104,11 +104,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>PivotSlider.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Pods-reCap.xcscheme</key>
 		<dict>
 			<key>isShown</key>
