@@ -48,7 +48,7 @@ class FBDatabase {
      new user in. Returns users id and error in
      completion handler
     */
-    class func createUserAuth(email: String, password: String, name: String, with_completion completion: @escaping (_ id: String?, _ error: String?) -> ()) {
+    class func createUserAuth(email: String, password: String, with_completion completion: @escaping (_ id: String?, _ error: String?) -> ()) {
         Auth.auth().createUser(withEmail: email, password: password, completion: {(userData, error) in
             if let activeUserData = userData {
                 // Sign in successful

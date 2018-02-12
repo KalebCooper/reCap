@@ -11,13 +11,18 @@ import Firebase
 
 class SignInVC: UIViewController {
     
+    // MARK: - Outlets
+   
+    @IBOutlet weak var emailOutlet: UITextField!
+    @IBOutlet weak var passwordOutlet: UITextField!
+    
+    // MARK: - Properties
     var gradientLayer: CAGradientLayer!
     
     // MARK: - View Controller Methods
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         createGradientLayer()
         //createUser()
         // Do any additional setup after loading the view.
@@ -38,31 +43,6 @@ class SignInVC: UIViewController {
         gradientLayer.colors = [topColor, bottomColor]
         
         self.view.layer.insertSublayer(gradientLayer, at: 0)
-    }
-    
-    func createUser() {
-        
-        FBDatabase.createUserAuth(email: "Jackson@gmail.com", password: "password", name: "Jackson", with_completion: {(id, error) in
-            if let activeID = id {
-                print("Got id in SignIn VC")
-                let user = User(id: activeID, name: "Jackson", email: "jackson@gmail.com")
-                FBDatabase.addUpdateUser(user: user, with_completion: {(error) in
-                    if let realError = error {
-                        // Error
-                        print("Did not write user to database in SignInVC")
-                        print(realError)
-                    }
-                    else {
-                        // No error
-                        print("Wrote user to database in SignInVC")
-                    }
-                })
-            }
-            else {
-                print("Did not get id in SignIn VC")
-                print(error!)
-            }
-        })
     }
     
     // MARK: - Outlet Actions
@@ -90,10 +70,10 @@ class SignInVC: UIViewController {
                 print(error!)
             }
         })
-
     }
     
 
+   
     /*
     // MARK: - Navigation
 

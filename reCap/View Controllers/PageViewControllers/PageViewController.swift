@@ -15,11 +15,11 @@ class PageViewController: PageboyViewController, PageboyViewControllerDataSource
         
         let mapStoryboard = UIStoryboard(name: "Map", bundle: Bundle.main)
         let cameraStoryboard = UIStoryboard(name: "Camera", bundle: Bundle.main)
-        let leaderboardsStoryboard = UIStoryboard(name: "Leaderboards", bundle: Bundle.main)
+        let leaderboardsStoryboard = UIStoryboard(name: "LeaderboardsFriends", bundle: Bundle.main)
         
         let mapVC = mapStoryboard.instantiateViewController(withIdentifier: "MapContainerVC") as! MapContainerVC
         let cameraVC = cameraStoryboard.instantiateViewController(withIdentifier: "CameraContainerVC") as! CameraContainerVC
-        let leaderboardsVC = leaderboardsStoryboard.instantiateViewController(withIdentifier: "LeaderboardContainerVC") as! LeaderboardContainerVC
+        let leaderboardsVC = leaderboardsStoryboard.instantiateViewController(withIdentifier: "LeaderboardsFriendsNav") as! UINavigationController
         
         var viewControllers = [UIViewController]()
         viewControllers.append(mapVC)
