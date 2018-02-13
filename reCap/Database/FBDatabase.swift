@@ -17,7 +17,12 @@ class FBDatabase {
     private static let USER_NAME = "Name"
     private static let USER_PICTURES = "Pictures"
     private static let USER_EMAIL = "E-mail"
+    private static let USER_POINTS = "Points"
+    private static let USER_USERNAME = "Username"
+    private static let PROFILE_PICTURE_NODE = "Profile Picture"
+    
     private static let EMPTY_VALUE = "Empty"
+    
     private static let PICTURE_DATA_NAME = "Name"
     private static let PICTURE_DATA_GPS = "Coordinates"
     private static let PICTURE_DATA_ORIENTATION = "Orientation"
@@ -45,11 +50,10 @@ class FBDatabase {
      new user in. Returns users id and error in
      completion handler
     */
-    class func createUserAuth(email: String, password: String, name: String, with_completion completion: @escaping (_ id: String?, _ error: String?) -> ()) {
+    class func createUserAuth(email: String, password: String, with_completion completion: @escaping (_ id: String?, _ error: String?) -> ()) {
         Auth.auth().createUser(withEmail: email, password: password, completion: {(userData, error) in
             if let activeUserData = userData {
                 // Sign in successful
-                UserDefaults.standard.set(activeUserData.uid, forKey: LOGGED_IN_ID)
                 completion(activeUserData.uid, nil)
             }
             else {
@@ -76,6 +80,22 @@ class FBDatabase {
         })
     }
     
+    /*
+     Used to automatically sign user
+     into app if previously signed in
+    */
+    class func setAutomaticSignIn(with_id id: String) {
+        UserDefaults.standard.set(id, forKey: LOGGED_IN_ID)
+    }
+    
+    /*
+     Removes the automatic sign in
+     for user in app
+    */
+    class func removeAutomaticSignIn() {
+        UserDefaults.standard.removeObject(forKey: LOGGED_IN_ID)
+    }
+    
     // MARK: - User Methods
     
     /*
@@ -83,7 +103,7 @@ class FBDatabase {
     */
     class func addUpdateUser(user: User, with_completion completion: @escaping (_ error: String?) -> ()) {
         let ref = Database.database().reference()
-        let jsonObject: [String : Any] = [USER_USER_ID : user.id, USER_NAME : user.name, USER_PICTURES : user.pictures, USER_EMAIL : user.email]
+        let jsonObject: [String : Any] = [USER_USER_ID : user.id, USER_NAME : user.name, USER_PICTURES : user.pictures, USER_EMAIL : user.email, USER_POINTS : user.points, USER_USERNAME : user.username]
         ref.child(USER_NODE).child(user.id).setValue(jsonObject, withCompletionBlock: {(error, ref) in
             if let realError = error {
                 // Error occured
@@ -110,14 +130,15 @@ class FBDatabase {
                 let name = userNode[USER_NAME] as! String
                 let email = userNode[USER_EMAIL] as! String
                 let pictures = userNode[USER_PICTURES]
+                let username = userNode[USER_USERNAME] as! String
                 let user: User
                 if let realPics = pictures as? [String] {
                     // The user has pictures
-                    user = User(id: id, name: name, email: email, pictures: realPics)
+                    user = User(id: id, name: name, email: email, username: username, pictures: realPics)
                 }
                 else {
                     // The user has no pictures
-                    user = User(id: id, name: name, email: email)
+                    user = User(id: id, name: name, email: email, username: username)
                 }
                 completion(user)
             }
@@ -178,11 +199,25 @@ class FBDatabase {
     // MARK: - Storage Methods
     
     /*
-     Puts an image into the database
+     Puts a profile image in the database
+    */
+    class func addProfilePicture(with_image image: UIImage, for_user user: User, with_completion completion: @escaping (_ error: String?) -> ()) {
+        let storageRef = Storage.storage().reference(forURL: "gs://recap-78bda.appspot.com").child(PROFILE_PICTURE_NODE).child(user.id)
+        savePicture(storageRef: storageRef, image: image, completion: completion)
+    }
+    
+    /*
+     Puts a picture in the database
     */
     class func addPicture(image: UIImage, pictureData: PictureData, with_completion completion: @escaping (_ error: String?) -> ()) {
         let storageRef = Storage.storage().reference(forURL: "gs://recap-78bda.appspot.com").child(PICTURE_NODE).child(pictureData.id)
-        
+        savePicture(storageRef: storageRef, image: image, completion: completion)
+    }
+    
+    /*
+     Saves the given image in the database
+    */
+    private class func savePicture(storageRef: StorageReference, image: UIImage, completion: @escaping (_ error: String?) -> ()) {
         if let imageData = UIImageJPEGRepresentation(image, 0.2) {
             storageRef.putData(imageData, metadata: nil, completion: { (metadata, error) in
                 if error != nil {
