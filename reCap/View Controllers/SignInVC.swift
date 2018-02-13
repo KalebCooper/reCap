@@ -13,7 +13,8 @@ class SignInVC: UIViewController {
     
     // MARK: - Outlets
    
-    @IBOutlet weak var emailOutlet: UITextField!
+    
+    @IBOutlet weak var emailUsernameOutlet: UITextField!
     @IBOutlet weak var passwordOutlet: UITextField!
     
     // MARK: - Properties
@@ -23,9 +24,15 @@ class SignInVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        createGradientLayer()
+        setup()
         //createUser()
         // Do any additional setup after loading the view.
+    }
+    
+    // MARK: - Setup Methods
+    
+    private func setup() {
+        createGradientLayer()
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -48,32 +55,38 @@ class SignInVC: UIViewController {
     // MARK: - Outlet Actions
     
     /*
+     Called when the user taps the screen
+    */
+    @IBAction func screenTapped(_ sender: UITapGestureRecognizer) {
+        // Removes keyboard
+        self.view.endEditing(true)
+    }
+    
+    /*
      Called when the normal sign in button
      is pressed
     */
-    func signInPressed() {
-        let ref = Database.database().reference()
-        FBDatabase.signInUser(email: "Jackson@gmail.com", password: "password", with_completion: {(id, error) in
-            if let activeID = id {
-                print("Got user id in sign in VC")
-                FBDatabase.getUser(with_id: activeID, ref: ref, with_completion: {(user) in
-                    if let activeUser = user {
-                        print("Got user in SignIn VC")
-                    }
-                    else {
-                        print("Did not get user in SignIn VC")
-                    }
-                })
-            }
-            else {
-                print("Did not get user id in sign in VC")
-                print(error!)
-            }
-        })
+    @IBAction func loginInPressed(_ sender: Any) {
+        if let emailUsername = emailUsernameOutlet.text, let password = passwordOutlet.text {
+            // If fields are filled out
+            FBDatabase.signInUser(email: emailUsername, password: password, with_completion: {(id, error) in
+                if let activeId = id {
+                    print("Got user id in sign in VC")
+                    FBDatabase.setAutomaticSignIn(with_id: activeId)
+                    // Segues to page view
+                }
+                else {
+                    print("Did not get user id in sign in VC")
+                    print(error!)
+                }
+            })
+        }
+        else {
+            // Not all fields are filled out
+            print("All Fields are not filled out")
+        }
     }
-    
 
-   
     /*
     // MARK: - Navigation
 

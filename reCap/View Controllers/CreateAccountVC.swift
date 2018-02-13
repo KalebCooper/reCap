@@ -46,10 +46,11 @@ class CreateAccountVC: UITableViewController, UIImagePickerControllerDelegate, U
     @IBAction func addPressed(_ sender: Any) {
         if let name = fullNameOutlet.text, let email = emailOutlet.text, let username = usernameOutlet.text, let password = passwordOutlet.text, let verifyPass = verifyPasswordOutlet.text, let image = imageOutlet.backgroundImage(for: .normal), password == verifyPass {
             // If all fields are filled out
+            print("Creating user")
             FBDatabase.createUserAuth(email: email, password: password, with_completion: {(id, error) in
                 if let activeID = id {
                     print("Got id in SignIn VC")
-                    let user = User(id: activeID, name: "Jackson", email: "jackson@gmail.com")
+                    let user = User(id: activeID, name: name, email: email, username: username)
                     FBDatabase.addUpdateUser(user: user, with_completion: {(error) in
                         if let realError = error {
                             // Error
@@ -59,6 +60,19 @@ class CreateAccountVC: UITableViewController, UIImagePickerControllerDelegate, U
                         else {
                             // No error
                             print("Wrote user to database in SignInVC")
+                            FBDatabase.setAutomaticSignIn(with_id: activeID)
+                            FBDatabase.addProfilePicture(with_image: image, for_user: user, with_completion: {(error) in
+                                if let actualError = error {
+                                    // An error occured
+                                    print("Did not write profile picture in database")
+                                    print(actualError)
+                                }
+                                else {
+                                    // No error occured
+                                    print("Added profile picture to database")
+                                }
+                            })
+                            self.dismiss(animated: true, completion: nil)
                         }
                     })
                 }
@@ -87,6 +101,7 @@ class CreateAccountVC: UITableViewController, UIImagePickerControllerDelegate, U
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             // A valid image was picked
             imageOutlet.setBackgroundImage(pickedImage, for: .normal)
+            imageOutlet.setTitle("", for: .normal)
         }
         picker.dismiss(animated: true, completion: nil)
     }
