@@ -140,6 +140,7 @@
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="f5r-FZ-zMZ">
                             <connections>
                                 <action selector="addPressed:" destination="irl-TE-hrg" id="VLh-cb-HXs"/>
+                                <segue destination="CLO-HN-oDc" kind="show" id="uPm-Xo-lgZ"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -155,6 +156,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XgS-OV-pNn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="754.39999999999998" y="91.625615763546804"/>
+        </scene>
+        <!--PageView-->
+        <scene sceneID="bV8-PM-kVO">
+            <objects>
+                <viewControllerPlaceholder storyboardName="PageView" id="CLO-HN-oDc" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8IA-Ls-dlc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1518" y="46"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="uOk-Dr-TBW">
