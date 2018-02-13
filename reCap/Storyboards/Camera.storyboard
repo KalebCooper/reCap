@@ -140,14 +140,16 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="d0q-f2-GRT"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="cameraButton" destination="gc9-NS-DgZ" id="69z-h1-QT4"/>
                         <outlet property="locationOutlet" destination="oeN-Wr-Wxk" id="zxR-Tq-8UW"/>
                         <outlet property="logoText" destination="PPX-Rz-LL0" id="IoR-CC-TNj"/>
                         <outlet property="previewView" destination="zzR-PA-LKL" id="dUD-nD-OZP"/>
-                        <segue destination="5FS-bp-BS6" kind="popoverPresentation" popoverAnchorView="zzR-PA-LKL" id="hGZ-ck-Mcw">
-                            <popoverArrowDirection key="popoverArrowDirection" up="YES"/>
-                        </segue>
+                        <segue destination="5FS-bp-BS6" kind="show" identifier="confirmPictureSegue" id="t4u-b7-fQe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XEx-pb-nLB" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -169,19 +171,23 @@
             </objects>
             <point key="canvasLocation" x="1160.8" y="-155.17241379310346"/>
         </scene>
-        <!--View Controller-->
+        <!--Image ConfirmVC-->
         <scene sceneID="AKJ-OD-tFd">
             <objects>
-                <viewController id="5FS-bp-BS6" sceneMemberID="viewController">
+                <viewController id="5FS-bp-BS6" customClass="ImageConfirmVC" customModule="reCap" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="T12-q7-Icm">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Vqy-2h-WBF">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Vqy-2h-WBF">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="imageID"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
+                                </userDefinedRuntimeAttributes>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="Vqy-2h-WBF" firstAttribute="leading" secondItem="T12-q7-Icm" secondAttribute="leading" id="PyW-RS-OHJ"/>
                             <constraint firstAttribute="bottom" secondItem="Vqy-2h-WBF" secondAttribute="bottom" id="SkU-C8-S8h"/>
@@ -195,50 +201,105 @@
                         <barButtonItem title="Cancel" id="ewf-c2-Ukp">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <connections>
-                                <segue destination="eaR-CF-qzQ" kind="custom" customClass="DismissSegue" customModule="IBAnimatable" id="lg0-GH-HOH"/>
+                                <action selector="cancelButton:" destination="5FS-bp-BS6" id="8DM-9G-bXy"/>
+                                <segue destination="iJU-se-NGw" kind="show" id="KKD-1L-iGT"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem width="127" style="plain" systemItem="fixedSpace" id="uz5-UR-9R8"/>
                         <barButtonItem title="Confirm" id="5jm-b8-eIx">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <connections>
-                                <segue destination="yyB-jy-Tx0" kind="show" id="kTP-S5-qze"/>
+                                <segue destination="yyB-jy-Tx0" kind="presentation" identifier="createPictureSegue" id="kTP-S5-qze"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="HZZ-wU-2XG"/>
                     </toolbarItems>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics" barStyle="black"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="hero.duration">
+                            <integer key="value" value="10"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outlet property="imageView" destination="Vqy-2h-WBF" id="3Au-0G-8ab"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tm5-14-1Ca" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2152.8000000000002" y="-155.17241379310346"/>
         </scene>
-        <!--View Controller-->
+        <!--PageView-->
+        <scene sceneID="BDj-qF-rud">
+            <objects>
+                <viewControllerPlaceholder storyboardName="PageView" id="iJU-se-NGw" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="asE-Fv-kXn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2153" y="373"/>
+        </scene>
+        <!--Image CreateVC-->
         <scene sceneID="nms-kt-ESX">
             <objects>
-                <viewController id="yyB-jy-Tx0" sceneMemberID="viewController">
+                <viewController id="yyB-jy-Tx0" customClass="ImageCreateVC" customModule="reCap" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="YzK-as-eNk">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="frF-LK-OWF">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="frF-LK-OWF">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="imageID"/>
+                                </userDefinedRuntimeAttributes>
                             </imageView>
+                            <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ALb-p1-c5A">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t0b-hw-O1x">
+                                <rect key="frame" x="24" y="364" width="327" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="XFU-2O-NGx"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.97638529539999996" green="0.97652524709999999" blue="0.97635465860000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4tx-5b-oih">
+                                <rect key="frame" x="24" y="318" width="140" height="37"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="31"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="6Ne-dw-kCR" firstAttribute="trailing" secondItem="4tx-5b-oih" secondAttribute="trailing" constant="211" id="2jB-Rt-Vh1"/>
+                            <constraint firstItem="t0b-hw-O1x" firstAttribute="top" secondItem="4tx-5b-oih" secondAttribute="bottom" constant="9" id="5hw-1l-bwj"/>
+                            <constraint firstItem="4tx-5b-oih" firstAttribute="top" secondItem="6Ne-dw-kCR" secondAttribute="top" constant="274" id="8Ea-ky-BBC"/>
+                            <constraint firstItem="ALb-p1-c5A" firstAttribute="centerX" secondItem="t0b-hw-O1x" secondAttribute="centerX" id="F5J-Hi-w5O"/>
                             <constraint firstItem="frF-LK-OWF" firstAttribute="leading" secondItem="YzK-as-eNk" secondAttribute="leading" id="OsL-tX-n9A"/>
+                            <constraint firstItem="ALb-p1-c5A" firstAttribute="bottom" secondItem="frF-LK-OWF" secondAttribute="bottom" id="Rn3-hW-eEt"/>
+                            <constraint firstItem="ALb-p1-c5A" firstAttribute="leading" secondItem="frF-LK-OWF" secondAttribute="leading" id="SiN-8e-QyN"/>
+                            <constraint firstItem="4tx-5b-oih" firstAttribute="leading" secondItem="t0b-hw-O1x" secondAttribute="leading" id="WTW-UU-xdy"/>
+                            <constraint firstItem="ALb-p1-c5A" firstAttribute="trailing" secondItem="frF-LK-OWF" secondAttribute="trailing" id="Y8K-VT-sTD"/>
                             <constraint firstAttribute="trailing" secondItem="frF-LK-OWF" secondAttribute="trailing" id="hCL-LU-3Qh"/>
+                            <constraint firstItem="4tx-5b-oih" firstAttribute="leading" secondItem="6Ne-dw-kCR" secondAttribute="leading" constant="24" id="nRi-gI-cO9"/>
+                            <constraint firstItem="ALb-p1-c5A" firstAttribute="top" secondItem="frF-LK-OWF" secondAttribute="top" id="qPO-lx-zrE"/>
                             <constraint firstItem="frF-LK-OWF" firstAttribute="top" secondItem="YzK-as-eNk" secondAttribute="top" id="tvB-1d-qLv"/>
                             <constraint firstAttribute="bottom" secondItem="frF-LK-OWF" secondAttribute="bottom" id="wqW-5g-Cna"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Ne-dw-kCR"/>
                     </view>
                     <nil key="simulatedBottomBarMetrics"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outlet property="imageView" destination="frF-LK-OWF" id="4s9-mQ-UD4"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pbz-00-wsE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3168.8000000000002" y="-148.52216748768473"/>
+            <point key="canvasLocation" x="3165.5999999999999" y="-155.17241379310346"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="BrH-vS-niz">
@@ -251,6 +312,9 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="8Gs-qQ-W3u">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
                     </userDefinedRuntimeAttributes>
@@ -31386,8 +31450,4 @@ pgAceq4AHHqxABx6wwAcesYAHHrLAAAAAAAABAEAAAAAAAAAWQAAAAAAAAAAAAAAAAAces0
 </mutableData>
         </image>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="hGZ-ck-Mcw"/>
-        <segue reference="lg0-GH-HOH"/>
-    </inferredMetricsTieBreakers>
 </document>
