@@ -11,7 +11,7 @@ import AVFoundation
 import AVKit
 import SwiftLocation
 
-class CameraContainerVC: UIViewController {
+class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate {
     
     @IBOutlet weak var cameraButton: UIButton!
     @IBOutlet weak var locationOutlet: UILabel!
@@ -22,14 +22,21 @@ class CameraContainerVC: UIViewController {
     var portraitShadow: EdgeShadowLayer? = nil
     var landscapeShadow: EdgeShadowLayer? = nil
     
+    
     var session: AVCaptureSession?
     var stillImageOutput: AVCapturePhotoOutput?
     var videoPreviewLayer: AVCaptureVideoPreviewLayer?
     
+    var photoSetting = AVCapturePhotoSettings()
+    
     var captureDevice: AVCaptureDevice?
+    
     
     @IBAction func buttonPressed(_ sender: Any) {
         
+        
+        print("Test")
+        stillImageOutput?.capturePhoto(with: photoSetting, delegate: self)
         
         
         
@@ -51,6 +58,10 @@ class CameraContainerVC: UIViewController {
     
     
     public func setupCamera() {
+        
+        photoSetting = AVCapturePhotoSettings.init(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])
+        photoSetting.isAutoStillImageStabilizationEnabled = true
+        photoSetting.flashMode = .off
         
         session = AVCaptureSession()
         session!.sessionPreset = AVCaptureSession.Preset.high
@@ -126,13 +137,18 @@ class CameraContainerVC: UIViewController {
     
     
     func initializeShadow() {
+        
+        let shadowRadius = self.logoText.layer.frame.maxY + 8
+        
         if UIDevice.current.orientation.isLandscape {
-            landscapeShadow = EdgeShadowLayer(forView: view, edge: .Top, shadowRadius: 10, toColor: .darkGray, fromColor: .clear)
+            self.landscapeShadow = EdgeShadowLayer(forView: view, edge: .Top, shadowRadius: shadowRadius, toColor: .clear, fromColor: .black)
             self.view.layer.insertSublayer(landscapeShadow!, at: 1)
         }
         else {
-            portraitShadow = EdgeShadowLayer(forView: view, edge: .Top)
+            self.portraitShadow = EdgeShadowLayer(forView: view, edge: .Top, shadowRadius: shadowRadius, toColor: .clear, fromColor: .black)
             self.view.layer.insertSublayer(portraitShadow!, at: 1)
+            let otherShadow = EdgeShadowLayer(forView: view, edge: .Bottom, shadowRadius: self.locationOutlet.frame.minY - 8, toColor: .clear, fromColor: .black)
+            self.view.layer.insertSublayer(otherShadow, at: 1)
         }
     }
     
@@ -147,7 +163,8 @@ class CameraContainerVC: UIViewController {
                 if (self.view.layer.sublayers?.contains(self.portraitShadow!))! {
                     self.portraitShadow?.removeFromSuperlayer()
                 }
-                self.landscapeShadow = EdgeShadowLayer(forView: self.view, edge: .Top)
+                let shadowRadius = self.logoText.layer.frame.maxY + 8
+                self.landscapeShadow = EdgeShadowLayer(forView: self.view, edge: .Top, shadowRadius: shadowRadius, toColor: .clear, fromColor: .black)
                 self.view.layer.insertSublayer(self.landscapeShadow!, at: 1)
                 
             }
@@ -155,7 +172,8 @@ class CameraContainerVC: UIViewController {
                 if (self.view.layer.sublayers?.contains(self.landscapeShadow!))! {
                     self.landscapeShadow?.removeFromSuperlayer()
                 }
-                self.portraitShadow = EdgeShadowLayer(forView: self.view, edge: .Top)
+                let shadowRadius = self.logoText.layer.frame.maxY + 8
+                self.portraitShadow = EdgeShadowLayer(forView: self.view, edge: .Top, shadowRadius: shadowRadius, toColor: .clear, fromColor: .black)
                 self.view.layer.insertSublayer(self.portraitShadow!, at: 1)
                 
                 
@@ -225,6 +243,22 @@ class CameraContainerVC: UIViewController {
         videoPreviewLayer!.frame = previewView.bounds
         
     }
+    
+    
+    @available(iOS 11.0, *)
+    func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
+        if error == nil {
+            let imageData = photo.fileDataRepresentation()
+            print("Picture Taken!")
+            
+            let image = UIImage(data: imageData!)
+        }
+        
+        session?.stopRunning()
+        
+        
+    }
+    
     
 
     

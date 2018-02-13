@@ -30,7 +30,7 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="imageID"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FOv-tB-rnB">
+                            <button opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FOv-tB-rnB">
                                 <rect key="frame" x="40" y="708" width="60" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="FOv-tB-rnB" secondAttribute="height" multiplier="1:1" id="CJI-Of-RKd"/>
@@ -42,7 +42,7 @@
                                     <color key="titleShadowColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ykf-Zg-DG4">
+                            <button opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ykf-Zg-DG4">
                                 <rect key="frame" x="275" y="708" width="60" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="fax-dF-CZP"/>
@@ -65,7 +65,7 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="logoID"/>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gc9-NS-DgZ">
+                            <button opaque="NO" clipsSubviews="YES" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gc9-NS-DgZ">
                                 <rect key="frame" x="147.66666666666666" y="698" width="80" height="80"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="80" id="YbP-0a-VK9"/>
@@ -85,7 +85,7 @@
                                     <action selector="buttonPressed:" destination="eaR-CF-qzQ" eventType="touchUpInside" id="hdq-7Z-iCW"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oeN-Wr-Wxk">
+                            <label opaque="NO" userInteractionEnabled="NO" tag="10" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oeN-Wr-Wxk">
                                 <rect key="frame" x="0.0" y="690" width="375" height="0.0"/>
                                 <fontDescription key="fontDescription" name="Triomphe-Light" family="Triomphe" pointSize="24"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
