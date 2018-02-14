@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Hero
 
 class ImageConfirmVC: UIViewController {
     
@@ -25,10 +26,14 @@ class ImageConfirmVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let duration: TimeInterval = TimeInterval(exactly: 1.0)!
+
+        imageView.hero.modifiers = [.forceNonFade, .duration(duration)]
 
         self.navigationController?.toolbar.barStyle = .blackTranslucent
         
-        //self.navigationController?.setToolbarHidden(false, animated: false)
+    //self.navigationController?.setToolbarHidden(false, animated: false)
         
         
         

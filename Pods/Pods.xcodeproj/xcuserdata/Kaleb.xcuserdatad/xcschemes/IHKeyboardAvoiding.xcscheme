@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'F3E4872C4F6F3D32CC0369871FF3F350'
-               BlueprintName = 'MapboxCoreNavigation'
+               BlueprintIdentifier = '033B2F5EFC98402794E5FA4A2E42BD9F'
+               BlueprintName = 'IHKeyboardAvoiding'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'MapboxCoreNavigation.framework'>
+               BuildableName = 'IHKeyboardAvoiding.framework'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

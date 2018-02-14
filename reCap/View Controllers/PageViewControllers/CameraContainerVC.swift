@@ -10,6 +10,7 @@ import UIKit
 import AVFoundation
 import AVKit
 import SwiftLocation
+import Hero
 
 class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavigationControllerDelegate {
     
@@ -18,6 +19,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     @IBOutlet weak var logoText: UIImageView!
     
     @IBOutlet weak var previewView: UIView!
+    //@IBOutlet weak var imageView: UIImageView!
     
     var portraitTopShadow: EdgeShadowLayer? = nil
     var portraitBotShadow: EdgeShadowLayer? = nil
@@ -49,6 +51,10 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let duration: TimeInterval = TimeInterval(exactly: 1.0)!
+
+        previewView.hero.modifiers = [.forceNonFade, .duration(duration), .useScaleBasedSizeChange]
+        
         
         setupCamera()
         initializeShadow()
@@ -79,7 +85,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         backCamera?.focusMode = .continuousAutoFocus
         backCamera?.isSmoothAutoFocusEnabled = true
         backCamera?.whiteBalanceMode = .continuousAutoWhiteBalance
-//        backCamera?.automaticallyEnablesLowLightBoostWhenAvailable = true
+        //        backCamera?.automaticallyEnablesLowLightBoostWhenAvailable = true
         backCamera?.unlockForConfiguration()
         
         var error: NSError?
@@ -180,7 +186,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
                 
                 
             }
-  
+            
         }
         else {
             if self.landscapeTopShadow != nil {
@@ -211,7 +217,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
             
             self.viewDidAppear(false)
             
-
+            
         }
         
     }
@@ -222,34 +228,34 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         Locator.requestAuthorizationIfNeeded(.always)
         
         Locator.subscribePosition(accuracy: .room,
-                                    onUpdate: { location in
-
-                                        let lat = location.coordinate.latitude.truncate(places: 6)
-                                        var latString: String
-                                        let long = location.coordinate.longitude.truncate(places: 6)
-                                        var longString: String
-                                        
-                                        if lat > 0 {
-                                            latString = "\(lat)°N"
-                                        } else {
-                                            latString = "\(lat)°S"
-                                        }
-                                        
-                                        if long > 0 {
-                                            longString = "\(long)°E"
-                                        }
-                                        else {
-                                            longString = "\(long)°W"
-                                        }
-                                        
-                                        
-                                        self.locationOutlet.text = latString + " , " + longString
+                                  onUpdate: { location in
                                     
-                                    },
-                                    onFail: { (error, last) in
+                                    let lat = location.coordinate.latitude.truncate(places: 6)
+                                    var latString: String
+                                    let long = location.coordinate.longitude.truncate(places: 6)
+                                    var longString: String
                                     
-                                        print(error)
+                                    if lat > 0 {
+                                        latString = "\(lat)°N"
+                                    } else {
+                                        latString = "\(lat)°S"
                                     }
+                                    
+                                    if long > 0 {
+                                        longString = "\(long)°E"
+                                    }
+                                    else {
+                                        longString = "\(long)°W"
+                                    }
+                                    
+                                    
+                                    self.locationOutlet.text = latString + " , " + longString
+                                    
+        },
+                                  onFail: { (error, last) in
+                                    
+                                    print(error)
+        }
         )
         
     }
@@ -328,6 +334,8 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
             
             let orientedImage = UIImage(cgImage: newImage.cgImage!, scale: newImage.scale, orientation: orientation!)
             
+            //self.imageView.image = orientedImage
+            
             self.imageToPass = orientedImage
             
             self.performSegue(withIdentifier: "confirmPictureSegue", sender: self)
@@ -341,25 +349,28 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     
     
     // MARK: - Navigation
-     
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
         
         if segue.identifier == "confirmPictureSegue" {
             let vc = segue.destination as! ImageConfirmVC
+            
             vc.image = self.imageToPass
+
         }
         
     }
- 
     
     
-
+    
+    
     
     
     
 }
+
 
 
