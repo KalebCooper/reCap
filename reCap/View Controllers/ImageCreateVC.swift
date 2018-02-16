@@ -8,14 +8,23 @@
 
 import UIKit
 import IHKeyboardAvoiding
+import SkyFloatingLabelTextField
 
 
 class ImageCreateVC: UIViewController {
     
     var image: UIImage?
+    var lat: Double?
+    var long: Double?
+    var location: String?
+    
     @IBOutlet weak var imageBackground: UIImageView!
     @IBOutlet weak var imageView: UIImageView!
     
+    
+    @IBOutlet weak var locationOutlet: UILabel!
+    @IBOutlet weak var titleOutlet: SkyFloatingLabelTextField!
+    @IBOutlet weak var descriptionOutlet: SkyFloatingLabelTextField!
     
     @IBOutlet var avoidingView: UIView!
     
@@ -27,16 +36,16 @@ class ImageCreateVC: UIViewController {
         
         self.hideKeyboard()
         
-        let duration: TimeInterval = TimeInterval(exactly: 1.0)!
-        
+        let duration: TimeInterval = TimeInterval(exactly: 0.5)!
         imageView.hero.modifiers = [.forceNonFade, .duration(duration)]
         
         imageView.image = image
+        locationOutlet.text = self.location
+        
         applyBlurEffect(image: image!)
         
         KeyboardAvoiding.avoidingView = self.avoidingView
         
-        // Do any additional setup after loading the view.
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -46,7 +55,6 @@ class ImageCreateVC: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         
-        //self.navigationController?.setToolbarHidden(false, animated: false)
     }
     
     

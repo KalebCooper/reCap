@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="juj-7o-GYF">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14087.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="juj-7o-GYF">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14075.4"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="triomphe-bold-autoinstr.ttf">
+            <string>Triomphe-Bold</string>
+        </array>
+        <array key="triomphe-light-autoinstr.ttf">
+            <string>Triomphe-Light</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Sign InVC-->
         <scene sceneID="tU3-3E-Zzt">
@@ -19,19 +27,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo Text" translatesAutoresizingMaskIntoConstraints="NO" id="Gnd-kc-EuT">
-                                <rect key="frame" x="43" y="44" width="288" height="167"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="logoID"/>
-                                </userDefinedRuntimeAttributes>
-                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BbG-DW-KEz">
-                                <rect key="frame" x="16" y="748" width="343" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="FLH-lk-0o8"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <rect key="frame" x="8" y="467.33333333333331" width="359" height="47.999999999999943"/>
+                                <fontDescription key="fontDescription" name="Triomphe-Bold" family="Triomphe" pointSize="24"/>
                                 <state key="normal" title="Log In">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
@@ -43,41 +41,167 @@
                                     <segue destination="Dn4-jU-Gd0" kind="presentation" id="C2h-lr-hE6"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="E-mail or Username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SXa-JQ-AdO">
-                                <rect key="frame" x="43" y="330" width="288" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dHh-eP-Ouv">
-                                <rect key="frame" x="120" y="700" width="135" height="36"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="Create Account">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dHh-eP-Ouv">
+                                <rect key="frame" x="8" y="748" width="359" height="30"/>
+                                <fontDescription key="fontDescription" name="Triomphe-Light" family="Triomphe" pointSize="12"/>
+                                <state key="normal" title="Don't have an account? Create one">
+                                    <color key="titleColor" white="1" alpha="0.75346779336734693" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
                                     <segue destination="42H-GQ-GK0" kind="show" id="hVq-CH-PAI"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tnT-kd-khk">
-                                <rect key="frame" x="43" y="420" width="288" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5oT-Ia-d59">
+                                <rect key="frame" x="8" y="715" width="359" height="30"/>
+                                <fontDescription key="fontDescription" name="Triomphe-Light" family="Triomphe" pointSize="12"/>
+                                <state key="normal" title="Forgot Password?">
+                                    <color key="titleColor" white="1" alpha="0.75105628188775508" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo Text Wide" translatesAutoresizingMaskIntoConstraints="NO" id="Gnd-kc-EuT">
+                                <rect key="frame" x="24" y="44" width="327" height="233"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="logoID"/>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="y4g-XE-LiF" customClass="SkyFloatingLabelTextFieldWithIcon" customModule="SkyFloatingLabelTextField">
+                                <rect key="frame" x="8" y="353" width="359" height="40"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="mzV-7Y-2S3"/>
+                                </constraints>
                                 <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <fontDescription key="fontDescription" name="Triomphe-Bold" family="Triomphe" pointSize="24"/>
+                                <textInputTraits key="textInputTraits" spellCheckingType="yes" keyboardType="emailAddress" keyboardAppearance="alert" enablesReturnKeyAutomatically="YES" textContentType="email"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
+                                        <color key="value" cocoaTouchSystemColor="lightTextColor"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="titleColor">
+                                        <color key="value" cocoaTouchSystemColor="lightTextColor"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="errorColor">
+                                        <color key="value" red="0.80000000000000004" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="disabledColor">
+                                        <color key="value" red="0.80000000000000004" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="selectedTitleColor">
+                                        <color key="value" red="0.38823529410000002" green="0.81176470590000005" blue="0.60784313729999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="selectedLineColor">
+                                        <color key="value" red="0.38823529410000002" green="0.81176470590000005" blue="0.60784313729999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="lineHeight">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="selectedLineHeight">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Email or Username"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="selectedTitle" value="Email or Username"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="title" value="Email or Username"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="emailID"/>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="iconImage" value="EmailIcon"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="iconTypeValue">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="iconWidth">
+                                        <real key="value" value="23"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="iconMarginBottom">
+                                        <real key="value" value="-8"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="iconMarginLeft">
+                                        <real key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </textField>
+                            <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="zPy-fa-acs" customClass="SkyFloatingLabelTextFieldWithIcon" customModule="SkyFloatingLabelTextField">
+                                <rect key="frame" x="8" y="401" width="359" height="58.333333333333314"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <fontDescription key="fontDescription" name="Triomphe-Bold" family="Triomphe" pointSize="24"/>
+                                <textInputTraits key="textInputTraits" spellCheckingType="no" keyboardAppearance="alert" secureTextEntry="YES" textContentType="password"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
+                                        <color key="value" cocoaTouchSystemColor="lightTextColor"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="titleColor">
+                                        <color key="value" cocoaTouchSystemColor="lightTextColor"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="errorColor">
+                                        <color key="value" red="0.80000000000000004" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="disabledColor">
+                                        <color key="value" red="0.80000000000000004" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="selectedTitleColor">
+                                        <color key="value" red="0.38823529410000002" green="0.81176470590000005" blue="0.60784313729999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="selectedLineColor">
+                                        <color key="value" red="0.38823529410000002" green="0.81176470590000005" blue="0.60784313729999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="lineHeight">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="selectedLineHeight">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="passwordID"/>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="iconImage" value="passIcon"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="iconTypeValue">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="iconMarginBottom">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="iconWidth">
+                                        <real key="value" value="23"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="iconMarginLeft">
+                                        <real key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Password"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="selectedTitle" value="Password"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="title" value="Password"/>
+                                </userDefinedRuntimeAttributes>
                             </textField>
                         </subviews>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="GOY-jg-M6U" firstAttribute="bottom" secondItem="Gnd-kc-EuT" secondAttribute="bottom" constant="567" id="2nW-7L-dB8"/>
-                            <constraint firstItem="BbG-DW-KEz" firstAttribute="bottom" secondItem="GOY-jg-M6U" secondAttribute="bottom" id="8et-v8-Dyg"/>
-                            <constraint firstItem="BbG-DW-KEz" firstAttribute="centerX" secondItem="Gnd-kc-EuT" secondAttribute="centerX" id="NKg-9V-Whg"/>
-                            <constraint firstItem="BbG-DW-KEz" firstAttribute="leading" secondItem="ghw-wn-HbT" secondAttribute="leadingMargin" id="XtV-67-YNZ"/>
-                            <constraint firstItem="Gnd-kc-EuT" firstAttribute="centerX" secondItem="ghw-wn-HbT" secondAttribute="centerX" id="Y5n-AM-BYe"/>
-                            <constraint firstItem="Gnd-kc-EuT" firstAttribute="top" secondItem="GOY-jg-M6U" secondAttribute="top" id="eMI-8w-L6h"/>
-                            <constraint firstItem="Gnd-kc-EuT" firstAttribute="leading" secondItem="GOY-jg-M6U" secondAttribute="leading" constant="43" id="x6A-Jo-VZO"/>
+                            <constraint firstItem="GOY-jg-M6U" firstAttribute="trailing" secondItem="dHh-eP-Ouv" secondAttribute="trailing" constant="8" id="6G3-wq-IbJ"/>
+                            <constraint firstItem="5oT-Ia-d59" firstAttribute="leading" secondItem="GOY-jg-M6U" secondAttribute="leading" constant="8" id="9pl-Vy-5FK"/>
+                            <constraint firstItem="GOY-jg-M6U" firstAttribute="trailing" secondItem="zPy-fa-acs" secondAttribute="trailing" constant="8" id="DTl-UJ-rm3"/>
+                            <constraint firstItem="zPy-fa-acs" firstAttribute="top" secondItem="y4g-XE-LiF" secondAttribute="bottom" constant="8" id="Ht5-6x-bve"/>
+                            <constraint firstItem="dHh-eP-Ouv" firstAttribute="bottom" secondItem="GOY-jg-M6U" secondAttribute="bottom" id="Kqo-cv-hKI"/>
+                            <constraint firstItem="y4g-XE-LiF" firstAttribute="centerY" secondItem="ghw-wn-HbT" secondAttribute="centerY" constant="-33" id="Kqo-ju-CTR"/>
+                            <constraint firstItem="Gnd-kc-EuT" firstAttribute="top" secondItem="GOY-jg-M6U" secondAttribute="top" id="N5T-ha-hIh"/>
+                            <constraint firstItem="dHh-eP-Ouv" firstAttribute="leading" secondItem="GOY-jg-M6U" secondAttribute="leading" constant="8" id="O25-RY-q38"/>
+                            <constraint firstItem="BbG-DW-KEz" firstAttribute="leading" secondItem="GOY-jg-M6U" secondAttribute="leading" constant="8" id="QdN-a3-nCY"/>
+                            <constraint firstItem="Gnd-kc-EuT" firstAttribute="leading" secondItem="ghw-wn-HbT" secondAttribute="leadingMargin" constant="8" id="UcA-1v-AeI"/>
+                            <constraint firstItem="GOY-jg-M6U" firstAttribute="trailing" secondItem="BbG-DW-KEz" secondAttribute="trailing" constant="8" id="YIL-a4-EPs"/>
+                            <constraint firstItem="GOY-jg-M6U" firstAttribute="trailing" secondItem="5oT-Ia-d59" secondAttribute="trailing" constant="8" id="fQT-Ih-Mfo"/>
+                            <constraint firstItem="dHh-eP-Ouv" firstAttribute="top" secondItem="5oT-Ia-d59" secondAttribute="bottom" constant="3" id="fT1-Va-CXl"/>
+                            <constraint firstItem="y4g-XE-LiF" firstAttribute="leading" secondItem="GOY-jg-M6U" secondAttribute="leading" constant="8" id="iPw-Sc-fGb"/>
+                            <constraint firstItem="zPy-fa-acs" firstAttribute="leading" secondItem="GOY-jg-M6U" secondAttribute="leading" constant="8" id="nyt-Up-4CH"/>
+                            <constraint firstItem="Gnd-kc-EuT" firstAttribute="centerX" secondItem="ghw-wn-HbT" secondAttribute="centerX" id="p89-pq-PRg"/>
+                            <constraint firstItem="GOY-jg-M6U" firstAttribute="trailing" secondItem="y4g-XE-LiF" secondAttribute="trailing" constant="8" id="ube-q1-QGy"/>
+                            <constraint firstItem="BbG-DW-KEz" firstAttribute="top" secondItem="zPy-fa-acs" secondAttribute="bottom" constant="8" id="ucG-2b-Otc"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Gnd-kc-EuT" secondAttribute="trailing" constant="8" id="ya8-36-2bV"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="GOY-jg-M6U"/>
                         <connections>
@@ -88,8 +212,9 @@
                         <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <outlet property="emailUsernameOutlet" destination="SXa-JQ-AdO" id="zvF-Eg-iN0"/>
-                        <outlet property="passwordOutlet" destination="tnT-kd-khk" id="Ypt-IO-Dya"/>
+                        <outlet property="emailUsernameOutlet" destination="y4g-XE-LiF" id="kAa-M9-dDq"/>
+                        <outlet property="logoOutlet" destination="Gnd-kc-EuT" id="EBH-Uk-CN7"/>
+                        <outlet property="passwordOutlet" destination="zPy-fa-acs" id="QHV-Wa-upt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zhs-2L-GFb" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -107,7 +232,7 @@
                 <viewControllerPlaceholder storyboardName="PageView" id="Dn4-jU-Gd0" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1u2-y5-YRp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1716" y="-55.418719211822662"/>
+            <point key="canvasLocation" x="1708" y="-260"/>
         </scene>
         <!--CreateAccount-->
         <scene sceneID="cGx-Xz-Y90">
@@ -115,7 +240,7 @@
                 <viewControllerPlaceholder storyboardName="CreateAccount" id="42H-GQ-GK0" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="chw-HU-OXB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1734" y="129"/>
+            <point key="canvasLocation" x="1708" y="-216"/>
         </scene>
         <!--Sign In TransitionVC-->
         <scene sceneID="P5P-ts-JPv">
@@ -125,7 +250,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo Text" translatesAutoresizingMaskIntoConstraints="NO" id="9aX-6s-4D5">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo Text Wide" translatesAutoresizingMaskIntoConstraints="NO" id="9aX-6s-4D5">
                                 <rect key="frame" x="0.0" y="277" width="375" height="258"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="logoID"/>
@@ -172,6 +297,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Logo Text" width="682" height="682"/>
+        <image name="EmailIcon" width="33" height="33"/>
+        <image name="Logo Text Wide" width="682" height="233"/>
+        <image name="passIcon" width="33" height="33"/>
     </resources>
 </document>

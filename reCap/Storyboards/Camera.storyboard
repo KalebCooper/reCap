@@ -29,12 +29,34 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zzR-PA-LKL">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                                <rect key="frame" x="-3" y="0.0" width="375" height="812"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabledForSubviews" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <imageView userInteractionEnabled="NO" tag="10" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo Text Wide" translatesAutoresizingMaskIntoConstraints="NO" id="PPX-Rz-LL0">
+                                <rect key="frame" x="137.66666666666666" y="48" width="100" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="cYu-XK-gxu"/>
+                                    <constraint firstAttribute="height" constant="40" id="ekR-Th-qHQ"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="logoID"/>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5ki-EW-e73">
+                                <rect key="frame" x="275" y="48" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="5ki-EW-e73" secondAttribute="height" multiplier="1:1" id="3hK-8u-woe"/>
+                                    <constraint firstAttribute="width" secondItem="5ki-EW-e73" secondAttribute="height" multiplier="1:1" id="hsp-R4-q93"/>
+                                    <constraint firstAttribute="height" constant="60" id="nTY-MQ-Zmm"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="profileID"/>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
                             <button opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FOv-tB-rnB">
                                 <rect key="frame" x="40" y="708" width="60" height="60"/>
                                 <constraints>
@@ -59,19 +81,8 @@
                                     <color key="titleShadowColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
                             </button>
-                            <imageView userInteractionEnabled="NO" tag="10" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo Text" translatesAutoresizingMaskIntoConstraints="NO" id="PPX-Rz-LL0">
-                                <rect key="frame" x="138" y="44" width="100" height="35"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="cYu-XK-gxu"/>
-                                    <constraint firstAttribute="height" constant="35" id="ekR-Th-qHQ"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="logoID"/>
-                                </userDefinedRuntimeAttributes>
-                            </imageView>
                             <button opaque="NO" clipsSubviews="YES" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gc9-NS-DgZ">
-                                <rect key="frame" x="148" y="698" width="80" height="80"/>
+                                <rect key="frame" x="147.66666666666666" y="698" width="80" height="80"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="80" id="YbP-0a-VK9"/>
                                     <constraint firstAttribute="width" secondItem="gc9-NS-DgZ" secondAttribute="height" multiplier="1:1" id="mgP-Kc-6g0"/>
@@ -102,25 +113,28 @@
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="zzR-PA-LKL" secondAttribute="bottom" id="16e-CY-YcQ"/>
                             <constraint firstItem="FOv-tB-rnB" firstAttribute="leading" secondItem="h5t-gw-Uin" secondAttribute="leading" constant="40" id="6sR-H0-8bj"/>
-                            <constraint firstItem="zzR-PA-LKL" firstAttribute="leading" secondItem="Ili-fW-OPC" secondAttribute="leading" id="8bH-Xj-eGN"/>
+                            <constraint firstItem="zzR-PA-LKL" firstAttribute="leading" secondItem="Ili-fW-OPC" secondAttribute="leading" constant="-3" id="8bH-Xj-eGN"/>
                             <constraint firstItem="gc9-NS-DgZ" firstAttribute="trailing" secondItem="h5t-gw-Uin" secondAttribute="trailing" id="8iY-dD-ljB"/>
+                            <constraint firstItem="PPX-Rz-LL0" firstAttribute="top" secondItem="h5t-gw-Uin" secondAttribute="top" constant="4" id="9hI-9R-4BD"/>
                             <constraint firstItem="h5t-gw-Uin" firstAttribute="trailing" secondItem="Ykf-Zg-DG4" secondAttribute="trailing" constant="40" id="BcG-XN-k0v"/>
                             <constraint firstItem="zzR-PA-LKL" firstAttribute="top" secondItem="Ili-fW-OPC" secondAttribute="top" id="BcZ-7y-LvV"/>
                             <constraint firstItem="zzR-PA-LKL" firstAttribute="centerY" secondItem="Ili-fW-OPC" secondAttribute="centerY" id="CVQ-ut-aVI"/>
                             <constraint firstItem="gc9-NS-DgZ" firstAttribute="centerY" secondItem="Ili-fW-OPC" secondAttribute="centerY" id="DEd-AF-EvZ"/>
+                            <constraint firstItem="5ki-EW-e73" firstAttribute="centerX" secondItem="Ykf-Zg-DG4" secondAttribute="centerX" id="Gbf-nu-RPn"/>
                             <constraint firstItem="oeN-Wr-Wxk" firstAttribute="bottom" secondItem="h5t-gw-Uin" secondAttribute="bottom" id="HQK-9P-Yt0"/>
                             <constraint firstItem="gc9-NS-DgZ" firstAttribute="top" secondItem="oeN-Wr-Wxk" secondAttribute="bottom" constant="8" id="STT-Pa-E9x"/>
-                            <constraint firstItem="PPX-Rz-LL0" firstAttribute="top" secondItem="h5t-gw-Uin" secondAttribute="top" id="TrY-ip-jKr"/>
                             <constraint firstItem="h5t-gw-Uin" firstAttribute="bottom" secondItem="Ykf-Zg-DG4" secondAttribute="bottom" constant="10" id="WP2-XP-ALb"/>
                             <constraint firstItem="oeN-Wr-Wxk" firstAttribute="leading" secondItem="h5t-gw-Uin" secondAttribute="leading" id="aLp-wS-ppy"/>
-                            <constraint firstItem="PPX-Rz-LL0" firstAttribute="centerX" secondItem="Ili-fW-OPC" secondAttribute="centerX" id="c5X-OJ-eGE"/>
-                            <constraint firstItem="zzR-PA-LKL" firstAttribute="centerX" secondItem="Ili-fW-OPC" secondAttribute="centerX" id="dk4-Bd-Rip"/>
+                            <constraint firstItem="Ykf-Zg-DG4" firstAttribute="centerX" secondItem="gc9-NS-DgZ" secondAttribute="centerX" id="dHL-l8-gIO"/>
+                            <constraint firstItem="zzR-PA-LKL" firstAttribute="centerX" secondItem="Ili-fW-OPC" secondAttribute="centerX" constant="-3" id="dk4-Bd-Rip"/>
                             <constraint firstItem="h5t-gw-Uin" firstAttribute="bottom" secondItem="gc9-NS-DgZ" secondAttribute="bottom" id="j57-jJ-Bik"/>
                             <constraint firstItem="gc9-NS-DgZ" firstAttribute="top" secondItem="oeN-Wr-Wxk" secondAttribute="bottom" constant="8" id="kZc-hP-zoE"/>
-                            <constraint firstItem="zzR-PA-LKL" firstAttribute="trailing" secondItem="Ili-fW-OPC" secondAttribute="trailing" id="m3u-5g-aFb"/>
+                            <constraint firstItem="zzR-PA-LKL" firstAttribute="trailing" secondItem="Ili-fW-OPC" secondAttribute="trailing" constant="-3" id="m3u-5g-aFb"/>
                             <constraint firstItem="h5t-gw-Uin" firstAttribute="trailing" secondItem="oeN-Wr-Wxk" secondAttribute="trailing" id="nhS-Wg-zfN"/>
                             <constraint firstItem="h5t-gw-Uin" firstAttribute="bottom" secondItem="FOv-tB-rnB" secondAttribute="bottom" constant="10" id="wiZ-2C-WnX"/>
                             <constraint firstItem="gc9-NS-DgZ" firstAttribute="centerX" secondItem="Ili-fW-OPC" secondAttribute="centerX" id="y8F-0H-ItB"/>
+                            <constraint firstItem="PPX-Rz-LL0" firstAttribute="centerX" secondItem="Ili-fW-OPC" secondAttribute="centerX" id="z0D-wU-ksB"/>
+                            <constraint firstItem="5ki-EW-e73" firstAttribute="top" secondItem="PPX-Rz-LL0" secondAttribute="top" id="zDc-kA-q4X"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="h5t-gw-Uin"/>
                         <userDefinedRuntimeAttributes>
@@ -128,9 +142,17 @@
                         </userDefinedRuntimeAttributes>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="BcG-XN-k0v"/>
                                 <exclude reference="HQK-9P-Yt0"/>
                                 <exclude reference="8iY-dD-ljB"/>
                                 <exclude reference="DEd-AF-EvZ"/>
+                                <exclude reference="dHL-l8-gIO"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=compact">
+                            <mask key="constraints">
+                                <exclude reference="BcG-XN-k0v"/>
+                                <exclude reference="dHL-l8-gIO"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=compact-widthClass=compact">
@@ -144,6 +166,12 @@
                                 <exclude reference="STT-Pa-E9x"/>
                                 <exclude reference="kZc-hP-zoE"/>
                                 <exclude reference="y8F-0H-ItB"/>
+                                <include reference="dHL-l8-gIO"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="constraints">
+                                <include reference="BcG-XN-k0v"/>
                             </mask>
                         </variation>
                     </view>
@@ -157,6 +185,7 @@
                         <outlet property="locationOutlet" destination="oeN-Wr-Wxk" id="zxR-Tq-8UW"/>
                         <outlet property="logoText" destination="PPX-Rz-LL0" id="IoR-CC-TNj"/>
                         <outlet property="previewView" destination="zzR-PA-LKL" id="dUD-nD-OZP"/>
+                        <outlet property="profileOutlet" destination="5ki-EW-e73" id="p0g-qW-Ebt"/>
                         <segue destination="5FS-bp-BS6" kind="show" identifier="confirmPictureSegue" id="kFW-dU-a72"/>
                     </connections>
                 </viewController>
@@ -299,7 +328,7 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ywa-7i-acP">
                                 <rect key="frame" x="0.0" y="527" width="375" height="202"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-34.43243°W, 93.19387°N" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bEw-nZ-Vm9" customClass="LTMorphingLabel" customModule="LTMorphingLabel">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-34.43243°W, 93.19387°N" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bEw-nZ-Vm9">
                                         <rect key="frame" x="8" y="8" width="359" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
@@ -318,7 +347,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="KA9-3D-ilP" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                        <rect key="frame" x="8" y="121" width="359" height="49"/>
+                                        <rect key="frame" x="8" y="121.33333333333339" width="359" height="48.666666666666671"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <fontDescription key="fontDescription" name="Triomphe-Light" family="Triomphe" pointSize="18"/>
@@ -360,7 +389,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="O7M-hv-fHF" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                        <rect key="frame" x="8" y="37" width="359" height="76"/>
+                                        <rect key="frame" x="8" y="36.999999999999993" width="359" height="76.333333333333314"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <fontDescription key="fontDescription" name="Triomphe-Bold" family="Triomphe" pointSize="36"/>
@@ -458,8 +487,11 @@
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="avoidingView" destination="YzK-as-eNk" id="6Dy-fq-WFu"/>
+                        <outlet property="descriptionOutlet" destination="KA9-3D-ilP" id="QDI-Uk-vw5"/>
                         <outlet property="imageBackground" destination="DxJ-2N-mDs" id="Xcf-TK-AB3"/>
                         <outlet property="imageView" destination="eB3-Nn-AYP" id="XK4-Uc-ifH"/>
+                        <outlet property="locationOutlet" destination="bEw-nZ-Vm9" id="p8H-Nz-igh"/>
+                        <outlet property="titleOutlet" destination="O7M-hv-fHF" id="nH9-Kp-V6N"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pbz-00-wsE" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -494,7 +526,7 @@
     </scenes>
     <resources>
         <image name="Album" width="85" height="85"/>
-        <image name="Logo Text" width="682" height="682"/>
+        <image name="Logo Text Wide" width="682" height="233"/>
         <image name="PreviousPhoto" width="106" height="106"/>
         <image name="imageView:Ccn-g8-PMf:image" width="682" height="682">
             <mutableData key="keyedArchiveRepresentation">

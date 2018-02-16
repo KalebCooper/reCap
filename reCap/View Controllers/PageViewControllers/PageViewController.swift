@@ -11,6 +11,7 @@ import Pageboy
 
 class PageViewController: PageboyViewController, PageboyViewControllerDataSource {
     
+    
     let viewControllersArray: [UIViewController] = {
         
         let mapStoryboard = UIStoryboard(name: "Map", bundle: Bundle.main)
@@ -19,6 +20,7 @@ class PageViewController: PageboyViewController, PageboyViewControllerDataSource
         
         let mapVC = mapStoryboard.instantiateViewController(withIdentifier: "MapContainerVC") as! MapContainerVC
         let cameraVC = cameraStoryboard.instantiateViewController(withIdentifier: "CameraContainerVC") as! CameraContainerVC
+        
         let leaderboardsVC = leaderboardsStoryboard.instantiateViewController(withIdentifier: "LeaderboardsFriendsNav") as! UINavigationController
         
         var viewControllers = [UIViewController]()

@@ -12,6 +12,9 @@ import Hero
 class ImageConfirmVC: UIViewController {
     
     var image: UIImage?
+    var latToPass:  Double?
+    var longToPass: Double?
+    var locationToPass: String?
 
     @IBOutlet weak var imageView: UIImageView!
     @IBAction func cancelButton(_ sender: Any) {
@@ -78,6 +81,9 @@ class ImageConfirmVC: UIViewController {
         if segue.identifier == "createPictureSegue" {
             let vc = segue.destination as! ImageCreateVC
             vc.image = self.image
+            vc.lat = self.latToPass
+            vc.long = self.longToPass
+            vc.location = self.locationToPass
         }
     }
  

@@ -17,6 +17,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     @IBOutlet weak var cameraButton: UIButton!
     @IBOutlet weak var locationOutlet: UILabel!
     @IBOutlet weak var logoText: UIImageView!
+    @IBOutlet weak var profileOutlet: UIImageView!
     
     @IBOutlet weak var previewView: UIView!
     //@IBOutlet weak var imageView: UIImageView!
@@ -29,6 +30,11 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     
     
     var imageToPass: UIImage?
+    var latToPass: Double?
+    var longToPass: Double?
+    var locationToPass: String?
+    
+    var profileImage: UIImage?
     
     
     var session: AVCaptureSession?
@@ -51,15 +57,32 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let duration: TimeInterval = TimeInterval(exactly: 1.0)!
+        
+        if UserDefaults.standard.object(forKey: "profileImage") != nil {
+            let data = UserDefaults.standard.object(forKey: "profileImage") as! NSData
 
-        previewView.hero.modifiers = [.forceNonFade, .duration(duration), .useScaleBasedSizeChange]
+            profileImage = UIImage(data: data as Data)
+        }
+        
+        
+        
+        profileOutlet.image = profileImage
+        profileOutlet.layer.borderWidth = 1
+        profileOutlet.layer.borderColor = UIColor.white.cgColor
+        profileOutlet.layer.cornerRadius = profileOutlet.layer.frame.width / 2
+        profileOutlet.layer.masksToBounds = false
+        profileOutlet.clipsToBounds = true
+        profileOutlet.contentMode = .scaleAspectFill
+        
+        
+        let duration: TimeInterval = TimeInterval(exactly: 0.5)!
+
+        logoText.hero.modifiers = [.forceNonFade, .duration(duration), .useScaleBasedSizeChange]
         
         
         setupCamera()
         initializeShadow()
         configureButton()
-        setupLocation()
         
         self.viewDidAppear(false)
         
@@ -251,6 +274,10 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
                                     
                                     self.locationOutlet.text = latString + " , " + longString
                                     
+                                    self.latToPass = lat
+                                    self.longToPass = long
+                                    self.locationToPass = latString + " , " + longString
+                                    
         },
                                   onFail: { (error, last) in
                                     
@@ -284,6 +311,8 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        setupLocation()
         
         let when = DispatchTime.now() + 0.15 // change 2 to desired number of seconds
         DispatchQueue.main.asyncAfter(deadline: when) {
@@ -359,6 +388,9 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
             let vc = segue.destination as! ImageConfirmVC
             
             vc.image = self.imageToPass
+            vc.latToPass = self.latToPass
+            vc.longToPass = self.longToPass
+            vc.locationToPass = self.locationToPass
 
         }
         
