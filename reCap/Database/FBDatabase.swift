@@ -19,6 +19,7 @@ class FBDatabase {
     private static let USER_EMAIL = "E-mail"
     private static let USER_POINTS = "Points"
     private static let USER_USERNAME = "Username"
+    private static let USER_FRIENDS_ID = "Friends ID"
     private static let PROFILE_PICTURE_NODE = "Profile Picture"
     
     private static let EMPTY_VALUE = "Empty"
@@ -96,6 +97,13 @@ class FBDatabase {
         UserDefaults.standard.removeObject(forKey: LOGGED_IN_ID)
     }
     
+    /*
+     Get signed in users ID
+    */
+    class func getSignedInUserID() -> String {
+        return UserDefaults.standard.value(forKey: LOGGED_IN_ID) as! String
+    }
+    
     // MARK: - User Methods
     
     /*
@@ -103,7 +111,7 @@ class FBDatabase {
     */
     class func addUpdateUser(user: User, with_completion completion: @escaping (_ error: String?) -> ()) {
         let ref = Database.database().reference()
-        let jsonObject: [String : Any] = [USER_USER_ID : user.id, USER_NAME : user.name, USER_PICTURES : user.pictures, USER_EMAIL : user.email, USER_POINTS : user.points, USER_USERNAME : user.username]
+        let jsonObject: [String : Any] = [USER_USER_ID : user.id, USER_NAME : user.name, USER_PICTURES : user.pictures, USER_EMAIL : user.email, USER_POINTS : user.points, USER_USERNAME : user.username, USER_FRIENDS_ID : user.friendsID]
         ref.child(USER_NODE).child(user.id).setValue(jsonObject, withCompletionBlock: {(error, ref) in
             if let realError = error {
                 // Error occured
@@ -237,7 +245,21 @@ class FBDatabase {
     */
     class func getPicture(pictureData: PictureData, with_progress progress: @escaping (_ progress: Int64, _ total: Int64) -> (), with_completion completion: @escaping (_ image: UIImage?) -> ()) {
         let storageRef = Storage.storage().reference(forURL: "gs://recap-78bda.appspot.com").child(PICTURE_NODE).child(pictureData.id)
-        
+        getPictureFromDatabase(storageRef: storageRef, with_progress: progress, with_completion: completion)
+    }
+    
+    /*
+     Gets profile picture
+    */
+    class func getProfilePicture(for_user user: User, with_progress progress: @escaping (_ progress: Int64, _ total: Int64) -> (), with_completion completion: @escaping (_ image: UIImage?) -> ()) {
+        let storageRef = Storage.storage().reference(forURL: "gs://recap-78bda.appspot.com").child(PROFILE_PICTURE_NODE).child(user.id)
+        getPictureFromDatabase(storageRef: storageRef, with_progress: progress, with_completion: completion)
+    }
+    
+    /*
+     Gets picture from DB
+    */
+    class func getPictureFromDatabase(storageRef: StorageReference, with_progress progress: @escaping (_ progress: Int64, _ total: Int64) -> (), with_completion completion: @escaping (_ image: UIImage?) -> ()) {
         let downloadTask = storageRef.getData(maxSize: 1 * 1024 * 1024) { (data, error) -> Void in
             if data != nil {
                 // Got picture in database
@@ -256,6 +278,6 @@ class FBDatabase {
                 progress(currentProgress!, totalCount!)
             }
         })
+        
     }
-    
 }
