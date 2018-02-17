@@ -21,7 +21,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //Firebase initialization
         FirebaseApp.configure()
         UIApplication.shared.statusBarStyle = .lightContent
+        let signedInStatus = FBDatabase.getSignedInStatus()
+        if signedInStatus == FBDatabase.USER_SIGNED_INTO_FIR {
+            // User already signed into Firebase
+            print("User is already signed into firebase in app delegate")
+            setRootAsPageView()
+        }
+        else if signedInStatus == FBDatabase.USER_SIGNED_IN_LOCALLY {
+            // User is signed in locally
+            print("User is signed in locally in app delegate")
+            FBDatabase.signInAutomaticUser(with_completion: {(id, error) in
+                if id != nil {
+                    print("User is signed into firebase in app delegate")
+                    self.setRootAsPageView()
+                }
+                else {
+                    print("User did not successfully sign into firebase in app delegate")
+                    self.setRootAsSignIn()
+                }
+            })
+        }
+        else if signedInStatus == FBDatabase.USER_NOT_SIGNED_IN {
+            // User is not signed in
+            print("User is not signed into firebase")
+            setRootAsSignIn()
+        }
         return true
+    }
+    
+    private func setRootAsPageView() {
+        let pageViewStoryboard = UIStoryboard(name: "PageView", bundle: nil)
+        self.window?.rootViewController = pageViewStoryboard.instantiateInitialViewController()
+    }
+    
+    private func setRootAsSignIn() {
+        let signInStoryboard = UIStoryboard(name: "SignIn", bundle: nil)
+        self.window?.rootViewController = signInStoryboard.instantiateInitialViewController()
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

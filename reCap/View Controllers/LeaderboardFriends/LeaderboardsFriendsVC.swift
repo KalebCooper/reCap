@@ -59,7 +59,7 @@ class LeaderboardsFriendsVC: UITableViewController {
     
     // MARK: - Setup Methods
     private func setupLeaderboards() {
-        let settingsButton = UIBarButtonItem(title: "Settings", style: .plain, target: nil, action: #selector(settingsPressed))
+        let settingsButton = UIBarButtonItem(title: "Settings", style: .plain, target: self, action: #selector(settingsPressed))
         let navController = self.navigationController
         let navBar = navController?.navigationBar
         let navItem = navBar?.topItem
@@ -118,7 +118,8 @@ class LeaderboardsFriendsVC: UITableViewController {
      in leaderboard mode
     */
     @objc private func settingsPressed() {
-        
+        print("Settings Pressed")
+        self.performSegue(withIdentifier: "SettingsSegue", sender: nil)
     }
 
     /*

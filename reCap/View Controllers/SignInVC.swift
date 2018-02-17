@@ -87,9 +87,9 @@ class SignInVC: UIViewController, UITextFieldDelegate {
         if let emailUsername = emailUsernameOutlet.text, let password = passwordOutlet.text {
             // If fields are filled out
             FBDatabase.signInUser(email: emailUsername, password: password, with_completion: {(id, error) in
-                if let activeId = id {
+                if id != nil {
                     print("Got user id in sign in VC")
-                    FBDatabase.setAutomaticSignIn(with_id: activeId)
+                    FBDatabase.setAutomaticSignIn(with_email: emailUsername, with_password: password)
                     // Segues to page view
                 }
                 else {

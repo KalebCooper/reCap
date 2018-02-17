@@ -29,13 +29,54 @@ class SettingsVC: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return 1
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath)
+        let cellName = cell?.textLabel?.text!
+        if cellName == "Logout" {
+            // Logout pressed
+            logoutPressed()
+        }
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    // MARK: - Misc.
+    
+    /*
+     Called when logout cell it pressed
+    */
+    private func logoutPressed() {
+        print("Logout pressed")
+        let alert = UIAlertController(title: "Logout", message: "Are you sure you want to logout", preferredStyle: .alert)
+        let ok = UIAlertAction(title: "ok", style: .destructive, handler: {(okAction) in
+            FBDatabase.signOutUser(with_completion: {(error) in
+                if let realError = error {
+                    print(realError)
+                }
+                else {
+                    // No error
+                    print("Logged user out")
+                    FBDatabase.removeAutomaticSignIn()
+                    let signInVC = UIStoryboard(name: "SignIn", bundle: nil).instantiateInitialViewController()
+                    let appDelege = UIApplication.shared.delegate as! AppDelegate
+                    appDelege.window?.rootViewController = signInVC
+                    appDelege.window?.rootViewController?.dismiss(animated: true, completion: nil)
+                }
+            })
+        })
+        let cancel = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
+        alert.addAction(ok)
+        alert.addAction(cancel)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
 
     /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

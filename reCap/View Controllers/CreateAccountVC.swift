@@ -70,7 +70,7 @@ class CreateAccountVC: UITableViewController, UIImagePickerControllerDelegate, U
                         else {
                             // No error
                             print("Wrote user to database in SignInVC")
-                            FBDatabase.setAutomaticSignIn(with_id: activeID)
+                            FBDatabase.setAutomaticSignIn(with_email: email, with_password: password)
                             FBDatabase.addProfilePicture(with_image: image, for_user: user, with_completion: {(error) in
                                 if let actualError = error {
                                     // An error occured
