@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14087.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_9" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14075.4"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -157,9 +157,9 @@
                         </variation>
                         <variation key="heightClass=compact-widthClass=compact">
                             <mask key="constraints">
+                                <exclude reference="j57-jJ-Bik"/>
                                 <include reference="16e-CY-YcQ"/>
                                 <include reference="CVQ-ut-aVI"/>
-                                <exclude reference="j57-jJ-Bik"/>
                                 <include reference="HQK-9P-Yt0"/>
                                 <include reference="8iY-dD-ljB"/>
                                 <include reference="DEd-AF-EvZ"/>
@@ -239,7 +239,6 @@
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <connections>
                                 <action selector="cancelButton:" destination="5FS-bp-BS6" id="8DM-9G-bXy"/>
-                                <segue destination="iJU-se-NGw" kind="show" id="KKD-1L-iGT"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem width="127" style="plain" systemItem="fixedSpace" id="uz5-UR-9R8"/>
@@ -266,14 +265,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tm5-14-1Ca" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3095.1999999999998" y="-155.17241379310346"/>
-        </scene>
-        <!--PageView-->
-        <scene sceneID="BDj-qF-rud">
-            <objects>
-                <viewControllerPlaceholder storyboardName="PageView" id="iJU-se-NGw" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="asE-Fv-kXn" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2655" y="280"/>
         </scene>
         <!--Image CreateVC-->
         <scene sceneID="nms-kt-ESX">
@@ -472,12 +463,14 @@
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <connections>
                                 <action selector="cancelPressed:" destination="yyB-jy-Tx0" id="xwO-Vw-w1N"/>
-                                <segue destination="iJU-se-NGw" kind="show" id="zFq-oB-gnS"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem width="127" style="plain" systemItem="fixedSpace" id="oRM-BW-A6d"/>
                         <barButtonItem title="Confirm" id="v7v-cu-mPQ">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <connections>
+                                <action selector="confirmPressed:" destination="yyB-jy-Tx0" id="n2X-NW-HWf"/>
+                            </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="03A-x8-g5x"/>
                     </toolbarItems>
@@ -31647,7 +31640,4 @@ pgAceq4AHHqxABx6wwAcesYAHHrLAAAAAAAABAEAAAAAAAAAWQAAAAAAAAAAAAAAAAAces0
 </mutableData>
         </image>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="zFq-oB-gnS"/>
-    </inferredMetricsTieBreakers>
 </document>

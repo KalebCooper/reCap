@@ -137,17 +137,17 @@ class FBDatabase {
                 let userNode = users[id] as! NSDictionary
                 let name = userNode[USER_NAME] as! String
                 let email = userNode[USER_EMAIL] as! String
-                let pictures = userNode[USER_PICTURES]
+                var pictures = userNode[USER_PICTURES] as? [String]
+                var friendsID = userNode[USER_FRIENDS_ID] as? [String]
                 let username = userNode[USER_USERNAME] as! String
                 let user: User
-                if let realPics = pictures as? [String] {
-                    // The user has pictures
-                    user = User(id: id, name: name, email: email, username: username, pictures: realPics)
+                if pictures == nil {
+                    pictures = []
                 }
-                else {
-                    // The user has no pictures
-                    user = User(id: id, name: name, email: email, username: username)
+                if friendsID == nil {
+                    friendsID = []
                 }
+                user = User(id: id, name: name, email: email, username: username, pictures: pictures!, friendsID: friendsID!)
                 completion(user)
             }
             else {
