@@ -2,16 +2,16 @@ PODS:
   - ClusterKit/Core (0.3.3)
   - ClusterKit/MapKit (0.3.3):
     - ClusterKit/Core
-  - Firebase/Auth (4.8.2):
+  - Firebase/Auth (4.9.0):
     - Firebase/Core
-    - FirebaseAuth (= 4.4.2)
-  - Firebase/Core (4.8.2):
+    - FirebaseAuth (= 4.4.3)
+  - Firebase/Core (4.9.0):
     - FirebaseAnalytics (= 4.0.9)
-    - FirebaseCore (= 4.0.14)
-  - Firebase/Database (4.8.2):
+    - FirebaseCore (= 4.0.15)
+  - Firebase/Database (4.9.0):
     - Firebase/Core
     - FirebaseDatabase (= 4.1.4)
-  - Firebase/Storage (4.8.2):
+  - Firebase/Storage (4.9.0):
     - Firebase/Core
     - FirebaseStorage (= 2.1.2)
   - FirebaseAnalytics (4.0.9):
@@ -19,17 +19,17 @@ PODS:
     - FirebaseInstanceID (~> 2.0)
     - GoogleToolboxForMac/NSData+zlib (~> 2.1)
     - nanopb (~> 0.3)
-  - FirebaseAuth (4.4.2):
+  - FirebaseAuth (4.4.3):
     - FirebaseAnalytics (~> 4.0)
     - GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)
     - GTMSessionFetcher/Core (~> 1.1)
-  - FirebaseCore (4.0.14):
+  - FirebaseCore (4.0.15):
     - GoogleToolboxForMac/NSData+zlib (~> 2.1)
   - FirebaseDatabase (4.1.4):
     - FirebaseAnalytics (~> 4.0)
     - FirebaseCore (~> 4.0)
     - leveldb-library (~> 1.18)
-  - FirebaseInstanceID (2.0.8):
+  - FirebaseInstanceID (2.0.9):
     - FirebaseCore (~> 4.0)
   - FirebaseStorage (2.1.2):
     - FirebaseAnalytics (~> 4.0)
@@ -49,7 +49,7 @@ PODS:
   - Hero (1.1.0)
   - IHKeyboardAvoiding (4.2)
   - leveldb-library (1.20)
-  - Mapbox-iOS-SDK (3.7.4)
+  - Mapbox-iOS-SDK (3.7.5)
   - MapboxGeocoder.swift (0.8.0)
   - nanopb (0.3.8):
     - nanopb/decode (= 0.3.8)
@@ -78,19 +78,19 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   ClusterKit: 52177be19bda5d9c09cb172e61842185268e6b5c
-  Firebase: 7d3b8cd837ad9fcd391657734c0d56dab8e9a5a3
+  Firebase: 632216af3ed7f31e3be34776947fdc7546cfb572
   FirebaseAnalytics: 388b630c15713f5dbf364071f5f3d6077fb52f4e
-  FirebaseAuth: bd2738c5c1e92b108ba5f7f7335908097a4e50bb
-  FirebaseCore: 2e0b98fb2d64ca8140136beff15772bdd14d2dd7
+  FirebaseAuth: aaaf68d5064a6c8fec435758f83a43b8db26ccaa
+  FirebaseCore: 3bd047463058fa6b5d312c97502c52e45401cdfb
   FirebaseDatabase: de4446507ccd3257fca37d16f40e1540324571fd
-  FirebaseInstanceID: 81df5805a08001e69138664bdd02c6719a9ac80f
+  FirebaseInstanceID: d2058a35e9bebda1b6dd42486b84917bde552a9d
   FirebaseStorage: 181bb543d39ee3c53e0558de7ba86b1286a0427f
   GoogleToolboxForMac: 2501e2ad72a52eb3dfe7bd9aee7dad11b858bd20
   GTMSessionFetcher: 5bb1eae636127de695590f50e7d248483eb891e6
   Hero: ce59e81c79390613d97b43da7179e2c5e1017e04
   IHKeyboardAvoiding: 9fbf816b7c3c84911964802ff110d12caf40ebef
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
-  Mapbox-iOS-SDK: fb994b9e46df7b909f58dd0c5df5a44f58cdab04
+  Mapbox-iOS-SDK: 107e331a7ae02e6be902c1557d3454c54e18ce5b
   MapboxGeocoder.swift: 16e8488bbb81a5036b9a11d4d7714200337db86b
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   Pageboy: 502560f49b0357eaf8a3b6075e4cab29505079a3
@@ -100,4 +100,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 03575971d746afbbe19a695349075322e8522588
 
-COCOAPODS: 1.3.1
+COCOAPODS: 1.4.0

@@ -239,7 +239,6 @@
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <connections>
                                 <action selector="cancelButton:" destination="5FS-bp-BS6" id="8DM-9G-bXy"/>
-                                <segue destination="iJU-se-NGw" kind="show" id="KKD-1L-iGT"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem width="127" style="plain" systemItem="fixedSpace" id="uz5-UR-9R8"/>
@@ -266,14 +265,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tm5-14-1Ca" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3095.1999999999998" y="-155.17241379310346"/>
-        </scene>
-        <!--PageView-->
-        <scene sceneID="BDj-qF-rud">
-            <objects>
-                <viewControllerPlaceholder storyboardName="PageView" id="iJU-se-NGw" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="asE-Fv-kXn" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2655" y="280"/>
         </scene>
         <!--Image CreateVC-->
         <scene sceneID="nms-kt-ESX">
@@ -347,7 +338,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="KA9-3D-ilP" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                        <rect key="frame" x="8" y="121.33333333333333" width="708" height="48.666666666666671"/>
+                                        <rect key="frame" x="8" y="103" width="708" height="31"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <fontDescription key="fontDescription" name="Triomphe-Light" family="Triomphe" pointSize="18"/>
@@ -389,7 +380,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="O7M-hv-fHF" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                        <rect key="frame" x="8" y="36.999999999999993" width="708" height="76.333333333333314"/>
+                                        <rect key="frame" x="8" y="37" width="708" height="58"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <fontDescription key="fontDescription" name="Triomphe-Bold" family="Triomphe" pointSize="36"/>
@@ -472,12 +463,14 @@
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <connections>
                                 <action selector="cancelPressed:" destination="yyB-jy-Tx0" id="xwO-Vw-w1N"/>
-                                <segue destination="iJU-se-NGw" kind="show" id="zFq-oB-gnS"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem width="127" style="plain" systemItem="fixedSpace" id="oRM-BW-A6d"/>
                         <barButtonItem title="Confirm" id="v7v-cu-mPQ">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <connections>
+                                <action selector="confirmPressed:" destination="yyB-jy-Tx0" id="n2X-NW-HWf"/>
+                            </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="03A-x8-g5x"/>
                     </toolbarItems>
@@ -31647,7 +31640,4 @@ pgAceq4AHHqxABx6wwAcesYAHHrLAAAAAAAABAEAAAAAAAAAWQAAAAAAAAAAAAAAAAAces0
 </mutableData>
         </image>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="zFq-oB-gnS"/>
-    </inferredMetricsTieBreakers>
 </document>

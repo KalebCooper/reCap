@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "0930"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -13,11 +13,11 @@
             buildForProfiling = "YES"
             buildForArchiving = "YES">
             <BuildableReference
-               BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'A05A42726C7C465D5E4BD2ED037AC1DB'
-               BlueprintName = 'ClusterKit'
-               ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'ClusterKit.framework'>
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "A05A42726C7C465D5E4BD2ED037AC1DB"
+               BlueprintName = "ClusterKit"
+               ReferencedContainer = "container:Pods.xcodeproj"
+               BuildableName = "ClusterKit.framework">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

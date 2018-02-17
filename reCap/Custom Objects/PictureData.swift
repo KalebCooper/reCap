@@ -37,4 +37,10 @@ class PictureData {
         self.id = id
     }
     
+    /*
+     Returns an id for picture data
+    */
+    class func createPictureDataID() -> String {
+        return UUID().uuidString
+    }
 }

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14087.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="yoz-Zc-eHq">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="yoz-Zc-eHq">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14075.4"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -411,7 +411,6 @@
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="addPressed:" destination="irl-TE-hrg" id="VLh-cb-HXs"/>
-                                <segue destination="CLO-HN-oDc" kind="show" identifier="createAccountSegue" id="uPm-Xo-lgZ"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -426,6 +425,7 @@
                         <outlet property="passwordOutlet" destination="HXC-zr-NLa" id="Xq6-hH-Cga"/>
                         <outlet property="usernameOutlet" destination="AIF-CZ-I0e" id="eZL-6e-qF0"/>
                         <outlet property="verifyPasswordOutlet" destination="N7H-oj-bwx" id="CPe-i2-iDP"/>
+                        <segue destination="CLO-HN-oDc" kind="show" identifier="PageViewSegue" id="UN2-Ik-usm"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XgS-OV-pNn" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -435,8 +435,8 @@
         <!--PageView-->
         <scene sceneID="bV8-PM-kVO">
             <objects>
-                <viewControllerPlaceholder storyboardName="PageView" id="CLO-HN-oDc" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8IA-Ls-dlc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewControllerPlaceholder storyboardName="PageView" id="CLO-HN-oDc" sceneMemberID="viewController"/>
             </objects>
             <point key="canvasLocation" x="1521" y="92"/>
         </scene>
