@@ -157,9 +157,9 @@
                         </variation>
                         <variation key="heightClass=compact-widthClass=compact">
                             <mask key="constraints">
+                                <exclude reference="j57-jJ-Bik"/>
                                 <include reference="16e-CY-YcQ"/>
                                 <include reference="CVQ-ut-aVI"/>
-                                <exclude reference="j57-jJ-Bik"/>
                                 <include reference="HQK-9P-Yt0"/>
                                 <include reference="8iY-dD-ljB"/>
                                 <include reference="DEd-AF-EvZ"/>
