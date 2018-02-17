@@ -54,7 +54,7 @@ class CreateAccountVC: UITableViewController, UIImagePickerControllerDelegate, U
     // MARK: - Outlet Actions
     
     @IBAction func addPressed(_ sender: Any) {
-        if let name = fullNameOutlet.text, let email = emailOutlet.text, let username = usernameOutlet.text, let password = passwordOutlet.text, let verifyPass = verifyPasswordOutlet.text, let image = imageOutlet.backgroundImage(for: .normal), password == verifyPass {
+        if let name = fullNameOutlet.text, let email = emailOutlet.text, let username = usernameOutlet.text, let password = passwordOutlet.text, let verifyPass = verifyPasswordOutlet.text, let image = imageView.image, password == verifyPass {
             // If all fields are filled out
             print("Creating user")
             FBDatabase.createUserAuth(email: email, password: password, with_completion: {(id, error) in
@@ -80,9 +80,9 @@ class CreateAccountVC: UITableViewController, UIImagePickerControllerDelegate, U
                                 else {
                                     // No error occured
                                     print("Added profile picture to database")
+                                    self.performSegue(withIdentifier: "PageViewSegue", sender: nil)
                                 }
                             })
-                            self.dismiss(animated: true, completion: nil)
                         }
                     })
                 }
@@ -91,6 +91,9 @@ class CreateAccountVC: UITableViewController, UIImagePickerControllerDelegate, U
                     print(error!)
                 }
             })
+        }
+        else {
+            print("Fill out all fields")
         }
     }
     
