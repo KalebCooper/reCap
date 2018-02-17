@@ -128,8 +128,8 @@
 		7A5878582030D27500F36A56 /* CameraVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraVC.swift; sourceTree = "<group>"; };
 		7A58785D20310A0100F36A56 /* CreateAccount.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CreateAccount.storyboard; sourceTree = "<group>"; };
 		7AE3755E2037C56000CA9946 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
-		7AE375602037C57600CA9946 /* ImageConfirmVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageConfirmVC.swift; path = "../../../../../Desktop/Files to Save/ImageConfirmVC.swift"; sourceTree = "<group>"; };
-		7AE375612037C57600CA9946 /* ImageCreateVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageCreateVC.swift; path = "../../../../../Desktop/Files to Save/ImageCreateVC.swift"; sourceTree = "<group>"; };
+		7AE375602037C57600CA9946 /* ImageConfirmVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageConfirmVC.swift; path = "../../../../kaleb/Documents/SideProjects/reCap/reCap/View Controllers/ImageConfirmVC.swift"; sourceTree = SOURCE_ROOT; };
+		7AE375612037C57600CA9946 /* ImageCreateVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageCreateVC.swift; path = "../../../../kaleb/Documents/SideProjects/reCap/reCap/View Controllers/ImageCreateVC.swift"; sourceTree = SOURCE_ROOT; };
 		7AE375642037C59400CA9946 /* CameraContainerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CameraContainerVC.swift; path = "../../../../../../Desktop/Files to Save/CameraContainerVC.swift"; sourceTree = "<group>"; };
 		7AE375662037C6D900CA9946 /* FBDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBDatabase.swift; sourceTree = "<group>"; };
 		7AE375692037C8E100CA9946 /* LeaderboardsFriendsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaderboardsFriendsVC.swift; sourceTree = "<group>"; };
@@ -878,7 +878,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = CZ7R6F7L6H;
+				DEVELOPMENT_TEAM = VPT5835T5T;
 				INFOPLIST_FILE = reCap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Kaleb-Cooper-Team-Red.reCap";
@@ -895,7 +895,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = CZ7R6F7L6H;
+				DEVELOPMENT_TEAM = VPT5835T5T;
 				INFOPLIST_FILE = reCap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Kaleb-Cooper-Team-Red.reCap";
