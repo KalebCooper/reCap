@@ -18,6 +18,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     @IBOutlet weak var locationOutlet: UILabel!
     @IBOutlet weak var logoText: UIImageView!
     @IBOutlet weak var profileOutlet: UIImageView!
+    @IBOutlet weak var albumOutlet: UIButton!
     
     @IBOutlet weak var previewView: UIView!
     //@IBOutlet weak var imageView: UIImageView!
@@ -57,13 +58,26 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupProfileImage()
+        setupHero()
+        setupCamera()
+        initializeShadow()
+        configureButton()
+        setupGestures()
+        
+        self.viewDidAppear(false)
+        
+        // Do any additional setup after loading the view.
+    }
+    
+    
+    func setupProfileImage() {
         
         if UserDefaults.standard.object(forKey: "profileImage") != nil {
             let data = UserDefaults.standard.object(forKey: "profileImage") as! NSData
-
+            
             profileImage = UIImage(data: data as Data)
         }
-        
         
         
         profileOutlet.image = profileImage
@@ -74,19 +88,46 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         profileOutlet.clipsToBounds = true
         profileOutlet.contentMode = .scaleAspectFill
         
+    }
+    
+    func setupHero() {
         
         let duration: TimeInterval = TimeInterval(exactly: 0.5)!
-
+        
         logoText.hero.modifiers = [.forceNonFade, .duration(duration), .useScaleBasedSizeChange]
         
+        profileOutlet.hero.modifiers = [.forceNonFade, .duration(duration), .arc(intensity: 1.0)]
         
-        setupCamera()
-        initializeShadow()
-        configureButton()
+        albumOutlet.hero.modifiers = [.forceNonFade, .duration(duration), .arc(intensity: 1.0)]
         
-        self.viewDidAppear(false)
+        cameraButton.hero.modifiers = [.duration(duration), .arc(intensity: 1.0)]
         
-        // Do any additional setup after loading the view.
+    }
+    
+    func setupGestures() {
+        
+        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
+        swipeDown.direction = UISwipeGestureRecognizerDirection.down
+        self.view.addGestureRecognizer(swipeDown)
+        
+    }
+    
+    @objc func respondToSwipeGesture(gesture: UIGestureRecognizer) {
+        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
+            switch swipeGesture.direction {
+            case UISwipeGestureRecognizerDirection.right:
+                print("Swiped right")
+            case UISwipeGestureRecognizerDirection.down:
+                print("Swiped down")
+                self.performSegue(withIdentifier: "toProfileSegue", sender: self)
+            case UISwipeGestureRecognizerDirection.left:
+                print("Swiped left")
+            case UISwipeGestureRecognizerDirection.up:
+                print("Swiped up")
+            default:
+                break
+            }
+        }
     }
     
     
@@ -192,8 +233,6 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     
     func updateShadows() {
         
-        
-        
         if UIDevice.current.orientation.isLandscape {
             
             if self.portraitTopShadow != nil {
@@ -235,7 +274,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         
-        let when = DispatchTime.now() + 0.15 // change 2 to desired number of seconds
+        let when = DispatchTime.now() + 0.01 // change 2 to desired number of seconds
         DispatchQueue.main.asyncAfter(deadline: when) {
             
             self.viewDidAppear(false)
@@ -392,6 +431,13 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
             vc.longToPass = self.longToPass
             vc.locationToPass = self.locationToPass
 
+        }
+        
+        if segue.identifier == "toProfileSegue" {
+            
+            let vc = segue.destination as! ProfileMenuVC
+            
+            vc.image = self.profileOutlet.image
         }
         
     }

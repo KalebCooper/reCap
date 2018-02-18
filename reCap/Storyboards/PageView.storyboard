@@ -13,7 +13,7 @@
         <!--Page View Controller-->
         <scene sceneID="btE-jw-uhf">
             <objects>
-                <viewController id="Ezt-5M-BQ7" customClass="PageViewController" customModule="reCap" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PageViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Ezt-5M-BQ7" customClass="PageViewController" customModule="reCap" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="OpZ-DW-F6P">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

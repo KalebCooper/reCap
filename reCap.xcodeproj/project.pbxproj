@@ -16,6 +16,8 @@
 		344C940D20226E280025E4C5 /* reCapUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344C940C20226E280025E4C5 /* reCapUITests.swift */; };
 		345FB83920363BE300C59FDB /* SignInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 345FB83820363BE300C59FDB /* SignInVC.swift */; };
 		347A06A4202A14BB00961024 /* SignInTransitionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347A06A3202A14BB00961024 /* SignInTransitionVC.swift */; };
+		348591F32039EE16003E3704 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 348591F22039EE16003E3704 /* Profile.storyboard */; };
+		348591F52039F2A2003E3704 /* ProfileMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348591F42039F2A2003E3704 /* ProfileMenuVC.swift */; };
 		34A7ACA8202787DA00ACFB12 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A7ACA7202787DA00ACFB12 /* PageViewController.swift */; };
 		34A7ACB020278CA700ACFB12 /* LeaderboardContainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A7ACAF20278CA700ACFB12 /* LeaderboardContainerVC.swift */; };
 		34A7ACB42027A4EB00ACFB12 /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34A7ACB32027A4EB00ACFB12 /* Map.storyboard */; };
@@ -95,6 +97,8 @@
 		344C940E20226E280025E4C5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		345FB83820363BE300C59FDB /* SignInVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInVC.swift; sourceTree = "<group>"; };
 		347A06A3202A14BB00961024 /* SignInTransitionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInTransitionVC.swift; sourceTree = "<group>"; };
+		348591F22039EE16003E3704 /* Profile.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Profile.storyboard; path = ../../../../../../kaleb/Documents/SideProjects/reCap/reCap/Storyboards/Profile.storyboard; sourceTree = "<group>"; };
+		348591F42039F2A2003E3704 /* ProfileMenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProfileMenuVC.swift; path = "../../../../../../kaleb/Documents/SideProjects/reCap/reCap/View Controllers/ProfileMenuVC.swift"; sourceTree = "<group>"; };
 		34A7ACA7202787DA00ACFB12 /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		34A7ACAF20278CA700ACFB12 /* LeaderboardContainerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardContainerVC.swift; sourceTree = "<group>"; };
 		34A7ACB32027A4EB00ACFB12 /* Map.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Map.storyboard; sourceTree = "<group>"; };
@@ -130,7 +134,7 @@
 		7AE3755E2037C56000CA9946 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		7AE375602037C57600CA9946 /* ImageConfirmVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageConfirmVC.swift; path = "../../../../kaleb/Documents/SideProjects/reCap/reCap/View Controllers/ImageConfirmVC.swift"; sourceTree = SOURCE_ROOT; };
 		7AE375612037C57600CA9946 /* ImageCreateVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageCreateVC.swift; path = "../../../../kaleb/Documents/SideProjects/reCap/reCap/View Controllers/ImageCreateVC.swift"; sourceTree = SOURCE_ROOT; };
-		7AE375642037C59400CA9946 /* CameraContainerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CameraContainerVC.swift; path = "../../../../../../Desktop/Files to Save/CameraContainerVC.swift"; sourceTree = "<group>"; };
+		7AE375642037C59400CA9946 /* CameraContainerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CameraContainerVC.swift; path = "../../../../kaleb/Documents/SideProjects/reCap/reCap/View Controllers/PageViewControllers/CameraContainerVC.swift"; sourceTree = SOURCE_ROOT; };
 		7AE375662037C6D900CA9946 /* FBDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBDatabase.swift; sourceTree = "<group>"; };
 		7AE375692037C8E100CA9946 /* LeaderboardsFriendsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaderboardsFriendsVC.swift; sourceTree = "<group>"; };
 		7AE3756A2037C8E100CA9946 /* LeaderboardFriendsTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaderboardFriendsTableCell.swift; sourceTree = "<group>"; };
@@ -243,6 +247,7 @@
 		34A7ACA62027878E00ACFB12 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
+				348591F22039EE16003E3704 /* Profile.storyboard */,
 				7AE3755E2037C56000CA9946 /* Launch Screen.storyboard */,
 				7A3B468D202AB407001D19B6 /* SignIn.storyboard */,
 				7A58785D20310A0100F36A56 /* CreateAccount.storyboard */,
@@ -282,6 +287,7 @@
 		7A4D8A3820277DFF0043878E /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				348591F42039F2A2003E3704 /* ProfileMenuVC.swift */,
 				345FB83820363BE300C59FDB /* SignInVC.swift */,
 				7AE375602037C57600CA9946 /* ImageConfirmVC.swift */,
 				7AE375612037C57600CA9946 /* ImageCreateVC.swift */,
@@ -474,6 +480,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A5878522030D25900F36A56 /* triomphe-light-italic-autoinstr.ttf in Resources */,
+				348591F32039EE16003E3704 /* Profile.storyboard in Resources */,
 				7A5878532030D25900F36A56 /* triomphe-bold-italic-autoinstr.ttf in Resources */,
 				34A7ACB82027A51700ACFB12 /* LeaderboardsFriends.storyboard in Resources */,
 				7A38A279202AB57600DF239F /* PhotoLibChallenge.storyboard in Resources */,
@@ -704,6 +711,7 @@
 				34A7ACB020278CA700ACFB12 /* LeaderboardContainerVC.swift in Sources */,
 				7A4D8A4E202781CF0043878E /* TableCollectionView.swift in Sources */,
 				347A06A4202A14BB00961024 /* SignInTransitionVC.swift in Sources */,
+				348591F52039F2A2003E3704 /* ProfileMenuVC.swift in Sources */,
 				7A4D8A4020277F450043878E /* MapVC.swift in Sources */,
 				7AE3756B2037C8E100CA9946 /* LeaderboardsFriendsVC.swift in Sources */,
 				7AE3756C2037C8E100CA9946 /* LeaderboardFriendsTableCell.swift in Sources */,
