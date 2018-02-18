@@ -11,6 +11,7 @@ import AVFoundation
 import AVKit
 import SwiftLocation
 import Hero
+import Firebase
 
 class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavigationControllerDelegate {
     
@@ -73,20 +74,36 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     
     func setupProfileImage() {
         
-        if UserDefaults.standard.object(forKey: "profileImage") != nil {
-            let data = UserDefaults.standard.object(forKey: "profileImage") as! NSData
-            
-            profileImage = UIImage(data: data as Data)
+        let reference = Database.database().reference()
+        
+        let id = FBDatabase.getSignedInUserID()
+        print("Logged in")
+        
+        FBDatabase.getUser(with_id: id, ref: reference) { (user) in
+            if user != nil {
+                
+                FBDatabase.getProfilePicture(for_user: user!, with_progress: { (progress, total)  in
+                    //
+                }, with_completion: { (image) in
+                    self.profileImage = image
+                    self.profileOutlet.image = self.profileImage
+                    self.profileOutlet.layer.borderWidth = 1
+                    self.profileOutlet.layer.borderColor = UIColor.white.cgColor
+                    self.profileOutlet.layer.cornerRadius = self.profileOutlet.layer.frame.width / 2
+                    self.profileOutlet.layer.masksToBounds = false
+                    self.profileOutlet.clipsToBounds = true
+                    self.profileOutlet.contentMode = .scaleAspectFill
+                })
+                
+            }
         }
+
         
         
-        profileOutlet.image = profileImage
-        profileOutlet.layer.borderWidth = 1
-        profileOutlet.layer.borderColor = UIColor.white.cgColor
-        profileOutlet.layer.cornerRadius = profileOutlet.layer.frame.width / 2
-        profileOutlet.layer.masksToBounds = false
-        profileOutlet.clipsToBounds = true
-        profileOutlet.contentMode = .scaleAspectFill
+        
+        
+        
+        
         
     }
     

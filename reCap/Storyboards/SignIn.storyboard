@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="juj-7o-GYF">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14087.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="juj-7o-GYF">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14075.4"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -28,7 +28,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BbG-DW-KEz">
-                                <rect key="frame" x="8" y="467.33333333333331" width="359" height="47.999999999999943"/>
+                                <rect key="frame" x="8" y="449" width="359" height="48"/>
                                 <fontDescription key="fontDescription" name="Triomphe-Bold" family="Triomphe" pointSize="24"/>
                                 <state key="normal" title="Log In">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -38,7 +38,6 @@
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="loginInPressed:" destination="C3d-ng-Nsc" eventType="touchUpInside" id="Js8-eI-4tj"/>
-                                    <segue destination="Dn4-jU-Gd0" kind="presentation" id="C2h-lr-hE6"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dHh-eP-Ouv">
@@ -125,7 +124,7 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="zPy-fa-acs" customClass="SkyFloatingLabelTextFieldWithIcon" customModule="SkyFloatingLabelTextField">
-                                <rect key="frame" x="8" y="401" width="359" height="58.333333333333314"/>
+                                <rect key="frame" x="8" y="401" width="359" height="40"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <fontDescription key="fontDescription" name="Triomphe-Bold" family="Triomphe" pointSize="24"/>
@@ -215,6 +214,7 @@
                         <outlet property="emailUsernameOutlet" destination="y4g-XE-LiF" id="kAa-M9-dDq"/>
                         <outlet property="logoOutlet" destination="Gnd-kc-EuT" id="EBH-Uk-CN7"/>
                         <outlet property="passwordOutlet" destination="zPy-fa-acs" id="QHV-Wa-upt"/>
+                        <segue destination="Dn4-jU-Gd0" kind="presentation" identifier="LogInSegue" id="0rH-Hd-af9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zhs-2L-GFb" userLabel="First Responder" sceneMemberID="firstResponder"/>
