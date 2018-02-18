@@ -21,18 +21,17 @@ class LeaderboardsFriendsVC: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Leaderboards"
         queriedUsers = []
-        if let pickedMode = mode, user != nil{
+        if let pickedMode = mode {
             // If the mode has been selected
             if pickedMode == LeaderboardsFriendsVC.FRIENDS_LIST_MODE {
                 // Friends list mode has been picked
                 setupFriendsList()
             }
-            else if pickedMode == LeaderboardsFriendsVC.LEADERBOARD_MODE {
-                // Leaderboard mode has been picked
-                setupLeaderboards()
-            }
+        }
+        else {
+            // Leaderboard mode has been picked
+            setupLeaderboards()
         }
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -60,7 +59,13 @@ class LeaderboardsFriendsVC: UITableViewController {
     
     // MARK: - Setup Methods
     private func setupLeaderboards() {
-        
+        let settingsButton = UIBarButtonItem(title: "Settings", style: .plain, target: self, action: #selector(settingsPressed))
+        let navController = self.navigationController
+        let navBar = navController?.navigationBar
+        let navItem = navBar?.topItem
+        navItem?.setRightBarButton(settingsButton, animated: true)
+        navItem?.title = "Leaderboards"
+        navBar?.setItems([navItem!], animated: true)
     }
     
     private func setupFriendsList() {
@@ -104,6 +109,17 @@ class LeaderboardsFriendsVC: UITableViewController {
         })
         // Configure the cell...
         return cell
+    }
+    
+    // MARK: - Outlet Action Methods
+    
+    /*
+     Called when settings is pressed
+     in leaderboard mode
+    */
+    @objc private func settingsPressed() {
+        print("Settings Pressed")
+        self.performSegue(withIdentifier: "SettingsSegue", sender: nil)
     }
 
     /*

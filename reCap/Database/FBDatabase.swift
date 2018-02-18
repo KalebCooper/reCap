@@ -34,7 +34,14 @@ class FBDatabase {
     private static let PICTURE_DATA_ID = "id"
     private static let PICTURE_NODE = "Pictures"
     
-    private static let LOGGED_IN_ID = "Logged in id"
+    private static let LOGGED_IN_ID = "Logged in ID"
+    private static let LOGGED_IN_EMAIL = "Logged in email"
+    private static let LOGGED_IN_PASSWORD = "Logged in password"
+    
+    public static let USER_SIGNED_INTO_FIR = 0
+    public static let USER_SIGNED_IN_LOCALLY = 1
+    public static let USER_NOT_SIGNED_IN = 2
+    
     /*
      Cant Create an instance of FBDatabase,
      only use class functions
@@ -82,11 +89,25 @@ class FBDatabase {
     }
     
     /*
+     Logs out signed in user
+    */
+    class func signOutUser(with_completion completion: (_ error: String?) -> ()) {
+        do {
+            try Auth.auth().signOut()
+            completion(nil)
+        }
+        catch {
+            completion("Could not sign user out")
+        }
+    }
+    
+    /*
      Used to automatically sign user
      into app if previously signed in
     */
-    class func setAutomaticSignIn(with_id id: String) {
-        UserDefaults.standard.set(id, forKey: LOGGED_IN_ID)
+    class func setAutomaticSignIn(with_email email: String, with_password password: String) {
+        UserDefaults.standard.set(email, forKey: LOGGED_IN_EMAIL)
+        UserDefaults.standard.set(password, forKey: LOGGED_IN_PASSWORD)
     }
     
     /*
@@ -94,7 +115,58 @@ class FBDatabase {
      for user in app
     */
     class func removeAutomaticSignIn() {
-        UserDefaults.standard.removeObject(forKey: LOGGED_IN_ID)
+        UserDefaults.standard.removeObject(forKey: LOGGED_IN_EMAIL)
+        UserDefaults.standard.removeObject(forKey: LOGGED_IN_PASSWORD)
+    }
+    
+    /*
+     Determines if a user is signed in
+    */
+    class func getSignedInStatus() -> Int {
+        let optUser = Auth.auth().currentUser
+        if optUser != nil {
+            // A user is currently signed in
+            return USER_SIGNED_INTO_FIR
+        }
+        else if let _ = getAutomaticUserEmail(), let _ = getAutomaticUserPassword() {
+            // The user is not logged into firebase, but is logged in locally
+            return USER_SIGNED_IN_LOCALLY
+        }
+        else {
+            // No one is signed in
+            return USER_NOT_SIGNED_IN
+        }
+    }
+    
+    /*
+     Signs in the user set for
+     automatic sign in
+    */
+    class func signInAutomaticUser(with_completion completion: @escaping (_ id: String?, _ error: String?) -> ()) {
+        if let email = getAutomaticUserEmail(), let password = getAutomaticUserPassword() {
+            // There is a user set to sign in automatically
+            signInUser(email: email, password: password, with_completion: completion)
+        }
+        else {
+            // No one is signed in
+            completion(nil, "No users are set for automatic login")
+        }
+    }
+    
+    /*
+     Gets email for automatic
+     sign in user
+    */
+    private class func getAutomaticUserEmail() -> String? {
+        return UserDefaults.standard.value(forKey: LOGGED_IN_EMAIL) as? String
+    }
+    
+    /*
+     Gets the password for the
+     automatic sign in user
+    */
+    private class func getAutomaticUserPassword() -> String? {
+        return UserDefaults.standard.value(forKey: LOGGED_IN_PASSWORD) as? String
     }
     
     /*
