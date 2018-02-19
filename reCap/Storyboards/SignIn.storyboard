@@ -214,7 +214,7 @@
                         <outlet property="emailUsernameOutlet" destination="y4g-XE-LiF" id="kAa-M9-dDq"/>
                         <outlet property="logoOutlet" destination="Gnd-kc-EuT" id="EBH-Uk-CN7"/>
                         <outlet property="passwordOutlet" destination="zPy-fa-acs" id="QHV-Wa-upt"/>
-                        <segue destination="Dn4-jU-Gd0" kind="presentation" identifier="LogInSegue" id="0rH-Hd-af9"/>
+                        <segue destination="Dn4-jU-Gd0" kind="show" identifier="PageViewSegue" id="Ybo-TL-sf2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zhs-2L-GFb" userLabel="First Responder" sceneMemberID="firstResponder"/>
