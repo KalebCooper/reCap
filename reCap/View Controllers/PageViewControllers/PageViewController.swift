@@ -35,19 +35,25 @@ class PageViewController: PageboyViewController, PageboyViewControllerDataSource
     override func viewDidLoad() {
         super.viewDidLoad()
         self.dataSource = self
+        
     }
-
+    
+    
+    //Pageboy Datasource Functions
     
     func numberOfViewControllers(in pageboyViewController: PageboyViewController) -> Int {
         return viewControllersArray.count
     }
     
     func viewController(for pageboyViewController: PageboyViewController, at index: PageboyViewController.PageIndex) -> UIViewController? {
+        pageboyViewController.transition = Transition(style: .fade, duration: 1.0)
         return viewControllersArray[index]
     }
     
     func defaultPage(for pageboyViewController: PageboyViewController) -> PageboyViewController.Page? {
         return PageboyViewController.Page.at(index: 1)
     }
+    
+    
 
 }

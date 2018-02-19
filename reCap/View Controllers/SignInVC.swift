@@ -123,9 +123,9 @@ class SignInVC: UIViewController, UITextFieldDelegate {
     */
     private func loginWithEmail(email: String, password: String) {
         FBDatabase.signInUser(email: email, password: password, with_completion: {(id, error) in
-            if id != nil {
+            if let activeID = id {
                 print("Got user id in sign in VC")
-                FBDatabase.setAutomaticSignIn(with_email: email, with_password: password)
+                FBDatabase.setAutomaticSignIn(with_email: email, with_password: password, with_id: activeID)
                 self.performSegue(withIdentifier: "PageViewSegue", sender: nil)
             }
             else {

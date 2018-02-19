@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "0930"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -13,11 +13,11 @@
             buildForProfiling = "YES"
             buildForArchiving = "YES">
             <BuildableReference
-               BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '033B2F5EFC98402794E5FA4A2E42BD9F'
-               BlueprintName = 'IHKeyboardAvoiding'
-               ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'IHKeyboardAvoiding.framework'>
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "033B2F5EFC98402794E5FA4A2E42BD9F"
+               BlueprintName = "IHKeyboardAvoiding"
+               ReferencedContainer = "container:Pods.xcodeproj"
+               BuildableName = "IHKeyboardAvoiding.framework">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

@@ -107,9 +107,10 @@ class FBDatabase {
      Used to automatically sign user
      into app if previously signed in
     */
-    class func setAutomaticSignIn(with_email email: String, with_password password: String) {
+    class func setAutomaticSignIn(with_email email: String, with_password password: String, with_id id: String) {
         UserDefaults.standard.set(email, forKey: LOGGED_IN_EMAIL)
         UserDefaults.standard.set(password, forKey: LOGGED_IN_PASSWORD)
+        UserDefaults.standard.set(id, forKey: LOGGED_IN_ID)
     }
     
     /*
@@ -119,6 +120,7 @@ class FBDatabase {
     class func removeAutomaticSignIn() {
         UserDefaults.standard.removeObject(forKey: LOGGED_IN_EMAIL)
         UserDefaults.standard.removeObject(forKey: LOGGED_IN_PASSWORD)
+        UserDefaults.standard.removeObject(forKey: LOGGED_IN_ID)
     }
     
     /*

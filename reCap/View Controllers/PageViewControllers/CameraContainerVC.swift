@@ -11,6 +11,7 @@ import AVFoundation
 import AVKit
 import SwiftLocation
 import Hero
+import Firebase
 
 class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavigationControllerDelegate {
     
@@ -18,6 +19,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     @IBOutlet weak var locationOutlet: UILabel!
     @IBOutlet weak var logoText: UIImageView!
     @IBOutlet weak var profileOutlet: UIImageView!
+    @IBOutlet weak var albumOutlet: UIButton!
     
     @IBOutlet weak var previewView: UIView!
     //@IBOutlet weak var imageView: UIImageView!
@@ -57,36 +59,92 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        if UserDefaults.standard.object(forKey: "profileImage") != nil {
-            let data = UserDefaults.standard.object(forKey: "profileImage") as! NSData
-
-            profileImage = UIImage(data: data as Data)
-        }
-        
-        
-        
-        profileOutlet.image = profileImage
-        profileOutlet.layer.borderWidth = 1
-        profileOutlet.layer.borderColor = UIColor.white.cgColor
-        profileOutlet.layer.cornerRadius = profileOutlet.layer.frame.width / 2
-        profileOutlet.layer.masksToBounds = false
-        profileOutlet.clipsToBounds = true
-        profileOutlet.contentMode = .scaleAspectFill
-        
-        
-        let duration: TimeInterval = TimeInterval(exactly: 0.5)!
-
-        logoText.hero.modifiers = [.forceNonFade, .duration(duration), .useScaleBasedSizeChange]
-        
-        
+        setupProfileImage()
+        setupHero()
         setupCamera()
         initializeShadow()
         configureButton()
+        setupGestures()
         
         self.viewDidAppear(false)
         
         // Do any additional setup after loading the view.
+    }
+    
+    
+    func setupProfileImage() {
+        
+        let reference = Database.database().reference()
+        
+        let id = FBDatabase.getSignedInUserID()
+        print("Logged in")
+        
+        FBDatabase.getUser(with_id: id, ref: reference) { (user) in
+            if user != nil {
+                
+                FBDatabase.getProfilePicture(for_user: user!, with_progress: { (progress, total)  in
+                    //
+                }, with_completion: { (image) in
+                    self.profileImage = image
+                    self.profileOutlet.image = self.profileImage
+                    self.profileOutlet.layer.borderWidth = 1
+                    self.profileOutlet.layer.borderColor = UIColor.white.cgColor
+                    self.profileOutlet.layer.cornerRadius = self.profileOutlet.layer.frame.width / 2
+                    self.profileOutlet.layer.masksToBounds = false
+                    self.profileOutlet.clipsToBounds = true
+                    self.profileOutlet.contentMode = .scaleAspectFill
+                })
+                
+            }
+        }
+
+        
+        
+        
+        
+        
+        
+        
+    }
+    
+    func setupHero() {
+        
+        let duration: TimeInterval = TimeInterval(exactly: 0.5)!
+        
+        logoText.hero.modifiers = [.forceNonFade, .duration(duration), .useScaleBasedSizeChange]
+        
+        profileOutlet.hero.modifiers = [.forceNonFade, .duration(duration), .arc(intensity: 1.0)]
+        
+        albumOutlet.hero.modifiers = [.forceNonFade, .duration(duration), .arc(intensity: 1.0)]
+        
+        cameraButton.hero.modifiers = [.duration(duration), .arc(intensity: 1.0)]
+        
+    }
+    
+    func setupGestures() {
+        
+        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
+        swipeDown.direction = UISwipeGestureRecognizerDirection.down
+        self.view.addGestureRecognizer(swipeDown)
+        
+    }
+    
+    @objc func respondToSwipeGesture(gesture: UIGestureRecognizer) {
+        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
+            switch swipeGesture.direction {
+            case UISwipeGestureRecognizerDirection.right:
+                print("Swiped right")
+            case UISwipeGestureRecognizerDirection.down:
+                print("Swiped down")
+                self.performSegue(withIdentifier: "toProfileSegue", sender: self)
+            case UISwipeGestureRecognizerDirection.left:
+                print("Swiped left")
+            case UISwipeGestureRecognizerDirection.up:
+                print("Swiped up")
+            default:
+                break
+            }
+        }
     }
     
     
@@ -192,8 +250,6 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     
     func updateShadows() {
         
-        
-        
         if UIDevice.current.orientation.isLandscape {
             
             if self.portraitTopShadow != nil {
@@ -235,7 +291,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         
-        let when = DispatchTime.now() + 0.15 // change 2 to desired number of seconds
+        let when = DispatchTime.now() + 0.01 // change 2 to desired number of seconds
         DispatchQueue.main.asyncAfter(deadline: when) {
             
             self.viewDidAppear(false)
@@ -392,6 +448,13 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
             vc.longToPass = self.longToPass
             vc.locationToPass = self.locationToPass
 
+        }
+        
+        if segue.identifier == "toProfileSegue" {
+            
+            let vc = segue.destination as! ProfileMenuVC
+            
+            vc.image = self.profileOutlet.image
         }
         
     }

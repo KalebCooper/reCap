@@ -1,6 +1,0 @@
-framework module MapboxCoreNavigation {
-  umbrella header "MapboxCoreNavigation-umbrella.h"
-
-  export *
-  module * { export * }
-}

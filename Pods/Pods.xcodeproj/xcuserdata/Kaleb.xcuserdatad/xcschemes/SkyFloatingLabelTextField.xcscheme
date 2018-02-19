@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "0930"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -13,11 +13,11 @@
             buildForProfiling = "YES"
             buildForArchiving = "YES">
             <BuildableReference
-               BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '18D1312DA6A9056A447D0869911F1A99'
-               BlueprintName = 'SkyFloatingLabelTextField'
-               ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'SkyFloatingLabelTextField.framework'>
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "18D1312DA6A9056A447D0869911F1A99"
+               BlueprintName = "SkyFloatingLabelTextField"
+               ReferencedContainer = "container:Pods.xcodeproj"
+               BuildableName = "SkyFloatingLabelTextField.framework">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
