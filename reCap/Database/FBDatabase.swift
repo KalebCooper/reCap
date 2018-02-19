@@ -38,6 +38,8 @@ class FBDatabase {
     private static let LOGGED_IN_EMAIL = "Logged in email"
     private static let LOGGED_IN_PASSWORD = "Logged in password"
     
+    private static let USERNAME_NODE = "Username"
+    
     public static let USER_SIGNED_INTO_FIR = 0
     public static let USER_SIGNED_IN_LOCALLY = 1
     public static let USER_NOT_SIGNED_IN = 2
@@ -174,6 +176,43 @@ class FBDatabase {
     */
     class func getSignedInUserID() -> String {
         return UserDefaults.standard.value(forKey: LOGGED_IN_ID) as! String
+    }
+    
+    // MARK: - Username Methods
+    
+    /*
+     Add/updates username in database
+    */
+    class func addUpdateUsername(with_username username: Username, with_completion completion: @escaping (_ error: String?) -> ()) {
+        let ref = Database.database().reference()
+        ref.child(USERNAME_NODE).child(username.username).setValue(username.email, withCompletionBlock: {(error, ref) in
+            if let realError = error {
+                // Error occured
+                completion(realError.localizedDescription)
+            }
+            else {
+                // No error occured
+                completion(nil)
+            }
+        })
+    }
+    
+    /*
+     Gets username from database
+    */
+    class func getUsername(with_ref ref: DatabaseReference,with_username username: String, with_completion completion : @escaping (_ username: Username?, _ error: String?) -> ()) {
+        ref.observe(.value, with: {(snapshot) in
+            if let root = snapshot.value as? NSDictionary {
+                let usernames = root[USERNAME_NODE] as! NSDictionary
+                let email = usernames[username] as! String
+                let usernameObj = Username(username: username, email: email)
+                completion(usernameObj, nil)
+            }
+            else {
+                // Could not get root element
+                completion(nil, "Could not get Username obj")
+            }
+        })
     }
     
     // MARK: - User Methods

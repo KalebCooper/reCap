@@ -71,6 +71,19 @@ class CreateAccountVC: UITableViewController, UIImagePickerControllerDelegate, U
                             // No error
                             print("Wrote user to database in SignInVC")
                             FBDatabase.setAutomaticSignIn(with_email: email, with_password: password)
+                            let usernameObj = Username(username: username, email: email)
+                            FBDatabase.addUpdateUsername(with_username: usernameObj, with_completion:{(error) in
+                                if let actualError = error {
+                                    // Error occured
+                                    print("Did not write Username to database")
+                                    print(actualError)
+                                }
+                                else {
+                                    // No error
+                                    print("Wrote Username in database")
+                                    self.performSegue(withIdentifier: "PageViewSegue", sender: nil)
+                                }
+                            })
                             FBDatabase.addProfilePicture(with_image: image, for_user: user, with_completion: {(error) in
                                 if let actualError = error {
                                     // An error occured
@@ -80,7 +93,6 @@ class CreateAccountVC: UITableViewController, UIImagePickerControllerDelegate, U
                                 else {
                                     // No error occured
                                     print("Added profile picture to database")
-                                    self.performSegue(withIdentifier: "PageViewSegue", sender: nil)
                                 }
                             })
                         }
