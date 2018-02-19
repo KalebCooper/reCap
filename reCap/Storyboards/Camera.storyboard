@@ -82,6 +82,9 @@
                                 <state key="normal" image="PreviousPhoto">
                                     <color key="titleShadowColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="leftID"/>
+                                </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ykf-Zg-DG4">
                                 <rect key="frame" x="275" y="708" width="60" height="60"/>
@@ -180,9 +183,9 @@
                         </variation>
                         <variation key="heightClass=compact-widthClass=compact">
                             <mask key="constraints">
+                                <exclude reference="j57-jJ-Bik"/>
                                 <include reference="16e-CY-YcQ"/>
                                 <include reference="CVQ-ut-aVI"/>
-                                <exclude reference="j57-jJ-Bik"/>
                                 <include reference="HQK-9P-Yt0"/>
                                 <include reference="8iY-dD-ljB"/>
                                 <include reference="DEd-AF-EvZ"/>
@@ -209,6 +212,7 @@
                         <outlet property="locationOutlet" destination="oeN-Wr-Wxk" id="zxR-Tq-8UW"/>
                         <outlet property="logoText" destination="PPX-Rz-LL0" id="IoR-CC-TNj"/>
                         <outlet property="previewView" destination="zzR-PA-LKL" id="dUD-nD-OZP"/>
+                        <outlet property="previousOutlet" destination="FOv-tB-rnB" id="Nn4-Tg-pjQ"/>
                         <outlet property="profileOutlet" destination="5ki-EW-e73" id="p0g-qW-Ebt"/>
                         <segue destination="5FS-bp-BS6" kind="show" identifier="confirmPictureSegue" id="kFW-dU-a72"/>
                         <segue destination="4eq-Id-h8l" kind="presentation" identifier="toProfileSegue" id="Ai8-XD-14m"/>

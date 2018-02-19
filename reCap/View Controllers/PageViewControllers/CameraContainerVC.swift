@@ -20,6 +20,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     @IBOutlet weak var logoText: UIImageView!
     @IBOutlet weak var profileOutlet: UIImageView!
     @IBOutlet weak var albumOutlet: UIButton!
+    @IBOutlet weak var previousOutlet: UIButton!
     
     @IBOutlet weak var previewView: UIView!
     //@IBOutlet weak var imageView: UIImageView!
@@ -116,6 +117,8 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         profileOutlet.hero.modifiers = [.forceNonFade, .duration(duration), .arc(intensity: 1.0)]
         
         albumOutlet.hero.modifiers = [.forceNonFade, .duration(duration), .arc(intensity: 1.0)]
+        
+        previousOutlet.hero.modifiers = [.fade, .duration(duration), .arc(intensity: 1.0)]
         
         cameraButton.hero.modifiers = [.duration(duration), .arc(intensity: 1.0)]
         

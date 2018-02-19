@@ -52,6 +52,10 @@ class ProfileMenuVC: UIViewController {
         
         albumOutlet.hero.modifiers = [.duration(duration), .arc(intensity: 1.0)]
         
+        settingsOutlet.hero.modifiers = [.fade, .duration(duration), .arc(intensity: 1.0)]
+        
+        aboutOutlet.hero.modifiers = [.duration(duration), .arc(intensity: 1.0)]
+        
         
     }
 
