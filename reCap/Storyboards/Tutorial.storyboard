@@ -10,27 +10,84 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="triomphe-regular-autoinstr.ttf">
+            <string>Triomphe-Regular</string>
+        </array>
+    </customFonts>
     <scenes>
-        <!--View Controller-->
+        <!--Tutorial WelcomeVC-->
         <scene sceneID="u65-Km-xX7">
             <objects>
-                <viewController id="XWU-eU-ZT4" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TutorialWelcome" useStoryboardIdentifierAsRestorationIdentifier="YES" id="XWU-eU-ZT4" customClass="TutorialWelcomeVC" customModule="reCap" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bmk-J1-mUS">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="reCapp" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2V3-2C-qVp">
+                                <rect key="frame" x="16" y="44" width="343" height="58"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Triomphe-Regular" family="Triomphe" pointSize="40"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="logoID"/>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="Jvj-LI-RYk"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
+                        </userDefinedRuntimeAttributes>
                     </view>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <segue destination="fed-Cj-5Lu" kind="presentation" identifier="backward" id="EeX-sB-la1"/>
+                        <segue destination="IT8-F3-oET" kind="show" identifier="forward" id="tcX-ou-8JR"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kXN-mk-3On" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-98" y="69"/>
+            <point key="canvasLocation" x="877.60000000000002" y="68.7192118226601"/>
         </scene>
-        <!--View Controller-->
+        <!--Tutorial ErosionVC-->
+        <scene sceneID="ccc-RW-1dq">
+            <objects>
+                <viewController storyboardIdentifier="TutorialErosion" useStoryboardIdentifierAsRestorationIdentifier="YES" id="IT8-F3-oET" customClass="TutorialErosionVC" customModule="reCap" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="qVP-46-yPT">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="reCapp" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h70-lA-Dz3">
+                                <rect key="frame" x="16" y="377" width="343" height="58"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Triomphe-Regular" family="Triomphe" pointSize="40"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="logoID"/>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="ku2-tx-2Sz"/>
+                    </view>
+                    <connections>
+                        <segue destination="XWU-eU-ZT4" kind="show" identifier="backward" id="4Tn-yf-VKZ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JNL-zI-YSD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1687.2" y="68.7192118226601"/>
+        </scene>
+        <!--Tutorial TransitionVC-->
         <scene sceneID="Yjx-tk-zfX">
             <objects>
-                <viewController id="fed-Cj-5Lu" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="B82-VA-MHK">
+                <viewController storyboardIdentifier="TutorialTransition" useStoryboardIdentifierAsRestorationIdentifier="YES" id="fed-Cj-5Lu" customClass="TutorialTransitionVC" customModule="reCap" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="B82-VA-MHK" customClass="TutorialTrans">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
@@ -71,13 +128,20 @@
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
                     </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outlet property="logoOutlet" destination="9lT-Xb-pnn" id="EwA-Gn-eaJ"/>
+                        <segue destination="XWU-eU-ZT4" kind="show" identifier="forward" id="TRk-Zk-fCV"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h4e-jf-QcW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-970" y="69"/>
+            <point key="canvasLocation" x="-28" y="68.7192118226601"/>
         </scene>
     </scenes>
     <resources>
         <image name="Logo Text Wide" width="682" height="233"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="TRk-Zk-fCV"/>
+    </inferredMetricsTieBreakers>
 </document>
