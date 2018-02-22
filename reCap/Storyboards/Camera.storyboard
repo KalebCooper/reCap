@@ -82,6 +82,9 @@
                                 <state key="normal" image="PreviousPhoto">
                                     <color key="titleShadowColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="leftID"/>
+                                </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ykf-Zg-DG4">
                                 <rect key="frame" x="275" y="708" width="60" height="60"/>
@@ -209,6 +212,7 @@
                         <outlet property="locationOutlet" destination="oeN-Wr-Wxk" id="zxR-Tq-8UW"/>
                         <outlet property="logoText" destination="PPX-Rz-LL0" id="IoR-CC-TNj"/>
                         <outlet property="previewView" destination="zzR-PA-LKL" id="dUD-nD-OZP"/>
+                        <outlet property="previousOutlet" destination="FOv-tB-rnB" id="Nn4-Tg-pjQ"/>
                         <outlet property="profileOutlet" destination="5ki-EW-e73" id="p0g-qW-Ebt"/>
                         <segue destination="5FS-bp-BS6" kind="show" identifier="confirmPictureSegue" id="kFW-dU-a72"/>
                     </connections>
