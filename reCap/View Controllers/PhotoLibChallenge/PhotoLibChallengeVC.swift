@@ -11,8 +11,10 @@ import Firebase
 
 class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
-    let sections = ["13.5", "16.3"]
-    let fakeData = [["Item1", "Item2", "Item3"], ["Item1", "Item2"]]
+    //let sections = ["13.5", "16.3"]
+    //let fakeData = [["Item1", "Item2", "Item3"], ["Item1", "Item2"]]
+    
+    // MARK: - Outlets
     
     // MARK: - Properties
     var locations: [String]!
@@ -66,6 +68,7 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
                 }
                 var pictureDataArray = self.locationDictionary[location!]!
                 pictureDataArray.append(pictureData)
+                self.locationDictionary[location!] = pictureDataArray
             }
             self.tableView.reloadData()
         })
@@ -80,8 +83,7 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        let location = locations[section]
-        return locationDictionary[location]!.count
+        return 1
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -104,11 +106,26 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
     // MARK: - Collection View Methods
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return fakeData[section].count
+        let location = locations[section]
+        return (locationDictionary[location]?.count)!
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PictureCell", for: indexPath)
+        let locationIndex = collectionView.tag
+        let location = locations[locationIndex]
+        let locationDataArray = locationDictionary[location]
+        let pictureData = locationDataArray![indexPath.row]
+        FBDatabase.getPicture(pictureData: pictureData, with_progress: {(progress, total) in
+            
+        }, with_completion: {(image) in
+            if let realImage = image {
+                print("Got image in PhotoLibChal VC")
+            }
+            else {
+                print("Did not get image in PhotoLibChal VC")
+            }
+        })
         return cell
     }
     

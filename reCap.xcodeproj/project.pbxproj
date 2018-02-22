@@ -26,6 +26,7 @@
 		431B5E71E2A82C2D5591C9FD /* Pods_reCapTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A855F58760B4E1DE5F6226D /* Pods_reCapTests.framework */; };
 		7A120DC3203E6BBB0003EE1F /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A120DC2203E6BBB0003EE1F /* Profile.storyboard */; };
 		7A120DC7203E6EB10003EE1F /* Tutorial.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A120DC6203E6EB10003EE1F /* Tutorial.storyboard */; };
+		7A120DC9203E7E170003EE1F /* PhotoChalColCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A120DC8203E7E170003EE1F /* PhotoChalColCell.swift */; };
 		7A38A275202AB56100DF239F /* PhotoChallengeTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A38A274202AB56100DF239F /* PhotoChallengeTableCell.swift */; };
 		7A38A277202AB56C00DF239F /* PhotoLibChallengeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A38A276202AB56C00DF239F /* PhotoLibChallengeVC.swift */; };
 		7A38A279202AB57600DF239F /* PhotoLibChallenge.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A38A278202AB57600DF239F /* PhotoLibChallenge.storyboard */; };
@@ -111,6 +112,7 @@
 		6E7F0BE298641A4C1885D691 /* Pods-reCap.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-reCap.debug.xcconfig"; path = "Pods/Target Support Files/Pods-reCap/Pods-reCap.debug.xcconfig"; sourceTree = "<group>"; };
 		7A120DC2203E6BBB0003EE1F /* Profile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		7A120DC6203E6EB10003EE1F /* Tutorial.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Tutorial.storyboard; sourceTree = "<group>"; };
+		7A120DC8203E7E170003EE1F /* PhotoChalColCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoChalColCell.swift; sourceTree = "<group>"; };
 		7A38A274202AB56100DF239F /* PhotoChallengeTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoChallengeTableCell.swift; sourceTree = "<group>"; };
 		7A38A276202AB56C00DF239F /* PhotoLibChallengeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoLibChallengeVC.swift; sourceTree = "<group>"; };
 		7A38A278202AB57600DF239F /* PhotoLibChallenge.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PhotoLibChallenge.storyboard; sourceTree = "<group>"; };
@@ -295,6 +297,7 @@
 			children = (
 				7A38A274202AB56100DF239F /* PhotoChallengeTableCell.swift */,
 				7A38A276202AB56C00DF239F /* PhotoLibChallengeVC.swift */,
+				7A120DC8203E7E170003EE1F /* PhotoChalColCell.swift */,
 			);
 			path = PhotoLibChallenge;
 			sourceTree = "<group>";
@@ -754,6 +757,7 @@
 				7A4D8A3A20277E4F0043878E /* CreateAccountVC.swift in Sources */,
 				34A7ACA8202787DA00ACFB12 /* PageViewController.swift in Sources */,
 				344C93EA20226E280025E4C5 /* AppDelegate.swift in Sources */,
+				7A120DC9203E7E170003EE1F /* PhotoChalColCell.swift in Sources */,
 				7A58785A2030D27500F36A56 /* CameraVC.swift in Sources */,
 				7A4D8A4220277FA00043878E /* ChallengesVC.swift in Sources */,
 			);
