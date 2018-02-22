@@ -317,6 +317,34 @@ class FBDatabase {
         })
     }
     
+    /*
+     Gets all picture data for a user
+    */
+    class func getPictureData(for_user user: User, ref: DatabaseReference, with_completion completion: @escaping (_ pictureData: [PictureData]) -> ()) {
+        ref.observe(.value, with: {(snapshot) in
+            let root = snapshot.value as! NSDictionary
+            var pictureDataList: [PictureData] = []
+            if let pictureDataNode = root[PICTURE_DATA_NODE] as? NSDictionary {
+                // Database has picture data in it
+                let pictureIDs = user.pictures
+                for id in pictureIDs {
+                    // Gets each picture id
+                    let pictureDataData = pictureDataNode[id] as! NSDictionary
+                    let name = pictureDataData[PICTURE_DATA_NAME] as! String
+                    let coordinates = pictureDataData[PICTURE_DATA_GPS] as! [Double]
+                    let orientation = pictureDataData[PICTURE_DATA_ORIENTATION] as! Int
+                    let owner = pictureDataData[PICTURE_DATA_OWNER] as! String
+                    let time = pictureDataData[PICTURE_DATA_TIME] as! String
+                    let locationName = pictureDataData[PICTURE_DATA_LOCATION_NAME] as! String
+                    let id = pictureDataData[PICTURE_DATA_ID] as! String
+                    let pictureData = PictureData(name: name, gpsCoordinates: coordinates, orientation: orientation, owner: owner, time: time, locationName: locationName, id: id)
+                    pictureDataList.append(pictureData)
+                }
+            }
+            completion(pictureDataList)
+        })
+    }
+    
     // MARK: - Storage Methods
     
     /*

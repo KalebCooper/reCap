@@ -9,7 +9,7 @@
 import UIKit
 import IHKeyboardAvoiding
 import SkyFloatingLabelTextField
-
+import Firebase
 
 class ImageCreateVC: UIViewController {
     
@@ -29,11 +29,52 @@ class ImageCreateVC: UIViewController {
     @IBOutlet var avoidingView: UIView!
     
     @IBAction func cancelPressed(_ sender: Any) {
-        
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func confirmPressed(_ sender: Any) {
+        print("Confirmed Pressed")
+        let ref = Database.database().reference()
+        FBDatabase.getUser(with_id: FBDatabase.getSignedInUserID(), ref: ref, with_completion: {(user) in
+            if let activeUser = user {
+                print("Got user in ImageCreate VC")
+                ref.removeAllObservers()
+                let currentDate = Date()
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateStyle = .medium
+                dateFormatter.timeStyle = .short
+                let pictureData = PictureData(name: self.titleOutlet.text, gpsCoordinates: [self.lat!, self.long!], orientation: PictureData.ORIENTATION_PORTRAIT, owner: activeUser.id, time: dateFormatter.string(from: currentDate), locationName: self.location!, id: PictureData.createPictureDataID())
+                FBDatabase.addPicture(image: self.image!, pictureData: pictureData, with_completion: {(error) in
+                    if let actualError = error {
+                        // There was an error
+                        print(actualError)
+                    }
+                    else {
+                        // No error
+                        print("Added picture for user in ImageCreateVC")
+                        FBDatabase.addUpdatePictureData(pictureData: pictureData, with_completion: {(error) in
+                            if let actualError = error {
+                                // Error
+                                print(actualError)
+                            }
+                            else {
+                                // No error
+                                print("Added picture data for user in ImageCreateVC")
+                                self.navigationController?.setToolbarHidden(true, animated: true)
+                                self.navigationController?.popToRootViewController(animated: true)
+                            }
+                        })
+                    }
+                })
+            }
+            else {
+                print("Didn not get user in ImageCreate VC")
+                // TODO: Handle error
+            }
+        })
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.hideKeyboard()
         
         let duration: TimeInterval = TimeInterval(exactly: 0.5)!

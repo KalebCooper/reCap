@@ -50,11 +50,13 @@
 		7A5878542030D25900F36A56 /* triomphe-regular-autoinstr.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A58784E2030D25900F36A56 /* triomphe-regular-autoinstr.ttf */; };
 		7A58785A2030D27500F36A56 /* CameraVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5878582030D27500F36A56 /* CameraVC.swift */; };
 		7A58785E20310A0100F36A56 /* CreateAccount.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A58785D20310A0100F36A56 /* CreateAccount.storyboard */; };
+		7AB6A13F203E68EB00933F30 /* ImageConfirmVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB6A13E203E68EA00933F30 /* ImageConfirmVC.swift */; };
+		7AB6A141203E68F700933F30 /* ImageCreateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB6A140203E68F700933F30 /* ImageCreateVC.swift */; };
 		7ABF80C4203A508100BCE787 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7ABF80C3203A508100BCE787 /* Profile.storyboard */; };
 		7ABF80C8203A509900BCE787 /* ProfileMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABF80C5203A509800BCE787 /* ProfileMenuVC.swift */; };
-		7ABF80C9203A509900BCE787 /* ImageCreateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABF80C6203A509800BCE787 /* ImageCreateVC.swift */; };
-		7ABF80CA203A509900BCE787 /* ImageConfirmVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABF80C7203A509900BCE787 /* ImageConfirmVC.swift */; };
 		7ABF80CC203A50AA00BCE787 /* CameraContainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABF80CB203A50AA00BCE787 /* CameraContainerVC.swift */; };
+		7ABF80CE203A63F800BCE787 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7ABF80CD203A63F800BCE787 /* Settings.storyboard */; };
+		7ABF80D0203A64D300BCE787 /* Photo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7ABF80CF203A64D300BCE787 /* Photo.storyboard */; };
 		7AE3755F2037C56000CA9946 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AE3755E2037C56000CA9946 /* Launch Screen.storyboard */; };
 		7AE375672037C6DA00CA9946 /* FBDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE375662037C6D900CA9946 /* FBDatabase.swift */; };
 		7AE3756B2037C8E100CA9946 /* LeaderboardsFriendsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE375692037C8E100CA9946 /* LeaderboardsFriendsVC.swift */; };
@@ -131,11 +133,13 @@
 		7A58784E2030D25900F36A56 /* triomphe-regular-autoinstr.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "triomphe-regular-autoinstr.ttf"; path = "reCap/Custom Fonts/triomphe-regular-autoinstr.ttf"; sourceTree = SOURCE_ROOT; };
 		7A5878582030D27500F36A56 /* CameraVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraVC.swift; sourceTree = "<group>"; };
 		7A58785D20310A0100F36A56 /* CreateAccount.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CreateAccount.storyboard; sourceTree = "<group>"; };
+		7AB6A13E203E68EA00933F30 /* ImageConfirmVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageConfirmVC.swift; sourceTree = "<group>"; };
+		7AB6A140203E68F700933F30 /* ImageCreateVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCreateVC.swift; sourceTree = "<group>"; };
 		7ABF80C3203A508100BCE787 /* Profile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		7ABF80C5203A509800BCE787 /* ProfileMenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileMenuVC.swift; sourceTree = "<group>"; };
-		7ABF80C6203A509800BCE787 /* ImageCreateVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCreateVC.swift; sourceTree = "<group>"; };
-		7ABF80C7203A509900BCE787 /* ImageConfirmVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageConfirmVC.swift; sourceTree = "<group>"; };
 		7ABF80CB203A50AA00BCE787 /* CameraContainerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraContainerVC.swift; sourceTree = "<group>"; };
+		7ABF80CD203A63F800BCE787 /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
+		7ABF80CF203A64D300BCE787 /* Photo.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Photo.storyboard; sourceTree = "<group>"; };
 		7AE3755E2037C56000CA9946 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		7AE375662037C6D900CA9946 /* FBDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBDatabase.swift; sourceTree = "<group>"; };
 		7AE375692037C8E100CA9946 /* LeaderboardsFriendsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaderboardsFriendsVC.swift; sourceTree = "<group>"; };
@@ -261,6 +265,8 @@
 				34A7ACB52027A4F500ACFB12 /* Camera.storyboard */,
 				7A38A278202AB57600DF239F /* PhotoLibChallenge.storyboard */,
 				34A7ACB72027A51700ACFB12 /* LeaderboardsFriends.storyboard */,
+				7ABF80CD203A63F800BCE787 /* Settings.storyboard */,
+				7ABF80CF203A64D300BCE787 /* Photo.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -270,7 +276,6 @@
 			children = (
 				7ABF80CB203A50AA00BCE787 /* CameraContainerVC.swift */,
 				7A5878582030D27500F36A56 /* CameraVC.swift */,
-				7A38A273202AB54800DF239F /* PhotoLibChallenge */,
 				34A7ACA7202787DA00ACFB12 /* PageViewController.swift */,
 				7A3C60122027BAE200ABC9E1 /* MapContainerVC.swift */,
 				7A4D8A3F20277F450043878E /* MapVC.swift */,
@@ -293,9 +298,10 @@
 			isa = PBXGroup;
 			children = (
 				345FB83820363BE300C59FDB /* SignInVC.swift */,
-				7ABF80C7203A509900BCE787 /* ImageConfirmVC.swift */,
-				7ABF80C6203A509800BCE787 /* ImageCreateVC.swift */,
+				7AB6A13E203E68EA00933F30 /* ImageConfirmVC.swift */,
+				7AB6A140203E68F700933F30 /* ImageCreateVC.swift */,
 				7ABF80C5203A509800BCE787 /* ProfileMenuVC.swift */,
+				7A38A273202AB54800DF239F /* PhotoLibChallenge */,
 				34A7ACAA2027886800ACFB12 /* PageViewControllers */,
 				7A4D8A4B202781A80043878E /* Reusable */,
 				347A06A3202A14BB00961024 /* SignInTransitionVC.swift */,
@@ -499,11 +505,13 @@
 				34A7ACB42027A4EB00ACFB12 /* Map.storyboard in Resources */,
 				3422D37F20226FE600570374 /* GoogleService-Info.plist in Resources */,
 				7A5878502030D25900F36A56 /* triomphe-light-autoinstr.ttf in Resources */,
+				7ABF80D0203A64D300BCE787 /* Photo.storyboard in Resources */,
 				344C93F420226E280025E4C5 /* Assets.xcassets in Resources */,
 				344C93EF20226E280025E4C5 /* Main.storyboard in Resources */,
 				7A4D8A4F202781CF0043878E /* TableCollectionView.xib in Resources */,
 				7A5878512030D25900F36A56 /* triomphe-italic-autoinstr.ttf in Resources */,
 				7A58784F2030D25900F36A56 /* triomphe-bold-autoinstr.ttf in Resources */,
+				7ABF80CE203A63F800BCE787 /* Settings.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -712,12 +720,12 @@
 				7A4D8A58202789AA0043878E /* PictureData.swift in Sources */,
 				344C93F220226E280025E4C5 /* reCap.xcdatamodeld in Sources */,
 				7A4D8A442027801E0043878E /* NavigationVC.swift in Sources */,
-				7ABF80CA203A509900BCE787 /* ImageConfirmVC.swift in Sources */,
 				7A4D8A56202783090043878E /* User.swift in Sources */,
 				7A4D8A4A2027818A0043878E /* ProfileSettingsVC.swift in Sources */,
 				34A7ACB020278CA700ACFB12 /* LeaderboardContainerVC.swift in Sources */,
 				7A4D8A4E202781CF0043878E /* TableCollectionView.swift in Sources */,
 				347A06A4202A14BB00961024 /* SignInTransitionVC.swift in Sources */,
+				7AB6A13F203E68EB00933F30 /* ImageConfirmVC.swift in Sources */,
 				7AF3594A2038CDE500713EA3 /* SettingsVC.swift in Sources */,
 				7A4D8A4020277F450043878E /* MapVC.swift in Sources */,
 				7ABF80C8203A509900BCE787 /* ProfileMenuVC.swift in Sources */,
@@ -728,12 +736,12 @@
 				7A3B468C202AB3FC001D19B6 /* EdgeShadowLayer.swift in Sources */,
 				7AE375672037C6DA00CA9946 /* FBDatabase.swift in Sources */,
 				7AF3594E2038FB6700713EA3 /* Username.swift in Sources */,
+				7AB6A141203E68F700933F30 /* ImageCreateVC.swift in Sources */,
 				7A4D8A3A20277E4F0043878E /* CreateAccountVC.swift in Sources */,
 				34A7ACA8202787DA00ACFB12 /* PageViewController.swift in Sources */,
 				344C93EA20226E280025E4C5 /* AppDelegate.swift in Sources */,
 				7A58785A2030D27500F36A56 /* CameraVC.swift in Sources */,
 				7A4D8A4220277FA00043878E /* ChallengesVC.swift in Sources */,
-				7ABF80C9203A509900BCE787 /* ImageCreateVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

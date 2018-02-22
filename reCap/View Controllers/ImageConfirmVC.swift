@@ -18,9 +18,8 @@ class ImageConfirmVC: UIViewController {
 
     @IBOutlet weak var imageView: UIImageView!
     @IBAction func cancelButton(_ sender: Any) {
-        
-        
-
+        self.navigationController?.setToolbarHidden(true, animated: true)
+        self.navigationController?.popViewController(animated: true)
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {

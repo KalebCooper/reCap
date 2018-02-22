@@ -48,6 +48,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     var captureDevice: AVCaptureDevice?
     
     let blackColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
+    private var user: User!
     
     
     @IBAction func buttonPressed(_ sender: Any) {
@@ -58,7 +59,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setup()
         setupProfileImage()
         setupHero()
         setupCamera()
@@ -69,6 +70,21 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         self.viewDidAppear(false)
         
         // Do any additional setup after loading the view.
+    }
+    
+    private func setup() {
+        let ref = Database.database().reference()
+        let id = FBDatabase.getSignedInUserID()
+        FBDatabase.getUser(with_id: id, ref: ref, with_completion: {(user) -> () in
+            if let activeUser = user {
+                print("Got user in Camera Container VC")
+                self.user = activeUser
+            }
+            else {
+                print("Did not get user in Camera Container VC")
+                // TODO: Handler error
+            }
+        })
     }
     
     
@@ -451,20 +467,12 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         }
         
         if segue.identifier == "toProfileSegue" {
-            
             let vc = segue.destination as! ProfileMenuVC
-            
             vc.image = self.profileOutlet.image
+            vc.user = self.user
         }
         
     }
-    
-    
-    
-    
-    
-    
-    
 }
 
 

@@ -11,7 +11,9 @@ import Hero
 import Firebase
 
 class ProfileMenuVC: UIViewController {
-
+    
+    
+    // MARK: - Outlets
     @IBOutlet weak var logoOutlet: UIImageView!
     @IBOutlet weak var backgroundImage: UIImageView!
     @IBOutlet weak var profileImage: UIImageView!
@@ -22,6 +24,9 @@ class ProfileMenuVC: UIViewController {
     @IBOutlet weak var aboutOutlet: UIButton!
     @IBOutlet weak var albumOutlet: UIButton!
     
+    // MARK: - Properties
+    var user: User!
+    
     @IBAction func backAction(_ sender: Any) {
         
     }
@@ -29,12 +34,13 @@ class ProfileMenuVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        setupHero()
-        setupGestures()
-        setupOutlets()
-        setupProfileImage()
-        setupBlurEffect(image: image!)
+        if user != nil {
+            setupHero()
+            setupGestures()
+            setupOutlets()
+            setupProfileImage()
+            setupBlurEffect(image: image!)
+        }
         // Do any additional setup after loading the view.
     }
     
@@ -54,7 +60,16 @@ class ProfileMenuVC: UIViewController {
         
         
     }
+    
+    // MARK: - Outlet Actions
 
+    /*
+     Photo library button pressed
+    */
+    @IBAction func photoLibPressed(_ sender: Any) {
+        self.performSegue(withIdentifier: "PhotoLibSegue", sender: self.user)
+    }
+    
     func setupGestures() {
         
         let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(self.respondToSwipeGesture))
@@ -124,14 +139,20 @@ class ProfileMenuVC: UIViewController {
     }
     
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        let segueID = segue.identifier
+        if segueID == "PhotoLibSegue" {
+            let destination = segue.destination as! UINavigationController
+            let photoLibVC = destination.topViewController as! PhotoLibChallengeVC
+            photoLibVC.user = self.user
+        }
     }
-    */
+    
 
 }
