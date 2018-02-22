@@ -44,6 +44,7 @@ class ImageCreateVC: UIViewController {
                 dateFormatter.dateStyle = .medium
                 dateFormatter.timeStyle = .short
                 let pictureData = PictureData(name: self.titleOutlet.text, gpsCoordinates: [self.lat!, self.long!], orientation: PictureData.ORIENTATION_PORTRAIT, owner: activeUser.id, time: dateFormatter.string(from: currentDate), locationName: self.location!, id: PictureData.createPictureDataID())
+                activeUser.pictures.append(pictureData.id)
                 FBDatabase.addPicture(image: self.image!, pictureData: pictureData, with_completion: {(error) in
                     if let actualError = error {
                         // There was an error
@@ -62,6 +63,14 @@ class ImageCreateVC: UIViewController {
                                 print("Added picture data for user in ImageCreateVC")
                                 self.navigationController?.setToolbarHidden(true, animated: true)
                                 self.navigationController?.popToRootViewController(animated: true)
+                            }
+                        })
+                        FBDatabase.addUpdateUser(user: activeUser, with_completion: {(error) in
+                            if let actualError = error {
+                                print(actualError)
+                            }
+                            else {
+                                print("Updated user in ImageCreate VC")
                             }
                         })
                     }

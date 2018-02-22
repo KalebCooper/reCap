@@ -67,6 +67,7 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
                 var pictureDataArray = self.locationDictionary[location!]!
                 pictureDataArray.append(pictureData)
             }
+            self.tableView.reloadData()
         })
     }
     

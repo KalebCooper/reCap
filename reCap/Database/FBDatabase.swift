@@ -277,7 +277,7 @@ class FBDatabase {
     */
     
     class func addUpdatePictureData(pictureData: PictureData, with_completion completion: @escaping (_ error: String?) -> ()) {
-        let jsonObject: [String : Any] = [PICTURE_DATA_NAME : pictureData.name, PICTURE_DATA_GPS : pictureData.gpsCoordinates, PICTURE_DATA_ORIENTATION : pictureData.orientation, PICTURE_DATA_OWNER : pictureData.owner, PICTURE_DATA_TIME : pictureData.time, PICTURE_DATA_LOCATION_NAME : pictureData.locationName]
+        let jsonObject: [String : Any] = [PICTURE_DATA_NAME : pictureData.name, PICTURE_DATA_GPS : pictureData.gpsCoordinates, PICTURE_DATA_ORIENTATION : pictureData.orientation, PICTURE_DATA_OWNER : pictureData.owner, PICTURE_DATA_TIME : pictureData.time, PICTURE_DATA_LOCATION_NAME : pictureData.locationName, PICTURE_DATA_ID : pictureData.id]
         let ref = Database.database().reference()
         ref.child(PICTURE_DATA_NODE).child(pictureData.id).setValue(jsonObject, withCompletionBlock: {(error, ref) in
             if let actualError = error {
