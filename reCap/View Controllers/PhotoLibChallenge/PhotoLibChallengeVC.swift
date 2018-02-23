@@ -7,17 +7,27 @@
 //
 
 import UIKit
+import Firebase
 
 class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
-    let sections = ["13.5", "16.3"]
-    let fakeData = [["Item1", "Item2", "Item3"], ["Item1", "Item2"]]
+    //let sections = ["13.5", "16.3"]
+    //let fakeData = [["Item1", "Item2", "Item3"], ["Item1", "Item2"]]
+    
+    // MARK: - Outlets
+    
+    // MARK: - Properties
+    var locations: [String]!
+    var locationDictionary: [String : [PictureData]]!
+    var user: User!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let cell = UINib(nibName: "TableCell", bundle: nil)
-        self.tableView.register(cell, forCellReuseIdentifier: "CustomCell")
-        self.tableView.allowsSelection = false
+        if user != nil {
+            // User is valid
+            print("Called")
+            setup()
+        }
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -29,12 +39,47 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
+    // MARK: - Outlet Action Methods
+    
+    
+    @IBAction func backPressed(_ sender: Any) {
+        print("Back Pressed")
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    // MARK: - Setup Methods
+    
+    private func setup() {
+        locations = []
+        locationDictionary = [:]
+        //let cell = UINib(nibName: "TableCell", bundle: nil)
+        //self.tableView.register(cell, forCellReuseIdentifier: "CustomCell")
+        self.tableView.allowsSelection = false
+        let ref = Database.database().reference()
+        FBDatabase.getPictureData(for_user: user, ref: ref, with_completion: {(pictureDataList) in
+            for pictureData in pictureDataList {
+                let location = pictureData.locationName
+                if !self.locations.contains(location!) {
+                    // Location is not in the locations array
+                    // Add it to the array and initialize
+                    // an empty array for the key location
+                    self.locations.append(location!)
+                    self.locationDictionary[location!] = []
+                }
+                var pictureDataArray = self.locationDictionary[location!]!
+                pictureDataArray.append(pictureData)
+                self.locationDictionary[location!] = pictureDataArray
+            }
+            self.tableView.reloadData()
+        })
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return fakeData.count
+        return locations.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -43,7 +88,7 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return sections[section]
+        return locations[section]
     }
 
     
@@ -62,11 +107,30 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
     // MARK: - Collection View Methods
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return fakeData[section].count
+        let location = locations[collectionView.tag]
+        let count = (locationDictionary[location]?.count)!
+        //print("location \(location) has count \(count)")
+        return count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PictureCell", for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PictureCell", for: indexPath) as! PhotoChalColCell
+        let locationIndex = collectionView.tag
+        let location = locations[locationIndex]
+        let locationDataArray = locationDictionary[location]
+        let row = indexPath.row
+        let pictureData = locationDataArray![row]
+        FBDatabase.getPicture(pictureData: pictureData, with_progress: {(progress, total) in
+            
+        }, with_completion: {(image) in
+            if let realImage = image {
+                print("Got image in PhotoLibChal VC")
+                cell.imageView.image = realImage
+            }
+            else {
+                print("Did not get image in PhotoLibChal VC")
+            }
+        })
         return cell
     }
     

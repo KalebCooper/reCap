@@ -277,7 +277,7 @@ class FBDatabase {
     */
     
     class func addUpdatePictureData(pictureData: PictureData, with_completion completion: @escaping (_ error: String?) -> ()) {
-        let jsonObject: [String : Any] = [PICTURE_DATA_NAME : pictureData.name, PICTURE_DATA_GPS : pictureData.gpsCoordinates, PICTURE_DATA_ORIENTATION : pictureData.orientation, PICTURE_DATA_OWNER : pictureData.owner, PICTURE_DATA_TIME : pictureData.time, PICTURE_DATA_LOCATION_NAME : pictureData.locationName]
+        let jsonObject: [String : Any] = [PICTURE_DATA_NAME : pictureData.name, PICTURE_DATA_GPS : pictureData.gpsCoordinates, PICTURE_DATA_ORIENTATION : pictureData.orientation, PICTURE_DATA_OWNER : pictureData.owner, PICTURE_DATA_TIME : pictureData.time, PICTURE_DATA_LOCATION_NAME : pictureData.locationName, PICTURE_DATA_ID : pictureData.id]
         let ref = Database.database().reference()
         ref.child(PICTURE_DATA_NODE).child(pictureData.id).setValue(jsonObject, withCompletionBlock: {(error, ref) in
             if let actualError = error {
@@ -314,6 +314,34 @@ class FBDatabase {
                 // Database does not have picture data in it
                 completion(nil)
             }
+        })
+    }
+    
+    /*
+     Gets all picture data for a user
+    */
+    class func getPictureData(for_user user: User, ref: DatabaseReference, with_completion completion: @escaping (_ pictureData: [PictureData]) -> ()) {
+        ref.observe(.value, with: {(snapshot) in
+            let root = snapshot.value as! NSDictionary
+            var pictureDataList: [PictureData] = []
+            if let pictureDataNode = root[PICTURE_DATA_NODE] as? NSDictionary {
+                // Database has picture data in it
+                let pictureIDs = user.pictures
+                for id in pictureIDs {
+                    // Gets each picture id
+                    let pictureDataData = pictureDataNode[id] as! NSDictionary
+                    let name = pictureDataData[PICTURE_DATA_NAME] as! String
+                    let coordinates = pictureDataData[PICTURE_DATA_GPS] as! [Double]
+                    let orientation = pictureDataData[PICTURE_DATA_ORIENTATION] as! Int
+                    let owner = pictureDataData[PICTURE_DATA_OWNER] as! String
+                    let time = pictureDataData[PICTURE_DATA_TIME] as! String
+                    let locationName = pictureDataData[PICTURE_DATA_LOCATION_NAME] as! String
+                    let id = pictureDataData[PICTURE_DATA_ID] as! String
+                    let pictureData = PictureData(name: name, gpsCoordinates: coordinates, orientation: orientation, owner: owner, time: time, locationName: locationName, id: id)
+                    pictureDataList.append(pictureData)
+                }
+            }
+            completion(pictureDataList)
         })
     }
     

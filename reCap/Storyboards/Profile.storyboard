@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14087.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="xl8-vX-Gxx">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="xl8-vX-Gxx">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14075.4"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -26,7 +26,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="MmZ-tD-Rfe">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                                <rect key="frame" x="0.0" y="0.0" width="373" height="812"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fod-13-wjo">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
@@ -34,7 +34,7 @@
                                 <viewLayoutGuide key="safeArea" id="QSp-ep-Fnc"/>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Xmp-Hf-UuP">
-                                <rect key="frame" x="37" y="82" width="300.33333333333331" height="300"/>
+                                <rect key="frame" x="37" y="82" width="299" height="300"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="150" id="3fR-n4-WAV"/>
                                     <constraint firstAttribute="width" constant="150" id="99l-3A-0RK"/>
@@ -69,13 +69,13 @@
                                 </variation>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WA9-ee-lDP">
-                                <rect key="frame" x="12" y="390" width="351" height="45"/>
+                                <rect key="frame" x="12" y="390" width="349" height="45"/>
                                 <fontDescription key="fontDescription" name="Triomphe-Bold" family="Triomphe" pointSize="30"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Points: " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iZ6-Va-TeO">
-                                <rect key="frame" x="12" y="443" width="351" height="35"/>
+                                <rect key="frame" x="12" y="443" width="349" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="0LG-x8-hYj"/>
                                 </constraints>
@@ -84,7 +84,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d4s-pT-YW7">
-                                <rect key="frame" x="12" y="758" width="351" height="20"/>
+                                <rect key="frame" x="12" y="758" width="349" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="Mta-WE-uXx"/>
                                     <constraint firstAttribute="height" constant="20" id="gE7-ra-zSe"/>
@@ -112,7 +112,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="biY-QW-0fE">
-                                <rect key="frame" x="16" y="675" width="62" height="60"/>
+                                <rect key="frame" x="16" y="675" width="60" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="3pB-8Q-gVv"/>
                                     <constraint firstAttribute="height" constant="60" id="a9x-BG-W8l"/>
@@ -145,6 +145,9 @@
                                         <include reference="a9x-BG-W8l"/>
                                     </mask>
                                 </variation>
+                                <connections>
+                                    <segue destination="OHf-KD-epp" kind="show" identifier="" id="v3o-4s-fee"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6xC-5p-pgQ">
                                 <rect key="frame" x="299" y="675" width="60" height="60"/>
@@ -178,9 +181,12 @@
                                         <include reference="faD-sk-kVb"/>
                                     </mask>
                                 </variation>
+                                <connections>
+                                    <action selector="photoLibPressed:" destination="xl8-vX-Gxx" eventType="touchUpInside" id="BFg-d1-c7z"/>
+                                </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo Text Wide" translatesAutoresizingMaskIntoConstraints="NO" id="ycc-Wy-uI1">
-                                <rect key="frame" x="112" y="44" width="150" height="30"/>
+                                <rect key="frame" x="112" y="44" width="149" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="Vkp-4f-6Cr"/>
                                     <constraint firstAttribute="height" constant="30" id="bKk-JY-QJc"/>
@@ -206,7 +212,7 @@
                                 </variation>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LsS-Sf-gqa">
-                                <rect key="frame" x="159" y="675" width="58" height="60"/>
+                                <rect key="frame" x="157" y="675" width="60" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="30" id="11i-UZ-N7O"/>
                                     <constraint firstAttribute="height" constant="60" id="H1I-h9-QzC"/>
@@ -324,11 +330,28 @@
                         <outlet property="profileImage" destination="Xmp-Hf-UuP" id="zEb-Lu-S21"/>
                         <outlet property="settingsOutlet" destination="biY-QW-0fE" id="QAG-L3-SKH"/>
                         <segue destination="vMj-yJ-e7c" kind="presentation" identifier="toCameraSegue" animates="NO" id="uVj-CC-CX0"/>
+                        <segue destination="AQ6-lx-qlO" kind="show" identifier="PhotoLibSegue" id="6Za-nQ-0Vc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sYY-XP-D5C" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="890.39999999999998" y="-55.418719211822662"/>
+        </scene>
+        <!--PhotoLibChallenge-->
+        <scene sceneID="rf1-Wh-0UX">
+            <objects>
+                <viewControllerPlaceholder storyboardName="PhotoLibChallenge" id="AQ6-lx-qlO" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="O7o-tc-pEq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1607" y="-154"/>
+        </scene>
+        <!--Settings-->
+        <scene sceneID="MMS-Nc-cDu">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Settings" id="OHf-KD-epp" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="i7M-zg-oNZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1706" y="160"/>
         </scene>
         <!--PageView-->
         <scene sceneID="o9p-Bh-jHF">

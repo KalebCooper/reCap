@@ -59,13 +59,13 @@ class LeaderboardsFriendsVC: UITableViewController {
     
     // MARK: - Setup Methods
     private func setupLeaderboards() {
-        let settingsButton = UIBarButtonItem(title: "Settings", style: .plain, target: self, action: #selector(settingsPressed))
+        /*let settingsButton = UIBarButtonItem(title: "Settings", style: .plain, target: self, action: #selector(settingsPressed))
         let navController = self.navigationController
         let navBar = navController?.navigationBar
         let navItem = navBar?.topItem
         navItem?.setRightBarButton(settingsButton, animated: true)
         navItem?.title = "Leaderboards"
-        navBar?.setItems([navItem!], animated: true)
+        navBar?.setItems([navItem!], animated: true)*/
     }
     
     private func setupFriendsList() {
