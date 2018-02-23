@@ -60,7 +60,6 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setup()
         setupProfileImage()
         setupHero()
         setupCamera()
@@ -71,6 +70,10 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         self.viewDidAppear(false)
         
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        setup()
     }
     
     private func setup() {

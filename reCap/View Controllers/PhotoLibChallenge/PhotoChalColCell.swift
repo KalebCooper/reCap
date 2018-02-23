@@ -11,5 +11,5 @@ import UIKit
 class PhotoChalColCell: UICollectionViewCell {
     
     // MARK: - Outlets
-    
+    @IBOutlet weak var imageView: UIImageView!
 }

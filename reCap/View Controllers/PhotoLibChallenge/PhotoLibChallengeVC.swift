@@ -25,6 +25,7 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
         super.viewDidLoad()
         if user != nil {
             // User is valid
+            print("Called")
             setup()
         }
         // Uncomment the following line to preserve selection between presentations
@@ -106,21 +107,25 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
     // MARK: - Collection View Methods
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let location = locations[section]
-        return (locationDictionary[location]?.count)!
+        let location = locations[collectionView.tag]
+        let count = (locationDictionary[location]?.count)!
+        //print("location \(location) has count \(count)")
+        return count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PictureCell", for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PictureCell", for: indexPath) as! PhotoChalColCell
         let locationIndex = collectionView.tag
         let location = locations[locationIndex]
         let locationDataArray = locationDictionary[location]
-        let pictureData = locationDataArray![indexPath.row]
+        let row = indexPath.row
+        let pictureData = locationDataArray![row]
         FBDatabase.getPicture(pictureData: pictureData, with_progress: {(progress, total) in
             
         }, with_completion: {(image) in
             if let realImage = image {
                 print("Got image in PhotoLibChal VC")
+                cell.imageView.image = realImage
             }
             else {
                 print("Did not get image in PhotoLibChal VC")
