@@ -13,4 +13,15 @@ class PhotoChalColCell: UICollectionViewCell {
     // MARK: - Outlets
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var imageButton: UIButton!
+    
+    // MARK: - Properties
+    var pictureData: PictureData!
+    private var delegate: ImageButtonDelegate!
+    
+    func setImageViewDelegate(delegate: ImageButtonDelegate) {
+        self.delegate = delegate
+    }
+    @IBAction func imageButtonPressed(_ sender: Any) {
+        delegate.imageButtonPressed(image: imageView.image!, pictureData: pictureData)
+    }
 }

@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICollectionViewDataSource, ImageButtonDelegate {
     
     //let sections = ["13.5", "16.3"]
     //let fakeData = [["Item1", "Item2", "Item3"], ["Item1", "Item2"]]
@@ -20,6 +20,11 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
     var locations: [String]!
     var locationDictionary: [String : [PictureData]]!
     var user: User!
+    
+    // MARK: - Constants
+    private static let PHOTO_SEGUE = "PhotoSegue"
+    private static let PHOTO_SEGUE_PICTURE_DATA_INDEX = 0
+    private static let PHOTO_SEGUE_PICTURE_INDEX = 1
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +37,10 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
 
     override func didReceiveMemoryWarning() {
@@ -52,8 +61,6 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
     private func setup() {
         locations = []
         locationDictionary = [:]
-        //let cell = UINib(nibName: "TableCell", bundle: nil)
-        //self.tableView.register(cell, forCellReuseIdentifier: "CustomCell")
         self.tableView.allowsSelection = false
         let ref = Database.database().reference()
         FBDatabase.getPictureData(for_user: user, ref: ref, with_completion: {(pictureDataList) in
@@ -72,6 +79,12 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
             }
             self.tableView.reloadData()
         })
+    }
+    
+    // MARK: - ImageButton Methods
+    func imageButtonPressed(image: UIImage, pictureData: PictureData) {
+        print("Image Pressed")
+        self.performSegue(withIdentifier: "PhotoSegue", sender: [pictureData, image])
     }
     
     // MARK: - Table view data source
@@ -118,11 +131,13 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PictureCell", for: indexPath) as! PhotoChalColCell
+        cell.setImageViewDelegate(delegate: self)
         let locationIndex = collectionView.tag
         let location = locations[locationIndex]
         let locationDataArray = locationDictionary[location]
         let row = indexPath.row
         let pictureData = locationDataArray![row]
+        cell.pictureData = pictureData
         FBDatabase.getPicture(pictureData: pictureData, with_progress: {(progress, total) in
             
         }, with_completion: {(image) in
@@ -173,14 +188,23 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        let segueID = segue.identifier
+        if segueID == PhotoLibChallengeVC.PHOTO_SEGUE {
+            let destination = segue.destination as! PhotoVC
+            let infoArray = sender as! [Any]
+            let pictureData = infoArray[PhotoLibChallengeVC.PHOTO_SEGUE_PICTURE_DATA_INDEX] as! PictureData
+            let picture = infoArray[PhotoLibChallengeVC.PHOTO_SEGUE_PICTURE_INDEX] as! UIImage
+            destination.pictureData = pictureData
+            destination.image = picture
+        }
     }
-    */
+    
 
 }
