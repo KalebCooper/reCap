@@ -12,4 +12,5 @@ class PhotoChalColCell: UICollectionViewCell {
     
     // MARK: - Outlets
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var imageButton: UIButton!
 }

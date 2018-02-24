@@ -21,7 +21,9 @@ class PhotoChallengeTableCell: UITableViewCell {
     /*
      Sends two protocols as parameters of the
      function, sets the delegate and data
-     source for pictureCollection
+     source for pictureCollection. The tag is used
+     to determine what section this collection view
+     is in
      */
     func setPictureCollectionViewDataSourceDelegate
         <D: UICollectionViewDataSource & UICollectionViewDelegate>

@@ -25,7 +25,6 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
         super.viewDidLoad()
         if user != nil {
             // User is valid
-            print("Called")
             setup()
         }
         // Uncomment the following line to preserve selection between presentations
@@ -99,6 +98,11 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
         return cell
     }
     
+    /*
+     This method also sets the collection view delegate in
+     every table cell. It also tags each collection view
+     to determine what table cell it is apart of
+    */
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let tableCell = cell as! PhotoChallengeTableCell
         tableCell.setPictureCollectionViewDataSourceDelegate(dataSourceDelegate: self, forSection: indexPath.section)
@@ -109,7 +113,6 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         let location = locations[collectionView.tag]
         let count = (locationDictionary[location]?.count)!
-        //print("location \(location) has count \(count)")
         return count
     }
     
