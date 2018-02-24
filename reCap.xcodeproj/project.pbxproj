@@ -786,6 +786,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				348447E92040F1430034D9A0 /* PhotoChalColCell.swift in Sources */,
 				7A4D8A46202780A00043878E /* RecentPicturesVC.swift in Sources */,
 				7ABF80CC203A50AA00BCE787 /* CameraContainerVC.swift in Sources */,
 				7A5878472030D22700F36A56 /* Extensions.swift in Sources */,
