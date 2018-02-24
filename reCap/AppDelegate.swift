@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if signedInStatus == FBDatabase.USER_SIGNED_INTO_FIR {
             // User already signed into Firebase
             print("User is already signed into firebase in app delegate")
-            setRootAsPageView()
+            //setRootAsPageView()
         }
         else if signedInStatus == FBDatabase.USER_SIGNED_IN_LOCALLY {
             // User is signed in locally
