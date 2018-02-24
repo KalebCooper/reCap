@@ -17,6 +17,7 @@
 		344C940D20226E280025E4C5 /* reCapUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344C940C20226E280025E4C5 /* reCapUITests.swift */; };
 		345FB83920363BE300C59FDB /* SignInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 345FB83820363BE300C59FDB /* SignInVC.swift */; };
 		347A06A4202A14BB00961024 /* SignInTransitionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347A06A3202A14BB00961024 /* SignInTransitionVC.swift */; };
+		348447E92040F1430034D9A0 /* PhotoChalColCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A120DC8203E7E170003EE1F /* PhotoChalColCell.swift */; };
 		348591FD203A79C9003E3704 /* TutorialWelcomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348591FC203A79C9003E3704 /* TutorialWelcomeVC.swift */; };
 		348591FF203A79DA003E3704 /* TutorialErosionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348591FE203A79DA003E3704 /* TutorialErosionVC.swift */; };
 		34859201203A79E9003E3704 /* TutorialLandscapeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34859200203A79E9003E3704 /* TutorialLandscapeVC.swift */; };
@@ -786,6 +787,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				348447E92040F1430034D9A0 /* PhotoChalColCell.swift in Sources */,
 				7A4D8A46202780A00043878E /* RecentPicturesVC.swift in Sources */,
 				7ABF80CC203A50AA00BCE787 /* CameraContainerVC.swift in Sources */,
 				7A5878472030D22700F36A56 /* Extensions.swift in Sources */,
