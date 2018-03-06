@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14087.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="mFD-Q5-NGh">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="mFD-Q5-NGh">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14075.4"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -52,6 +52,14 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="logoID"/>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NeL-fd-kqp">
+                                <rect key="frame" x="270" y="49" width="77" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Challenges"/>
+                                <connections>
+                                    <action selector="challengesFixed:" destination="5XJ-LK-hPZ" eventType="touchUpInside" id="UaK-VU-8c0"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -79,6 +87,7 @@
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="searchDisplayController" destination="PNb-hq-4dT" id="kv0-G1-jRI"/>
+                        <segue destination="vEM-ff-WEx" kind="show" identifier="ChallengeSegue" id="him-yI-cZa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zGd-CD-znf" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -92,6 +101,14 @@
                 </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="884" y="-226.10837438423647"/>
+        </scene>
+        <!--PhotoLibChallenge-->
+        <scene sceneID="9RD-dM-jwx">
+            <objects>
+                <viewControllerPlaceholder storyboardName="PhotoLibChallenge" id="vEM-ff-WEx" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="H0L-Cp-bPX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1426" y="-696"/>
         </scene>
         <!--MapVC-->
         <scene sceneID="RzU-WY-fCZ">

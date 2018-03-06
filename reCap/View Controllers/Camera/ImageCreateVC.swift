@@ -40,10 +40,8 @@ class ImageCreateVC: UIViewController {
                 print("Got user in ImageCreate VC")
                 ref.removeAllObservers()
                 let currentDate = Date()
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateStyle = .medium
-                dateFormatter.timeStyle = .short
-                let pictureData = PictureData(name: self.titleOutlet.text, gpsCoordinates: [self.lat!, self.long!], orientation: PictureData.ORIENTATION_PORTRAIT, owner: activeUser.id, time: dateFormatter.string(from: currentDate), locationName: self.location!, id: PictureData.createPictureDataID())
+                let stringPictureDate = DateGetter.getStringFromDate(date: currentDate)
+                let pictureData = PictureData(name: self.titleOutlet.text, gpsCoordinates: [self.lat!, self.long!], orientation: PictureData.ORIENTATION_PORTRAIT, owner: activeUser.id, time: stringPictureDate, locationName: self.location!, id: PictureData.createPictureDataID())
                 activeUser.pictures.append(pictureData.id)
                 FBDatabase.addPicture(image: self.image!, pictureData: pictureData, with_completion: {(error) in
                     if let actualError = error {
