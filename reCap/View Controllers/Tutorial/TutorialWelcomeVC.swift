@@ -11,6 +11,7 @@ import Hero
 
 class TutorialWelcomeVC: UIViewController {
     
+    @IBOutlet weak var recappOutlet: UILabel!
     
     
     var gradientLayer: CAGradientLayer!
@@ -43,6 +44,8 @@ class TutorialWelcomeVC: UIViewController {
     
     func setupHero() {
         let duration: TimeInterval = TimeInterval(exactly: 0.5)!
+        
+        recappOutlet.hero.modifiers = [.forceNonFade, .duration(duration)]
     }
     
     func setupGestures() {

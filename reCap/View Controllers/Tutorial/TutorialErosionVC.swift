@@ -9,7 +9,8 @@
 import UIKit
 
 class TutorialErosionVC: UIViewController {
-
+    @IBOutlet weak var recappOutlet: UILabel!
+    
     var gradientLayer: CAGradientLayer!
     
     override func viewDidLoad() {
@@ -18,6 +19,10 @@ class TutorialErosionVC: UIViewController {
         setupGestures()
         
         // Do any additional setup after loading the view.
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
     
     func createGradientLayer() {
@@ -31,6 +36,13 @@ class TutorialErosionVC: UIViewController {
         gradientLayer.colors = [topColor, bottomColor]
         
         self.view.layer.insertSublayer(gradientLayer, at: 0)
+    }
+    
+    
+    func setupHero() {
+        let duration: TimeInterval = TimeInterval(exactly: 0.5)!
+        
+        recappOutlet.hero.modifiers = [.forceNonFade, .duration(duration)]
     }
     
     func setupGestures() {
@@ -64,15 +76,16 @@ class TutorialErosionVC: UIViewController {
         }
     }
     
-
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }
+

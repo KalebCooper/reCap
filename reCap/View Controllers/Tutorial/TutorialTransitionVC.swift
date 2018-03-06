@@ -11,10 +11,12 @@ import UIKit
 class TutorialTransitionVC: UIPageViewController {
     
     @IBOutlet weak var logoOutlet: UIImageView!
-    
+    var gradientLayer: CAGradientLayer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        createGradientLayer()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
             
@@ -28,6 +30,19 @@ class TutorialTransitionVC: UIPageViewController {
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
+    }
+    
+    func createGradientLayer() {
+        gradientLayer = CAGradientLayer()
+        
+        gradientLayer.frame = self.view.bounds
+        
+        let bottomColor = UIColor(displayP3Red: 99/255, green: 207/255, blue: 155/255, alpha: 1).cgColor
+        let topColor = UIColor(displayP3Red: 9/255, green: 85/255, blue: 95/255, alpha: 1).cgColor
+        
+        gradientLayer.colors = [topColor, bottomColor]
+        
+        self.view.layer.insertSublayer(gradientLayer, at: 0)
     }
     
     
