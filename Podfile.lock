@@ -45,22 +45,39 @@ PODS:
     - GoogleToolboxForMac/Defines (= 2.1.3)
     - GoogleToolboxForMac/NSString+URLArguments (= 2.1.3)
   - GoogleToolboxForMac/NSString+URLArguments (2.1.3)
-  - GTMSessionFetcher/Core (1.1.13)
+  - GTMSessionFetcher/Core (1.1.14)
   - Hero (1.1.0)
   - IHKeyboardAvoiding (4.2)
   - leveldb-library (1.20)
   - Mapbox-iOS-SDK (3.7.5)
+  - MapboxCoreNavigation (0.14.1):
+    - MapboxDirections.swift (~> 0.17)
+    - MapboxMobileEvents (~> 0.3)
+    - Turf (~> 0.0.4)
+  - MapboxDirections.swift (0.17.0):
+    - Polyline (~> 4.2)
   - MapboxGeocoder.swift (0.8.0)
+  - MapboxMobileEvents (0.3.1)
+  - MapboxNavigation (0.14.1):
+    - Mapbox-iOS-SDK (~> 3.6)
+    - MapboxCoreNavigation (= 0.14.1)
+    - MapboxSpeech (~> 0.0.1)
+    - Solar (~> 2.1)
+    - Turf (~> 0.0.4)
+  - MapboxSpeech (0.0.1)
   - nanopb (0.3.8):
     - nanopb/decode (= 0.3.8)
     - nanopb/encode (= 0.3.8)
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
-  - Pageboy (2.3.4)
+  - Pageboy (2.4.0)
+  - Polyline (4.2.0)
   - SkyFloatingLabelTextField (3.4.0)
+  - Solar (2.1.0)
   - SwiftLocation (3.1.0):
     - SwiftyJSON (~> 4.0.0-alpha.1)
   - SwiftyJSON (4.0.0)
+  - Turf (0.0.4)
 
 DEPENDENCIES:
   - ClusterKit/MapKit
@@ -72,6 +89,7 @@ DEPENDENCIES:
   - IHKeyboardAvoiding
   - Mapbox-iOS-SDK
   - MapboxGeocoder.swift
+  - MapboxNavigation
   - Pageboy
   - SkyFloatingLabelTextField
   - SwiftLocation
@@ -86,18 +104,26 @@ SPEC CHECKSUMS:
   FirebaseInstanceID: d2058a35e9bebda1b6dd42486b84917bde552a9d
   FirebaseStorage: 181bb543d39ee3c53e0558de7ba86b1286a0427f
   GoogleToolboxForMac: 2501e2ad72a52eb3dfe7bd9aee7dad11b858bd20
-  GTMSessionFetcher: 5bb1eae636127de695590f50e7d248483eb891e6
+  GTMSessionFetcher: 390ea358e5a0d0133153806f744662dad933d06b
   Hero: ce59e81c79390613d97b43da7179e2c5e1017e04
   IHKeyboardAvoiding: 9fbf816b7c3c84911964802ff110d12caf40ebef
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   Mapbox-iOS-SDK: 107e331a7ae02e6be902c1557d3454c54e18ce5b
+  MapboxCoreNavigation: d166aa501fc16649f4e332c9304db4551af8a3b2
+  MapboxDirections.swift: e116692023c0e42b21d037273edbd2065babe3a9
   MapboxGeocoder.swift: 16e8488bbb81a5036b9a11d4d7714200337db86b
+  MapboxMobileEvents: 0f11c4ca8fed019926611a9486d414ad12bee2fa
+  MapboxNavigation: 002687fdbeaf765a62a14bd7d9f126002483ff4f
+  MapboxSpeech: 6cc9b3d53adc2988af3ebc704dd17907b84a3f9f
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
-  Pageboy: 502560f49b0357eaf8a3b6075e4cab29505079a3
+  Pageboy: b04cee5c1315a865fb49321129d12635e8465144
+  Polyline: 3d69f75bb136357e27291d439d0436c6ebda57a4
   SkyFloatingLabelTextField: 703aa1420b697392b1e7dba25571180dde018477
+  Solar: 2dc6e7cc39186cb0c8228fa08df76fb50c7d8f24
   SwiftLocation: 8f5ef4f510a45e43239de57a3145b3669301e898
   SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
+  Turf: 6c169618fa671e3f8a7b764b5b3332053ad6110e
 
-PODFILE CHECKSUM: 03575971d746afbbe19a695349075322e8522588
+PODFILE CHECKSUM: cddf0fdd61f731616f425b93009bc23a5754e72e
 
 COCOAPODS: 1.4.0

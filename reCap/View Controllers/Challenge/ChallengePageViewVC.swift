@@ -33,11 +33,13 @@ class ChallengePageViewVC: UIPageViewController, UIPageViewControllerDelegate, U
     */
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        <#code#>
+        //
+        return nil
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        <#code#>
+        //
+        return nil
     }
 
 }

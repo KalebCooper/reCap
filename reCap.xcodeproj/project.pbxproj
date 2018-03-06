@@ -16,8 +16,6 @@
 		344C940D20226E280025E4C5 /* reCapUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344C940C20226E280025E4C5 /* reCapUITests.swift */; };
 		345FB83920363BE300C59FDB /* SignInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 345FB83820363BE300C59FDB /* SignInVC.swift */; };
 		347A06A4202A14BB00961024 /* SignInTransitionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347A06A3202A14BB00961024 /* SignInTransitionVC.swift */; };
-		348447E92040F1430034D9A0 /* PhotoChalColCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A120DC8203E7E170003EE1F /* PhotoChalColCell.swift */; };
-		348591FD203A79C9003E3704 /* TutorialWelcomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348591FC203A79C9003E3704 /* TutorialWelcomeVC.swift */; };
 		348591FF203A79DA003E3704 /* TutorialErosionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348591FE203A79DA003E3704 /* TutorialErosionVC.swift */; };
 		34859201203A79E9003E3704 /* TutorialLandscapeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34859200203A79E9003E3704 /* TutorialLandscapeVC.swift */; };
 		34859203203A7A05003E3704 /* TutorialCityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34859202203A7A05003E3704 /* TutorialCityVC.swift */; };
@@ -32,18 +30,6 @@
 		34A7ACB42027A4EB00ACFB12 /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34A7ACB32027A4EB00ACFB12 /* Map.storyboard */; };
 		34A7ACB62027A4F500ACFB12 /* Camera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34A7ACB52027A4F500ACFB12 /* Camera.storyboard */; };
 		34A7ACB82027A51700ACFB12 /* LeaderboardsFriends.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34A7ACB72027A51700ACFB12 /* LeaderboardsFriends.storyboard */; };
-		34D244812042860D00547C74 /* 040-plant.eps in Resources */ = {isa = PBXBuildFile; fileRef = 34D244762042860D00547C74 /* 040-plant.eps */; };
-		34D244822042860D00547C74 /* 006-school-9.eps in Resources */ = {isa = PBXBuildFile; fileRef = 34D244772042860D00547C74 /* 006-school-9.eps */; };
-		34D244832042860D00547C74 /* 050-sun.eps in Resources */ = {isa = PBXBuildFile; fileRef = 34D244782042860D00547C74 /* 050-sun.eps */; };
-		34D244842042860D00547C74 /* 007-flower-3.eps in Resources */ = {isa = PBXBuildFile; fileRef = 34D244792042860D00547C74 /* 007-flower-3.eps */; };
-		34D244852042860D00547C74 /* LayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D2447A2042860D00547C74 /* LayerView.swift */; };
-		34D244862042860D00547C74 /* 074-house-28.eps in Resources */ = {isa = PBXBuildFile; fileRef = 34D2447B2042860D00547C74 /* 074-house-28.eps */; };
-		34D244872042860D00547C74 /* 015-grass.eps in Resources */ = {isa = PBXBuildFile; fileRef = 34D2447C2042860D00547C74 /* 015-grass.eps */; };
-		34D244882042860D00547C74 /* 015-house-36.eps in Resources */ = {isa = PBXBuildFile; fileRef = 34D2447D2042860D00547C74 /* 015-house-36.eps */; };
-		34D244892042860D00547C74 /* 099-house-23.eps in Resources */ = {isa = PBXBuildFile; fileRef = 34D2447E2042860D00547C74 /* 099-house-23.eps */; };
-		34D2448A2042860D00547C74 /* 008-flower-2.eps in Resources */ = {isa = PBXBuildFile; fileRef = 34D2447F2042860D00547C74 /* 008-flower-2.eps */; };
-		34D2448B2042860D00547C74 /* 190-mill.eps in Resources */ = {isa = PBXBuildFile; fileRef = 34D244802042860D00547C74 /* 190-mill.eps */; };
-		34D2448D204292DA00547C74 /* TutorialErosionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D2448C204292DA00547C74 /* TutorialErosionVC.swift */; };
 		34F60577203FD24C001A74E4 /* ImageConfirmVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F60575203FD24C001A74E4 /* ImageConfirmVC.swift */; };
 		34F60578203FD24C001A74E4 /* ImageCreateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F60576203FD24C001A74E4 /* ImageCreateVC.swift */; };
 		3BD76B62D24CA017D72CCCDA /* Pods_reCapUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CD7EFB0164AE95822E97FC9 /* Pods_reCapUITests.framework */; };
@@ -130,7 +116,6 @@
 		345FB83820363BE300C59FDB /* SignInVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInVC.swift; sourceTree = "<group>"; };
 		347A06A3202A14BB00961024 /* SignInTransitionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInTransitionVC.swift; sourceTree = "<group>"; };
 		348591F6203A23C4003E3704 /* Tutorial.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Tutorial.storyboard; path = ../../../../../../kaleb/Documents/SideProjects/reCap/reCap/Storyboards/Tutorial.storyboard; sourceTree = "<group>"; };
-		348591FC203A79C9003E3704 /* TutorialWelcomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TutorialWelcomeVC.swift; path = "../../../../../../../kaleb/Documents/SideProjects/reCap/reCap/View Controllers/Tutorial/TutorialWelcomeVC.swift"; sourceTree = "<group>"; };
 		348591FE203A79DA003E3704 /* TutorialErosionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialErosionVC.swift; sourceTree = "<group>"; };
 		34859200203A79E9003E3704 /* TutorialLandscapeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialLandscapeVC.swift; sourceTree = "<group>"; };
 		34859202203A7A05003E3704 /* TutorialCityVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialCityVC.swift; sourceTree = "<group>"; };
@@ -145,18 +130,6 @@
 		34A7ACB32027A4EB00ACFB12 /* Map.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Map.storyboard; sourceTree = "<group>"; };
 		34A7ACB52027A4F500ACFB12 /* Camera.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Camera.storyboard; sourceTree = "<group>"; };
 		34A7ACB72027A51700ACFB12 /* LeaderboardsFriends.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LeaderboardsFriends.storyboard; sourceTree = "<group>"; };
-		34D244762042860D00547C74 /* 040-plant.eps */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "040-plant.eps"; sourceTree = "<group>"; };
-		34D244772042860D00547C74 /* 006-school-9.eps */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "006-school-9.eps"; sourceTree = "<group>"; };
-		34D244782042860D00547C74 /* 050-sun.eps */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "050-sun.eps"; sourceTree = "<group>"; };
-		34D244792042860D00547C74 /* 007-flower-3.eps */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "007-flower-3.eps"; sourceTree = "<group>"; };
-		34D2447A2042860D00547C74 /* LayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayerView.swift; sourceTree = "<group>"; };
-		34D2447B2042860D00547C74 /* 074-house-28.eps */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "074-house-28.eps"; sourceTree = "<group>"; };
-		34D2447C2042860D00547C74 /* 015-grass.eps */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "015-grass.eps"; sourceTree = "<group>"; };
-		34D2447D2042860D00547C74 /* 015-house-36.eps */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "015-house-36.eps"; sourceTree = "<group>"; };
-		34D2447E2042860D00547C74 /* 099-house-23.eps */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "099-house-23.eps"; sourceTree = "<group>"; };
-		34D2447F2042860D00547C74 /* 008-flower-2.eps */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "008-flower-2.eps"; sourceTree = "<group>"; };
-		34D244802042860D00547C74 /* 190-mill.eps */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "190-mill.eps"; sourceTree = "<group>"; };
-		34D2448C204292DA00547C74 /* TutorialErosionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TutorialErosionVC.swift; path = "../../../../../../../kaleb/Documents/SideProjects/reCap/reCap/View Controllers/Tutorial/TutorialErosionVC.swift"; sourceTree = "<group>"; };
 		34F60575203FD24C001A74E4 /* ImageConfirmVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageConfirmVC.swift; path = "reCap/View Controllers/Camera/ImageConfirmVC.swift"; sourceTree = SOURCE_ROOT; };
 		34F60576203FD24C001A74E4 /* ImageCreateVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageCreateVC.swift; path = "reCap/View Controllers/Camera/ImageCreateVC.swift"; sourceTree = SOURCE_ROOT; };
 		6E7F0BE298641A4C1885D691 /* Pods-reCap.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-reCap.debug.xcconfig"; path = "Pods/Target Support Files/Pods-reCap/Pods-reCap.debug.xcconfig"; sourceTree = "<group>"; };
@@ -335,9 +308,9 @@
 		348591FA203A7971003E3704 /* Tutorial */ = {
 			isa = PBXGroup;
 			children = (
-				34D2448C204292DA00547C74 /* TutorialErosionVC.swift */,
-				34459480203A83F50098F52F /* TutorialTransitionVC.swift */,
-				348591FC203A79C9003E3704 /* TutorialWelcomeVC.swift */,
+				7A120DCA2041ED030003EE1F /* TutorialTransitionVC.swift */,
+				7A120DCB2041ED030003EE1F /* TutorialWelcomeVC.swift */,
+				348591FE203A79DA003E3704 /* TutorialErosionVC.swift */,
 				34859200203A79E9003E3704 /* TutorialLandscapeVC.swift */,
 				34859202203A7A05003E3704 /* TutorialCityVC.swift */,
 				34859204203A7A19003E3704 /* TutorialAnythingVC.swift */,
@@ -381,23 +354,6 @@
 			path = PageViewControllers;
 			sourceTree = "<group>";
 		};
-		34D244752042860D00547C74 /* CityAnimation */ = {
-			isa = PBXGroup;
-			children = (
-				34D244762042860D00547C74 /* 040-plant.eps */,
-				34D244772042860D00547C74 /* 006-school-9.eps */,
-				34D244782042860D00547C74 /* 050-sun.eps */,
-				34D244792042860D00547C74 /* 007-flower-3.eps */,
-				34D2447A2042860D00547C74 /* LayerView.swift */,
-				34D2447B2042860D00547C74 /* 074-house-28.eps */,
-				34D2447C2042860D00547C74 /* 015-grass.eps */,
-				34D2447D2042860D00547C74 /* 015-house-36.eps */,
-				34D2447E2042860D00547C74 /* 099-house-23.eps */,
-				34D2447F2042860D00547C74 /* 008-flower-2.eps */,
-				34D244802042860D00547C74 /* 190-mill.eps */,
-			);
-			name = CityAnimation;
-			path = "../../../../../../kaleb/Documents/SideProjects/reCap/reCap/Custom Objects/CityAnimation";
 		7A0162C8204E3D6D000539E0 /* Getter Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -465,7 +421,6 @@
 		7A4D8A53202782DB0043878E /* Custom Objects */ = {
 			isa = PBXGroup;
 			children = (
-				34D244752042860D00547C74 /* CityAnimation */,
 				7A3B468B202AB3FC001D19B6 /* EdgeShadowLayer.swift */,
 				7A4D8A55202783090043878E /* User.swift */,
 				7A4D8A57202789AA0043878E /* PictureData.swift */,
@@ -632,7 +587,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				34D244812042860D00547C74 /* 040-plant.eps in Resources */,
 				7A5878522030D25900F36A56 /* triomphe-light-italic-autoinstr.ttf in Resources */,
 				7A5878532030D25900F36A56 /* triomphe-bold-italic-autoinstr.ttf in Resources */,
 				7A0162D1204E4CAE000539E0 /* Challenges.storyboard in Resources */,
@@ -640,28 +594,18 @@
 				7A38A279202AB57600DF239F /* PhotoLibChallenge.storyboard in Resources */,
 				7A5878542030D25900F36A56 /* triomphe-regular-autoinstr.ttf in Resources */,
 				7A3C60112027B99A00ABC9E1 /* PageView.storyboard in Resources */,
-				34D244882042860D00547C74 /* 015-house-36.eps in Resources */,
-				34D244822042860D00547C74 /* 006-school-9.eps in Resources */,
 				7A120DC3203E6BBB0003EE1F /* Profile.storyboard in Resources */,
 				34A7ACB62027A4F500ACFB12 /* Camera.storyboard in Resources */,
-				34D244892042860D00547C74 /* 099-house-23.eps in Resources */,
 				7A3B468E202AB407001D19B6 /* SignIn.storyboard in Resources */,
-				34D244842042860D00547C74 /* 007-flower-3.eps in Resources */,
 				7AE3755F2037C56000CA9946 /* Launch Screen.storyboard in Resources */,
 				7A58785E20310A0100F36A56 /* CreateAccount.storyboard in Resources */,
 				34A7ACB42027A4EB00ACFB12 /* Map.storyboard in Resources */,
 				3422D37F20226FE600570374 /* GoogleService-Info.plist in Resources */,
-				34D244832042860D00547C74 /* 050-sun.eps in Resources */,
-				34D244862042860D00547C74 /* 074-house-28.eps in Resources */,
 				7A5878502030D25900F36A56 /* triomphe-light-autoinstr.ttf in Resources */,
 				7ABF80D0203A64D300BCE787 /* Photo.storyboard in Resources */,
 				344C93F420226E280025E4C5 /* Assets.xcassets in Resources */,
-				34D2448B2042860D00547C74 /* 190-mill.eps in Resources */,
 				344C93EF20226E280025E4C5 /* Main.storyboard in Resources */,
-				34D244872042860D00547C74 /* 015-grass.eps in Resources */,
-				7A4D8A4F202781CF0043878E /* TableCollectionView.xib in Resources */,
 				7A5878512030D25900F36A56 /* triomphe-italic-autoinstr.ttf in Resources */,
-				34D2448A2042860D00547C74 /* 008-flower-2.eps in Resources */,
 				7A58784F2030D25900F36A56 /* triomphe-bold-autoinstr.ttf in Resources */,
 				7A120DC7203E6EB10003EE1F /* Tutorial.storyboard in Resources */,
 				7ABF80CE203A63F800BCE787 /* Settings.storyboard in Resources */,
@@ -699,11 +643,19 @@
 				"${BUILT_PRODUCTS_DIR}/IHKeyboardAvoiding/IHKeyboardAvoiding.framework",
 				"${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework",
 				"${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework.dSYM",
+				"${BUILT_PRODUCTS_DIR}/MapboxCoreNavigation/MapboxCoreNavigation.framework",
+				"${BUILT_PRODUCTS_DIR}/MapboxDirections.swift/MapboxDirections.framework",
 				"${BUILT_PRODUCTS_DIR}/MapboxGeocoder.swift/MapboxGeocoder.framework",
+				"${BUILT_PRODUCTS_DIR}/MapboxMobileEvents/MapboxMobileEvents.framework",
+				"${BUILT_PRODUCTS_DIR}/MapboxNavigation/MapboxNavigation.framework",
+				"${BUILT_PRODUCTS_DIR}/MapboxSpeech/MapboxSpeech.framework",
 				"${BUILT_PRODUCTS_DIR}/Pageboy/Pageboy.framework",
+				"${BUILT_PRODUCTS_DIR}/Polyline/Polyline.framework",
 				"${BUILT_PRODUCTS_DIR}/SkyFloatingLabelTextField/SkyFloatingLabelTextField.framework",
+				"${BUILT_PRODUCTS_DIR}/Solar/Solar.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftLocation/SwiftLocation.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/Turf/Turf.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
@@ -716,11 +668,19 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IHKeyboardAvoiding.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mapbox.framework",
 				"${DWARF_DSYM_FOLDER_PATH}/Mapbox.framework.dSYM",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MapboxCoreNavigation.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MapboxDirections.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MapboxGeocoder.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MapboxMobileEvents.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MapboxNavigation.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MapboxSpeech.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Pageboy.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Polyline.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SkyFloatingLabelTextField.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Solar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftLocation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Turf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
@@ -896,12 +856,9 @@
 				3485920D203A7A5E003E3704 /* TutorialFinalVC.swift in Sources */,
 				7AE3756B2037C8E100CA9946 /* LeaderboardsFriendsVC.swift in Sources */,
 				7AE3756C2037C8E100CA9946 /* LeaderboardFriendsTableCell.swift in Sources */,
-				34D2448D204292DA00547C74 /* TutorialErosionVC.swift in Sources */,
 				7A3C60132027BAE300ABC9E1 /* MapContainerVC.swift in Sources */,
 				7A38A275202AB56100DF239F /* PhotoChallengeTableCell.swift in Sources */,
-				34D244852042860D00547C74 /* LayerView.swift in Sources */,
 				7A3B468C202AB3FC001D19B6 /* EdgeShadowLayer.swift in Sources */,
-				34459481203A83F50098F52F /* TutorialTransitionVC.swift in Sources */,
 				348591FF203A79DA003E3704 /* TutorialErosionVC.swift in Sources */,
 				34859207203A7A26003E3704 /* TutorialCollabVC.swift in Sources */,
 				7AE375672037C6DA00CA9946 /* FBDatabase.swift in Sources */,
@@ -1071,7 +1028,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = CZ7R6F7L6H;
+				DEVELOPMENT_TEAM = VPT5835T5T;
 				INFOPLIST_FILE = reCap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Kaleb-Cooper-Team-Red.reCap";
@@ -1088,7 +1045,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = CZ7R6F7L6H;
+				DEVELOPMENT_TEAM = VPT5835T5T;
 				INFOPLIST_FILE = reCap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Kaleb-Cooper-Team-Red.reCap";
