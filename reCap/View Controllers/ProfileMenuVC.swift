@@ -155,6 +155,7 @@ class ProfileMenuVC: UIViewController {
             let destination = segue.destination as! UINavigationController
             let photoLibVC = destination.topViewController as! PhotoLibChallengeVC
             photoLibVC.user = self.user
+            photoLibVC.mode = PhotoLibChallengeVC.PHOTO_LIB_MODE
         }
     }
     

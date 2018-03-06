@@ -1,15 +1,15 @@
 //
-//  ChallengesVC.swift
+//  ChallengePageViewVC.swift
 //  reCap
 //
-//  Created by Jackson Delametter on 2/4/18.
+//  Created by Jackson Delametter on 3/5/18.
 //  Copyright © 2018 Kaleb Cooper. All rights reserved.
 //
 
 import UIKit
 
-class ChallengesVC: UIViewController {
-
+class ChallengePageViewVC: UIPageViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource  {
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -31,5 +31,13 @@ class ChallengesVC: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+        <#code#>
+    }
+    
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+        <#code#>
+    }
 
 }

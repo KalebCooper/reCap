@@ -35,6 +35,9 @@
 		3BD76B62D24CA017D72CCCDA /* Pods_reCapUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CD7EFB0164AE95822E97FC9 /* Pods_reCapUITests.framework */; };
 		4166566AA68139D9E70F183A /* Pods_reCap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0C6A1AA7E56B3B8DAD1F814 /* Pods_reCap.framework */; };
 		431B5E71E2A82C2D5591C9FD /* Pods_reCapTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A855F58760B4E1DE5F6226D /* Pods_reCapTests.framework */; };
+		7A0162CA204E3D91000539E0 /* DateGetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0162C9204E3D91000539E0 /* DateGetter.swift */; };
+		7A0162D1204E4CAE000539E0 /* Challenges.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A0162D0204E4CAE000539E0 /* Challenges.storyboard */; };
+		7A0162D5204E4EA9000539E0 /* ChallengePageViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A0162D4204E4EA9000539E0 /* ChallengePageViewVC.swift */; };
 		7A120DC3203E6BBB0003EE1F /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A120DC2203E6BBB0003EE1F /* Profile.storyboard */; };
 		7A120DC7203E6EB10003EE1F /* Tutorial.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A120DC6203E6EB10003EE1F /* Tutorial.storyboard */; };
 		7A120DCC2041ED030003EE1F /* TutorialTransitionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A120DCA2041ED030003EE1F /* TutorialTransitionVC.swift */; };
@@ -51,7 +54,6 @@
 		7A3C60132027BAE300ABC9E1 /* MapContainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3C60122027BAE200ABC9E1 /* MapContainerVC.swift */; };
 		7A4D8A3A20277E4F0043878E /* CreateAccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4D8A3920277E4F0043878E /* CreateAccountVC.swift */; };
 		7A4D8A4020277F450043878E /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4D8A3F20277F450043878E /* MapVC.swift */; };
-		7A4D8A4220277FA00043878E /* ChallengesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4D8A4120277FA00043878E /* ChallengesVC.swift */; };
 		7A4D8A442027801E0043878E /* NavigationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4D8A432027801E0043878E /* NavigationVC.swift */; };
 		7A4D8A46202780A00043878E /* RecentPicturesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4D8A45202780A00043878E /* RecentPicturesVC.swift */; };
 		7A4D8A4A2027818A0043878E /* ProfileSettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4D8A492027818A0043878E /* ProfileSettingsVC.swift */; };
@@ -131,6 +133,9 @@
 		34F60575203FD24C001A74E4 /* ImageConfirmVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageConfirmVC.swift; path = "reCap/View Controllers/Camera/ImageConfirmVC.swift"; sourceTree = SOURCE_ROOT; };
 		34F60576203FD24C001A74E4 /* ImageCreateVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageCreateVC.swift; path = "reCap/View Controllers/Camera/ImageCreateVC.swift"; sourceTree = SOURCE_ROOT; };
 		6E7F0BE298641A4C1885D691 /* Pods-reCap.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-reCap.debug.xcconfig"; path = "Pods/Target Support Files/Pods-reCap/Pods-reCap.debug.xcconfig"; sourceTree = "<group>"; };
+		7A0162C9204E3D91000539E0 /* DateGetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateGetter.swift; sourceTree = "<group>"; };
+		7A0162D0204E4CAE000539E0 /* Challenges.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Challenges.storyboard; sourceTree = "<group>"; };
+		7A0162D4204E4EA9000539E0 /* ChallengePageViewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengePageViewVC.swift; sourceTree = "<group>"; };
 		7A120DC2203E6BBB0003EE1F /* Profile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		7A120DC6203E6EB10003EE1F /* Tutorial.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Tutorial.storyboard; sourceTree = "<group>"; };
 		7A120DCA2041ED030003EE1F /* TutorialTransitionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialTransitionVC.swift; sourceTree = "<group>"; };
@@ -147,7 +152,6 @@
 		7A3C60122027BAE200ABC9E1 /* MapContainerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapContainerVC.swift; sourceTree = "<group>"; };
 		7A4D8A3920277E4F0043878E /* CreateAccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountVC.swift; sourceTree = "<group>"; };
 		7A4D8A3F20277F450043878E /* MapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
-		7A4D8A4120277FA00043878E /* ChallengesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengesVC.swift; sourceTree = "<group>"; };
 		7A4D8A432027801E0043878E /* NavigationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationVC.swift; sourceTree = "<group>"; };
 		7A4D8A45202780A00043878E /* RecentPicturesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentPicturesVC.swift; sourceTree = "<group>"; };
 		7A4D8A492027818A0043878E /* ProfileSettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsVC.swift; sourceTree = "<group>"; };
@@ -247,6 +251,7 @@
 		344C93E820226E280025E4C5 /* reCap */ = {
 			isa = PBXGroup;
 			children = (
+				7A0162C8204E3D6D000539E0 /* Getter Classes */,
 				7AE3755D2037C51D00CA9946 /* Custom Fonts */,
 				7A5878462030D22600F36A56 /* Extensions.swift */,
 				7A4D8A53202782DB0043878E /* Custom Objects */,
@@ -334,6 +339,7 @@
 				34A7ACB72027A51700ACFB12 /* LeaderboardsFriends.storyboard */,
 				7ABF80CD203A63F800BCE787 /* Settings.storyboard */,
 				7ABF80CF203A64D300BCE787 /* Photo.storyboard */,
+				7A0162D0204E4CAE000539E0 /* Challenges.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -348,12 +354,26 @@
 			path = PageViewControllers;
 			sourceTree = "<group>";
 		};
+		7A0162C8204E3D6D000539E0 /* Getter Classes */ = {
+			isa = PBXGroup;
+			children = (
+				7A0162C9204E3D91000539E0 /* DateGetter.swift */,
+			);
+			path = "Getter Classes";
+			sourceTree = "<group>";
+		};
+		7A0162CD204E4C5A000539E0 /* Challenge */ = {
+			isa = PBXGroup;
+			children = (
+				7A0162D4204E4EA9000539E0 /* ChallengePageViewVC.swift */,
+			);
+			path = Challenge;
+			sourceTree = "<group>";
+		};
 		7A38A273202AB54800DF239F /* PhotoLibChallenge */ = {
 			isa = PBXGroup;
 			children = (
-				7A38A274202AB56100DF239F /* PhotoChallengeTableCell.swift */,
 				7A38A276202AB56C00DF239F /* PhotoLibChallengeVC.swift */,
-				7A120DCE2041F0560003EE1F /* PhotoChalColCell.swift */,
 				7A120DD02041F4B50003EE1F /* ImageButtonDelegate.swift */,
 			);
 			path = PhotoLibChallenge;
@@ -362,6 +382,7 @@
 		7A4D8A3820277DFF0043878E /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				7A0162CD204E4C5A000539E0 /* Challenge */,
 				348591FA203A7971003E3704 /* Tutorial */,
 				348591F9203A795D003E3704 /* Map */,
 				348591F8203A7942003E3704 /* Camera */,
@@ -372,7 +393,6 @@
 				7A4D8A4B202781A80043878E /* Reusable */,
 				347A06A3202A14BB00961024 /* SignInTransitionVC.swift */,
 				7A4D8A3920277E4F0043878E /* CreateAccountVC.swift */,
-				7A4D8A4120277FA00043878E /* ChallengesVC.swift */,
 				7A4D8A45202780A00043878E /* RecentPicturesVC.swift */,
 				7A4D8A492027818A0043878E /* ProfileSettingsVC.swift */,
 				7AE375682037C8E100CA9946 /* LeaderboardFriends */,
@@ -383,6 +403,8 @@
 		7A4D8A4B202781A80043878E /* Reusable */ = {
 			isa = PBXGroup;
 			children = (
+				7A38A274202AB56100DF239F /* PhotoChallengeTableCell.swift */,
+				7A120DCE2041F0560003EE1F /* PhotoChalColCell.swift */,
 				7A120DD22041F7A70003EE1F /* PhotoVC.swift */,
 			);
 			path = Reusable;
@@ -567,6 +589,7 @@
 			files = (
 				7A5878522030D25900F36A56 /* triomphe-light-italic-autoinstr.ttf in Resources */,
 				7A5878532030D25900F36A56 /* triomphe-bold-italic-autoinstr.ttf in Resources */,
+				7A0162D1204E4CAE000539E0 /* Challenges.storyboard in Resources */,
 				34A7ACB82027A51700ACFB12 /* LeaderboardsFriends.storyboard in Resources */,
 				7A38A279202AB57600DF239F /* PhotoLibChallenge.storyboard in Resources */,
 				7A5878542030D25900F36A56 /* triomphe-regular-autoinstr.ttf in Resources */,
@@ -808,6 +831,8 @@
 				34A7ACB020278CA700ACFB12 /* LeaderboardContainerVC.swift in Sources */,
 				3485920B203A7A50003E3704 /* TutorialHikingVC.swift in Sources */,
 				7A120DCF2041F0570003EE1F /* PhotoChalColCell.swift in Sources */,
+				7A0162CA204E3D91000539E0 /* DateGetter.swift in Sources */,
+				7A0162D5204E4EA9000539E0 /* ChallengePageViewVC.swift in Sources */,
 				347A06A4202A14BB00961024 /* SignInTransitionVC.swift in Sources */,
 				7AF3594A2038CDE500713EA3 /* SettingsVC.swift in Sources */,
 				7A4D8A4020277F450043878E /* MapVC.swift in Sources */,
@@ -826,7 +851,6 @@
 				7A4D8A3A20277E4F0043878E /* CreateAccountVC.swift in Sources */,
 				34A7ACA8202787DA00ACFB12 /* PageViewController.swift in Sources */,
 				344C93EA20226E280025E4C5 /* AppDelegate.swift in Sources */,
-				7A4D8A4220277FA00043878E /* ChallengesVC.swift in Sources */,
 				7A120DD32041F7A70003EE1F /* PhotoVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
