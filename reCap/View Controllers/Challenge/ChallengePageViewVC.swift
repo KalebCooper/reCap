@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ChallengePageViewVC: UIPageViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource  {
+class ChallengePageViewVC: UIPageViewController  {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,12 +32,5 @@ class ChallengePageViewVC: UIPageViewController, UIPageViewControllerDelegate, U
     }
     */
     
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        <#code#>
-    }
-    
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        <#code#>
-    }
 
 }
