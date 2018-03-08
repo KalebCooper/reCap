@@ -110,12 +110,7 @@ class MapVC: UIViewController, MGLMapViewDelegate {
     }
     
     func setupPins() {
-        
-        
         mapView.addAnnotations(pins)
-        
-        
-        
     }
     
     func mapViewDidFinishLoadingMap(_ mapView: MGLMapView) {
@@ -127,7 +122,7 @@ class MapVC: UIViewController, MGLMapViewDelegate {
         let when = DispatchTime.now() + 0.5 // change 2 to desired number of seconds
         DispatchQueue.main.asyncAfter(deadline: when) {
             // Animate the camera movement over 5 seconds.
-            mapView.setCamera(camera, withDuration: 3, animationTimingFunction: CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut))
+            mapView.setCamera(camera, withDuration: 2, animationTimingFunction: CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut))
             
         }
         
@@ -148,36 +143,26 @@ class MapVC: UIViewController, MGLMapViewDelegate {
     
     
     func mapView(_ mapView: MGLMapView, leftCalloutAccessoryViewFor annotation: MGLAnnotation) -> UIView? {
-        
         for i in 0 ..< pins.count {
-            
-            if annotation.coordinate.latitude == pins[i].coordinate.latitude {
-                
+            if (annotation.coordinate.latitude == pins[i].coordinate.latitude) && annotation.coordinate.longitude == pins[i].coordinate.longitude {
                 let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 60, height: 50))
-                
                 FBDatabase.getPictureData(id: pictureIDArray[i], ref: ref) { (pictureData) in
-                    
                     if let realPictureData = pictureData{
                         FBDatabase.getPicture(pictureData: realPictureData, with_progress: {(progress, total) in
                             
                         }, with_completion: {(image) in
                             if let realImage = image {
                                 imageView.image = realImage
+                                imageView.contentMode = .scaleAspectFit
                             }
                             else {
                             }
-                            
                         })
-                        
                     }
-                    
                 }
                 return imageView
-                
             }
-            
         }
-        
         return nil
     }
     
@@ -199,6 +184,11 @@ class MapVC: UIViewController, MGLMapViewDelegate {
         
         // Ask user if they want to navigate to the pin.
         let alert = UIAlertController(title: "Navigate here?", message: nil , preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Set as Target", style: .default, handler: { (action) in
+            // Set as target destination
+            self.beginNavigation()
+            
+        }))
         alert.addAction(UIAlertAction(title: "Navigate", style: .default, handler: { (action) in
             // Calculate the route from the user's location to the set destination
             

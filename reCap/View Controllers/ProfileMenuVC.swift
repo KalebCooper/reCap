@@ -38,7 +38,6 @@ class ProfileMenuVC: UIViewController {
             setupHero()
             setupGestures()
             setupOutlets()
-            setupProfileImage()
             setupBlurEffect(image: image!)
         }
         // Do any additional setup after loading the view.
@@ -115,6 +114,15 @@ class ProfileMenuVC: UIViewController {
                 
                 self.nameOutlet.text = name
                 self.pointsOutlet.text = "Points: \(points)"
+            
+                
+                FBDatabase.getProfilePicture(for_user: user!, with_progress: { (progress, total) in
+                }, with_completion: { (image) in
+                    if let fetchedImage = image {
+                        self.profileImage.image = fetchedImage
+                        self.setupProfileImage()
+                    }
+                })
             }
             
             
@@ -123,7 +131,7 @@ class ProfileMenuVC: UIViewController {
     
     func setupProfileImage() {
         
-        profileImage.image = image
+        //profileImage.image = image
         profileImage.layer.borderWidth = 1
         profileImage.layer.borderColor = UIColor.white.cgColor
         profileImage.layer.cornerRadius = profileImage.layer.frame.width / 2
