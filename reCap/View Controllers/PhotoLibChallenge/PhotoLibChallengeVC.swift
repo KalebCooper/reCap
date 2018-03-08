@@ -77,6 +77,10 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
     
     // MARK: - Setup Methods
     
+    func setup() {
+        
+    }
+    
     private func setupPhotoLib() {
         locations = []
         locationDictionary = [:]

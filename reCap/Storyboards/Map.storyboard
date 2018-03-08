@@ -102,10 +102,10 @@
             </objects>
             <point key="canvasLocation" x="884" y="-226.10837438423647"/>
         </scene>
-        <!--PhotoLibChallenge-->
+        <!--Challenges-->
         <scene sceneID="9RD-dM-jwx">
             <objects>
-                <viewControllerPlaceholder storyboardName="PhotoLibChallenge" id="vEM-ff-WEx" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardName="Challenges" id="vEM-ff-WEx" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="H0L-Cp-bPX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1426" y="-696"/>
