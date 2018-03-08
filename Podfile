@@ -13,7 +13,7 @@ target 'reCap' do
   pod 'Hero'
   pod 'SwiftLocation'
   pod 'Mapbox-iOS-SDK'
-  #pod 'MapboxNavigation'
+  pod 'MapboxNavigation'
   pod 'MapboxGeocoder.swift'
   pod 'ClusterKit/MapKit'
   pod 'Pageboy'

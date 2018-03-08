@@ -50,10 +50,14 @@
 		<string>triomphe-light-italic-autoinstr.ttf</string>
 		<string>triomphe-regular-autoinstr.ttf</string>
 	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>audio</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>Launch Screen</string>
 	<key>UIMainStoryboardFile</key>
-	<string>SignIn</string>
+	<string>Tutorial</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
