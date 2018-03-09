@@ -27,11 +27,13 @@ class LeaderboardsFriendsVC: UITableViewController {
             if pickedMode == LeaderboardsFriendsVC.FRIENDS_LIST_MODE {
                 // Friends list mode has been picked
                 setupFriendsList()
+                print("Setting up friends list")
             }
         }
         else {
             // Leaderboard mode has been picked
             setupLeaderboards()
+            print("Setting up leaderboards")
         }
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false

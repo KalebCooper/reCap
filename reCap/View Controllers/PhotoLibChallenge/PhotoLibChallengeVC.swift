@@ -132,14 +132,14 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
     func imageButtonPressed(image: UIImage, pictureData: PictureData) {
         print("Image Pressed")
         if mode == PhotoLibChallengeVC.CHALLENGE_MODE {
-            let alert = UIAlertController(title: nil, message: "How would you like to acept this challenge?", preferredStyle: .actionSheet)
-            let withNav = UIAlertAction(title: "With navigation", style: .default, handler: {(action) in
+            let alert = UIAlertController(title: nil, message: "How would you like to accept this challenge?", preferredStyle: .actionSheet)
+            let withNav = UIAlertAction(title: "With Navigation", style: .default, handler: {(action) in
                 
             })
-            let withoutNav = UIAlertAction(title: "Withought navigation", style: .default, handler: {(action) in
+            let withoutNav = UIAlertAction(title: "Withought Navigation", style: .default, handler: {(action) in
                 
             })
-            let cancel = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
+            let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
             alert.addAction(withNav)
             alert.addAction(withoutNav)
             alert.addAction(cancel)
@@ -170,16 +170,36 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
         return 1
     }
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        if mode == PhotoLibChallengeVC.PHOTO_LIB_MODE {
+//            return locations[section]
+//        }
+//        else if mode == PhotoLibChallengeVC.CHALLENGE_MODE {
+//            return challenges[section]
+//        }
+//        else {
+//            return ""
+//        }
+//    }
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let label : UILabel = UILabel()
+        label.backgroundColor = UIColor.clear
+        label.textColor = UIColor.white
+        
         if mode == PhotoLibChallengeVC.PHOTO_LIB_MODE {
-            return locations[section]
+            label.text = locations[section]
+            return label
         }
         else if mode == PhotoLibChallengeVC.CHALLENGE_MODE {
-            return challenges[section]
+            label.text = challenges[section]
+            return label
         }
         else {
-            return ""
+            return label
         }
+        
     }
 
     

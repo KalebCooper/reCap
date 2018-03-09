@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="mFD-Q5-NGh">
-    <device id="retina5_9" orientation="portrait">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14101" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="mFD-Q5-NGh">
+    <device id="retina5_9" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14086"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -16,17 +16,17 @@
             <objects>
                 <viewController storyboardIdentifier="MapContainerVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="5XJ-LK-hPZ" customClass="MapContainerVC" customModule="reCap" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9rw-6c-VS2">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="812" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dit-uf-8xj">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                                <rect key="frame" x="44" y="0.0" width="724" height="812.33333333333337"/>
                                 <connections>
                                     <segue destination="gOT-wK-JaJ" kind="embed" id="9aj-oc-vzc"/>
                                 </connections>
                             </containerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NeT-1R-haj">
-                                <rect key="frame" x="355" y="0.0" width="20" height="812"/>
+                                <rect key="frame" x="748" y="0.0" width="20" height="812.33333333333337"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="NeT-1R-haj" secondAttribute="height" multiplier="5:203" id="9Ye-Rf-t2Q"/>
@@ -34,15 +34,15 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oMv-Hh-yoh">
-                                <rect key="frame" x="0.0" y="0.0" width="20" height="812"/>
+                                <rect key="frame" x="44" y="0.0" width="20" height="812.33333333333337"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="20" id="Bgt-Cs-dxZ"/>
                                     <constraint firstAttribute="width" secondItem="oMv-Hh-yoh" secondAttribute="height" multiplier="5:203" id="XFb-1F-3bJ"/>
                                 </constraints>
                             </view>
-                            <imageView userInteractionEnabled="NO" tag="10" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo Text" translatesAutoresizingMaskIntoConstraints="NO" id="VUu-8o-Y32">
-                                <rect key="frame" x="137" y="44" width="100" height="35"/>
+                            <imageView userInteractionEnabled="NO" tag="10" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo Text Wide" translatesAutoresizingMaskIntoConstraints="NO" id="VUu-8o-Y32">
+                                <rect key="frame" x="356" y="0.0" width="100" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="dQK-10-wcG"/>
                                     <constraint firstAttribute="width" constant="100" id="w2Z-DO-VoA"/>
@@ -52,10 +52,13 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="logoID"/>
                                 </userDefinedRuntimeAttributes>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NeL-fd-kqp">
-                                <rect key="frame" x="270" y="49" width="77" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Challenges"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NeL-fd-kqp">
+                                <rect key="frame" x="722" y="2.6666666666666572" width="30" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="Mvv-h6-jNu"/>
+                                    <constraint firstAttribute="height" constant="30" id="WfO-W4-vs1"/>
+                                </constraints>
+                                <state key="normal" title="Challenges" image="Challenges"/>
                                 <connections>
                                     <action selector="challengesFixed:" destination="5XJ-LK-hPZ" eventType="touchUpInside" id="UaK-VU-8c0"/>
                                 </connections>
@@ -72,11 +75,13 @@
                             <constraint firstAttribute="bottom" secondItem="Dit-uf-8xj" secondAttribute="bottom" id="O77-NB-uUE"/>
                             <constraint firstItem="Dit-uf-8xj" firstAttribute="trailing" secondItem="NeT-1R-haj" secondAttribute="trailing" id="R7o-YY-69E"/>
                             <constraint firstItem="oMv-Hh-yoh" firstAttribute="top" secondItem="9rw-6c-VS2" secondAttribute="top" id="RSh-X0-Bfn"/>
+                            <constraint firstItem="3ga-dN-IQR" firstAttribute="trailing" secondItem="NeL-fd-kqp" secondAttribute="trailing" constant="16" id="SNY-qn-nyl"/>
                             <constraint firstItem="oMv-Hh-yoh" firstAttribute="leading" secondItem="3ga-dN-IQR" secondAttribute="leading" id="WiX-4Y-i8L"/>
                             <constraint firstItem="oMv-Hh-yoh" firstAttribute="top" secondItem="NeT-1R-haj" secondAttribute="top" id="YVA-DT-eR7"/>
                             <constraint firstItem="oMv-Hh-yoh" firstAttribute="leading" secondItem="9rw-6c-VS2" secondAttribute="leading" id="aMQ-BE-lPs"/>
                             <constraint firstItem="Dit-uf-8xj" firstAttribute="centerX" secondItem="VUu-8o-Y32" secondAttribute="centerX" id="bAP-d9-Lk0"/>
                             <constraint firstItem="Dit-uf-8xj" firstAttribute="top" secondItem="oMv-Hh-yoh" secondAttribute="top" id="bfg-2J-fS9"/>
+                            <constraint firstItem="NeL-fd-kqp" firstAttribute="centerY" secondItem="VUu-8o-Y32" secondAttribute="centerY" id="gAc-Yc-eBX"/>
                             <constraint firstItem="oMv-Hh-yoh" firstAttribute="bottom" secondItem="NeT-1R-haj" secondAttribute="bottom" id="kOP-Le-1BE"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="3ga-dN-IQR"/>
@@ -115,7 +120,7 @@
             <objects>
                 <viewController id="gOT-wK-JaJ" customClass="MapVC" customModule="reCap" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Gck-yg-c4Z">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="724" height="812.33333333333337"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="gyg-8r-U5Q"/>
@@ -145,6 +150,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Logo Text" width="682" height="682"/>
+        <image name="Challenges" width="512" height="512"/>
+        <image name="Logo Text Wide" width="682" height="233"/>
     </resources>
 </document>

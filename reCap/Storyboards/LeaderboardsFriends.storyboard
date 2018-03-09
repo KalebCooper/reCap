@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dwl-M5-2nk">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14101" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dwl-M5-2nk">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14086"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="triomphe-regular-autoinstr.ttf">
+            <string>Triomphe-Regular</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Leaderboards-->
         <scene sceneID="SbF-SP-7P6">
@@ -55,42 +61,62 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="NQ4-Ai-IFu">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.035294117649999998" green="0.33333333329999998" blue="0.37254901959999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="66" id="CG6-g2-jXr" customClass="LeaderboardFriendsTableCell" customModule="reCap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="66"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="70" id="CG6-g2-jXr" customClass="LeaderboardFriendsTableCell" customModule="reCap" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="70"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CG6-g2-jXr" id="Aab-IE-Rf6">
-                                    <rect key="frame" x="0.0" y="0.0" width="341" height="65.666666666666671"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="341" height="69.666666666666671"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8jZ-95-JUn">
-                                            <rect key="frame" x="16" y="0.0" width="60" height="60"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8jZ-95-JUn">
+                                            <rect key="frame" x="16" y="2" width="65" height="65"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="8jZ-95-JUn" secondAttribute="height" multiplier="1:1" id="EMI-eS-U3V"/>
+                                            </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Full Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XvV-TF-trV">
-                                            <rect key="frame" x="84" y="0.0" width="164" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Full Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XvV-TF-trV">
+                                            <rect key="frame" x="89.000000000000014" y="10" width="148.33333333333337" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="21" id="39z-go-ToY"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="Triomphe-Regular" family="Triomphe" pointSize="20"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Points" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iZH-eN-wy2">
-                                            <rect key="frame" x="291" y="22" width="48" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Points" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iZH-eN-wy2">
+                                            <rect key="frame" x="266" y="22" width="75" height="25"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="75" id="Czx-WP-kW2"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="Triomphe-Regular" family="Triomphe" pointSize="17"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MVY-pA-cqF">
-                                            <rect key="frame" x="104" y="22" width="102" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <nil key="textColor"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MVY-pA-cqF">
+                                            <rect key="frame" x="89" y="39" width="173" height="21"/>
+                                            <fontDescription key="fontDescription" name="Triomphe-Regular" family="Triomphe" pointSize="14"/>
+                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="XvV-TF-trV" firstAttribute="top" secondItem="Aab-IE-Rf6" secondAttribute="top" constant="10" id="03I-kv-Fjb"/>
+                                        <constraint firstItem="MVY-pA-cqF" firstAttribute="leading" secondItem="XvV-TF-trV" secondAttribute="leading" id="9OL-VP-NgY"/>
+                                        <constraint firstItem="iZH-eN-wy2" firstAttribute="centerY" secondItem="Aab-IE-Rf6" secondAttribute="centerY" id="LYf-lR-MzY"/>
+                                        <constraint firstItem="8jZ-95-JUn" firstAttribute="top" secondItem="Aab-IE-Rf6" secondAttribute="top" constant="2" id="UDG-VD-ikf"/>
+                                        <constraint firstItem="MVY-pA-cqF" firstAttribute="top" secondItem="XvV-TF-trV" secondAttribute="bottom" constant="8" id="avl-qo-5ox"/>
+                                        <constraint firstItem="XvV-TF-trV" firstAttribute="leading" secondItem="8jZ-95-JUn" secondAttribute="trailing" constant="8" id="fU1-E3-d0h"/>
+                                        <constraint firstItem="8jZ-95-JUn" firstAttribute="leading" secondItem="Aab-IE-Rf6" secondAttribute="leading" constant="16" id="gYP-J1-Fjn"/>
+                                        <constraint firstItem="iZH-eN-wy2" firstAttribute="leading" secondItem="XvV-TF-trV" secondAttribute="trailing" constant="28.666666666666686" id="gcb-GA-29o"/>
+                                        <constraint firstItem="iZH-eN-wy2" firstAttribute="leading" secondItem="MVY-pA-cqF" secondAttribute="trailing" constant="4" id="ilZ-S7-Nxv"/>
+                                        <constraint firstItem="8jZ-95-JUn" firstAttribute="centerY" secondItem="Aab-IE-Rf6" secondAttribute="centerY" id="oUs-So-W7a"/>
+                                        <constraint firstAttribute="trailing" secondItem="iZH-eN-wy2" secondAttribute="trailing" id="rgt-Hl-nib"/>
+                                        <constraint firstAttribute="bottom" secondItem="8jZ-95-JUn" secondAttribute="bottom" constant="2" id="z8s-XN-yTm"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" red="0.035294117649999998" green="0.33333333329999998" blue="0.37254901959999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -98,11 +124,26 @@
                             <outlet property="delegate" destination="mST-bf-Gtf" id="ZvK-YJ-eFD"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="4ER-A6-wwL"/>
+                    <navigationItem key="navigationItem" id="4ER-A6-wwL">
+                        <barButtonItem key="rightBarButtonItem" title="Settings" id="F1M-fT-Gi9">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <segue destination="0h2-5E-bRN" kind="show" id="fh0-rQ-pxm"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nmy-aI-6vQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1604" y="-191.37931034482759"/>
+        </scene>
+        <!--Settings-->
+        <scene sceneID="Ckl-fU-zfK">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Settings" id="0h2-5E-bRN" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dtZ-lZ-dzn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2534" y="-191"/>
         </scene>
         <!--Leaderboards-->
         <scene sceneID="Lx1-2j-jBS">
