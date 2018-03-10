@@ -20,6 +20,7 @@ class FBDatabase {
     private static let USER_POINTS = "Points"
     private static let USER_USERNAME = "Username"
     private static let USER_FRIENDS_ID = "Friends ID"
+    private static let USER_ACTIVE_CHALLENGES = "Active Challenges"
     private static let PROFILE_PICTURE_NODE = "Profile Picture"
     
     private static let EMPTY_VALUE = "Empty"
@@ -47,7 +48,7 @@ class FBDatabase {
     /*
      Cant Create an instance of FBDatabase,
      only use class functions
-    */
+     */
     private init() {
         
     }
@@ -59,7 +60,7 @@ class FBDatabase {
      createUser method automatically signs
      new user in. Returns users id and error in
      completion handler
-    */
+     */
     class func createUserAuth(email: String, password: String, with_completion completion: @escaping (_ id: String?, _ error: String?) -> ()) {
         Auth.auth().createUser(withEmail: email, password: password, completion: {(userData, error) in
             if let activeUserData = userData {
@@ -76,7 +77,7 @@ class FBDatabase {
     /*
      Signs in a user and returns user
      id in completion handler
-    */
+     */
     class func signInUser(email: String, password: String, with_completion completion: @escaping (_ id: String?, _ error: String?) -> ()) {
         Auth.auth().signIn(withEmail: email, password: password, completion: {(userData, error) in
             if let activeUserData = userData {
@@ -92,7 +93,7 @@ class FBDatabase {
     
     /*
      Logs out signed in user
-    */
+     */
     class func signOutUser(with_completion completion: (_ error: String?) -> ()) {
         do {
             try Auth.auth().signOut()
@@ -106,7 +107,7 @@ class FBDatabase {
     /*
      Used to automatically sign user
      into app if previously signed in
-    */
+     */
     class func setAutomaticSignIn(with_email email: String, with_password password: String, with_id id: String) {
         UserDefaults.standard.set(email, forKey: LOGGED_IN_EMAIL)
         UserDefaults.standard.set(password, forKey: LOGGED_IN_PASSWORD)
@@ -116,7 +117,7 @@ class FBDatabase {
     /*
      Removes the automatic sign in
      for user in app
-    */
+     */
     class func removeAutomaticSignIn() {
         UserDefaults.standard.removeObject(forKey: LOGGED_IN_EMAIL)
         UserDefaults.standard.removeObject(forKey: LOGGED_IN_PASSWORD)
@@ -125,7 +126,7 @@ class FBDatabase {
     
     /*
      Determines if a user is signed in
-    */
+     */
     class func getSignedInStatus() -> Int {
         let optUser = Auth.auth().currentUser
         if optUser != nil {
@@ -145,7 +146,7 @@ class FBDatabase {
     /*
      Signs in the user set for
      automatic sign in
-    */
+     */
     class func signInAutomaticUser(with_completion completion: @escaping (_ id: String?, _ error: String?) -> ()) {
         if let email = getAutomaticUserEmail(), let password = getAutomaticUserPassword() {
             // There is a user set to sign in automatically
@@ -160,7 +161,7 @@ class FBDatabase {
     /*
      Gets email for automatic
      sign in user
-    */
+     */
     private class func getAutomaticUserEmail() -> String? {
         return UserDefaults.standard.value(forKey: LOGGED_IN_EMAIL) as? String
     }
@@ -168,14 +169,14 @@ class FBDatabase {
     /*
      Gets the password for the
      automatic sign in user
-    */
+     */
     private class func getAutomaticUserPassword() -> String? {
         return UserDefaults.standard.value(forKey: LOGGED_IN_PASSWORD) as? String
     }
     
     /*
      Get signed in users ID
-    */
+     */
     class func getSignedInUserID() -> String {
         return UserDefaults.standard.value(forKey: LOGGED_IN_ID) as! String
     }
@@ -184,7 +185,7 @@ class FBDatabase {
     
     /*
      Add/updates username in database
-    */
+     */
     class func addUpdateUsername(with_username username: Username, with_completion completion: @escaping (_ error: String?) -> ()) {
         let ref = Database.database().reference()
         ref.child(USERNAME_NODE).child(username.username).setValue(username.email, withCompletionBlock: {(error, ref) in
@@ -201,7 +202,7 @@ class FBDatabase {
     
     /*
      Gets username from database
-    */
+     */
     class func getUsername(with_ref ref: DatabaseReference,with_username username: String, with_completion completion : @escaping (_ username: Username?, _ error: String?) -> ()) {
         ref.observe(.value, with: {(snapshot) in
             if let root = snapshot.value as? NSDictionary {
@@ -221,7 +222,7 @@ class FBDatabase {
     
     /*
      Adds/updates user in the database
-    */
+     */
     class func addUpdateUser(user: User, with_completion completion: @escaping (_ error: String?) -> ()) {
         let ref = Database.database().reference()
         let jsonObject: [String : Any] = [USER_USER_ID : user.id, USER_NAME : user.name, USER_PICTURES : user.pictures, USER_EMAIL : user.email, USER_POINTS : user.points, USER_USERNAME : user.username, USER_FRIENDS_ID : user.friendsID]
@@ -241,7 +242,7 @@ class FBDatabase {
      Gets a user from the database
      with the given ID, returns the
      user in the completion handler
-    */
+     */
     class func getUser(with_id id: String, ref: DatabaseReference, with_completion completion: @escaping (_ user: User?) -> ()) {
         ref.observe(.value, with: {(snapshot) in
             let root = snapshot.value as! NSDictionary
@@ -253,6 +254,7 @@ class FBDatabase {
                 var pictures = userNode[USER_PICTURES] as? [String]
                 var friendsID = userNode[USER_FRIENDS_ID] as? [String]
                 let username = userNode[USER_USERNAME] as! String
+                var activeChallenges = userNode[USER_ACTIVE_CHALLENGES] as! [String]
                 let user: User
                 if pictures == nil {
                     pictures = []
@@ -260,7 +262,10 @@ class FBDatabase {
                 if friendsID == nil {
                     friendsID = []
                 }
-                user = User(id: id, name: name, email: email, username: username, pictures: pictures!, friendsID: friendsID!)
+                if activeChallenges == nil {
+                    activeChallenges = []
+                }
+                user = User(id: id, name: name, email: email, username: username, pictures: pictures!, friendsID: friendsID!, activeChallenges: activeChallenges)
                 completion(user)
             }
             else {
@@ -274,7 +279,7 @@ class FBDatabase {
     
     /*
      Adds/updates picture data to the database
-    */
+     */
     
     class func addUpdatePictureData(pictureData: PictureData, with_completion completion: @escaping (_ error: String?) -> ()) {
         let jsonObject: [String : Any] = [PICTURE_DATA_NAME : pictureData.name, PICTURE_DATA_GPS : pictureData.gpsCoordinates, PICTURE_DATA_ORIENTATION : pictureData.orientation, PICTURE_DATA_OWNER : pictureData.owner, PICTURE_DATA_TIME : pictureData.time, PICTURE_DATA_LOCATION_NAME : pictureData.locationName, PICTURE_DATA_ID : pictureData.id]
@@ -293,7 +298,7 @@ class FBDatabase {
     
     /*
      Gets picture data from database
-    */
+     */
     class func getPictureData(id: String, ref: DatabaseReference, with_completion completion: @escaping (_ pictureData: PictureData?) -> ()) {
         ref.observe(.value, with: {(snapshot) in
             let root = snapshot.value as! NSDictionary
@@ -319,7 +324,7 @@ class FBDatabase {
     
     /*
      Gets all picture data for a user
-    */
+     */
     class func getPictureData(for_user user: User, ref: DatabaseReference, with_completion completion: @escaping (_ pictureData: [PictureData]) -> ()) {
         ref.observe(.value, with: {(snapshot) in
             let root = snapshot.value as! NSDictionary
@@ -349,7 +354,7 @@ class FBDatabase {
     
     /*
      Puts a profile image in the database
-    */
+     */
     class func addProfilePicture(with_image image: UIImage, for_user user: User, with_completion completion: @escaping (_ error: String?) -> ()) {
         let storageRef = Storage.storage().reference(forURL: "gs://recap-78bda.appspot.com").child(PROFILE_PICTURE_NODE).child(user.id)
         savePicture(storageRef: storageRef, image: image, completion: completion)
@@ -357,7 +362,7 @@ class FBDatabase {
     
     /*
      Puts a picture in the database
-    */
+     */
     class func addPicture(image: UIImage, pictureData: PictureData, with_completion completion: @escaping (_ error: String?) -> ()) {
         let storageRef = Storage.storage().reference(forURL: "gs://recap-78bda.appspot.com").child(PICTURE_NODE).child(pictureData.id)
         savePicture(storageRef: storageRef, image: image, completion: completion)
@@ -365,7 +370,7 @@ class FBDatabase {
     
     /*
      Saves the given image in the database
-    */
+     */
     private class func savePicture(storageRef: StorageReference, image: UIImage, completion: @escaping (_ error: String?) -> ()) {
         if let imageData = UIImageJPEGRepresentation(image, 0.2) {
             storageRef.putData(imageData, metadata: nil, completion: { (metadata, error) in
@@ -383,7 +388,7 @@ class FBDatabase {
     
     /*
      Get picture from database
-    */
+     */
     class func getPicture(pictureData: PictureData, with_progress progress: @escaping (_ progress: Int64, _ total: Int64) -> (), with_completion completion: @escaping (_ image: UIImage?) -> ()) {
         let storageRef = Storage.storage().reference(forURL: "gs://recap-78bda.appspot.com").child(PICTURE_NODE).child(pictureData.id)
         getPictureFromDatabase(storageRef: storageRef, with_progress: progress, with_completion: completion)
@@ -391,7 +396,7 @@ class FBDatabase {
     
     /*
      Gets profile picture
-    */
+     */
     class func getProfilePicture(for_user user: User, with_progress progress: @escaping (_ progress: Int64, _ total: Int64) -> (), with_completion completion: @escaping (_ image: UIImage?) -> ()) {
         let storageRef = Storage.storage().reference(forURL: "gs://recap-78bda.appspot.com").child(PROFILE_PICTURE_NODE).child(user.id)
         getPictureFromDatabase(storageRef: storageRef, with_progress: progress, with_completion: completion)
@@ -399,7 +404,7 @@ class FBDatabase {
     
     /*
      Gets picture from DB
-    */
+     */
     class func getPictureFromDatabase(storageRef: StorageReference, with_progress progress: @escaping (_ progress: Int64, _ total: Int64) -> (), with_completion completion: @escaping (_ image: UIImage?) -> ()) {
         let downloadTask = storageRef.getData(maxSize: 1 * 1024 * 1024) { (data, error) -> Void in
             if data != nil {
@@ -422,3 +427,4 @@ class FBDatabase {
         
     }
 }
+

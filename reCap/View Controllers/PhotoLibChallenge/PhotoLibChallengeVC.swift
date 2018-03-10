@@ -11,9 +11,6 @@ import Firebase
 
 class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICollectionViewDataSource, ImageButtonDelegate {
     
-    //let sections = ["13.5", "16.3"]
-    //let fakeData = [["Item1", "Item2", "Item3"], ["Item1", "Item2"]]
-    
     // MARK: - Outlets
     
     // MARK: - Properties
@@ -33,27 +30,31 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
     private static let TAKE_PIC_FROM_YEAR = "Recapture photos from a year ago"
     static let PHOTO_LIB_MODE = 0
     static let CHALLENGE_MODE = 1
+    static let ACTIVE_CHALLENGE_MODE = 2
+    static let INVALID_MODE = -1
     static let SECONDS_IN_WEEK = 604800
     static let SECONDS_IN_MONTH = PhotoLibChallengeVC.SECONDS_IN_WEEK * 4
     static let SECONDS_IN_YEAR = PhotoLibChallengeVC.SECONDS_IN_MONTH * 12
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        if mode == PhotoLibChallengeVC.PHOTO_LIB_MODE {
-            if user != nil {
-                // User is valid
+        if user != nil, mode != nil {
+            if mode == PhotoLibChallengeVC.PHOTO_LIB_MODE {
                 setupPhotoLib()
             }
-        }
-        else if mode == PhotoLibChallengeVC.CHALLENGE_MODE {
-            if user != nil {
-                // User is valid
+            else if mode == PhotoLibChallengeVC.CHALLENGE_MODE {
+                setupChallenge()
+            }
+            else if mode == PhotoLibChallengeVC.ACTIVE_CHALLENGE_MODE {
                 setupChallenge()
             }
         }
+        else {
+            mode = PhotoLibChallengeVC.INVALID_MODE
+        }
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-
+        
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
@@ -61,7 +62,7 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -76,10 +77,6 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
     }
     
     // MARK: - Setup Methods
-    
-    func setup() {
-        
-    }
     
     private func setupPhotoLib() {
         locations = []
@@ -110,18 +107,29 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
         self.tableView.allowsSelection = false
         let ref = Database.database().reference()
         let currentDate = Date()
+        let pictureChallenges = self.user.activeChallenges
+        let compareValue: Bool      // Variable used to determine if a picture has to be in an active challenge to be added to the table
+        if mode == PhotoLibChallengeVC.CHALLENGE_MODE {
+            compareValue = false
+        }
+        else {
+            compareValue = true
+        }
         FBDatabase.getPictureData(for_user: user, ref: ref, with_completion: {(PictureDataList) in
             for pictureData in PictureDataList {
-                let pictureDate = DateGetter.getDateFromString(string: pictureData.time)
-                let dateDiffSec = Int(abs(pictureDate.timeIntervalSince(currentDate)))
-                if dateDiffSec >= PhotoLibChallengeVC.SECONDS_IN_YEAR {
-                    self.challengesDictionary[PhotoLibChallengeVC.TAKE_PIC_FROM_YEAR]?.append(pictureData)
-                }
-                else if dateDiffSec >= PhotoLibChallengeVC.SECONDS_IN_MONTH {
-                    self.challengesDictionary[PhotoLibChallengeVC.TAKE_PIC_FROM_MONTH]?.append(pictureData)
-                }
-                else if dateDiffSec >= PhotoLibChallengeVC.SECONDS_IN_WEEK {
-                    self.challengesDictionary[PhotoLibChallengeVC.TAKE_PIC_FROM_WEEK]?.append(pictureData)
+                if pictureChallenges?.contains(pictureData.id) == compareValue {
+                    let pictureDate = DateGetter.getDateFromString(string: pictureData.time)
+                    let dateDiffSec = Int(abs(pictureDate.timeIntervalSince(currentDate)))
+                    if dateDiffSec >= PhotoLibChallengeVC.SECONDS_IN_YEAR {
+                        self.challengesDictionary[PhotoLibChallengeVC.TAKE_PIC_FROM_YEAR]?.append(pictureData)
+                    }
+                    else if dateDiffSec >= PhotoLibChallengeVC.SECONDS_IN_MONTH {
+                        self.challengesDictionary[PhotoLibChallengeVC.TAKE_PIC_FROM_MONTH]?.append(pictureData)
+                    }
+                    else if dateDiffSec >= PhotoLibChallengeVC.SECONDS_IN_WEEK {
+                        self.challengesDictionary[PhotoLibChallengeVC.TAKE_PIC_FROM_WEEK]?.append(pictureData)
+                    }
+                    
                 }
             }
             self.tableView.reloadData()
@@ -132,14 +140,16 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
     func imageButtonPressed(image: UIImage, pictureData: PictureData) {
         print("Image Pressed")
         if mode == PhotoLibChallengeVC.CHALLENGE_MODE {
-            let alert = UIAlertController(title: nil, message: "How would you like to accept this challenge?", preferredStyle: .actionSheet)
-            let withNav = UIAlertAction(title: "With Navigation", style: .default, handler: {(action) in
-                
+            let alert = UIAlertController(title: nil, message: "How would you like to acept this challenge?", preferredStyle: .actionSheet)
+            let withNav = UIAlertAction(title: "With navigation", style: .default, handler: {(action) in
+                self.addChallengeToUser(pictureData: pictureData)
+                // TODO: Start navigation
             })
-            let withoutNav = UIAlertAction(title: "Withought Navigation", style: .default, handler: {(action) in
-                
+            let withoutNav = UIAlertAction(title: "Withought navigation", style: .default, handler: {(action) in
+                self.addChallengeToUser(pictureData: pictureData)
+                self.tableView.reloadData()
             })
-            let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            let cancel = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
             alert.addAction(withNav)
             alert.addAction(withoutNav)
             alert.addAction(cancel)
@@ -148,10 +158,32 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
         else if mode == PhotoLibChallengeVC.PHOTO_LIB_MODE {
             self.performSegue(withIdentifier: "PhotoSegue", sender: [pictureData, image])
         }
+        else if mode == PhotoLibChallengeVC.ACTIVE_CHALLENGE_MODE {
+            let alert = UIAlertController(title: "Challenge", message: "Would you like to start navigation", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "ok", style: .default, handler: {(action) in
+                // TODO: Start navigation
+            })
+            let cancelAction = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
+            alert.addAction(okAction)
+            alert.addAction(cancelAction)
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    
+    private func addChallengeToUser(pictureData: PictureData) {
+        self.user.activeChallenges.append(pictureData.id)
+        FBDatabase.addUpdateUser(user: self.user, with_completion: {(error) in
+            if let actualError = error {
+                print(actualError)
+            }
+            else {
+                print("Updated user in PhotoLibChal VC")
+            }
+        })
     }
     
     // MARK: - Table view data source
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         if mode == PhotoLibChallengeVC.PHOTO_LIB_MODE {
@@ -160,53 +192,39 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
         else if mode == PhotoLibChallengeVC.CHALLENGE_MODE {
             return challenges.count
         }
+        else if mode == PhotoLibChallengeVC.ACTIVE_CHALLENGE_MODE {
+            return challenges.count
+        }
         else {
             return 0
         }
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return 1
     }
     
-//    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        if mode == PhotoLibChallengeVC.PHOTO_LIB_MODE {
-//            return locations[section]
-//        }
-//        else if mode == PhotoLibChallengeVC.CHALLENGE_MODE {
-//            return challenges[section]
-//        }
-//        else {
-//            return ""
-//        }
-//    }
-    
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
-        let label : UILabel = UILabel()
-        label.backgroundColor = UIColor.clear
-        label.textColor = UIColor.white
-        
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if mode == PhotoLibChallengeVC.PHOTO_LIB_MODE {
-            label.text = locations[section]
-            return label
+            return locations[section]
         }
         else if mode == PhotoLibChallengeVC.CHALLENGE_MODE {
-            label.text = challenges[section]
-            return label
+            return challenges[section]
+        }
+        else if mode == PhotoLibChallengeVC.ACTIVE_CHALLENGE_MODE {
+            return challenges[section]
         }
         else {
-            return label
+            return ""
         }
-        
     }
-
+    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TableCell", for: indexPath) as! PhotoChallengeTableCell
         // Configure the cell...
-
+        
         return cell
     }
     
@@ -214,7 +232,7 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
      This method also sets the collection view delegate in
      every table cell. It also tags each collection view
      to determine what table cell it is apart of
-    */
+     */
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let tableCell = cell as! PhotoChallengeTableCell
         tableCell.setPictureCollectionViewDataSourceDelegate(dataSourceDelegate: self, forSection: indexPath.section)
@@ -229,6 +247,10 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
             return (locationDictionary[location]?.count)!
         }
         else if mode == PhotoLibChallengeVC.CHALLENGE_MODE {
+            let challenge = challenges[collectionViewTag]
+            return (challengesDictionary[challenge]?.count)!
+        }
+        else if mode == PhotoLibChallengeVC.ACTIVE_CHALLENGE_MODE {
             let challenge = challenges[collectionViewTag]
             return (challengesDictionary[challenge]?.count)!
         }
@@ -249,7 +271,7 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
             pictureData = locationDataArray![row]
             cell.pictureData = pictureData
         }
-        else if mode == PhotoLibChallengeVC.CHALLENGE_MODE {
+        else if (mode == PhotoLibChallengeVC.CHALLENGE_MODE) || (mode == PhotoLibChallengeVC.ACTIVE_CHALLENGE_MODE) {
             let challenge = challenges[index]
             let challengeDataArray = challengesDictionary[challenge]
             pictureData = challengeDataArray![row]
@@ -272,45 +294,45 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
         return cell
     }
     
-
+    
     /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
+     // Override to support conditional editing of the table view.
+     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+     // Return false if you do not want the specified item to be editable.
+     return true
+     }
+     */
+    
     /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
+     // Override to support editing the table view.
+     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+     if editingStyle == .delete {
+     // Delete the row from the data source
+     tableView.deleteRows(at: [indexPath], with: .fade)
+     } else if editingStyle == .insert {
+     // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+     }
+     }
+     */
+    
     /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
+     // Override to support rearranging the table view.
+     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+     
+     }
+     */
+    
     /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
+     // Override to support conditional rearranging of the table view.
+     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+     // Return false if you do not want the item to be re-orderable.
+     return true
+     }
+     */
+    
     
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
@@ -326,5 +348,6 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
         }
     }
     
-
+    
 }
+

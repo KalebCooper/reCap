@@ -19,10 +19,10 @@ class ChallengePageVC: UIPageViewController, UIPageViewControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         if user != nil {
-            let allChallengesVC = UIStoryboard(name: "PhotoLibChallenge", bundle: nil).instantiateInitialViewController() as! PhotoLibChallengeVC
-            let acceptedVC = UIStoryboard(name: "PhotoLibChallenge", bundle: nil).instantiateInitialViewController() as! PhotoLibChallengeVC
+            let allChallengesVC = UIStoryboard(name: "PhotoLibChallenge", bundle: nil).instantiateViewController(withIdentifier: "PhotoLibChalTable") as! PhotoLibChallengeVC
+            let acceptedVC = UIStoryboard(name: "PhotoLibChallenge", bundle: nil).instantiateViewController(withIdentifier: "PhotoLibChalTable") as! PhotoLibChallengeVC
             allChallengesVC.mode = PhotoLibChallengeVC.CHALLENGE_MODE
-            acceptedVC.mode = PhotoLibChallengeVC.PHOTO_LIB_MODE
+            acceptedVC.mode = PhotoLibChallengeVC.ACTIVE_CHALLENGE_MODE
             allChallengesVC.user = self.user
             acceptedVC.user = self.user
             allChallengesVC.tableView.contentInset = UIEdgeInsets.zero
