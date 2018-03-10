@@ -91,10 +91,17 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
             print("User was updated in Camera Container VC")
             if user != nil {
                 self.user = user!
+                print("Got user in camera container VC")
                 FBDatabase.getProfilePicture(for_user: user!, with_progress: { (progress, total)  in
-                    //
+                
                 }, with_completion: { (image) in
-                    self.profileImage = image
+                    if let actualImage = image {
+                        self.profileImage = actualImage
+                        print("Got profile picture in Camera Container VC")
+                    }
+                    else {
+                        print("Did not get profile picture in Camera Container VC")
+                    }
                     self.profileOutlet.image = self.profileImage
                     self.profileOutlet.layer.borderWidth = 1
                     self.profileOutlet.layer.borderColor = UIColor.white.cgColor
