@@ -225,7 +225,7 @@ class FBDatabase {
      */
     class func addUpdateUser(user: User, with_completion completion: @escaping (_ error: String?) -> ()) {
         let ref = Database.database().reference()
-        let jsonObject: [String : Any] = [USER_USER_ID : user.id, USER_NAME : user.name, USER_PICTURES : user.pictures, USER_EMAIL : user.email, USER_POINTS : user.points, USER_USERNAME : user.username, USER_FRIENDS_ID : user.friendsID]
+        let jsonObject: [String : Any] = [USER_USER_ID : user.id, USER_NAME : user.name, USER_PICTURES : user.pictures, USER_EMAIL : user.email, USER_POINTS : user.points, USER_USERNAME : user.username, USER_FRIENDS_ID : user.friendsID, USER_ACTIVE_CHALLENGES : user.activeChallenges]
         ref.child(USER_NODE).child(user.id).setValue(jsonObject, withCompletionBlock: {(error, ref) in
             if let realError = error {
                 // Error occured
@@ -254,7 +254,7 @@ class FBDatabase {
                 var pictures = userNode[USER_PICTURES] as? [String]
                 var friendsID = userNode[USER_FRIENDS_ID] as? [String]
                 let username = userNode[USER_USERNAME] as! String
-                var activeChallenges = userNode[USER_ACTIVE_CHALLENGES] as! [String]
+                var activeChallenges = userNode[USER_ACTIVE_CHALLENGES] as? [String]
                 let user: User
                 if pictures == nil {
                     pictures = []
@@ -265,7 +265,7 @@ class FBDatabase {
                 if activeChallenges == nil {
                     activeChallenges = []
                 }
-                user = User(id: id, name: name, email: email, username: username, pictures: pictures!, friendsID: friendsID!, activeChallenges: activeChallenges)
+                user = User(id: id, name: name, email: email, username: username, pictures: pictures!, friendsID: friendsID!, activeChallenges: activeChallenges!)
                 completion(user)
             }
             else {

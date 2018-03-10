@@ -13,8 +13,8 @@ class PictureData {
     // MARK: - Constants
     static let ORIENTATION_PORTRAIT = 0
     static let ORIENTATION_LANDSCAPE = 1
-    static let LONGITUDE_INDEX = 0
-    static let LATTITUDE_INDEX = 1
+    static let LONGITUDE_INDEX = 1
+    static let LATTITUDE_INDEX = 0
     
     // MARK: - Properties
     var name: String!

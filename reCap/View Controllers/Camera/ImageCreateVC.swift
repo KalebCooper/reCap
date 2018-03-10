@@ -117,8 +117,6 @@ class ImageCreateVC: UIViewController {
         
     }
     
-    
-    
     /*
      // MARK: - Navigation
      
