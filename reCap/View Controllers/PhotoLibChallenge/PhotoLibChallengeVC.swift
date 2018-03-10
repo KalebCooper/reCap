@@ -23,6 +23,7 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
     
     // MARK: - Constants
     private static let PHOTO_SEGUE = "PhotoSegue"
+    private static let VIEW_CHALLENGE_SEGUE = "ViewChallengeSegue"
     private static let PHOTO_SEGUE_PICTURE_DATA_INDEX = 0
     private static let PHOTO_SEGUE_PICTURE_INDEX = 1
     private static let TAKE_PIC_FROM_WEEK = "Recapture photos from a week ago"
@@ -138,9 +139,13 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
                 self.addChallengeToUser(pictureData: pictureData)
                 self.tableView.reloadData()
             })
-            let cancel = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
+            let viewChallenge = UIAlertAction(title: "View Challenge", style: .default, handler: {(action) in
+                self.performSegue(withIdentifier: "ViewChallengeSegue", sender: [pictureData, image])
+            })
+            let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
             alert.addAction(withNav)
             alert.addAction(withoutNav)
+            alert.addAction(viewChallenge)
             alert.addAction(cancel)
             self.present(alert, animated: true, completion: nil)
         }
@@ -324,6 +329,16 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
             let picture = infoArray[PhotoLibChallengeVC.PHOTO_SEGUE_PICTURE_INDEX] as! UIImage
             destination.pictureData = pictureData
             destination.image = picture
+        }
+        
+        if segueID == PhotoLibChallengeVC.VIEW_CHALLENGE_SEGUE {
+            let destination = segue.destination as! ChallengeViewVC
+            let infoArray = sender as! [Any]
+            let pictureData = infoArray[PhotoLibChallengeVC.PHOTO_SEGUE_PICTURE_DATA_INDEX] as! PictureData
+            let picture = infoArray[PhotoLibChallengeVC.PHOTO_SEGUE_PICTURE_INDEX] as! UIImage
+            destination.pictureData = pictureData
+            destination.image = picture
+            print("Segue Done")
         }
     }
     

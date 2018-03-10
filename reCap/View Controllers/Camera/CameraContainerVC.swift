@@ -64,7 +64,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         super.viewDidLoad()
         setupProfileImage()
         setupHero()
-        setupCamera()
+        //setupCamera()
         initializeShadow()
         configureButton()
         setupGestures()
@@ -125,7 +125,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         
         logoText.hero.modifiers = [.forceNonFade, .duration(duration), .useScaleBasedSizeChange]
         
-        profileOutlet.hero.modifiers = [.forceNonFade, .duration(duration), .arc(intensity: 1.0)]
+        profileOutlet.hero.modifiers = [.duration(duration), .arc(intensity: 1.0)]
         
         albumOutlet.hero.modifiers = [.forceNonFade, .duration(duration), .arc(intensity: 1.0)]
         
@@ -397,15 +397,31 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         
         setupLocation()
         
-        let when = DispatchTime.now() + 0.15 // change 2 to desired number of seconds
-        DispatchQueue.main.asyncAfter(deadline: when) {
+//        let when = DispatchTime.now() + 0.15 // change 2 to desired number of seconds
+//        DispatchQueue.main.asyncAfter(deadline: when) {
+//
+//            self.setupCamera()
+//            self.setupOrientation()
+//
+//
+//        }
+        
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
             
             self.setupOrientation()
-            
-            
         }
         
         
+        
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now()) {
+            self.session?.stopRunning()
+        }
         
     }
     
