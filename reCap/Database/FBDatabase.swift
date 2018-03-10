@@ -20,7 +20,7 @@ class FBDatabase {
     private static let USER_POINTS = "Points"
     private static let USER_USERNAME = "Username"
     private static let USER_FRIENDS_ID = "Friends ID"
-    private static let USER_ACTIVE_CHALLENGES = "Active Challenges"
+    private static let USER_ACTIVE_CHALLENGE_ID = "Active Challenge ID"
     private static let PROFILE_PICTURE_NODE = "Profile Picture"
     
     private static let EMPTY_VALUE = "Empty"
@@ -225,7 +225,7 @@ class FBDatabase {
      */
     class func addUpdateUser(user: User, with_completion completion: @escaping (_ error: String?) -> ()) {
         let ref = Database.database().reference()
-        let jsonObject: [String : Any] = [USER_USER_ID : user.id, USER_NAME : user.name, USER_PICTURES : user.pictures, USER_EMAIL : user.email, USER_POINTS : user.points, USER_USERNAME : user.username, USER_FRIENDS_ID : user.friendsID, USER_ACTIVE_CHALLENGES : user.activeChallenges]
+        let jsonObject: [String : Any] = [USER_USER_ID : user.id, USER_NAME : user.name, USER_PICTURES : user.pictures, USER_EMAIL : user.email, USER_POINTS : user.points, USER_USERNAME : user.username, USER_FRIENDS_ID : user.friendsID, USER_ACTIVE_CHALLENGE_ID : user.activeChallengeID]
         ref.child(USER_NODE).child(user.id).setValue(jsonObject, withCompletionBlock: {(error, ref) in
             if let realError = error {
                 // Error occured
@@ -254,7 +254,7 @@ class FBDatabase {
                 var pictures = userNode[USER_PICTURES] as? [String]
                 var friendsID = userNode[USER_FRIENDS_ID] as? [String]
                 let username = userNode[USER_USERNAME] as! String
-                var activeChallenges = userNode[USER_ACTIVE_CHALLENGES] as? [String]
+                var activeChallengeID = userNode[USER_ACTIVE_CHALLENGE_ID] as? String
                 let user: User
                 if pictures == nil {
                     pictures = []
@@ -262,10 +262,10 @@ class FBDatabase {
                 if friendsID == nil {
                     friendsID = []
                 }
-                if activeChallenges == nil {
-                    activeChallenges = []
+                if activeChallengeID == nil {
+                    activeChallengeID = ""
                 }
-                user = User(id: id, name: name, email: email, username: username, pictures: pictures!, friendsID: friendsID!, activeChallenges: activeChallenges!)
+                user = User(id: id, name: name, email: email, username: username, pictures: pictures!, friendsID: friendsID!, activeChallengeID: activeChallengeID!)
                 completion(user)
             }
             else {
@@ -304,16 +304,20 @@ class FBDatabase {
             let root = snapshot.value as! NSDictionary
             if let pictureDataNode = root[PICTURE_DATA_NODE] as? NSDictionary {
                 // Database has picture data in it
-                let pictureDataData = pictureDataNode[id] as! NSDictionary
-                let name = pictureDataData[PICTURE_DATA_NAME] as! String
-                let coordinates = pictureDataData[PICTURE_DATA_GPS] as! [Double]
-                let orientation = pictureDataData[PICTURE_DATA_ORIENTATION] as! Int
-                let owner = pictureDataData[PICTURE_DATA_OWNER] as! String
-                let time = pictureDataData[PICTURE_DATA_TIME] as! String
-                let locationName = pictureDataData[PICTURE_DATA_LOCATION_NAME] as! String
-                let id = pictureDataData[PICTURE_DATA_ID] as! String
-                let pictureData = PictureData(name: name, gpsCoordinates: coordinates, orientation: orientation, owner: owner, time: time, locationName: locationName, id: id)
-                completion(pictureData)
+                if let pictureDataData = pictureDataNode[id] as? NSDictionary {
+                    let name = pictureDataData[PICTURE_DATA_NAME] as! String
+                    let coordinates = pictureDataData[PICTURE_DATA_GPS] as! [Double]
+                    let orientation = pictureDataData[PICTURE_DATA_ORIENTATION] as! Int
+                    let owner = pictureDataData[PICTURE_DATA_OWNER] as! String
+                    let time = pictureDataData[PICTURE_DATA_TIME] as! String
+                    let locationName = pictureDataData[PICTURE_DATA_LOCATION_NAME] as! String
+                    let id = pictureDataData[PICTURE_DATA_ID] as! String
+                    let pictureData = PictureData(name: name, gpsCoordinates: coordinates, orientation: orientation, owner: owner, time: time, locationName: locationName, id: id)
+                    completion(pictureData)
+                }
+                else {
+                    completion(nil)
+                }
             }
             else {
                 // Database does not have picture data in it

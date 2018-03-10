@@ -18,10 +18,10 @@ class User {
     var email: String!
     var points: Int!
     var friendsID: [String]!
-    var activeChallenges: [String]!
+    var activeChallengeID: String
     
     // MARK: - Initializers
-    public init(id: String, name: String, email: String, username: String, pictures: [String] = [], friendsID: [String] = [], activeChallenges: [String] = []) {
+    public init(id: String, name: String, email: String, username: String, pictures: [String] = [], friendsID: [String] = [], activeChallengeID: String = "") {
         self.id = id
         self.name = name
         self.email = email
@@ -29,7 +29,7 @@ class User {
         self.pictures = pictures
         self.points = 0
         self.friendsID = friendsID
-        self.activeChallenges = activeChallenges
+        self.activeChallengeID = activeChallengeID
     }
     
 }

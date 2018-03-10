@@ -50,7 +50,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     
     let blackColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
     private var user: User!
-    private var challengeCoordinates: [(longitude : Double, lattitude : Double)]!
+    private var activeChallengePicData: PictureData!
     private let chalCoordThreshold = 0.000017
     
     
@@ -106,22 +106,17 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
      of the gps coordinates when on the exact location
     */
     private func setupActiveChallengeData() {
-        self.challengeCoordinates = []
-        let activeChallengeIDs = self.user.activeChallenges
+        let activeChallengeID = self.user.activeChallengeID
         let ref = Database.database().reference()
-        for activeChallengeID in activeChallengeIDs! {
-            FBDatabase.getPictureData(id: activeChallengeID, ref: ref, with_completion: {(pictureData) in
-                if let activePictureData = pictureData {
-                    print("Got picture data in Camera Container VC")
-                    let long = activePictureData.gpsCoordinates[PictureData.LONGITUDE_INDEX]
-                    let lat = activePictureData.gpsCoordinates[PictureData.LATTITUDE_INDEX]
-                    self.challengeCoordinates.append((longitude: long, lattitude : lat))
-                }
-                else {
-                    print("Did not get pictureData in Camera Container VC")
-                }
-            })
-        }
+        FBDatabase.getPictureData(id: activeChallengeID, ref: ref, with_completion: {(pictureData) in
+            if let activePictureData = pictureData {
+                self.activeChallengePicData = activePictureData
+                print("Got challenge pic data in Camera Container VC")
+            }
+            else {
+                print("Did not get challenge pic data in camera container VC")
+            }
+        })
     }
     
     func setupHero() {
@@ -352,23 +347,18 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
                                     self.latToPass = lat
                                     self.longToPass = long
                                     self.locationToPass = locationName
-                                    if self.challengeCoordinates != nil {
-                                        for coordinates in self.challengeCoordinates {
-                                            let picLong = coordinates.longitude
-                                            let picLat = coordinates.lattitude
-                                            let longDiff = abs(picLong - long)
-                                            let latDiff = abs(picLat - lat)
-                                            if longDiff <= self.chalCoordThreshold, latDiff <= self.chalCoordThreshold {
-                                                self.locationOutlet.textColor = UIColor.red
-                                                break
-                                            }
-                                            else {
-                                                self.locationOutlet.textColor = UIColor.white
-                                            }
+                                    if self.activeChallengePicData != nil {
+                                        // There is a active challenge
+                                        let picLong = self.activeChallengePicData.gpsCoordinates[PictureData.LONGITUDE_INDEX]
+                                        let picLat = self.activeChallengePicData.gpsCoordinates[PictureData.LATTITUDE_INDEX]
+                                        let longDiff = abs(picLong - long)
+                                        let latDiff = abs(picLat - lat)
+                                        if longDiff <= self.chalCoordThreshold, latDiff <= self.chalCoordThreshold {
+                                            self.locationOutlet.textColor = UIColor.red
                                         }
-                                    }
-                                    else {
-                                        self.locationOutlet.textColor = UIColor.white
+                                        else {
+                                            self.locationOutlet.textColor = UIColor.white
+                                        }
                                     }
                                     
         },
