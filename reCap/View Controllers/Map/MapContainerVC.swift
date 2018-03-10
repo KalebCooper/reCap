@@ -30,7 +30,7 @@ class MapContainerVC: UIViewController {
     private func setup() {
         let id = FBDatabase.getSignedInUserID()
         let ref = Database.database().reference()
-        FBDatabase.getUser(with_id: id, ref: ref, with_completion: {(user) in
+        FBDatabase.getUser(with_id: id!, ref: ref, with_completion: {(user) in
             if let activeUser = user {
                 self.user = activeUser
                 print("Got user in Map VC")

@@ -13,9 +13,11 @@ class Username {
     // MARK: - properties
     var email: String
     var username: String!
+    var id: String!
     
-    init(username: String, email: String) {
+    init(username: String, email: String, id: String) {
         self.username = username
         self.email = email
+        self.id = id
     }
 }

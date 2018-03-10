@@ -105,7 +105,7 @@ class ProfileMenuVC: UIViewController {
         let reference = Database.database().reference()
         
         
-        FBDatabase.getUser(with_id: id, ref: reference) { (user) in
+        FBDatabase.getUser(with_id: id!, ref: reference) { (user) in
             
             if user != nil {
                 
@@ -165,6 +165,12 @@ class ProfileMenuVC: UIViewController {
             let photoLibVC = destination.topViewController as! PhotoLibChallengeVC
             photoLibVC.user = self.user
             photoLibVC.mode = PhotoLibChallengeVC.PHOTO_LIB_MODE
+        }
+        else if segueID == "FriendsListSegue" {
+            let desination = segue.destination as! UINavigationController
+            let friendsVC = desination.topViewController as! LeaderboardsFriendsVC
+            friendsVC.user = self.user
+            friendsVC.mode = LeaderboardsFriendsVC.FRIENDS_LIST_MODE
         }
     }
     

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14101" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dwl-M5-2nk">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dwl-M5-2nk">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -125,10 +125,14 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="4ER-A6-wwL">
-                        <barButtonItem key="rightBarButtonItem" title="Settings" id="F1M-fT-Gi9">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="B4V-Rs-IXD">
                             <connections>
-                                <segue destination="0h2-5E-bRN" kind="show" id="fh0-rQ-pxm"/>
+                                <action selector="backButtonPressed:" destination="mST-bf-Gtf" id="J25-zy-5CI"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="R7B-CE-99y">
+                            <connections>
+                                <action selector="addFriendPressed:" destination="mST-bf-Gtf" id="Sd1-Yb-pAf"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -136,14 +140,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nmy-aI-6vQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1604" y="-191.37931034482759"/>
-        </scene>
-        <!--Settings-->
-        <scene sceneID="Ckl-fU-zfK">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Settings" id="0h2-5E-bRN" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dtZ-lZ-dzn" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2534" y="-191"/>
         </scene>
         <!--Leaderboards-->
         <scene sceneID="Lx1-2j-jBS">

@@ -42,6 +42,8 @@ class FBDatabase {
     private static let LOGGED_IN_PASSWORD = "Logged in password"
     
     private static let USERNAME_NODE = "Username"
+    private static let USERNAME_EMAIL = "E-mail"
+    private static let USERNAME_ID = "ID"
     
     public static let USER_SIGNED_INTO_FIR = 0
     public static let USER_SIGNED_IN_LOCALLY = 1
@@ -127,25 +129,6 @@ class FBDatabase {
     }
     
     /*
-     Determines if a user is signed in
-     */
-    class func getSignedInStatus() -> Int {
-        let optUser = Auth.auth().currentUser
-        if optUser != nil {
-            // A user is currently signed in
-            return USER_SIGNED_INTO_FIR
-        }
-        else if let _ = getAutomaticUserEmail(), let _ = getAutomaticUserPassword() {
-            // The user is not logged into firebase, but is logged in locally
-            return USER_SIGNED_IN_LOCALLY
-        }
-        else {
-            // No one is signed in
-            return USER_NOT_SIGNED_IN
-        }
-    }
-    
-    /*
      Signs in the user set for
      automatic sign in
      */
@@ -179,8 +162,13 @@ class FBDatabase {
     /*
      Get signed in users ID
      */
-    class func getSignedInUserID() -> String {
-        return UserDefaults.standard.value(forKey: LOGGED_IN_ID) as! String
+    class func getSignedInUserID() -> String? {
+        if let id = UserDefaults.standard.value(forKey: LOGGED_IN_ID) as? String {
+            return id
+        }
+        else {
+            return nil
+        }
     }
     
     // MARK: - Username Methods
@@ -190,7 +178,8 @@ class FBDatabase {
      */
     class func addUpdateUsername(with_username username: Username, with_completion completion: @escaping (_ error: String?) -> ()) {
         let ref = Database.database().reference()
-        ref.child(USERNAME_NODE).child(username.username).setValue(username.email, withCompletionBlock: {(error, ref) in
+        let json = [USERNAME_ID : username.id, USERNAME_EMAIL : username.email]
+        ref.child(USERNAME_NODE).child(username.username).setValue(json, withCompletionBlock: {(error, ref) in
             if let realError = error {
                 // Error occured
                 completion(realError.localizedDescription)
@@ -205,17 +194,23 @@ class FBDatabase {
     /*
      Gets username from database
      */
-    class func getUsername(with_ref ref: DatabaseReference,with_username username: String, with_completion completion : @escaping (_ username: Username?, _ error: String?) -> ()) {
+    class func getUsername(with_ref ref: DatabaseReference,with_username username: String, with_completion completion : @escaping (_ username: Username?) -> ()) {
         ref.observe(.value, with: {(snapshot) in
             if let root = snapshot.value as? NSDictionary {
-                let usernames = root[USERNAME_NODE] as! NSDictionary
-                let email = usernames[username] as! String
-                let usernameObj = Username(username: username, email: email)
-                completion(usernameObj, nil)
+                let usernamesNode = root[USERNAME_NODE] as! NSDictionary
+                if let usernameData = usernamesNode[username] as? NSDictionary {
+                    let id = usernameData[USERNAME_ID] as! String
+                    let email = usernameData[USERNAME_EMAIL] as! String
+                    let usernameObj = Username(username: username, email: email, id: id)
+                    completion(usernameObj)
+                }
+                else {
+                    completion(nil)
+                }
             }
             else {
                 // Could not get root element
-                completion(nil, "Could not get Username obj")
+                completion(nil)
             }
         })
     }

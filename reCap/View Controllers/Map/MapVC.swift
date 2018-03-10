@@ -46,7 +46,7 @@ class MapVC: UIViewController, MGLMapViewDelegate {
     
     func getUser() {
         let id = FBDatabase.getSignedInUserID()
-        FBDatabase.getUser(with_id: id, ref: ref) { (user) in
+        FBDatabase.getUser(with_id: id!, ref: ref) { (user) in
             if user != nil {
                 self.user = user
                 self.setupMap()

@@ -351,7 +351,6 @@
 			children = (
 				34A7ACA7202787DA00ACFB12 /* PageViewController.swift */,
 				34A7ACAF20278CA700ACFB12 /* LeaderboardContainerVC.swift */,
-				7AF359492038CDE500713EA3 /* SettingsVC.swift */,
 			);
 			path = PageViewControllers;
 			sourceTree = "<group>";
@@ -385,6 +384,7 @@
 		7A4D8A3820277DFF0043878E /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				7AF359492038CDE500713EA3 /* SettingsVC.swift */,
 				7A0162CD204E4C5A000539E0 /* Challenge */,
 				348591FA203A7971003E3704 /* Tutorial */,
 				348591F9203A795D003E3704 /* Map */,

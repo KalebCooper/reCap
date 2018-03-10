@@ -87,7 +87,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         let id = FBDatabase.getSignedInUserID()
         print("Logged in")
         
-        FBDatabase.getUser(with_id: id, ref: reference) { (user) in
+        FBDatabase.getUser(with_id: id!, ref: reference) { (user) in
             print("User was updated in Camera Container VC")
             if user != nil {
                 self.user = user!

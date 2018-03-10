@@ -36,7 +36,7 @@ class ImageCreateVC: UIViewController {
     @IBAction func confirmPressed(_ sender: Any) {
         print("Confirmed Pressed")
         let ref = Database.database().reference()
-        FBDatabase.getUser(with_id: FBDatabase.getSignedInUserID(), ref: ref, with_completion: {(user) in
+        FBDatabase.getUser(with_id: FBDatabase.getSignedInUserID()!, ref: ref, with_completion: {(user) in
             if let activeUser = user {
                 print("Got user in ImageCreate VC")
                 ref.removeAllObservers()
@@ -47,6 +47,7 @@ class ImageCreateVC: UIViewController {
                 if self.isAtChallengeLocation {
                     // If the user took the picture at the challenge coordinates
                     activeUser.points = activeUser.points + Int(activeUser.activeChallengePoints)!
+                    print("User earned \(activeUser.activeChallengePoints) points")
                 }
                 FBDatabase.addPicture(image: self.image!, pictureData: pictureData, with_completion: {(error) in
                     if let actualError = error {
