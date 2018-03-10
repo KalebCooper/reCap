@@ -29,6 +29,7 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
     private static let TAKE_PIC_FROM_WEEK = "Recapture photos from a week ago"
     private static let TAKE_PIC_FROM_MONTH = "Recapture photos from a month ago"
     private static let TAKE_PIC_FROM_YEAR = "Recapture photos from a year ago"
+    private static let CHALLENGE_RECENT_POINTS = 1
     private static let CHALLENGE_WEEK_POINTS = 5
     private static let CHALLENGE_MONTH_POINTS = 10
     private static let CHALLENGE_YEAR_POINTS = 20
@@ -179,7 +180,7 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
             points = PhotoLibChallengeVC.CHALLENGE_YEAR_POINTS
         }
         else if challengeCategory == PhotoLibChallengeVC.TAKE_PIC_FROM_RECENT {
-            points = 1
+            points = PhotoLibChallengeVC.CHALLENGE_RECENT_POINTS
         }
         self.user.activeChallengeID = pictureData.id
         self.user.activeChallengePoints = points.description
