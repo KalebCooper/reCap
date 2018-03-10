@@ -17,6 +17,7 @@ class ImageCreateVC: UIViewController {
     var lat: Double?
     var long: Double?
     var location: String?
+    var isAtChallengeLocation: Bool!
     
     @IBOutlet weak var imageBackground: UIImageView!
     @IBOutlet weak var imageView: UIImageView!
@@ -43,6 +44,10 @@ class ImageCreateVC: UIViewController {
                 let stringPictureDate = DateGetter.getStringFromDate(date: currentDate)
                 let pictureData = PictureData(name: self.titleOutlet.text, description: self.descriptionOutlet.text!, gpsCoordinates: [self.lat!, self.long!], orientation: PictureData.ORIENTATION_PORTRAIT, owner: activeUser.id, time: stringPictureDate, locationName: self.location!, id: PictureData.createPictureDataID())
                 activeUser.pictures.append(pictureData.id)
+                if self.isAtChallengeLocation {
+                    // If the user took the picture at the challenge coordinates
+                    activeUser.points = activeUser.points + Int(activeUser.activeChallengePoints)!
+                }
                 FBDatabase.addPicture(image: self.image!, pictureData: pictureData, with_completion: {(error) in
                     if let actualError = error {
                         // There was an error

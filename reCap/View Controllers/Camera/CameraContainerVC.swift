@@ -36,6 +36,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     var latToPass: Double?
     var longToPass: Double?
     var locationToPass: String?
+    private var isAtChallengeLocation: Bool!
     
     var profileImage: UIImage?
     
@@ -362,10 +363,15 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
                                         let latDiff = abs(picLat - lat)
                                         if longDiff <= self.chalCoordThreshold, latDiff <= self.chalCoordThreshold {
                                             self.locationOutlet.textColor = UIColor.red
+                                            self.isAtChallengeLocation = true
                                         }
                                         else {
                                             self.locationOutlet.textColor = UIColor.white
+                                            self.isAtChallengeLocation = false
                                         }
+                                    }
+                                    else {
+                                        self.isAtChallengeLocation = false
                                     }
                                     
         },
@@ -476,7 +482,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         
         if segue.identifier == "confirmPictureSegue" {
             let vc = segue.destination as! ImageConfirmVC
-            
+            vc.isAtChallengeLocation = self.isAtChallengeLocation
             vc.image = self.imageToPass
             vc.latToPass = self.latToPass
             vc.longToPass = self.longToPass
