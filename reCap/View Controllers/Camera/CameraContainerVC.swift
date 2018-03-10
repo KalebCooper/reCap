@@ -73,6 +73,12 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         
         // Do any additional setup after loading the view.
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if self.user != nil {
+            print("The number of pics are \(user.pictures.count)")
+        }
+    }
 
     func setupProfileImage() {
         
@@ -81,6 +87,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         print("Logged in")
         
         FBDatabase.getUser(with_id: id, ref: reference) { (user) in
+            print("User was updated in Camera Container VC")
             if user != nil {
                 self.user = user!
                 FBDatabase.getProfilePicture(for_user: user!, with_progress: { (progress, total)  in
@@ -106,9 +113,9 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
      of the gps coordinates when on the exact location
     */
     private func setupActiveChallengeData() {
-        let activeChallengeID = self.user.activeChallengeID
+        let id = self.user.activeChallengeID
         let ref = Database.database().reference()
-        FBDatabase.getPictureData(id: activeChallengeID, ref: ref, with_completion: {(pictureData) in
+        FBDatabase.getPictureData(id: id!, ref: ref, with_completion: {(pictureData) in
             if let activePictureData = pictureData {
                 self.activeChallengePicData = activePictureData
                 print("Got challenge pic data in Camera Container VC")

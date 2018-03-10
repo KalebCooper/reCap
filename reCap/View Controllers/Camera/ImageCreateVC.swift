@@ -41,7 +41,7 @@ class ImageCreateVC: UIViewController {
                 ref.removeAllObservers()
                 let currentDate = Date()
                 let stringPictureDate = DateGetter.getStringFromDate(date: currentDate)
-                let pictureData = PictureData(name: self.titleOutlet.text, gpsCoordinates: [self.lat!, self.long!], orientation: PictureData.ORIENTATION_PORTRAIT, owner: activeUser.id, time: stringPictureDate, locationName: self.location!, id: PictureData.createPictureDataID())
+                let pictureData = PictureData(name: self.titleOutlet.text, description: self.descriptionOutlet.text!, gpsCoordinates: [self.lat!, self.long!], orientation: PictureData.ORIENTATION_PORTRAIT, owner: activeUser.id, time: stringPictureDate, locationName: self.location!, id: PictureData.createPictureDataID())
                 activeUser.pictures.append(pictureData.id)
                 FBDatabase.addPicture(image: self.image!, pictureData: pictureData, with_completion: {(error) in
                     if let actualError = error {

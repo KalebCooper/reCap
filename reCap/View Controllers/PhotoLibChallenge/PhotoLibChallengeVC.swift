@@ -28,6 +28,9 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
     private static let TAKE_PIC_FROM_WEEK = "Recapture photos from a week ago"
     private static let TAKE_PIC_FROM_MONTH = "Recapture photos from a month ago"
     private static let TAKE_PIC_FROM_YEAR = "Recapture photos from a year ago"
+    private static let CHALLENGE_WEEK_POINTS = 5
+    private static let CHALLENGE_MONTH_POINTS = 10
+    private static let CHALLENGE_YEAR_POINTS = 20
     static let PHOTO_LIB_MODE = 0
     static let CHALLENGE_MODE = 1
     static let ACTIVE_CHALLENGE_MODE = 2
@@ -43,9 +46,6 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
                 setupPhotoLib()
             }
             else if mode == PhotoLibChallengeVC.CHALLENGE_MODE {
-                setupChallenge()
-            }
-            else if mode == PhotoLibChallengeVC.ACTIVE_CHALLENGE_MODE {
                 setupChallenge()
             }
         }
@@ -107,19 +107,11 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
         self.tableView.allowsSelection = false
         let ref = Database.database().reference()
         let currentDate = Date()
-        FBDatabase.getPictureData(for_user: user, ref: ref, with_completion: {(PictureDataList) in
-            for pictureData in PictureDataList {
-                let pictureDate = DateGetter.getDateFromString(string: pictureData.time)
-                let dateDiffSec = Int(abs(pictureDate.timeIntervalSince(currentDate)))
-                if dateDiffSec >= PhotoLibChallengeVC.SECONDS_IN_YEAR {
-                    self.challengesDictionary[PhotoLibChallengeVC.TAKE_PIC_FROM_YEAR]?.append(pictureData)
-                }
-                else if dateDiffSec >= PhotoLibChallengeVC.SECONDS_IN_MONTH {
-                    self.challengesDictionary[PhotoLibChallengeVC.TAKE_PIC_FROM_MONTH]?.append(pictureData)
-                }
-                else if dateDiffSec >= PhotoLibChallengeVC.SECONDS_IN_WEEK {
-                    self.challengesDictionary[PhotoLibChallengeVC.TAKE_PIC_FROM_WEEK]?.append(pictureData)
-                }
+        FBDatabase.getPictureData(for_user: user, ref: ref, with_completion: {(pictureDataList) in
+            ref.removeAllObservers()
+            for pictureData in pictureDataList {
+                let challengeCategory = self.getPicChallengeCategory(pictureData: pictureData, currentDate: currentDate)
+                self.challengesDictionary[challengeCategory]?.append(pictureData)
             }
             self.tableView.reloadData()
         })
@@ -133,10 +125,11 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
             let withNav = UIAlertAction(title: "With navigation", style: .default, handler: {(action) in
                 self.addChallengeToUser(pictureData: pictureData)
                 // TODO: Start navigation
+                self.navigationController?.dismiss(animated: true, completion: nil)
             })
             let withoutNav = UIAlertAction(title: "Withought navigation", style: .default, handler: {(action) in
                 self.addChallengeToUser(pictureData: pictureData)
-                self.tableView.reloadData()
+                self.navigationController?.dismiss(animated: true, completion: nil)
             })
             let cancel = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
             alert.addAction(withNav)
@@ -149,8 +142,43 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
         }
     }
     
+    /*
+     Gets the time difference between now and
+     when the picture was taken. Returns a constant
+     representing what type of challenge category the pic
+     falls into
+    */
+    private func getPicChallengeCategory(pictureData: PictureData, currentDate: Date) -> String {
+        let pictureDate = DateGetter.getDateFromString(string: pictureData.time)
+        let dateDiffSec = Int(abs(pictureDate.timeIntervalSince(currentDate)))
+        if dateDiffSec >= PhotoLibChallengeVC.SECONDS_IN_YEAR {
+            return PhotoLibChallengeVC.TAKE_PIC_FROM_YEAR
+        }
+        else if dateDiffSec >= PhotoLibChallengeVC.SECONDS_IN_MONTH {
+            return PhotoLibChallengeVC.TAKE_PIC_FROM_MONTH
+        }
+        else if dateDiffSec >= PhotoLibChallengeVC.SECONDS_IN_WEEK {
+            return PhotoLibChallengeVC.TAKE_PIC_FROM_WEEK
+        }
+        else {
+            return ""
+        }
+    }
+    
     private func addChallengeToUser(pictureData: PictureData) {
+        let challengeCategory = getPicChallengeCategory(pictureData: pictureData, currentDate: Date())
+        var points = 0
+        if challengeCategory == PhotoLibChallengeVC.TAKE_PIC_FROM_WEEK {
+            points = PhotoLibChallengeVC.CHALLENGE_WEEK_POINTS
+        }
+        else if challengeCategory == PhotoLibChallengeVC.TAKE_PIC_FROM_MONTH {
+            points = PhotoLibChallengeVC.CHALLENGE_MONTH_POINTS
+        }
+        else if challengeCategory == PhotoLibChallengeVC.TAKE_PIC_FROM_YEAR {
+            points = PhotoLibChallengeVC.CHALLENGE_YEAR_POINTS
+        }
         self.user.activeChallengeID = pictureData.id
+        self.user.activeChallengePoints = points.description
         FBDatabase.addUpdateUser(user: self.user, with_completion: {(error) in
             if let actualError = error {
                 print(actualError)
