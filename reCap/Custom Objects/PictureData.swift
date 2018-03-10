@@ -18,6 +18,7 @@ class PictureData {
     
     // MARK: - Properties
     var name: String!
+    var description: String!
     var id: String!
     var gpsCoordinates: [Double]!
     var orientation: Int!
@@ -26,8 +27,9 @@ class PictureData {
     var locationName: String!
     
     // MARK: - Initializers
-    public init(name: String!, gpsCoordinates: [Double], orientation: Int, owner: String, time: String, locationName: String, id: String) {
+    public init(name: String!, description: String, gpsCoordinates: [Double], orientation: Int, owner: String, time: String, locationName: String, id: String) {
         self.name = name
+        self.description = description
         self.gpsCoordinates = []
         self.gpsCoordinates = gpsCoordinates
         self.orientation = orientation
