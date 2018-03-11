@@ -29,11 +29,6 @@ class LeaderboardsFriendsVC: UITableViewController {
                 print("Setting up friends list")
             }
         }
-        else {
-            // Leaderboard mode has been picked
-            setupLeaderboards()
-            print("Setting up leaderboards")
-        }
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -86,6 +81,7 @@ class LeaderboardsFriendsVC: UITableViewController {
             FBDatabase.getUser(with_id: id, ref: ref, with_completion: {(user) in
                 if let activeUser = user {
                     self.friendsList.append(activeUser)
+                    self.tableView.reloadData()
                 }
                 else {
                     // Did not get a user in the friends list
@@ -97,7 +93,7 @@ class LeaderboardsFriendsVC: UITableViewController {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath) as! LeaderboardFriendsTableCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CustomCell", for: indexPath) as! LeaderboardFriendsTableCell
         let user: User!
         if mode == LeaderboardsFriendsVC.FRIENDS_LIST_MODE {
             user = friendsList[indexPath.row]
@@ -140,7 +136,19 @@ class LeaderboardsFriendsVC: UITableViewController {
                 ref.removeAllObservers()
                 if let usernameObj = username {
                     print("Got username in LeaderboardsFriends VC")
-                    self.user.friendsID.append(usernameObj.id)
+                    let id = usernameObj.id
+                    self.user.friendsID.append(id!)
+                    let ref = Database.database().reference()
+                    FBDatabase.getUser(with_id: id!, ref: ref, with_completion: {(user) in
+                        if let activeUser = user {
+                           print("Got new user in LeaderboardFriends VC")
+                            self.friendsList.append(activeUser)
+                        }
+                        else {
+                            print("Did not get new user in LeaderboardsFriends VC")
+                        }
+                        self.tableView.reloadData()
+                    })
                     FBDatabase.addUpdateUser(user: self.user, with_completion: {(error) in
                         if let actualError = error {
                             print(actualError)
@@ -161,7 +169,12 @@ class LeaderboardsFriendsVC: UITableViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        self.performSegue(withIdentifier: "PhotoLibSegue", sender: friendsList[indexPath.row])
+    }
     
+    // MARK: - Outlet Actions
     @IBAction func backButtonPressed(_ sender: Any) {
         self.navigationController?.dismiss(animated: true, completion: nil)
     }
@@ -202,14 +215,22 @@ class LeaderboardsFriendsVC: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        let segueID = segue.identifier
+        if segueID == "PhotoLibSegue" {
+            let friend = sender as! User
+            let destination = segue.destination as! UINavigationController
+            let photoLibVC = destination.topViewController as! PhotoLibChallengeVC
+            photoLibVC.user = friend
+            photoLibVC.mode = PhotoLibChallengeVC.PHOTO_LIB_MODE
+        }
     }
-    */
+    
 
 }
