@@ -8,11 +8,19 @@
 
 import UIKit
 import Pageboy
+import Firebase
 
 class PageViewController: PageboyViewController, PageboyViewControllerDataSource {
     
+    // MARK: - Properties
+    var user: User!
+    private var viewControllersArray: [UIViewController]!
+    private var mapVC: MapContainerVC!
+    private var cameraVC: CameraContainerVC!
+    private var leaderboardsVC: LeaderboardsFriendsVC!
+    private var ref: DatabaseReference!
     
-    let viewControllersArray: [UIViewController] = {
+    /*let viewControllersArray: [UIViewController] = {
         
         let mapStoryboard = UIStoryboard(name: "Map", bundle: Bundle.main)
         let cameraStoryboard = UIStoryboard(name: "Camera", bundle: Bundle.main)
@@ -30,13 +38,51 @@ class PageViewController: PageboyViewController, PageboyViewControllerDataSource
         viewControllers.append(leaderboardsVC)
         
         return viewControllers
-    }()
+    }()*/
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.dataSource = self
+        if user != nil {
+            setupViewControllers()
+            setupUserListener()
+        }
+    }
+    
+    private func setupViewControllers() {
+        let mapStoryboard = UIStoryboard(name: "Map", bundle: Bundle.main)
+        let cameraStoryboard = UIStoryboard(name: "Camera", bundle: Bundle.main)
+        let leaderboardsStoryboard = UIStoryboard(name: "LeaderboardsFriends", bundle: Bundle.main)
         
+        mapVC = mapStoryboard.instantiateViewController(withIdentifier: "MapContainerVC") as! MapContainerVC
+        let cameraNav = cameraStoryboard.instantiateViewController(withIdentifier: "CameraNav") as! UINavigationController
+        cameraVC = cameraNav.topViewController as! CameraContainerVC
+        let leaderboardsNav = leaderboardsStoryboard.instantiateViewController(withIdentifier: "LeaderboardsFriendsNav") as! UINavigationController
+        leaderboardsVC = leaderboardsNav.topViewController as! LeaderboardsFriendsVC
+        
+        mapVC.user = self.user
+        cameraVC.user = self.user
+        leaderboardsVC.user = self.user
+        leaderboardsVC.mode = LeaderboardsFriendsVC.LEADERBOARD_MODE
+        self.viewControllersArray = [mapVC, cameraNav, leaderboardsNav]
+        self.dataSource = self
+    }
+    
+    private func setupUserListener() {
+        ref = Database.database().reference()
+        let id = FBDatabase.getSignedInUserID()!
+        FBDatabase.getUser(with_id: id, ref: ref, with_completion: {(user) in
+            if let activeUser = user {
+                print("Got updated user in Page View Controller")
+                self.user = user
+                self.mapVC.updateViewController(user: activeUser)
+                self.cameraVC.updateViewController(user: activeUser)
+                self.leaderboardsVC.updateViewController(user: activeUser)
+            }
+            else {
+                print("Did not get update user in Page View Controller")
+            }
+        })
     }
     
     

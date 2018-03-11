@@ -16,6 +16,7 @@ class ImageConfirmVC: UIViewController {
     var longToPass: Double?
     var locationToPass: String?
     var isAtChallengeLocation: Bool!
+    var user: User!
 
     @IBOutlet weak var imageView: UIImageView!
     @IBAction func cancelButton(_ sender: Any) {
@@ -31,23 +32,15 @@ class ImageConfirmVC: UIViewController {
         super.viewDidLoad()
         
         let duration: TimeInterval = TimeInterval(exactly: 1.0)!
-
         imageView.hero.modifiers = [.forceNonFade, .duration(duration)]
-
         self.navigationController?.toolbar.barStyle = .blackTranslucent
-        
-    //self.navigationController?.setToolbarHidden(false, animated: false)
-        
-        
-        
-        
         // Do any additional setup after loading the view.
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         imageView.image = image
-        self.navigationController?.setToolbarHidden(false, animated: false)
+        self.navigationController?.setToolbarHidden(false, animated: true)
 
     }
 
@@ -85,6 +78,7 @@ class ImageConfirmVC: UIViewController {
             vc.lat = self.latToPass
             vc.long = self.longToPass
             vc.location = self.locationToPass
+            vc.user = self.user
         }
     }
  

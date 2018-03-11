@@ -20,6 +20,7 @@ class ImageCreateVC: UIViewController {
     var long: Double?
     var location: String?
     var isAtChallengeLocation: Bool!
+    var user: User!
     
     @IBOutlet weak var imageBackground: UIImageView!
     @IBOutlet weak var imageView: UIImageView!
@@ -33,61 +34,53 @@ class ImageCreateVC: UIViewController {
     @IBOutlet var avoidingView: UIView!
     
     @IBAction func cancelPressed(_ sender: Any) {
-        //self.navigationController?.popViewController(animated: true)
+        self.navigationController?.setToolbarHidden(true, animated: true)
+        self.navigationController?.popToRootViewController(animated: true)
     }
     
     @IBAction func confirmPressed(_ sender: Any) {
         print("Confirmed Pressed")
-        let ref = Database.database().reference()
-        FBDatabase.getUser(with_id: FBDatabase.getSignedInUserID()!, ref: ref, with_completion: {(user) in
-            if let activeUser = user {
-                print("Got user in ImageCreate VC")
-                ref.removeAllObservers()
-                let currentDate = Date()
-                let stringPictureDate = DateGetter.getStringFromDate(date: currentDate)
-                let pictureData = PictureData(name: self.titleOutlet.text, description: self.descriptionOutlet.text!, gpsCoordinates: [self.lat!, self.long!], orientation: PictureData.ORIENTATION_PORTRAIT, owner: activeUser.id, time: stringPictureDate, locationName: self.locationNameOutlet.text!, id: PictureData.createPictureDataID())
-                activeUser.pictures.append(pictureData.id)
-                if self.isAtChallengeLocation {
-                    // If the user took the picture at the challenge coordinates
-                    activeUser.points = activeUser.points + Int(activeUser.activeChallengePoints)!
-                    print("User earned \(activeUser.activeChallengePoints) points")
-                }
-                FBDatabase.addPicture(image: self.image!, pictureData: pictureData, with_completion: {(error) in
+        let currentDate = Date()
+        let stringPictureDate = DateGetter.getStringFromDate(date: currentDate)
+        let pictureData = PictureData(name: self.titleOutlet.text, description: self.descriptionOutlet.text!, gpsCoordinates: [self.lat!, self.long!], orientation: PictureData.ORIENTATION_PORTRAIT, owner: self.user.id, time: stringPictureDate, locationName: self.locationNameOutlet.text!, id: PictureData.createPictureDataID())
+        self.user.pictures.append(pictureData.id)
+        if self.isAtChallengeLocation {
+            // If the user took the picture at the challenge coordinates
+            self.user.points = self.user.points + Int(self.user.activeChallengePoints)!
+            print("User earned \(self.user.activeChallengePoints) points")
+        }
+        FBDatabase.addPicture(image: self.image!, pictureData: pictureData, with_completion: {(error) in
+            if let actualError = error {
+                // There was an error
+                print(actualError)
+            }
+            else {
+                // No error
+                print("Added picture for user in ImageCreateVC")
+                FBDatabase.addUpdatePictureData(pictureData: pictureData, with_completion: {(error) in
                     if let actualError = error {
-                        // There was an error
+                        // Error
                         print(actualError)
                     }
                     else {
                         // No error
-                        print("Added picture for user in ImageCreateVC")
-                        FBDatabase.addUpdatePictureData(pictureData: pictureData, with_completion: {(error) in
-                            if let actualError = error {
-                                // Error
-                                print(actualError)
-                            }
-                            else {
-                                // No error
-                                print("Added picture data for user in ImageCreateVC")
-                                self.performSegue(withIdentifier: "PageViewSegue", sender: self)
-                            }
-                        })
-                        FBDatabase.addUpdateUser(user: activeUser, with_completion: {(error) in
-                            if let actualError = error {
-                                print(actualError)
-                            }
-                            else {
-                                print("Updated user in ImageCreate VC")
-                            }
-                        })
+                        print("Added picture data for user in ImageCreateVC")
+                        self.navigationController?.setToolbarHidden(true, animated: true)
+                        self.navigationController?.popToRootViewController(animated: true)
+                    }
+                })
+                FBDatabase.addUpdateUser(user: self.user, with_completion: {(error) in
+                    if let actualError = error {
+                        print(actualError)
+                    }
+                    else {
+                        print("Updated user in ImageCreate VC")
                     }
                 })
             }
-            else {
-                print("Didn not get user in ImageCreate VC")
-                // TODO: Handle error
-            }
         })
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboard()

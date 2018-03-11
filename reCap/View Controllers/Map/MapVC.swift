@@ -38,7 +38,9 @@ class MapVC: UIViewController, MGLMapViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        getUser()
+        if user != nil {
+            getUser()
+        }
         // Do any additional setup after loading the view.
     }
     

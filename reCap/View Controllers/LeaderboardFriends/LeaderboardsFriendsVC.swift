@@ -21,7 +21,7 @@ class LeaderboardsFriendsVC: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        if mode != nil {
+        if mode != nil, user != nil {
             // If the mode has been selected
             if mode == LeaderboardsFriendsVC.FRIENDS_LIST_MODE {
                 // Friends list mode has been picked
@@ -182,8 +182,13 @@ class LeaderboardsFriendsVC: UITableViewController {
     @IBAction func backButtonPressed(_ sender: Any) {
         self.navigationController?.dismiss(animated: true, completion: nil)
     }
-
     
+    // MARK: - Misc.
+    public func updateViewController(user: User) {
+        self.user = user
+        self.tableView.reloadData()
+    }
+
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

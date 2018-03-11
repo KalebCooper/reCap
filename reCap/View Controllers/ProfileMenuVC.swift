@@ -29,7 +29,7 @@ class ProfileMenuVC: UIViewController {
     
     @IBAction func backAction(_ sender: Any) {
         print("Back to Camera")
-        //self.navigationController?.setToolbarHidden(true, animated: true)
+        self.navigationController?.setToolbarHidden(true, animated: true)
         self.navigationController?.popViewController(animated: true)
     }
     var image: UIImage?

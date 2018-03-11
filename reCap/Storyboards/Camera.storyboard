@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14105" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ZCF-ix-wCu">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ZCF-ix-wCu">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -279,7 +279,6 @@
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <connections>
                                 <action selector="cancelButton:" destination="5FS-bp-BS6" id="8DM-9G-bXy"/>
-                                <segue destination="GQx-tN-CpV" kind="presentation" id="8Bo-uT-G8E"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem width="127" style="plain" systemItem="fixedSpace" id="uz5-UR-9R8"/>
@@ -306,14 +305,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tm5-14-1Ca" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2471" y="-155"/>
-        </scene>
-        <!--PageView-->
-        <scene sceneID="z9Y-NT-eah">
-            <objects>
-                <viewControllerPlaceholder storyboardName="PageView" id="GQx-tN-CpV" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="5wj-3z-hAw" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2969" y="278"/>
         </scene>
         <!--Image CreateVC-->
         <scene sceneID="nms-kt-ESX">
@@ -387,7 +378,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="KA9-3D-ilP" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                        <rect key="frame" x="8" y="126" width="359" height="31"/>
+                                        <rect key="frame" x="8" y="144.33333333333337" width="359" height="48.666666666666657"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <fontDescription key="fontDescription" name="Triomphe-Light" family="Triomphe" pointSize="18"/>
@@ -429,7 +420,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="O7M-hv-fHF" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                        <rect key="frame" x="8" y="60" width="359" height="58"/>
+                                        <rect key="frame" x="8" y="59.999999999999993" width="359" height="76.333333333333314"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <fontDescription key="fontDescription" name="Triomphe-Bold" family="Triomphe" pointSize="36"/>
@@ -534,7 +525,6 @@
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <connections>
                                 <action selector="cancelPressed:" destination="yyB-jy-Tx0" id="xwO-Vw-w1N"/>
-                                <segue destination="GQx-tN-CpV" kind="presentation" id="WuH-ce-0Ns"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem width="127" style="plain" systemItem="fixedSpace" id="oRM-BW-A6d"/>
@@ -558,7 +548,6 @@
                         <outlet property="locationNameOutlet" destination="PlE-lX-Phf" id="7ku-Rz-MjD"/>
                         <outlet property="locationOutlet" destination="bEw-nZ-Vm9" id="p8H-Nz-igh"/>
                         <outlet property="titleOutlet" destination="O7M-hv-fHF" id="nH9-Kp-V6N"/>
-                        <segue destination="GQx-tN-CpV" kind="presentation" identifier="PageViewSegue" id="5P8-b2-kSb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pbz-00-wsE" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -568,7 +557,7 @@
         <!--Navigation Controller-->
         <scene sceneID="BrH-vS-niz">
             <objects>
-                <navigationController autoresizesArchivedViewToFullSize="NO" automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="ZCF-ix-wCu" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="CameraNav" autoresizesArchivedViewToFullSize="NO" automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="ZCF-ix-wCu" sceneMemberID="viewController">
                     <toolbarItems/>
                     <nil key="simulatedTopBarMetrics"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics" barStyle="black"/>
@@ -31715,7 +31704,4 @@ pgAceq4AHHqxABx6wwAcesYAHHrLAAAAAAAABAEAAAAAAAAAWQAAAAAAAAAAAAAAAAAces0
 </mutableData>
         </image>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="WuH-ce-0Ns"/>
-    </inferredMetricsTieBreakers>
 </document>

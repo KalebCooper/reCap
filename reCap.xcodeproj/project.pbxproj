@@ -26,7 +26,6 @@
 		3485920D203A7A5E003E3704 /* TutorialFinalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3485920C203A7A5E003E3704 /* TutorialFinalVC.swift */; };
 		3485920F203A7BAA003E3704 /* TutorialPageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3485920E203A7BAA003E3704 /* TutorialPageVC.swift */; };
 		34A7ACA8202787DA00ACFB12 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A7ACA7202787DA00ACFB12 /* PageViewController.swift */; };
-		34A7ACB020278CA700ACFB12 /* LeaderboardContainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A7ACAF20278CA700ACFB12 /* LeaderboardContainerVC.swift */; };
 		34A7ACB42027A4EB00ACFB12 /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34A7ACB32027A4EB00ACFB12 /* Map.storyboard */; };
 		34A7ACB62027A4F500ACFB12 /* Camera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34A7ACB52027A4F500ACFB12 /* Camera.storyboard */; };
 		34A7ACB82027A51700ACFB12 /* LeaderboardsFriends.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34A7ACB72027A51700ACFB12 /* LeaderboardsFriends.storyboard */; };
@@ -126,7 +125,6 @@
 		3485920C203A7A5E003E3704 /* TutorialFinalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialFinalVC.swift; sourceTree = "<group>"; };
 		3485920E203A7BAA003E3704 /* TutorialPageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialPageVC.swift; sourceTree = "<group>"; };
 		34A7ACA7202787DA00ACFB12 /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
-		34A7ACAF20278CA700ACFB12 /* LeaderboardContainerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardContainerVC.swift; sourceTree = "<group>"; };
 		34A7ACB32027A4EB00ACFB12 /* Map.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Map.storyboard; sourceTree = "<group>"; };
 		34A7ACB52027A4F500ACFB12 /* Camera.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Camera.storyboard; sourceTree = "<group>"; };
 		34A7ACB72027A51700ACFB12 /* LeaderboardsFriends.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LeaderboardsFriends.storyboard; sourceTree = "<group>"; };
@@ -348,7 +346,6 @@
 			isa = PBXGroup;
 			children = (
 				34A7ACA7202787DA00ACFB12 /* PageViewController.swift */,
-				34A7ACAF20278CA700ACFB12 /* LeaderboardContainerVC.swift */,
 			);
 			path = PageViewControllers;
 			sourceTree = "<group>";
@@ -845,7 +842,6 @@
 				7AA8EE922055A5000043B73C /* ImageCreateVC.swift in Sources */,
 				34859205203A7A19003E3704 /* TutorialAnythingVC.swift in Sources */,
 				7AA8EE902055A4F20043B73C /* ChallengeViewVC.swift in Sources */,
-				34A7ACB020278CA700ACFB12 /* LeaderboardContainerVC.swift in Sources */,
 				3485920B203A7A50003E3704 /* TutorialHikingVC.swift in Sources */,
 				7A120DCF2041F0570003EE1F /* PhotoChalColCell.swift in Sources */,
 				7A0162CA204E3D91000539E0 /* DateGetter.swift in Sources */,

@@ -195,6 +195,21 @@ class FBDatabase {
      Gets username from database
      */
     class func getUsername(with_ref ref: DatabaseReference,with_username username: String, with_completion completion : @escaping (_ username: Username?) -> ()) {
+        ref.child(USERNAME_NODE).child(username).observe(.value, with: {(snapshot) in
+            if let usernameData = snapshot.value as? NSDictionary {
+                let id = usernameData[USERNAME_ID] as! String
+                let email = usernameData[USERNAME_EMAIL] as! String
+                let usernameObj = Username(username: username, email: email, id: id)
+                completion(usernameObj)
+            }
+            else {
+                // Could not get root element
+                completion(nil)
+            }
+        })
+    }
+    
+    /*class func getUsername(with_ref ref: DatabaseReference,with_username username: String, with_completion completion : @escaping (_ username: Username?) -> ()) {
         ref.observe(.value, with: {(snapshot) in
             if let root = snapshot.value as? NSDictionary {
                 let usernamesNode = root[USERNAME_NODE] as! NSDictionary
@@ -213,7 +228,7 @@ class FBDatabase {
                 completion(nil)
             }
         })
-    }
+    }*/
     
     // MARK: - User Methods
     
@@ -334,26 +349,20 @@ class FBDatabase {
      Gets picture data from database
      */
     class func getPictureData(id: String, ref: DatabaseReference, with_completion completion: @escaping (_ pictureData: PictureData?) -> ()) {
-        ref.observe(.value, with: {(snapshot) in
-            let root = snapshot.value as! NSDictionary
-            if let pictureDataNode = root[PICTURE_DATA_NODE] as? NSDictionary {
-                // Database has picture data in it
-                if let pictureDataData = pictureDataNode[id] as? NSDictionary {
-                    let name = pictureDataData[PICTURE_DATA_NAME] as! String
-                    let description = pictureDataData[PICTURE_DESCRIPTION] as! String
-                    let coordinates = pictureDataData[PICTURE_DATA_GPS] as! [Double]
-                    let orientation = pictureDataData[PICTURE_DATA_ORIENTATION] as! Int
-                    let owner = pictureDataData[PICTURE_DATA_OWNER] as! String
-                    let time = pictureDataData[PICTURE_DATA_TIME] as! String
-                    let locationName = pictureDataData[PICTURE_DATA_LOCATION_NAME] as! String
-                    let id = pictureDataData[PICTURE_DATA_ID] as! String
-                    let pictureData = PictureData(name: name, description: description, gpsCoordinates: coordinates, orientation: orientation, owner: owner, time: time, locationName: locationName, id: id)
-                    completion(pictureData)
-                }
-                else {
-                    completion(nil)
-                }
+        ref.child(PICTURE_NODE).child(id).observe(.value, with: {(snapshot) in
+            if let pictureDataNode = snapshot.value as? NSDictionary {
+                let name = pictureDataNode[PICTURE_DATA_NAME] as! String
+                let description = pictureDataNode[PICTURE_DESCRIPTION] as! String
+                let coordinates = pictureDataNode[PICTURE_DATA_GPS] as! [Double]
+                let orientation = pictureDataNode[PICTURE_DATA_ORIENTATION] as! Int
+                let owner = pictureDataNode[PICTURE_DATA_OWNER] as! String
+                let time = pictureDataNode[PICTURE_DATA_TIME] as! String
+                let locationName = pictureDataNode[PICTURE_DATA_LOCATION_NAME] as! String
+                let id = pictureDataNode[PICTURE_DATA_ID] as! String
+                let pictureData = PictureData(name: name, description: description, gpsCoordinates: coordinates, orientation: orientation, owner: owner, time: time, locationName: locationName, id: id)
+                completion(pictureData)
             }
+            
             else {
                 // Database does not have picture data in it
                 completion(nil)
