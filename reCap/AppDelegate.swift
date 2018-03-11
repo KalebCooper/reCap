@@ -20,8 +20,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         //Firebase initialization
         FirebaseApp.configure()
+        Database.database().isPersistenceEnabled = true
         UIApplication.shared.statusBarStyle = .lightContent
-        if FBDatabase.getSignedInUserID() != nil {
+        /*if FBDatabase.getSignedInUserID() != nil {
             // If a user is signed in
             FBDatabase.signInAutomaticUser(with_completion: {(id, error) in
                 if id != nil {
@@ -30,20 +31,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
                 else {
                     print("User did not successfully sign into firebase in app delegate")
+                    FBDatabase.removeAutomaticSignIn()
                     self.setRootAsSignIn()
                 }
             })
         }
         else {
             self.setRootAsSignIn()
-        }
-        //self.setRootAsSignIn()
+        }*/
+        self.setRootAsSignIn()
         return true
     }
     
     private func setRootAsPageView() {
-        let pageViewStoryboard = UIStoryboard(name: "PageView", bundle: nil)
-        self.window?.rootViewController = pageViewStoryboard.instantiateInitialViewController()
+        let id = FBDatabase.getSignedInUserID()!
+        let ref = Database.database().reference()
+        FBDatabase.getUser(with_id: id, ref: ref, with_completion: {(user) in
+            ref.removeAllObservers()
+            if let activeUser = user {
+                print("Got user in app delegate")
+                let pageViewStoryboard = UIStoryboard(name: "PageView", bundle: nil)
+                let pageViewVC = pageViewStoryboard.instantiateInitialViewController() as! PageViewController
+                pageViewVC.user = activeUser
+                self.window?.rootViewController = pageViewVC
+            }
+            else {
+                print("Did not get user in app delegate")
+            }
+        })
     }
     
     private func setRootAsSignIn() {

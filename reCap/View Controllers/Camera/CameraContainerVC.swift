@@ -51,7 +51,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     var captureDevice: AVCaptureDevice?
     
     let blackColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
-    private var user: User!
+    var user: User!
     private var activeChallengePicData: PictureData!
     private let chalCoordThreshold = 0.000017
     
@@ -64,12 +64,14 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupProfileImage()
-        setupHero()
-        setupCamera()
-        initializeShadow()
-        configureButton()
-        setupGestures()
+        if user != nil {
+            setupProfileImage()
+            setupHero()
+            setupCamera()
+            initializeShadow()
+            configureButton()
+            setupGestures()
+        }
         
         //self.viewDidAppear(false)
         
@@ -78,36 +80,25 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
 
     func setupProfileImage() {
         
-        let reference = Database.database().reference()
-        let id = FBDatabase.getSignedInUserID()
-        print("Logged in")
-        
-        FBDatabase.getUser(with_id: id!, ref: reference) { (user) in
-            print("User was updated in Camera Container VC")
-            if user != nil {
-                self.user = user!
-                print("Got user in camera container VC")
-                FBDatabase.getProfilePicture(for_user: user!, with_progress: { (progress, total)  in
-                
-                }, with_completion: { (image) in
-                    if let actualImage = image {
-                        self.profileImage = actualImage
-                        print("Got profile picture in Camera Container VC")
-                    }
-                    else {
-                        print("Did not get profile picture in Camera Container VC")
-                    }
-                    self.profileOutlet.image = self.profileImage
-                    self.profileOutlet.layer.borderWidth = 1
-                    self.profileOutlet.layer.borderColor = UIColor.white.cgColor
-                    self.profileOutlet.layer.cornerRadius = self.profileOutlet.layer.frame.width / 2
-                    self.profileOutlet.layer.masksToBounds = false
-                    self.profileOutlet.clipsToBounds = true
-                    self.profileOutlet.contentMode = .scaleAspectFill
-                })
-                self.setupActiveChallengeData()
+        FBDatabase.getProfilePicture(for_user: user!, with_progress: { (progress, total)  in
+            
+        }, with_completion: { (image) in
+            if let actualImage = image {
+                self.profileImage = actualImage
+                print("Got profile picture in Camera Container VC")
             }
-        }
+            else {
+                print("Did not get profile picture in Camera Container VC")
+            }
+            self.profileOutlet.image = self.profileImage
+            self.profileOutlet.layer.borderWidth = 1
+            self.profileOutlet.layer.borderColor = UIColor.white.cgColor
+            self.profileOutlet.layer.cornerRadius = self.profileOutlet.layer.frame.width / 2
+            self.profileOutlet.layer.masksToBounds = false
+            self.profileOutlet.clipsToBounds = true
+            self.profileOutlet.contentMode = .scaleAspectFill
+        })
+        self.setupActiveChallengeData()
     }
     
     /*
@@ -117,16 +108,23 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     */
     private func setupActiveChallengeData() {
         let id = self.user.activeChallengeID
-        let ref = Database.database().reference()
-        FBDatabase.getPictureData(id: id!, ref: ref, with_completion: {(pictureData) in
-            if let activePictureData = pictureData {
-                self.activeChallengePicData = activePictureData
-                print("Got challenge pic data in Camera Container VC")
-            }
-            else {
-                print("Did not get challenge pic data in camera container VC")
-            }
-        })
+        if id != "" {
+            // If there is an actual id and not just the place holder
+            let ref = Database.database().reference()
+            FBDatabase.getPictureData(id: id!, ref: ref, with_completion: {(pictureData) in
+                ref.removeAllObservers()
+                if let activePictureData = pictureData {
+                    self.activeChallengePicData = activePictureData
+                    print("Got challenge pic data in Camera Container VC")
+                }
+                else {
+                    print("Did not get challenge pic data in camera container VC")
+                }
+            })
+        }
+        else {
+            print("There is not an active challenge in camera container VC")
+        }
     }
     
     func setupHero() {
@@ -382,6 +380,10 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         
     }
     
+    public func updateViewController(user: User) {
+        self.user = user
+    }
+    
     
     func setupOrientation() {
         
@@ -489,13 +491,6 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         
     }
     
-    
-    
-    
-    
-    
-    
-    
     //MARK: - Navigation Arrow Functionality
     func degreesToRadians(degrees: Double) -> Double { return degrees * .pi / 180.0 }
     func radiansToDegrees(radians: Double) -> Double { return radians * 180.0 / .pi }
@@ -533,6 +528,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
             vc.latToPass = self.latToPass
             vc.longToPass = self.longToPass
             vc.locationToPass = self.locationToPass
+            vc.user = self.user
 
         }
         

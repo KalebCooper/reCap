@@ -195,6 +195,21 @@ class FBDatabase {
      Gets username from database
      */
     class func getUsername(with_ref ref: DatabaseReference,with_username username: String, with_completion completion : @escaping (_ username: Username?) -> ()) {
+        ref.child(USERNAME_NODE).child(username).observe(.value, with: {(snapshot) in
+            if let usernameData = snapshot.value as? NSDictionary {
+                let id = usernameData[USERNAME_ID] as! String
+                let email = usernameData[USERNAME_EMAIL] as! String
+                let usernameObj = Username(username: username, email: email, id: id)
+                completion(usernameObj)
+            }
+            else {
+                // Could not get root element
+                completion(nil)
+            }
+        })
+    }
+    
+    /*class func getUsername(with_ref ref: DatabaseReference,with_username username: String, with_completion completion : @escaping (_ username: Username?) -> ()) {
         ref.observe(.value, with: {(snapshot) in
             if let root = snapshot.value as? NSDictionary {
                 let usernamesNode = root[USERNAME_NODE] as! NSDictionary
@@ -213,7 +228,7 @@ class FBDatabase {
                 completion(nil)
             }
         })
-    }
+    }*/
     
     // MARK: - User Methods
     
@@ -241,6 +256,39 @@ class FBDatabase {
      user in the completion handler
      */
     class func getUser(with_id id: String, ref: DatabaseReference, with_completion completion: @escaping (_ user: User?) -> ()) {
+        ref.child(USER_NODE).child(id).observe(.value, with: {(snapshot) in
+            if let userNode = snapshot.value as? NSDictionary {
+                let name = userNode[USER_NAME] as! String
+                let email = userNode[USER_EMAIL] as! String
+                var pictures = userNode[USER_PICTURES] as? [String]
+                var friendsID = userNode[USER_FRIENDS_ID] as? [String]
+                let username = userNode[USER_USERNAME] as! String
+                var activeChallengeID = userNode[USER_ACTIVE_CHALLENGE_ID] as? String
+                var activeChallengePoints = userNode[USER_ACTIVE_CHALLENGE_POINTS] as? String
+                let user: User
+                if pictures == nil {
+                    pictures = []
+                }
+                if friendsID == nil {
+                    friendsID = []
+                }
+                if activeChallengeID == nil {
+                    activeChallengeID = ""
+                }
+                if activeChallengePoints == nil {
+                    activeChallengePoints = ""
+                }
+                user = User(id: id, name: name, email: email, username: username, pictures: pictures!, friendsID: friendsID!, activeChallengeID: activeChallengeID!, activeChallengePoints: activeChallengePoints!)
+                completion(user)
+            }
+            else {
+                // No users in the database
+                completion(nil)
+            }
+        })
+    }
+    
+    /*class func getUser(with_id id: String, ref: DatabaseReference, with_completion completion: @escaping (_ user: User?) -> ()) {
         ref.observe(.value, with: {(snapshot) in
             let root = snapshot.value as! NSDictionary
             if let users = root[USER_NODE] as? NSDictionary {
@@ -274,7 +322,7 @@ class FBDatabase {
                 completion(nil)
             }
         })
-    }
+    }*/
     
     // MARK: - Picture Data Methods
     
@@ -301,6 +349,28 @@ class FBDatabase {
      Gets picture data from database
      */
     class func getPictureData(id: String, ref: DatabaseReference, with_completion completion: @escaping (_ pictureData: PictureData?) -> ()) {
+        ref.child(PICTURE_NODE).child(id).observe(.value, with: {(snapshot) in
+            if let pictureDataNode = snapshot.value as? NSDictionary {
+                let name = pictureDataNode[PICTURE_DATA_NAME] as! String
+                let description = pictureDataNode[PICTURE_DESCRIPTION] as! String
+                let coordinates = pictureDataNode[PICTURE_DATA_GPS] as! [Double]
+                let orientation = pictureDataNode[PICTURE_DATA_ORIENTATION] as! Int
+                let owner = pictureDataNode[PICTURE_DATA_OWNER] as! String
+                let time = pictureDataNode[PICTURE_DATA_TIME] as! String
+                let locationName = pictureDataNode[PICTURE_DATA_LOCATION_NAME] as! String
+                let id = pictureDataNode[PICTURE_DATA_ID] as! String
+                let pictureData = PictureData(name: name, description: description, gpsCoordinates: coordinates, orientation: orientation, owner: owner, time: time, locationName: locationName, id: id)
+                completion(pictureData)
+            }
+            
+            else {
+                // Database does not have picture data in it
+                completion(nil)
+            }
+        })
+    }
+    
+    /*class func getPictureData(id: String, ref: DatabaseReference, with_completion completion: @escaping (_ pictureData: PictureData?) -> ()) {
         ref.observe(.value, with: {(snapshot) in
             let root = snapshot.value as! NSDictionary
             if let pictureDataNode = root[PICTURE_DATA_NODE] as? NSDictionary {
@@ -326,7 +396,7 @@ class FBDatabase {
                 completion(nil)
             }
         })
-    }
+    }*/
     
     /*
      Gets all picture data for a user

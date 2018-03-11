@@ -11,9 +11,10 @@ import Firebase
 
 class MapContainerVC: UIViewController {
     
+    // MARK: - Properties
     var portraitShadow: EdgeShadowLayer? = nil
     var landscapeShadow: EdgeShadowLayer? = nil
-    private var user: User!
+    var user: User!
     private static let CHALLENGE_SEGUE = "ChallengeSegue"
 
     override func viewDidLoad() {
@@ -81,7 +82,10 @@ class MapContainerVC: UIViewController {
         self.performSegue(withIdentifier: "ChallengeSegue", sender: nil)
     }
     
-
+    // MARK: - Misc.
+    public func updateViewController(user: User) {
+        self.user = user
+    }
     
     // MARK: - Navigation
 

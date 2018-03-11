@@ -126,7 +126,18 @@ class SignInVC: UIViewController, UITextFieldDelegate {
             if let activeID = id {
                 print("Got user id in sign in VC")
                 FBDatabase.setAutomaticSignIn(with_email: email, with_password: password, with_id: activeID)
-                self.performSegue(withIdentifier: "PageViewSegue", sender: nil)
+                let ref = Database.database().reference()
+                FBDatabase.getUser(with_id: activeID, ref: ref, with_completion: {(user) in
+                    ref.removeAllObservers()
+                    if let activeUser = user {
+                        print("Got user in Sign in VC")
+                        self.performSegue(withIdentifier: "PageViewSegue", sender: activeUser)
+                    }
+                    else {
+                        print("Did not get user in Sign in VC")
+                        // TODO: - Handle error
+                    }
+                })
             }
             else {
                 print("Did not get user id in sign in VC")
@@ -178,15 +189,23 @@ class SignInVC: UIViewController, UITextFieldDelegate {
         return false
     }
     
-    /*
+    
      // MARK: - Navigation
      
      // In a storyboard-based application, you will often want to do a little preparation before navigation
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
      // Get the new view controller using segue.destinationViewController.
      // Pass the selected object to the new view controller.
+        let segueID = segue.identifier
+        if segueID == "PageViewSegue" {
+            let user = sender as! User
+            //let pageViewNav = segue.destination as! UINavigationController
+            //let pageViewVC = pageViewNav.topViewController as! PageViewController
+            let pageViewVC = segue.destination as! PageViewController
+            pageViewVC.user = user
+        }
      }
-     */
+    
     
 }
 
