@@ -28,6 +28,9 @@ class LeaderboardsFriendsVC: UITableViewController {
                 setupFriendsList()
                 print("Setting up friends list")
             }
+            else if mode == LeaderboardsFriendsVC.LEADERBOARD_MODE {
+                setupLeaderboards()
+            }
         }
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -63,6 +66,7 @@ class LeaderboardsFriendsVC: UITableViewController {
     
     // MARK: - Setup Methods
     private func setupLeaderboards() {
+        leaderboardsList = []
         /*let settingsButton = UIBarButtonItem(title: "Settings", style: .plain, target: self, action: #selector(settingsPressed))
         let navController = self.navigationController
         let navBar = navController?.navigationBar
