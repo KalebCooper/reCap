@@ -263,7 +263,12 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
         
         let label = UILabel(frame: headerView.frame)
         label.font.withSize(30)
-        label.text = self.challenges[section]
+        if mode == PhotoLibChallengeVC.CHALLENGE_MODE {
+            label.text = self.challenges[section]
+        }
+        else if mode == PhotoLibChallengeVC.PHOTO_LIB_MODE {
+            label.text = self.locations[section]
+        }
         label.textColor = UIColor.white
         label.textAlignment = .center
         headerView.addSubview(label)
