@@ -9,14 +9,17 @@
 import UIKit
 import SkyFloatingLabelTextField
 import Hero
+import SwiftLocation
+import CoreLocation
 
 class ChallengeViewVC: UIViewController {
     
     var image: UIImage!
     var pictureData: PictureData!
-
+    
     @IBOutlet weak var imageOutlet: UIImageView!
     @IBOutlet weak var locationOutlet: UILabel!
+    @IBOutlet weak var locationNameOutlet: UILabel!
     @IBOutlet weak var titleOutlet: SkyFloatingLabelTextField!
     @IBOutlet weak var descriptionOutlet: SkyFloatingLabelTextField!
     @IBOutlet weak var imageBackground: UIImageView!
@@ -47,9 +50,16 @@ class ChallengeViewVC: UIViewController {
         imageOutlet.hero.id = "imageID"
         imageOutlet.image = image
         locationOutlet.text = pictureData.locationName
+        let coordinates = CLLocationCoordinate2D(latitude: pictureData.gpsCoordinates[0], longitude: pictureData.gpsCoordinates[1])
+        Locator.location(fromCoordinates: coordinates, using: .apple, onSuccess: { places in
+            print(places)
+            self.locationNameOutlet.text = "\(places[0])"
+        }) { err in
+            print(err)
+        }
         titleOutlet.text = pictureData.name
         descriptionOutlet.text = pictureData.description
-
+        
         // Do any additional setup after loading the view.
     }
     
@@ -62,21 +72,21 @@ class ChallengeViewVC: UIViewController {
         self.imageBackground.image = blurredImage
         
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }

@@ -10,6 +10,8 @@ import UIKit
 import IHKeyboardAvoiding
 import SkyFloatingLabelTextField
 import Firebase
+import SwiftLocation
+import CoreLocation
 
 class ImageCreateVC: UIViewController {
     
@@ -24,6 +26,7 @@ class ImageCreateVC: UIViewController {
     
     
     @IBOutlet weak var locationOutlet: UILabel!
+    @IBOutlet weak var locationNameOutlet: UILabel!
     @IBOutlet weak var titleOutlet: SkyFloatingLabelTextField!
     @IBOutlet weak var descriptionOutlet: SkyFloatingLabelTextField!
     
@@ -42,7 +45,7 @@ class ImageCreateVC: UIViewController {
                 ref.removeAllObservers()
                 let currentDate = Date()
                 let stringPictureDate = DateGetter.getStringFromDate(date: currentDate)
-                let pictureData = PictureData(name: self.titleOutlet.text, description: self.descriptionOutlet.text!, gpsCoordinates: [self.lat!, self.long!], orientation: PictureData.ORIENTATION_PORTRAIT, owner: activeUser.id, time: stringPictureDate, locationName: self.location!, id: PictureData.createPictureDataID())
+                let pictureData = PictureData(name: self.titleOutlet.text, description: self.descriptionOutlet.text!, gpsCoordinates: [self.lat!, self.long!], orientation: PictureData.ORIENTATION_PORTRAIT, owner: activeUser.id, time: stringPictureDate, locationName: self.locationNameOutlet.text!, id: PictureData.createPictureDataID())
                 activeUser.pictures.append(pictureData.id)
                 if self.isAtChallengeLocation {
                     // If the user took the picture at the challenge coordinates
@@ -92,8 +95,18 @@ class ImageCreateVC: UIViewController {
         let duration: TimeInterval = TimeInterval(exactly: 0.5)!
         imageView.hero.modifiers = [.forceNonFade, .duration(duration)]
         
+        
+        let coordinates = CLLocationCoordinate2D(latitude: lat!, longitude: long!)
+        Locator.location(fromCoordinates: coordinates, using: .apple, onSuccess: { places in
+            print(places)
+            self.locationNameOutlet.text = "\(places[0])"
+        }) { err in
+            print(err)
+        }
+        
+        
         imageView.image = image
-        locationOutlet.text = self.location
+         self.locationOutlet.text = self.location
         
         applyBlurEffect(image: image!)
         

@@ -12,6 +12,7 @@ import AVKit
 import SwiftLocation
 import Hero
 import Firebase
+import CoreLocation
 
 class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavigationControllerDelegate {
     
@@ -327,35 +328,33 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     
     func setupLocation() {
         
+        
+        
+        
         Locator.requestAuthorizationIfNeeded(.always)
+        Locator.requestAuthorizationIfNeeded(.whenInUse)
+        
+        
+        Locator.subscribeHeadingUpdates(accuracy: 2, onUpdate: { newHeading in
+            print("New heading \(newHeading)")
+        }) { err in
+            print("Failed with error: \(err)")
+        }
+        
         
         Locator.subscribePosition(accuracy: .room,
                                   onUpdate: { location in
                                     
                                     let lat = location.coordinate.latitude.truncate(places: 6)
-                                    var latString: String
                                     let long = location.coordinate.longitude.truncate(places: 6)
-                                    var longString: String
                                     
-                                    if lat > 0 {
-                                        latString = "\(lat)°N"
-                                    } else {
-                                        latString = "\(lat)°S"
-                                    }
-                                    
-                                    if long > 0 {
-                                        longString = "\(long)°E"
-                                    }
-                                    else {
-                                        longString = "\(long)°W"
-                                    }
-                                    
-                                    let locationName = latString + " , " + longString
-                                    self.locationOutlet.text = locationName
+                                    let gpsString = String.convertGPSCoordinatesToOutput(coordinates: [lat, long])
+
+                                    self.locationOutlet.text = gpsString
                                     
                                     self.latToPass = lat
                                     self.longToPass = long
-                                    self.locationToPass = locationName
+                                    self.locationToPass = gpsString
                                     if self.activeChallengePicData != nil {
                                         // There is a active challenge
                                         let picLong = self.activeChallengePicData.gpsCoordinates[PictureData.LONGITUDE_INDEX]
@@ -492,6 +491,34 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         session?.stopRunning()
         
         
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    //MARK: - Navigation Arrow Functionality
+    func degreesToRadians(degrees: Double) -> Double { return degrees * .pi / 180.0 }
+    func radiansToDegrees(radians: Double) -> Double { return radians * 180.0 / .pi }
+    
+    func getBearingBetweenTwoPoints1(point1 : CLLocation, point2 : CLLocation) -> Double {
+        
+        let lat1 = degreesToRadians(degrees: point1.coordinate.latitude)
+        let lon1 = degreesToRadians(degrees: point1.coordinate.longitude)
+        
+        let lat2 = degreesToRadians(degrees: point2.coordinate.latitude)
+        let lon2 = degreesToRadians(degrees: point2.coordinate.longitude)
+        
+        let dLon = lon2 - lon1
+        
+        let y = sin(dLon) * cos(lat2)
+        let x = cos(lat1) * sin(lat2) - sin(lat1) * cos(lat2) * cos(dLon)
+        let radiansBearing = atan2(y, x)
+        
+        return radiansToDegrees(radians: radiansBearing)
     }
     
     

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14101" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ZCF-ix-wCu">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14105" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ZCF-ix-wCu">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -43,6 +43,13 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabledForSubviews" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NavArrowWhite" translatesAutoresizingMaskIntoConstraints="NO" id="H1a-lg-RtO">
+                                <rect key="frame" x="162.66666666666666" y="610" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="npE-Nb-5YX"/>
+                                    <constraint firstAttribute="height" constant="50" id="rUd-gQ-gwd"/>
+                                </constraints>
+                            </imageView>
                             <imageView userInteractionEnabled="NO" tag="10" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo Text Wide" translatesAutoresizingMaskIntoConstraints="NO" id="PPX-Rz-LL0">
                                 <rect key="frame" x="137.66666666666666" y="54" width="100" height="40"/>
                                 <constraints>
@@ -125,7 +132,10 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" tag="10" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oeN-Wr-Wxk">
-                                <rect key="frame" x="0.0" y="690" width="375" height="0.0"/>
+                                <rect key="frame" x="0.0" y="660" width="375" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="4dE-LK-Q2U"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="Triomphe-Light" family="Triomphe" pointSize="24"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
@@ -146,6 +156,8 @@
                             <constraint firstItem="5ki-EW-e73" firstAttribute="centerX" secondItem="Ykf-Zg-DG4" secondAttribute="centerX" id="Gbf-nu-RPn"/>
                             <constraint firstItem="oeN-Wr-Wxk" firstAttribute="bottom" secondItem="h5t-gw-Uin" secondAttribute="bottom" id="HQK-9P-Yt0"/>
                             <constraint firstItem="5ki-EW-e73" firstAttribute="bottom" secondItem="PPX-Rz-LL0" secondAttribute="bottom" id="Ii0-Pp-HQb"/>
+                            <constraint firstItem="H1a-lg-RtO" firstAttribute="centerX" secondItem="oeN-Wr-Wxk" secondAttribute="centerX" id="P36-oL-X3d"/>
+                            <constraint firstItem="oeN-Wr-Wxk" firstAttribute="top" secondItem="H1a-lg-RtO" secondAttribute="bottom" id="QP3-ia-aUc"/>
                             <constraint firstItem="gc9-NS-DgZ" firstAttribute="top" secondItem="oeN-Wr-Wxk" secondAttribute="bottom" constant="8" id="STT-Pa-E9x"/>
                             <constraint firstItem="h5t-gw-Uin" firstAttribute="bottom" secondItem="Ykf-Zg-DG4" secondAttribute="bottom" constant="10" id="WP2-XP-ALb"/>
                             <constraint firstItem="oeN-Wr-Wxk" firstAttribute="leading" secondItem="h5t-gw-Uin" secondAttribute="leading" id="aLp-wS-ppy"/>
@@ -356,7 +368,7 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ywa-7i-acP">
                                 <rect key="frame" x="0.0" y="527" width="375" height="202"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-34.43243°W, 93.19387°N" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bEw-nZ-Vm9">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bEw-nZ-Vm9">
                                         <rect key="frame" x="8" y="8" width="359" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
@@ -375,7 +387,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="KA9-3D-ilP" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                        <rect key="frame" x="8" y="103" width="359" height="31"/>
+                                        <rect key="frame" x="8" y="126" width="359" height="31"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <fontDescription key="fontDescription" name="Triomphe-Light" family="Triomphe" pointSize="18"/>
@@ -417,7 +429,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="O7M-hv-fHF" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                        <rect key="frame" x="8" y="37" width="359" height="58"/>
+                                        <rect key="frame" x="8" y="60" width="359" height="58"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <fontDescription key="fontDescription" name="Triomphe-Bold" family="Triomphe" pointSize="36"/>
@@ -458,19 +470,41 @@
                                             <userDefinedRuntimeAttribute type="string" keyPath="title" value="Title"/>
                                         </userDefinedRuntimeAttributes>
                                     </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PlE-lX-Phf">
+                                        <rect key="frame" x="8" y="31" width="359" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="morphingDuration">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="morphingEnabled" value="YES"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="morphingProgress">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="morphingCharacterDelay">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="O7M-hv-fHF" firstAttribute="trailing" secondItem="ywa-7i-acP" secondAttribute="trailingMargin" id="4Uw-bH-5Hf"/>
                                     <constraint firstItem="bEw-nZ-Vm9" firstAttribute="centerX" secondItem="ywa-7i-acP" secondAttribute="centerX" id="ADb-XI-Zus"/>
+                                    <constraint firstItem="PlE-lX-Phf" firstAttribute="leading" secondItem="ywa-7i-acP" secondAttribute="leading" constant="8" id="PvY-Ga-Iyv"/>
                                     <constraint firstItem="bEw-nZ-Vm9" firstAttribute="top" secondItem="ywa-7i-acP" secondAttribute="top" constant="8" id="UvC-7L-mk0"/>
                                     <constraint firstItem="KA9-3D-ilP" firstAttribute="top" secondItem="O7M-hv-fHF" secondAttribute="bottom" constant="8" id="VGi-ZG-Mov"/>
                                     <constraint firstItem="KA9-3D-ilP" firstAttribute="leading" secondItem="ywa-7i-acP" secondAttribute="leading" constant="8" id="YmI-4K-vqA"/>
                                     <constraint firstItem="bEw-nZ-Vm9" firstAttribute="leading" secondItem="ywa-7i-acP" secondAttribute="leading" constant="8" id="bGE-RK-jxR"/>
                                     <constraint firstItem="KA9-3D-ilP" firstAttribute="trailing" secondItem="ywa-7i-acP" secondAttribute="trailing" constant="-8" id="byZ-a4-FSw"/>
-                                    <constraint firstAttribute="bottom" secondItem="KA9-3D-ilP" secondAttribute="bottom" constant="32" id="cF8-68-LzY"/>
+                                    <constraint firstAttribute="bottom" secondItem="KA9-3D-ilP" secondAttribute="bottom" constant="16" id="cF8-68-LzY"/>
                                     <constraint firstItem="bEw-nZ-Vm9" firstAttribute="trailing" secondItem="ywa-7i-acP" secondAttribute="trailing" constant="-8" id="hDK-4g-5ti"/>
                                     <constraint firstItem="O7M-hv-fHF" firstAttribute="leading" secondItem="ywa-7i-acP" secondAttribute="leadingMargin" id="mG1-TU-lHI"/>
-                                    <constraint firstItem="O7M-hv-fHF" firstAttribute="top" secondItem="bEw-nZ-Vm9" secondAttribute="bottom" constant="8" id="t6e-B8-pMP"/>
+                                    <constraint firstItem="O7M-hv-fHF" firstAttribute="top" secondItem="PlE-lX-Phf" secondAttribute="bottom" constant="8" id="poG-SA-ei4"/>
+                                    <constraint firstItem="PlE-lX-Phf" firstAttribute="top" secondItem="bEw-nZ-Vm9" secondAttribute="bottom" constant="2" id="qsp-1D-kbN"/>
+                                    <constraint firstAttribute="trailing" secondItem="PlE-lX-Phf" secondAttribute="trailing" constant="8" id="wwx-W9-vZX"/>
+                                    <constraint firstItem="PlE-lX-Phf" firstAttribute="centerX" secondItem="bEw-nZ-Vm9" secondAttribute="centerX" id="y60-VN-WlP"/>
                                 </constraints>
                             </scrollView>
                         </subviews>
@@ -521,6 +555,7 @@
                         <outlet property="descriptionOutlet" destination="KA9-3D-ilP" id="QDI-Uk-vw5"/>
                         <outlet property="imageBackground" destination="DxJ-2N-mDs" id="Xcf-TK-AB3"/>
                         <outlet property="imageView" destination="eB3-Nn-AYP" id="XK4-Uc-ifH"/>
+                        <outlet property="locationNameOutlet" destination="PlE-lX-Phf" id="7ku-Rz-MjD"/>
                         <outlet property="locationOutlet" destination="bEw-nZ-Vm9" id="p8H-Nz-igh"/>
                         <outlet property="titleOutlet" destination="O7M-hv-fHF" id="nH9-Kp-V6N"/>
                         <segue destination="GQx-tN-CpV" kind="presentation" identifier="PageViewSegue" id="5P8-b2-kSb"/>
@@ -559,6 +594,7 @@
     <resources>
         <image name="Album" width="256" height="256"/>
         <image name="Logo Text Wide" width="682" height="233"/>
+        <image name="NavArrowWhite" width="256" height="256"/>
         <image name="PreviousPhoto" width="320" height="320"/>
         <image name="imageView:Ccn-g8-PMf:image" width="682" height="682">
             <mutableData key="keyedArchiveRepresentation">
@@ -31680,6 +31716,6 @@ pgAceq4AHHqxABx6wwAcesYAHHrLAAAAAAAABAEAAAAAAAAAWQAAAAAAAAAAAAAAAAAces0
         </image>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="8Bo-uT-G8E"/>
+        <segue reference="WuH-ce-0Ns"/>
     </inferredMetricsTieBreakers>
 </document>

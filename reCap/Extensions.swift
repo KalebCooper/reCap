@@ -18,6 +18,34 @@ extension Double
     }
 }
 
+extension String
+{
+    static func convertGPSCoordinatesToOutput(coordinates: [Double]) -> String {
+        
+        let lat = coordinates[0]
+        var latString: String
+        let long = coordinates[1]
+        var longString: String
+        
+        if lat > 0 {
+            latString = "\(lat)°N"
+        } else {
+            latString = "\(lat)°S"
+        }
+        
+        if long > 0 {
+            longString = "\(long)°E"
+        }
+        else {
+            longString = "\(long)°W"
+        }
+        
+        let returnString = latString + " , " + longString
+        return returnString
+        
+    }
+}
+
 
 extension UIViewController
 {
