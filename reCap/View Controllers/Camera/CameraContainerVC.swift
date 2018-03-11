@@ -74,12 +74,6 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         
         // Do any additional setup after loading the view.
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        if self.user != nil {
-            print("The number of pics are \(user.pictures.count)")
-        }
-    }
 
     func setupProfileImage() {
         
@@ -140,7 +134,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         
         logoText.hero.modifiers = [.forceNonFade, .duration(duration), .useScaleBasedSizeChange]
         
-        profileOutlet.hero.modifiers = [.forceNonFade, .duration(duration), .arc(intensity: 1.0)]
+        profileOutlet.hero.modifiers = [.duration(duration), .arc(intensity: 1.0)]
         
         albumOutlet.hero.modifiers = [.forceNonFade, .duration(duration), .arc(intensity: 1.0)]
         
@@ -394,7 +388,6 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     func setupOrientation() {
         
         if UIDevice.current.orientation == .portrait {
-            
             self.videoPreviewLayer!.connection?.videoOrientation = AVCaptureVideoOrientation.portrait
         }
         else if UIDevice.current.orientation == .landscapeLeft {
@@ -416,16 +409,39 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         super.viewDidAppear(animated)
         
         setupLocation()
+        self.setupOrientation()
         
-        let when = DispatchTime.now() + 0.15 // change 2 to desired number of seconds
-        DispatchQueue.main.asyncAfter(deadline: when) {
-            
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
             self.setupOrientation()
-            
-            
+            if self.videoPreviewLayer != nil {
+                self.session?.startRunning()
+                print("Camera Session Resuming in viewDidAppear")
+            }
         }
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.setupOrientation()
+        if self.user != nil {
+            DispatchQueue.main.asyncAfter(deadline: .now()) {
+                if self.videoPreviewLayer != nil {
+                    self.session?.startRunning()
+                    print("Camera Session Resuming in viewWillAppear")
+                }
+            }
+        }
+    }
+    
+
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
         
-        
+        DispatchQueue.main.asyncAfter(deadline: .now()) {
+            self.session?.stopRunning()
+            print("Camera Session Stopping")
+        }
         
     }
     

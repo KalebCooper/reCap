@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14101" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dYJ-W2-l5L">
+    <device id="retina5_9" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14086"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="triomphe-bold-autoinstr.ttf">
+            <string>Triomphe-Bold</string>
+        </array>
+        <array key="triomphe-light-autoinstr.ttf">
+            <string>Triomphe-Light</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Challenge ViewVC-->
+        <scene sceneID="TOm-WI-FfQ">
+            <objects>
+                <viewController id="7zg-A6-Cy7" customClass="ChallengeViewVC" customModule="reCap" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="L0H-CM-4OF">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="w1g-NB-rNx">
+                                <rect key="frame" x="0.0" y="44" width="375" height="768"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabledForSubviews" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MQh-c6-Gkt">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.59632095029999999" colorSpace="custom" customColorSpace="displayP3"/>
+                            </view>
+                            <imageView userInteractionEnabled="NO" tag="2" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0HP-VE-toZ">
+                                <rect key="frame" x="0.0" y="44" width="375" height="475"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="475" id="3sl-ZG-uqp"/>
+                                    <constraint firstAttribute="height" constant="135" id="jPB-Jz-phz"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="imageID"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isMotionEnabled" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="3sl-ZG-uqp"/>
+                                        <exclude reference="jPB-Jz-phz"/>
+                                    </mask>
+                                </variation>
+                                <variation key="widthClass=compact">
+                                    <mask key="constraints">
+                                        <exclude reference="jPB-Jz-phz"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=compact-widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="jPB-Jz-phz"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="3sl-ZG-uqp"/>
+                                    </mask>
+                                </variation>
+                            </imageView>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OX9-jD-MeT">
+                                <rect key="frame" x="0.0" y="527" width="375" height="202"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-34.43243°W, 93.19387°N" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CUE-6C-clO">
+                                        <rect key="frame" x="8" y="8" width="359" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="morphingDuration">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="morphingEnabled" value="YES"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="morphingProgress">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="morphingCharacterDelay">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </label>
+                                    <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="XF1-hO-1VT" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
+                                        <rect key="frame" x="8" y="103" width="359" height="31"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <fontDescription key="fontDescription" name="Triomphe-Light" family="Triomphe" pointSize="18"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardAppearance="alert"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                                <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
+                                                <color key="value" cocoaTouchSystemColor="lightTextColor"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="titleColor">
+                                                <color key="value" cocoaTouchSystemColor="lightTextColor"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
+                                                <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="errorColor">
+                                                <color key="value" red="0.76862745099999996" green="0.21960784310000001" blue="0.20784313730000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="disabledColor">
+                                                <color key="value" red="0.76862745099999996" green="0.21960784310000001" blue="0.20784313730000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="selectedTitleColor">
+                                                <color key="value" red="0.38823529410000002" green="0.81176470590000005" blue="0.60784313729999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="selectedLineColor">
+                                                <color key="value" red="0.38823529410000002" green="0.81176470590000005" blue="0.60784313729999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="lineHeight">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="selectedLineHeight">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Description"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="selectedTitle" value="Description"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="title" value="Description"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </textField>
+                                    <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="bW0-C7-Wr1" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
+                                        <rect key="frame" x="8" y="37" width="359" height="58"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <fontDescription key="fontDescription" name="Triomphe-Bold" family="Triomphe" pointSize="36"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="words" spellCheckingType="yes" keyboardAppearance="alert"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                                <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="placeholderColor">
+                                                <color key="value" cocoaTouchSystemColor="lightTextColor"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="titleColor">
+                                                <color key="value" cocoaTouchSystemColor="lightTextColor"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="lineColor">
+                                                <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="errorColor">
+                                                <color key="value" red="0.76862745099999996" green="0.21960784310000001" blue="0.20784313730000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="disabledColor">
+                                                <color key="value" red="0.76862745099999996" green="0.21960784310000001" blue="0.20784313730000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="selectedTitleColor">
+                                                <color key="value" red="0.38823529410000002" green="0.81176470590000005" blue="0.60784313729999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="selectedLineColor">
+                                                <color key="value" red="0.38823529410000002" green="0.81176470590000005" blue="0.60784313729999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="lineHeight">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="selectedLineHeight">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Title"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="selectedTitle" value="Title"/>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="title" value="Title"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </textField>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="bW0-C7-Wr1" firstAttribute="top" secondItem="CUE-6C-clO" secondAttribute="bottom" constant="8" id="8Wn-ze-vKI"/>
+                                    <constraint firstItem="XF1-hO-1VT" firstAttribute="top" secondItem="bW0-C7-Wr1" secondAttribute="bottom" constant="8" id="DeT-TH-Nms"/>
+                                    <constraint firstItem="bW0-C7-Wr1" firstAttribute="trailing" secondItem="OX9-jD-MeT" secondAttribute="trailingMargin" id="FtC-91-qwZ"/>
+                                    <constraint firstItem="CUE-6C-clO" firstAttribute="leading" secondItem="OX9-jD-MeT" secondAttribute="leading" constant="8" id="G0b-Wx-i2n"/>
+                                    <constraint firstItem="CUE-6C-clO" firstAttribute="top" secondItem="OX9-jD-MeT" secondAttribute="top" constant="8" id="GYP-E4-aKx"/>
+                                    <constraint firstItem="XF1-hO-1VT" firstAttribute="trailing" secondItem="OX9-jD-MeT" secondAttribute="trailing" constant="-8" id="SIp-vR-got"/>
+                                    <constraint firstItem="XF1-hO-1VT" firstAttribute="leading" secondItem="OX9-jD-MeT" secondAttribute="leading" constant="8" id="Uf3-8t-DjH"/>
+                                    <constraint firstAttribute="bottom" secondItem="XF1-hO-1VT" secondAttribute="bottom" constant="32" id="cvn-Ya-YPz"/>
+                                    <constraint firstItem="bW0-C7-Wr1" firstAttribute="leading" secondItem="OX9-jD-MeT" secondAttribute="leadingMargin" id="n2b-DP-06p"/>
+                                    <constraint firstItem="CUE-6C-clO" firstAttribute="centerX" secondItem="OX9-jD-MeT" secondAttribute="centerX" id="nnJ-ej-tCi"/>
+                                    <constraint firstItem="CUE-6C-clO" firstAttribute="trailing" secondItem="OX9-jD-MeT" secondAttribute="trailing" constant="-8" id="oeA-e5-cRY"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="w1g-NB-rNx" firstAttribute="leading" secondItem="0HP-VE-toZ" secondAttribute="leading" id="6Nu-bo-Asq"/>
+                            <constraint firstItem="MQh-c6-Gkt" firstAttribute="top" secondItem="L0H-CM-4OF" secondAttribute="top" id="7T2-hb-N0K"/>
+                            <constraint firstItem="MQh-c6-Gkt" firstAttribute="leading" secondItem="L0H-CM-4OF" secondAttribute="leading" id="7fO-fR-pkQ"/>
+                            <constraint firstItem="w1g-NB-rNx" firstAttribute="trailing" secondItem="0HP-VE-toZ" secondAttribute="trailing" id="Cdo-OO-xJh"/>
+                            <constraint firstItem="MQh-c6-Gkt" firstAttribute="bottom" secondItem="L0H-CM-4OF" secondAttribute="bottom" id="Jgb-hE-Jks"/>
+                            <constraint firstItem="w1g-NB-rNx" firstAttribute="top" secondItem="0HP-VE-toZ" secondAttribute="top" id="Jz4-yE-f2f"/>
+                            <constraint firstItem="OX9-jD-MeT" firstAttribute="top" secondItem="0HP-VE-toZ" secondAttribute="bottom" constant="8" symbolic="YES" id="MSC-PE-goi"/>
+                            <constraint firstItem="OX9-jD-MeT" firstAttribute="bottom" secondItem="gUd-Ek-xeT" secondAttribute="bottom" id="N3J-Vv-4Ub"/>
+                            <constraint firstItem="OX9-jD-MeT" firstAttribute="trailing" secondItem="gUd-Ek-xeT" secondAttribute="trailing" id="WbF-NQ-vF8"/>
+                            <constraint firstItem="0HP-VE-toZ" firstAttribute="leading" secondItem="gUd-Ek-xeT" secondAttribute="leading" id="dn9-jV-oQt"/>
+                            <constraint firstAttribute="bottom" secondItem="w1g-NB-rNx" secondAttribute="bottom" id="fEL-AU-V8f"/>
+                            <constraint firstItem="0HP-VE-toZ" firstAttribute="top" secondItem="L0H-CM-4OF" secondAttribute="topMargin" id="fgz-d6-GcX"/>
+                            <constraint firstItem="MQh-c6-Gkt" firstAttribute="trailing" secondItem="L0H-CM-4OF" secondAttribute="trailing" id="i8T-B4-ZFB"/>
+                            <constraint firstItem="OX9-jD-MeT" firstAttribute="leading" secondItem="gUd-Ek-xeT" secondAttribute="leading" id="uJn-aY-KGJ"/>
+                            <constraint firstItem="0HP-VE-toZ" firstAttribute="trailing" secondItem="gUd-Ek-xeT" secondAttribute="trailing" id="x57-hv-G88"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="gUd-Ek-xeT"/>
+                    </view>
+                    <toolbarItems>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="4ZX-G9-s0T"/>
+                        <barButtonItem title="Done" id="LqD-w9-Slf">
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <connections>
+                                <action selector="donePressed:" destination="7zg-A6-Cy7" id="B6T-FB-OO9"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="fixedSpace" id="pcx-xC-Ioq"/>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="hRa-wR-oQ5"/>
+                    </toolbarItems>
+                    <navigationItem key="navigationItem" id="J75-cC-OzV"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics" barStyle="black"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outlet property="avoidingView" destination="L0H-CM-4OF" id="Yq7-mi-Rp8"/>
+                        <outlet property="descriptionOutlet" destination="XF1-hO-1VT" id="Cpv-hJ-jpW"/>
+                        <outlet property="imageBackground" destination="w1g-NB-rNx" id="lOY-Gm-aFj"/>
+                        <outlet property="imageOutlet" destination="0HP-VE-toZ" id="rYd-8X-TB3"/>
+                        <outlet property="locationOutlet" destination="CUE-6C-clO" id="0xS-Nt-438"/>
+                        <outlet property="titleOutlet" destination="bW0-C7-Wr1" id="WgB-DD-nT2"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="biv-MI-fuL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5069.6000000000004" y="-155.17241379310346"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="1R4-9J-rnk">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hen-qa-Q4Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" toolbarHidden="NO" id="dYJ-W2-l5L" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics" barStyle="black"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="dpZ-1J-xmh">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="GzO-Ur-Xnr">
+                        <rect key="frame" x="0.0" y="729" width="375" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <segue destination="7zg-A6-Cy7" kind="relationship" relationship="rootViewController" id="u5f-Qr-ezr"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="4127.1999999999998" y="-155.17241379310346"/>
+        </scene>
+    </scenes>
+</document>

@@ -28,13 +28,16 @@ class ProfileMenuVC: UIViewController {
     var user: User!
     
     @IBAction func backAction(_ sender: Any) {
-        
+        print("Back to Camera")
+        //self.navigationController?.setToolbarHidden(true, animated: true)
+        self.navigationController?.popViewController(animated: true)
     }
     var image: UIImage?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         if user != nil {
+            setupProfileImage()
             setupHero()
             setupGestures()
             setupOutlets()
@@ -51,9 +54,9 @@ class ProfileMenuVC: UIViewController {
         
         let duration: TimeInterval = TimeInterval(exactly: 0.5)!
         
-        profileImage.hero.modifiers = [.forceNonFade, .duration(duration), .arc(intensity: 1.0)]
+        profileImage.hero.modifiers = [.duration(duration), .arc(intensity: 1.0)]
         
-        logoOutlet.hero.modifiers = [.forceNonFade, .duration(duration), .useScaleBasedSizeChange]
+        logoOutlet.hero.modifiers = [.duration(duration), .useScaleBasedSizeChange]
         
         albumOutlet.hero.modifiers = [.duration(duration), .arc(intensity: 1.0)]
         
@@ -115,20 +118,6 @@ class ProfileMenuVC: UIViewController {
                 self.nameOutlet.text = name
                 self.pointsOutlet.text = "Points: \(points)"
             
-                
-                FBDatabase.getProfilePicture(for_user: user!, with_progress: { (progress, total) in
-                }, with_completion: { (image) in
-                    if let fetchedImage = image {
-                        self.profileImage.layer.cornerRadius = self.profileImage.layer.frame.width / 2
-                        self.profileImage.layer.masksToBounds = false
-                        self.profileImage.clipsToBounds = true
-                        self.profileImage.contentMode = .scaleAspectFill
-                        self.profileImage.layer.borderWidth = 1
-                        self.profileImage.layer.borderColor = UIColor.white.cgColor
-                        self.profileImage.image = fetchedImage
-                        self.setupProfileImage()
-                    }
-                })
             }
             
             
@@ -137,7 +126,14 @@ class ProfileMenuVC: UIViewController {
     
     func setupProfileImage() {
         
-        //profileImage.image = image
+        self.profileImage.image = self.image
+        self.profileImage.layer.borderWidth = 1
+        self.profileImage.layer.borderColor = UIColor.white.cgColor
+        self.profileImage.layer.cornerRadius = self.profileImage.layer.frame.width / 2
+        print(self.profileImage.layer.frame.width / 2)
+        self.profileImage.layer.masksToBounds = false
+        self.profileImage.clipsToBounds = true
+        self.profileImage.contentMode = .scaleAspectFill
         
     }
     
@@ -148,6 +144,27 @@ class ProfileMenuVC: UIViewController {
         let resultImage = blurfilter?.value(forKey: "outputImage") as! CIImage
         let blurredImage = UIImage(ciImage: resultImage)
         self.backgroundImage.image = blurredImage
+        
+    }
+    
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        
+        let when = DispatchTime.now() + 0.01 // change 2 to desired number of seconds
+        DispatchQueue.main.asyncAfter(deadline: when) {
+            
+            if UIDevice.current.orientation == .portrait {
+                self.profileImage.layer.cornerRadius = self.profileImage.layer.frame.width / 2
+            }
+            else if UIDevice.current.orientation == .landscapeLeft {
+                self.profileImage.layer.cornerRadius = self.profileImage.layer.frame.width / 2
+            }
+            else if UIDevice.current.orientation == .landscapeRight {
+                self.profileImage.layer.cornerRadius = self.profileImage.layer.frame.width / 2
+            }
+            
+            
+        }
         
     }
     

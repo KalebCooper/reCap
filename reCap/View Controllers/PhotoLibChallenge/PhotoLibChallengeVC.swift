@@ -23,6 +23,7 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
     
     // MARK: - Constants
     private static let PHOTO_SEGUE = "PhotoSegue"
+    private static let VIEW_CHALLENGE_SEGUE = "ViewChallengeSegue"
     private static let PHOTO_SEGUE_PICTURE_DATA_INDEX = 0
     private static let PHOTO_SEGUE_PICTURE_INDEX = 1
     private static let TAKE_PIC_FROM_RECENT = "Recapture recent photos"
@@ -43,6 +44,7 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        applyBlurEffect(image: #imageLiteral(resourceName: "Gradient"))
         if user != nil, mode != nil {
             if mode == PhotoLibChallengeVC.PHOTO_LIB_MODE {
                 setupPhotoLib()
@@ -133,9 +135,13 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
                 self.addChallengeToUser(pictureData: pictureData)
                 self.navigationController?.dismiss(animated: true, completion: nil)
             })
-            let cancel = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
+            let viewChallenge = UIAlertAction(title: "View Challenge", style: .default, handler: {(action) in
+                self.performSegue(withIdentifier: "ViewChallengeSegue", sender: [pictureData, image])
+            })
+            let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
             alert.addAction(withNav)
             alert.addAction(withoutNav)
+            alert.addAction(viewChallenge)
             alert.addAction(cancel)
             self.present(alert, animated: true, completion: nil)
         }
@@ -245,6 +251,25 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let tableCell = cell as! PhotoChallengeTableCell
         tableCell.setPictureCollectionViewDataSourceDelegate(dataSourceDelegate: self, forSection: indexPath.section)
+        
+        cell.backgroundColor = UIColor.clear
+        cell.textLabel?.textColor = UIColor.white
+    }
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 40))
+        headerView.backgroundColor = UIColor.clear
+        
+        let label = UILabel(frame: headerView.frame)
+        label.font.withSize(30)
+        label.text = self.challenges[section]
+        label.textColor = UIColor.white
+        label.textAlignment = .center
+        headerView.addSubview(label)
+        
+        return headerView
+        
     }
     
     // MARK: - Collection View Methods
@@ -335,6 +360,24 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
      }
      */
     
+
+
+    
+    
+    func applyBlurEffect(image: UIImage){
+        let imageToBlur = CIImage(image: image)
+        let blurfilter = CIFilter(name: "CIGaussianBlur")
+        blurfilter?.setValue(imageToBlur, forKey: "inputImage")
+        let resultImage = blurfilter?.value(forKey: "outputImage") as! CIImage
+        let blurredImage = UIImage(ciImage: resultImage)
+        
+        let blurredView = UIImageView(image: blurredImage)
+        blurredView.contentMode = .center
+        self.tableView.backgroundView = blurredView
+        
+        
+    }
+    
     
     // MARK: - Navigation
     
@@ -350,6 +393,17 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
             let picture = infoArray[PhotoLibChallengeVC.PHOTO_SEGUE_PICTURE_INDEX] as! UIImage
             destination.pictureData = pictureData
             destination.image = picture
+        }
+        
+        if segueID == PhotoLibChallengeVC.VIEW_CHALLENGE_SEGUE {
+            let nav = segue.destination as! UINavigationController
+            let destination = nav.topViewController as! ChallengeViewVC
+            let infoArray = sender as! [Any]
+            let pictureData = infoArray[PhotoLibChallengeVC.PHOTO_SEGUE_PICTURE_DATA_INDEX] as! PictureData
+            let picture = infoArray[PhotoLibChallengeVC.PHOTO_SEGUE_PICTURE_INDEX] as! UIImage
+            destination.pictureData = pictureData
+            destination.image = picture
+            print("Segue Done")
         }
     }
     

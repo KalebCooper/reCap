@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="mFD-Q5-NGh">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14101" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="mFD-Q5-NGh">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14086"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -53,7 +53,7 @@
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NeL-fd-kqp">
-                                <rect key="frame" x="329" y="46.666666666666664" width="30" height="29.999999999999993"/>
+                                <rect key="frame" x="16" y="46.666666666666664" width="30" height="29.999999999999993"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="30" id="Mvv-h6-jNu"/>
                                     <constraint firstAttribute="height" constant="30" id="WfO-W4-vs1"/>
@@ -71,11 +71,11 @@
                             <constraint firstItem="VUu-8o-Y32" firstAttribute="top" secondItem="3ga-dN-IQR" secondAttribute="top" id="Awh-PV-kPa"/>
                             <constraint firstItem="oMv-Hh-yoh" firstAttribute="leading" secondItem="Dit-uf-8xj" secondAttribute="leading" id="HNz-0s-TBf"/>
                             <constraint firstItem="NeT-1R-haj" firstAttribute="trailing" secondItem="3ga-dN-IQR" secondAttribute="trailing" id="I3V-nI-GCC"/>
+                            <constraint firstItem="NeL-fd-kqp" firstAttribute="leading" secondItem="3ga-dN-IQR" secondAttribute="leading" constant="16" id="IYh-Hg-C2i"/>
                             <constraint firstAttribute="trailing" secondItem="NeT-1R-haj" secondAttribute="trailing" id="Mq4-ln-QUz"/>
                             <constraint firstAttribute="bottom" secondItem="Dit-uf-8xj" secondAttribute="bottom" id="O77-NB-uUE"/>
                             <constraint firstItem="Dit-uf-8xj" firstAttribute="trailing" secondItem="NeT-1R-haj" secondAttribute="trailing" id="R7o-YY-69E"/>
                             <constraint firstItem="oMv-Hh-yoh" firstAttribute="top" secondItem="9rw-6c-VS2" secondAttribute="top" id="RSh-X0-Bfn"/>
-                            <constraint firstItem="3ga-dN-IQR" firstAttribute="trailing" secondItem="NeL-fd-kqp" secondAttribute="trailing" constant="16" id="SNY-qn-nyl"/>
                             <constraint firstItem="oMv-Hh-yoh" firstAttribute="leading" secondItem="3ga-dN-IQR" secondAttribute="leading" id="WiX-4Y-i8L"/>
                             <constraint firstItem="oMv-Hh-yoh" firstAttribute="top" secondItem="NeT-1R-haj" secondAttribute="top" id="YVA-DT-eR7"/>
                             <constraint firstItem="oMv-Hh-yoh" firstAttribute="leading" secondItem="9rw-6c-VS2" secondAttribute="leading" id="aMQ-BE-lPs"/>
@@ -92,7 +92,7 @@
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="searchDisplayController" destination="PNb-hq-4dT" id="kv0-G1-jRI"/>
-                        <segue destination="vEM-ff-WEx" kind="show" identifier="ChallengeSegue" id="him-yI-cZa"/>
+                        <segue destination="vEM-ff-WEx" kind="presentation" identifier="ChallengeSegue" id="him-yI-cZa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zGd-CD-znf" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -113,7 +113,7 @@
                 <viewControllerPlaceholder storyboardName="PhotoLibChallenge" id="vEM-ff-WEx" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="H0L-Cp-bPX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1426" y="-696"/>
+            <point key="canvasLocation" x="1484" y="-697"/>
         </scene>
         <!--MapVC-->
         <scene sceneID="RzU-WY-fCZ">
@@ -125,10 +125,24 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="gyg-8r-U5Q"/>
                     </view>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <segue destination="Lbj-9G-dvc" kind="presentation" identifier="ChallengeViewSegue" id="zSe-Kw-OVj"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LM1-qn-Qhh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1855.2" y="-226.10837438423647"/>
+        </scene>
+        <!--ChallengeView-->
+        <scene sceneID="a7w-02-oug">
+            <objects>
+                <viewControllerPlaceholder storyboardName="ChallengeView" id="Lbj-9G-dvc" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yDv-cn-png" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2616" y="-226"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="1gV-0n-8N4">

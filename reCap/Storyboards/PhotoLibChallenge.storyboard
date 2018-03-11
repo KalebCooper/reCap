@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="73b-MN-egD">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14101" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="73b-MN-egD">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14086"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Photo Lib ChallengeVC-->
+        <!--Challenges-->
         <scene sceneID="8Ru-Ie-HI6">
             <objects>
                 <tableViewController storyboardIdentifier="PhotoLibChalTable" automaticallyAdjustsScrollViewInsets="NO" id="KeL-9O-FUY" customClass="PhotoLibChallengeVC" customModule="reCap" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="200" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="GQZ-43-GBk">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.035294117649999998" green="0.33333333329999998" blue="0.37254901959999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="sectionIndexColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TableCell" rowHeight="200" id="6gR-Md-93Z" customClass="PhotoChallengeTableCell" customModule="reCap" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="200"/>
@@ -44,9 +45,15 @@
                                                         <subviews>
                                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="S2n-Co-G1N">
                                                                 <rect key="frame" x="0.0" y="0.0" width="125" height="160"/>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="imageID"/>
+                                                                </userDefinedRuntimeAttributes>
                                                             </imageView>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WvD-BN-ke0">
                                                                 <rect key="frame" x="0.0" y="0.0" width="125" height="160"/>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="imageID"/>
+                                                                </userDefinedRuntimeAttributes>
                                                                 <connections>
                                                                     <action selector="imageButtonPressed:" destination="ohF-9F-W2q" eventType="touchUpInside" id="oLX-ac-CF2"/>
                                                                 </connections>
@@ -72,7 +79,6 @@
                                             </cells>
                                         </collectionView>
                                     </subviews>
-                                    <color key="backgroundColor" red="0.035294117649999998" green="0.33333333329999998" blue="0.37254901959999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     <constraints>
                                         <constraint firstAttribute="bottom" secondItem="2yw-BM-3nJ" secondAttribute="bottom" constant="10" id="5xb-Bs-mXE"/>
                                         <constraint firstAttribute="trailing" secondItem="2yw-BM-3nJ" secondAttribute="trailing" id="Hjt-vd-AYf"/>
@@ -90,15 +96,20 @@
                             <outlet property="delegate" destination="KeL-9O-FUY" id="d35-VW-Oye"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="ezU-ss-VqU">
+                    <navigationItem key="navigationItem" title="Challenges" id="ezU-ss-VqU">
                         <barButtonItem key="leftBarButtonItem" title="Back" id="v8F-P5-OGe">
+                            <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <connections>
                                 <action selector="backPressed:" destination="KeL-9O-FUY" id="AQJ-ua-aau"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <segue destination="5kf-go-Eg0" kind="show" identifier="PhotoSegue" id="tYO-Ko-esN"/>
+                        <segue destination="BMy-HM-f6t" kind="show" identifier="ViewChallengeSegue" id="2Ik-6p-Q3v"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zed-5s-mHP" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -113,16 +124,28 @@
             </objects>
             <point key="canvasLocation" x="1054.4000000000001" y="15.517241379310345"/>
         </scene>
+        <!--ChallengeView-->
+        <scene sceneID="hFb-mh-nMZ">
+            <objects>
+                <viewControllerPlaceholder storyboardName="ChallengeView" id="BMy-HM-f6t" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="J1l-Mo-YeC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1098" y="101"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="bz7-FG-dq3">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="73b-MN-egD" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="33U-bT-6eJ">
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="33U-bT-6eJ">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <segue destination="KeL-9O-FUY" kind="relationship" relationship="rootViewController" id="bDA-4G-ToH"/>
                     </connections>

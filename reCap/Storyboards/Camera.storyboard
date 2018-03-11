@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ZCF-ix-wCu">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14101" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ZCF-ix-wCu">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14086"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -57,7 +57,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nhb-hh-UNR">
                                 <rect key="frame" x="290" y="59" width="30" height="30"/>
                                 <connections>
-                                    <segue destination="4eq-Id-h8l" kind="presentation" identifier="toProfileSegue" id="lYe-g1-6Ij"/>
+                                    <segue destination="4eq-Id-h8l" kind="show" identifier="toProfileSegue" id="lYe-g1-6Ij"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5ki-EW-e73">
@@ -267,7 +267,7 @@
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <connections>
                                 <action selector="cancelButton:" destination="5FS-bp-BS6" id="8DM-9G-bXy"/>
-                                <segue destination="GQx-tN-CpV" kind="presentation" id="nRm-8Y-WWq"/>
+                                <segue destination="GQx-tN-CpV" kind="presentation" id="8Bo-uT-G8E"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem width="127" style="plain" systemItem="fixedSpace" id="uz5-UR-9R8"/>
@@ -293,7 +293,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tm5-14-1Ca" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3095.1999999999998" y="-155.17241379310346"/>
+            <point key="canvasLocation" x="2471" y="-155"/>
         </scene>
         <!--PageView-->
         <scene sceneID="z9Y-NT-eah">
@@ -301,7 +301,7 @@
                 <viewControllerPlaceholder storyboardName="PageView" id="GQx-tN-CpV" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5wj-3z-hAw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3601" y="272"/>
+            <point key="canvasLocation" x="2969" y="278"/>
         </scene>
         <!--Image CreateVC-->
         <scene sceneID="nms-kt-ESX">
@@ -375,7 +375,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="KA9-3D-ilP" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                        <rect key="frame" x="8" y="121.33333333333339" width="359" height="48.666666666666671"/>
+                                        <rect key="frame" x="8" y="103" width="359" height="31"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <fontDescription key="fontDescription" name="Triomphe-Light" family="Triomphe" pointSize="18"/>
@@ -417,7 +417,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="O7M-hv-fHF" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                        <rect key="frame" x="8" y="36.999999999999993" width="359" height="76.333333333333314"/>
+                                        <rect key="frame" x="8" y="37" width="359" height="58"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <fontDescription key="fontDescription" name="Triomphe-Bold" family="Triomphe" pointSize="36"/>
@@ -523,11 +523,12 @@
                         <outlet property="imageView" destination="eB3-Nn-AYP" id="XK4-Uc-ifH"/>
                         <outlet property="locationOutlet" destination="bEw-nZ-Vm9" id="p8H-Nz-igh"/>
                         <outlet property="titleOutlet" destination="O7M-hv-fHF" id="nH9-Kp-V6N"/>
+                        <segue destination="GQx-tN-CpV" kind="presentation" identifier="PageViewSegue" id="5P8-b2-kSb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pbz-00-wsE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4127.1999999999998" y="-155.17241379310346"/>
+            <point key="canvasLocation" x="3470" y="-155"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="BrH-vS-niz">
@@ -31679,6 +31680,6 @@ pgAceq4AHHqxABx6wwAcesYAHHrLAAAAAAAABAEAAAAAAAAAWQAAAAAAAAAAAAAAAAAces0
         </image>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="WuH-ce-0Ns"/>
+        <segue reference="8Bo-uT-G8E"/>
     </inferredMetricsTieBreakers>
 </document>
