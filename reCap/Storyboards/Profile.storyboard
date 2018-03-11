@@ -248,6 +248,52 @@
                                     </mask>
                                 </variation>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LsS-Sf-gqa">
+                                <rect key="frame" x="157" y="675" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="11i-UZ-N7O"/>
+                                    <constraint firstAttribute="height" constant="60" id="H1I-h9-QzC"/>
+                                    <constraint firstAttribute="width" secondItem="LsS-Sf-gqa" secondAttribute="height" multiplier="401:60" id="LC6-F7-tbn"/>
+                                    <constraint firstAttribute="height" constant="30" id="eV7-mB-cRZ"/>
+                                    <constraint firstAttribute="width" constant="60" id="luh-6P-l0W"/>
+                                </constraints>
+                                <state key="normal" image="About"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="cameraID"/>
+                                </userDefinedRuntimeAttributes>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="11i-UZ-N7O"/>
+                                        <exclude reference="H1I-h9-QzC"/>
+                                        <exclude reference="LC6-F7-tbn"/>
+                                        <exclude reference="eV7-mB-cRZ"/>
+                                        <exclude reference="luh-6P-l0W"/>
+                                    </mask>
+                                </variation>
+                                <variation key="widthClass=compact">
+                                    <mask key="constraints">
+                                        <exclude reference="11i-UZ-N7O"/>
+                                        <exclude reference="LC6-F7-tbn"/>
+                                        <exclude reference="eV7-mB-cRZ"/>
+                                        <exclude reference="luh-6P-l0W"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=compact-widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="11i-UZ-N7O"/>
+                                        <include reference="eV7-mB-cRZ"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="H1I-h9-QzC"/>
+                                        <include reference="luh-6P-l0W"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <segue destination="wjv-2a-od7" kind="show" identifier="FriendsListSegue" id="VqS-4D-ebP"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
