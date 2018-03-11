@@ -29,7 +29,7 @@ class ImageCreateVC: UIViewController {
     @IBOutlet var avoidingView: UIView!
     
     @IBAction func cancelPressed(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
+        //self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func confirmPressed(_ sender: Any) {
@@ -59,8 +59,7 @@ class ImageCreateVC: UIViewController {
                             else {
                                 // No error
                                 print("Added picture data for user in ImageCreateVC")
-                                self.navigationController?.setToolbarHidden(true, animated: true)
-                                self.navigationController?.popToRootViewController(animated: true)
+                                self.performSegue(withIdentifier: "PageViewSegue", sender: self)
                             }
                         })
                         FBDatabase.addUpdateUser(user: activeUser, with_completion: {(error) in

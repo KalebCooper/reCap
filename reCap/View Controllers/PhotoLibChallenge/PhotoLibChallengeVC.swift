@@ -42,6 +42,7 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        applyBlurEffect(image: #imageLiteral(resourceName: "Gradient"))
         if user != nil, mode != nil {
             if mode == PhotoLibChallengeVC.PHOTO_LIB_MODE {
                 setupPhotoLib()
@@ -248,6 +249,25 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let tableCell = cell as! PhotoChallengeTableCell
         tableCell.setPictureCollectionViewDataSourceDelegate(dataSourceDelegate: self, forSection: indexPath.section)
+        
+        cell.backgroundColor = UIColor.clear
+        cell.textLabel?.textColor = UIColor.white
+    }
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 40))
+        headerView.backgroundColor = UIColor.clear
+        
+        let label = UILabel(frame: headerView.frame)
+        label.font.withSize(30)
+        label.text = self.challenges[section]
+        label.textColor = UIColor.white
+        label.textAlignment = .center
+        headerView.addSubview(label)
+        
+        return headerView
+        
     }
     
     // MARK: - Collection View Methods
@@ -341,6 +361,24 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
      return true
      }
      */
+    
+
+
+    
+    
+    func applyBlurEffect(image: UIImage){
+        let imageToBlur = CIImage(image: image)
+        let blurfilter = CIFilter(name: "CIGaussianBlur")
+        blurfilter?.setValue(imageToBlur, forKey: "inputImage")
+        let resultImage = blurfilter?.value(forKey: "outputImage") as! CIImage
+        let blurredImage = UIImage(ciImage: resultImage)
+        
+        let blurredView = UIImageView(image: blurredImage)
+        blurredView.contentMode = .center
+        self.tableView.backgroundView = blurredView
+        
+        
+    }
     
     
     // MARK: - Navigation

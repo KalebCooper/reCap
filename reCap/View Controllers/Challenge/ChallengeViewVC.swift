@@ -8,6 +8,7 @@
 
 import UIKit
 import SkyFloatingLabelTextField
+import Hero
 
 class ChallengeViewVC: UIViewController {
     
@@ -24,23 +25,42 @@ class ChallengeViewVC: UIViewController {
     @IBAction func donePressed(_ sender: Any) {
         
         self.navigationController?.setToolbarHidden(true, animated: true)
-        self.navigationController?.popToRootViewController(animated: true)
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        self.navigationController?.popViewController(animated: true)
+        
+        dismiss(animated: true, completion: nil)
         
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         print("View loaded")
+        applyBlurEffect(image: image)
         
+        self.navigationController?.toolbar.isHidden = false
         self.navigationController?.navigationBar.isHidden = true
         
+        imageOutlet.hero.id = "imageID"
         imageOutlet.image = image
         locationOutlet.text = pictureData.locationName
         titleOutlet.text = pictureData.name
-        descriptionOutlet.text = pictureData.time
+        descriptionOutlet.text = pictureData.description
 
         // Do any additional setup after loading the view.
+    }
+    
+    func applyBlurEffect(image: UIImage){
+        let imageToBlur = CIImage(image: image)
+        let blurfilter = CIFilter(name: "CIGaussianBlur")
+        blurfilter?.setValue(imageToBlur, forKey: "inputImage")
+        let resultImage = blurfilter?.value(forKey: "outputImage") as! CIImage
+        let blurredImage = UIImage(ciImage: resultImage)
+        self.imageBackground.image = blurredImage
+        
     }
 
     override func didReceiveMemoryWarning() {

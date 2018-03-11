@@ -267,7 +267,7 @@
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <connections>
                                 <action selector="cancelButton:" destination="5FS-bp-BS6" id="8DM-9G-bXy"/>
-                                <segue destination="GQx-tN-CpV" kind="presentation" id="nRm-8Y-WWq"/>
+                                <segue destination="GQx-tN-CpV" kind="presentation" id="8Bo-uT-G8E"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem width="127" style="plain" systemItem="fixedSpace" id="uz5-UR-9R8"/>
@@ -523,6 +523,7 @@
                         <outlet property="imageView" destination="eB3-Nn-AYP" id="XK4-Uc-ifH"/>
                         <outlet property="locationOutlet" destination="bEw-nZ-Vm9" id="p8H-Nz-igh"/>
                         <outlet property="titleOutlet" destination="O7M-hv-fHF" id="nH9-Kp-V6N"/>
+                        <segue destination="GQx-tN-CpV" kind="presentation" identifier="PageViewSegue" id="5P8-b2-kSb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pbz-00-wsE" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -31679,6 +31680,6 @@ pgAceq4AHHqxABx6wwAcesYAHHrLAAAAAAAABAEAAAAAAAAAWQAAAAAAAAAAAAAAAAAces0
         </image>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="WuH-ce-0Ns"/>
+        <segue reference="8Bo-uT-G8E"/>
     </inferredMetricsTieBreakers>
 </document>

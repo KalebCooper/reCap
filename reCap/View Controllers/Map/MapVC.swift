@@ -30,6 +30,9 @@ class MapVC: UIViewController, MGLMapViewDelegate {
     var directionsRoute: Route?
     var mapViewNavigation: NavigationMapView!
     
+    var imageToPass: UIImage?
+    var pictureDataToPass: PictureData?
+    
     
     
 
@@ -154,6 +157,9 @@ class MapVC: UIViewController, MGLMapViewDelegate {
                             if let realImage = image {
                                 imageView.image = realImage
                                 imageView.contentMode = .scaleAspectFit
+                                self.pictureDataToPass = realPictureData
+                                self.imageToPass = realImage
+                                imageView.hero.id = "imageID"
                             }
                             else {
                             }
@@ -203,6 +209,7 @@ class MapVC: UIViewController, MGLMapViewDelegate {
     func mapView(_ mapView: MGLMapView, tapOnCalloutFor annotation: MGLAnnotation) {
         print("Tapped on image")
         //Present user to full screen image
+        self.performSegue(withIdentifier: "ChallengeViewSegue", sender: self)
         
     }
     
@@ -256,6 +263,27 @@ class MapVC: UIViewController, MGLMapViewDelegate {
         print("Presenting Navigation View")
         let navigationViewController = NavigationViewController(for: self.directionsRoute!)
         self.present(navigationViewController, animated: true, completion: nil)
+    }
+    
+    
+    // MARK: - Navigation
+    
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+        let segueID = segue.identifier
+        if segueID == "ChallengeViewSegue" {
+            let nav = segue.destination as! UINavigationController
+            let destination = nav.topViewController as! ChallengeViewVC
+            
+            //let destination = segue.destination as! ChallengeViewVC
+            let pictureData = pictureDataToPass
+            let picture = imageToPass
+            destination.pictureData = pictureData
+            destination.image = picture
+            print("Segue Done")
+        }
     }
 
 }
