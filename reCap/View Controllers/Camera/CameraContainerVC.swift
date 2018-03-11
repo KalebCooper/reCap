@@ -36,6 +36,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     var latToPass: Double?
     var longToPass: Double?
     var locationToPass: String?
+    private var isAtChallengeLocation: Bool!
     
     var profileImage: UIImage?
     
@@ -80,14 +81,21 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         let id = FBDatabase.getSignedInUserID()
         print("Logged in")
         
-        FBDatabase.getUser(with_id: id, ref: reference) { (user) in
+        FBDatabase.getUser(with_id: id!, ref: reference) { (user) in
             print("User was updated in Camera Container VC")
             if user != nil {
                 self.user = user!
+                print("Got user in camera container VC")
                 FBDatabase.getProfilePicture(for_user: user!, with_progress: { (progress, total)  in
-                    //
+                
                 }, with_completion: { (image) in
-                    self.profileImage = image
+                    if let actualImage = image {
+                        self.profileImage = actualImage
+                        print("Got profile picture in Camera Container VC")
+                    }
+                    else {
+                        print("Did not get profile picture in Camera Container VC")
+                    }
                     self.profileOutlet.image = self.profileImage
                     self.profileOutlet.layer.borderWidth = 1
                     self.profileOutlet.layer.borderColor = UIColor.white.cgColor
@@ -356,10 +364,15 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
                                         let latDiff = abs(picLat - lat)
                                         if longDiff <= self.chalCoordThreshold, latDiff <= self.chalCoordThreshold {
                                             self.locationOutlet.textColor = UIColor.red
+                                            self.isAtChallengeLocation = true
                                         }
                                         else {
                                             self.locationOutlet.textColor = UIColor.white
+                                            self.isAtChallengeLocation = false
                                         }
+                                    }
+                                    else {
+                                        self.isAtChallengeLocation = false
                                     }
                                     
         },
@@ -492,7 +505,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         
         if segue.identifier == "confirmPictureSegue" {
             let vc = segue.destination as! ImageConfirmVC
-            
+            vc.isAtChallengeLocation = self.isAtChallengeLocation
             vc.image = self.imageToPass
             vc.latToPass = self.latToPass
             vc.longToPass = self.longToPass

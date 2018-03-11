@@ -71,7 +71,7 @@ class CreateAccountVC: UITableViewController, UIImagePickerControllerDelegate, U
                             // No error
                             print("Wrote user to database in SignInVC")
                             FBDatabase.setAutomaticSignIn(with_email: email, with_password: password, with_id: activeID)
-                            let usernameObj = Username(username: username, email: email)
+                            let usernameObj = Username(username: username, email: email, id: id!)
                             FBDatabase.addUpdateUsername(with_username: usernameObj, with_completion:{(error) in
                                 if let actualError = error {
                                     // Error occured
@@ -94,11 +94,8 @@ class CreateAccountVC: UITableViewController, UIImagePickerControllerDelegate, U
                                             self.performSegue(withIdentifier: "PageViewSegue", sender: nil)
                                         }
                                     })
-                                    
-                                    
                                 }
                             })
-                            
                         }
                     })
                 }

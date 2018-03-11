@@ -26,9 +26,11 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
     private static let VIEW_CHALLENGE_SEGUE = "ViewChallengeSegue"
     private static let PHOTO_SEGUE_PICTURE_DATA_INDEX = 0
     private static let PHOTO_SEGUE_PICTURE_INDEX = 1
+    private static let TAKE_PIC_FROM_RECENT = "Recapture recent photos"
     private static let TAKE_PIC_FROM_WEEK = "Recapture photos from a week ago"
     private static let TAKE_PIC_FROM_MONTH = "Recapture photos from a month ago"
     private static let TAKE_PIC_FROM_YEAR = "Recapture photos from a year ago"
+    private static let CHALLENGE_RECENT_POINTS = 1
     private static let CHALLENGE_WEEK_POINTS = 5
     private static let CHALLENGE_MONTH_POINTS = 10
     private static let CHALLENGE_YEAR_POINTS = 20
@@ -104,8 +106,8 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
     }
     
     private func setupChallenge() {
-        challenges = [PhotoLibChallengeVC.TAKE_PIC_FROM_WEEK, PhotoLibChallengeVC.TAKE_PIC_FROM_MONTH, PhotoLibChallengeVC.TAKE_PIC_FROM_YEAR]
-        challengesDictionary = [PhotoLibChallengeVC.TAKE_PIC_FROM_WEEK : [], PhotoLibChallengeVC.TAKE_PIC_FROM_MONTH : [], PhotoLibChallengeVC.TAKE_PIC_FROM_YEAR : []]
+        challenges = [PhotoLibChallengeVC.TAKE_PIC_FROM_RECENT, PhotoLibChallengeVC.TAKE_PIC_FROM_WEEK, PhotoLibChallengeVC.TAKE_PIC_FROM_MONTH, PhotoLibChallengeVC.TAKE_PIC_FROM_YEAR]
+        challengesDictionary = [PhotoLibChallengeVC.TAKE_PIC_FROM_RECENT : [], PhotoLibChallengeVC.TAKE_PIC_FROM_WEEK : [], PhotoLibChallengeVC.TAKE_PIC_FROM_MONTH : [], PhotoLibChallengeVC.TAKE_PIC_FROM_YEAR : []]
         self.tableView.allowsSelection = false
         let ref = Database.database().reference()
         let currentDate = Date()
@@ -167,7 +169,7 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
             return PhotoLibChallengeVC.TAKE_PIC_FROM_WEEK
         }
         else {
-            return ""
+            return PhotoLibChallengeVC.TAKE_PIC_FROM_RECENT
         }
     }
     
@@ -182,6 +184,9 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
         }
         else if challengeCategory == PhotoLibChallengeVC.TAKE_PIC_FROM_YEAR {
             points = PhotoLibChallengeVC.CHALLENGE_YEAR_POINTS
+        }
+        else if challengeCategory == PhotoLibChallengeVC.TAKE_PIC_FROM_RECENT {
+            points = PhotoLibChallengeVC.CHALLENGE_RECENT_POINTS
         }
         self.user.activeChallengeID = pictureData.id
         self.user.activeChallengePoints = points.description
@@ -223,9 +228,6 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
             return locations[section]
         }
         else if mode == PhotoLibChallengeVC.CHALLENGE_MODE {
-            return challenges[section]
-        }
-        else if mode == PhotoLibChallengeVC.ACTIVE_CHALLENGE_MODE {
             return challenges[section]
         }
         else {
@@ -279,10 +281,6 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
             return (locationDictionary[location]?.count)!
         }
         else if mode == PhotoLibChallengeVC.CHALLENGE_MODE {
-            let challenge = challenges[collectionViewTag]
-            return (challengesDictionary[challenge]?.count)!
-        }
-        else if mode == PhotoLibChallengeVC.ACTIVE_CHALLENGE_MODE {
             let challenge = challenges[collectionViewTag]
             return (challengesDictionary[challenge]?.count)!
         }

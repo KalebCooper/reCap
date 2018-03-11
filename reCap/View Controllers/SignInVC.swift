@@ -106,7 +106,7 @@ class SignInVC: UIViewController, UITextFieldDelegate {
     */
     private func loginWithUsername(username: String, password: String) {
         let ref = Database.database().reference()
-        FBDatabase.getUsername(with_ref: ref, with_username: username, with_completion: {(username, error) in
+        FBDatabase.getUsername(with_ref: ref, with_username: username, with_completion: {(username) in
             if let usernameObj = username {
                 print("Got username in Sign In VC")
                 let email = usernameObj.email

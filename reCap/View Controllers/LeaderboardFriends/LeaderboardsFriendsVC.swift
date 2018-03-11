@@ -14,17 +14,16 @@ class LeaderboardsFriendsVC: UITableViewController {
     // MARK: - Properties
     static var LEADERBOARD_MODE = 0
     static var FRIENDS_LIST_MODE = 1
-    private var pickedMode: Int!
-    var mode: Int?
+    var mode: Int!
     var user: User!
-    var queriedUsers: [User]!
+    private var friendsList: [User]!
+    private var leaderboardsList: [User]!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        queriedUsers = []
-        if let pickedMode = mode {
+        if mode != nil {
             // If the mode has been selected
-            if pickedMode == LeaderboardsFriendsVC.FRIENDS_LIST_MODE {
+            if mode == LeaderboardsFriendsVC.FRIENDS_LIST_MODE {
                 // Friends list mode has been picked
                 setupFriendsList()
                 print("Setting up friends list")
@@ -56,7 +55,15 @@ class LeaderboardsFriendsVC: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return queriedUsers.count
+        if mode == LeaderboardsFriendsVC.FRIENDS_LIST_MODE {
+            return friendsList.count
+        }
+        else if mode == LeaderboardsFriendsVC.LEADERBOARD_MODE {
+            return leaderboardsList.count
+        }
+        else {
+            return 0
+        }
     }
     
     // MARK: - Setup Methods
@@ -71,13 +78,14 @@ class LeaderboardsFriendsVC: UITableViewController {
     }
     
     private func setupFriendsList() {
-        let friendsList = user.friendsID
+        friendsList = []
+        let friendsIDList = user.friendsID
         let ref = Database.database().reference()
-        for id in friendsList! {
+        for id in friendsIDList! {
             // Searches through the logged in users friends list
             FBDatabase.getUser(with_id: id, ref: ref, with_completion: {(user) in
                 if let activeUser = user {
-                    self.queriedUsers.append(activeUser)
+                    self.friendsList.append(activeUser)
                 }
                 else {
                     // Did not get a user in the friends list
@@ -90,16 +98,21 @@ class LeaderboardsFriendsVC: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath) as! LeaderboardFriendsTableCell
-        let queriedUser = queriedUsers[indexPath.row]
-        cell.fullNameOutlet.text = queriedUser.name
-        cell.usernameOutlet.text = queriedUser.username
-        if pickedMode == LeaderboardsFriendsVC.FRIENDS_LIST_MODE {
+        let user: User!
+        if mode == LeaderboardsFriendsVC.FRIENDS_LIST_MODE {
+            user = friendsList[indexPath.row]
             cell.pointsOutlet.text = ""
         }
-        else if pickedMode == LeaderboardsFriendsVC.LEADERBOARD_MODE {
+        else if mode == LeaderboardsFriendsVC.LEADERBOARD_MODE {
+            user = leaderboardsList[indexPath.row]
             cell.pointsOutlet.text = String(user.points)
         }
-        FBDatabase.getProfilePicture(for_user: queriedUser, with_progress: {(progress, total) in
+        else {
+            return cell
+        }
+        cell.fullNameOutlet.text = user.name
+        cell.usernameOutlet.text = user.username
+        FBDatabase.getProfilePicture(for_user: user, with_progress: {(progress, total) in
             
         }, with_completion: {(image) in
             if let profilePic = image {
@@ -114,16 +127,37 @@ class LeaderboardsFriendsVC: UITableViewController {
     }
     
     // MARK: - Outlet Action Methods
+    @IBAction func addFriendPressed(_ sender: Any) {
+        let alert = UIAlertController(title: "Add Friend", message: "Enter friends username", preferredStyle: .alert)
+        alert.addTextField(configurationHandler: {(textField) in
+            textField.placeholder = "username"
+        })
+        let okAction = UIAlertAction(title: "ok", style: .default, handler: {(action) in
+            let usernameTextField = alert.textFields![0]
+            let username = usernameTextField.text
+            let ref = Database.database().reference()
+            FBDatabase.getUsername(with_ref: ref, with_username: username!, with_completion: {(username) in
+                if let usernameObj = username {
+                    print("Got username in LeaderboardsFriends VC")
+                    self.user.friendsID.append(usernameObj.id)
+                }
+                else {
+                    print("Did not get username in LeaderboardsFriends VC")
+                }
+            })
+        })
+        let cancelAction = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
+        alert.addAction(okAction)
+        alert.addAction(cancelAction)
+        self.present(alert, animated: true, completion: nil)
+    }
     
-    /*
-     Called when settings is pressed
-     in leaderboard mode
-    */
-    @objc private func settingsPressed() {
-        print("Settings Pressed")
-        self.performSegue(withIdentifier: "SettingsSegue", sender: nil)
+    
+    @IBAction func backButtonPressed(_ sender: Any) {
+        self.navigationController?.dismiss(animated: true, completion: nil)
     }
 
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
