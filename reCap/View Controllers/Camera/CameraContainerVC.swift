@@ -83,6 +83,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         print("Logged in")
         
         FBDatabase.getUser(with_id: id!, ref: reference) { (user) in
+            reference.removeAllObservers()
             print("User was updated in Camera Container VC")
             if user != nil {
                 self.user = user!
@@ -119,6 +120,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         let id = self.user.activeChallengeID
         let ref = Database.database().reference()
         FBDatabase.getPictureData(id: id!, ref: ref, with_completion: {(pictureData) in
+            ref.removeAllObservers()
             if let activePictureData = pictureData {
                 self.activeChallengePicData = activePictureData
                 print("Got challenge pic data in Camera Container VC")
