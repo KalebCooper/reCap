@@ -39,7 +39,9 @@ class MapVC: UIViewController, MGLMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         if user != nil {
-            getUser()
+            setupMap()
+            setupPictures()
+            setupPins()
         }
         // Do any additional setup after loading the view.
     }
@@ -49,18 +51,6 @@ class MapVC: UIViewController, MGLMapViewDelegate {
 
     }
     
-    func getUser() {
-        let id = FBDatabase.getSignedInUserID()
-        FBDatabase.getUser(with_id: id!, ref: ref) { (user) in
-            if user != nil {
-                self.user = user
-                self.setupMap()
-            }
-        }
-    }
-
-
-
     func setupMap() {
         
         mapView = NavigationMapView(frame: view.bounds)

@@ -19,27 +19,14 @@ class MapContainerVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        initializeShadow()
-        setup()
+        if user != nil {
+            initializeShadow()
+        }
         // Do any additional setup after loading the view.
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
-    }
-    
-    private func setup() {
-        let id = FBDatabase.getSignedInUserID()
-        let ref = Database.database().reference()
-        FBDatabase.getUser(with_id: id!, ref: ref, with_completion: {(user) in
-            if let activeUser = user {
-                self.user = activeUser
-                print("Got user in Map VC")
-            }
-            else {
-                print("Did not get user in Map VC")
-            }
-        })
     }
     
     func initializeShadow() {
@@ -99,6 +86,10 @@ class MapContainerVC: UIViewController {
             let challengeVC = desination.topViewController as! PhotoLibChallengeVC
             challengeVC.mode = PhotoLibChallengeVC.CHALLENGE_MODE
             challengeVC.user = self.user
+        }
+        else if id == "MapSegue" {
+            let desination = segue.destination as! MapVC
+            desination.user = self.user
         }
     }
 
