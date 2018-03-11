@@ -45,15 +45,14 @@
                                                         <subviews>
                                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="S2n-Co-G1N">
                                                                 <rect key="frame" x="0.0" y="0.0" width="125" height="160"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="imageID"/>
                                                                 </userDefinedRuntimeAttributes>
                                                             </imageView>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WvD-BN-ke0">
                                                                 <rect key="frame" x="0.0" y="0.0" width="125" height="160"/>
-                                                                <userDefinedRuntimeAttributes>
-                                                                    <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="imageID"/>
-                                                                </userDefinedRuntimeAttributes>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <connections>
                                                                     <action selector="imageButtonPressed:" destination="ohF-9F-W2q" eventType="touchUpInside" id="oLX-ac-CF2"/>
                                                                 </connections>
@@ -77,6 +76,9 @@
                                                     </connections>
                                                 </collectionViewCell>
                                             </cells>
+                                            <connections>
+                                                <outlet property="delegate" destination="KeL-9O-FUY" id="etS-Zb-GdX"/>
+                                            </connections>
                                         </collectionView>
                                     </subviews>
                                     <constraints>
