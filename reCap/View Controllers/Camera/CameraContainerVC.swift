@@ -71,7 +71,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         configureButton()
         setupGestures()
         
-        self.viewDidAppear(false)
+        //self.viewDidAppear(false)
         
         // Do any additional setup after loading the view.
     }
@@ -415,8 +415,11 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
             self.setupOrientation()
             if self.videoPreviewLayer != nil {
-                self.session?.startRunning()
-                print("Camera Session Resuming in viewDidAppear")
+                if (self.session?.isRunning)! {}
+                else {
+                    self.session?.startRunning()
+                    print("Camera Session Resuming in viewDidAppear")
+                }
             }
         }
     }
@@ -452,7 +455,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         if error == nil {
             let imageData = photo.fileDataRepresentation()
             
-            var orientation: UIImageOrientation?
+            var orientation: UIImageOrientation? = UIImageOrientation.right
             
             if UIDevice.current.orientation == .portrait {
                 print("Picture taken in Portrait")
