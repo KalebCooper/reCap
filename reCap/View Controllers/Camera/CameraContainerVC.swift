@@ -190,7 +190,6 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         backCamera?.focusMode = .continuousAutoFocus
         backCamera?.isSmoothAutoFocusEnabled = true
         backCamera?.whiteBalanceMode = .continuousAutoWhiteBalance
-        //        backCamera?.automaticallyEnablesLowLightBoostWhenAvailable = true
         backCamera?.unlockForConfiguration()
         
         var error: NSError?
@@ -408,16 +407,10 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         super.viewDidAppear(animated)
         
         setupLocation()
-        self.setupOrientation()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
-            self.setupOrientation()
             if self.videoPreviewLayer != nil {
-                if (self.session?.isRunning)! {}
-                else {
-                    self.session?.startRunning()
-                    print("Camera Session Resuming in viewDidAppear")
-                }
+                self.setupOrientation()
             }
         }
     }

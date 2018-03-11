@@ -588,7 +588,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pq3-Mg-A87" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="218.40000000000001" y="-155.17241379310346"/>
+            <point key="canvasLocation" x="321" y="-155"/>
         </scene>
     </scenes>
     <resources>
@@ -31716,6 +31716,6 @@ pgAceq4AHHqxABx6wwAcesYAHHrLAAAAAAAABAEAAAAAAAAAWQAAAAAAAAAAAAAAAAAces0
         </image>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="WuH-ce-0Ns"/>
+        <segue reference="8Bo-uT-G8E"/>
     </inferredMetricsTieBreakers>
 </document>
