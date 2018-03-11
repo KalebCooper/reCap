@@ -112,7 +112,6 @@ class MapVC: UIViewController, MGLMapViewDelegate {
             self.setupPins()
         })
         
-        FBDatabase.getPictureData(id: <#T##String#>, ref: <#T##DatabaseReference#>, with_completion: <#T##(PictureData?) -> ()#>)
         
     }
     
