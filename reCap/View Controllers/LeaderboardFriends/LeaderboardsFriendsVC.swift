@@ -137,9 +137,18 @@ class LeaderboardsFriendsVC: UITableViewController {
             let username = usernameTextField.text
             let ref = Database.database().reference()
             FBDatabase.getUsername(with_ref: ref, with_username: username!, with_completion: {(username) in
+                ref.removeAllObservers()
                 if let usernameObj = username {
                     print("Got username in LeaderboardsFriends VC")
                     self.user.friendsID.append(usernameObj.id)
+                    FBDatabase.addUpdateUser(user: self.user, with_completion: {(error) in
+                        if let actualError = error {
+                            print(actualError)
+                        }
+                        else {
+                            print("Updated user in LeaderboardFriends VC")
+                        }
+                    })
                 }
                 else {
                     print("Did not get username in LeaderboardsFriends VC")
