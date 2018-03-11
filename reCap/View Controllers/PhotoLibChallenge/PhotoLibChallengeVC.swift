@@ -396,7 +396,8 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
         }
         
         if segueID == PhotoLibChallengeVC.VIEW_CHALLENGE_SEGUE {
-            let destination = segue.destination as! ChallengeViewVC
+            let nav = segue.destination as! UINavigationController
+            let destination = nav.topViewController as! ChallengeViewVC
             let infoArray = sender as! [Any]
             let pictureData = infoArray[PhotoLibChallengeVC.PHOTO_SEGUE_PICTURE_DATA_INDEX] as! PictureData
             let picture = infoArray[PhotoLibChallengeVC.PHOTO_SEGUE_PICTURE_INDEX] as! UIImage

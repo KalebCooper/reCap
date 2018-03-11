@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="xl8-vX-Gxx">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14101" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="xl8-vX-Gxx">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14086"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -248,52 +248,6 @@
                                     </mask>
                                 </variation>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LsS-Sf-gqa">
-                                <rect key="frame" x="157" y="675" width="60" height="60"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="30" id="11i-UZ-N7O"/>
-                                    <constraint firstAttribute="height" constant="60" id="H1I-h9-QzC"/>
-                                    <constraint firstAttribute="width" secondItem="LsS-Sf-gqa" secondAttribute="height" multiplier="401:60" id="LC6-F7-tbn"/>
-                                    <constraint firstAttribute="height" constant="30" id="eV7-mB-cRZ"/>
-                                    <constraint firstAttribute="width" constant="60" id="luh-6P-l0W"/>
-                                </constraints>
-                                <state key="normal" image="About"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="cameraID"/>
-                                </userDefinedRuntimeAttributes>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="11i-UZ-N7O"/>
-                                        <exclude reference="H1I-h9-QzC"/>
-                                        <exclude reference="LC6-F7-tbn"/>
-                                        <exclude reference="eV7-mB-cRZ"/>
-                                        <exclude reference="luh-6P-l0W"/>
-                                    </mask>
-                                </variation>
-                                <variation key="widthClass=compact">
-                                    <mask key="constraints">
-                                        <exclude reference="11i-UZ-N7O"/>
-                                        <exclude reference="LC6-F7-tbn"/>
-                                        <exclude reference="eV7-mB-cRZ"/>
-                                        <exclude reference="luh-6P-l0W"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=compact-widthClass=compact">
-                                    <mask key="constraints">
-                                        <include reference="11i-UZ-N7O"/>
-                                        <include reference="eV7-mB-cRZ"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=compact">
-                                    <mask key="constraints">
-                                        <include reference="H1I-h9-QzC"/>
-                                        <include reference="luh-6P-l0W"/>
-                                    </mask>
-                                </variation>
-                                <connections>
-                                    <segue destination="wjv-2a-od7" kind="show" identifier="FriendsListSegue" id="VqS-4D-ebP"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -370,14 +324,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i7M-zg-oNZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1706" y="160"/>
-        </scene>
-        <!--LeaderboardsFriends-->
-        <scene sceneID="mZv-1F-j0Y">
-            <objects>
-                <viewControllerPlaceholder storyboardName="LeaderboardsFriends" id="wjv-2a-od7" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="jEZ-Fz-AX2" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1511" y="324"/>
         </scene>
         <!--PageView-->
         <scene sceneID="o9p-Bh-jHF">
