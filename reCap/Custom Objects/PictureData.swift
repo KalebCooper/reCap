@@ -43,6 +43,8 @@ class PictureData {
      Returns an id for picture data
     */
     class func createPictureDataID() -> String {
-        return UUID().uuidString
+        var id = UUID().uuidString
+        id = id.replacingOccurrences(of: "-", with: "")
+        return id
     }
 }

@@ -20,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         //Firebase initialization
         FirebaseApp.configure()
+        Database.database().isPersistenceEnabled = true
         UIApplication.shared.statusBarStyle = .lightContent
         if FBDatabase.getSignedInUserID() != nil {
             // If a user is signed in

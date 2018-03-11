@@ -241,6 +241,39 @@ class FBDatabase {
      user in the completion handler
      */
     class func getUser(with_id id: String, ref: DatabaseReference, with_completion completion: @escaping (_ user: User?) -> ()) {
+        ref.child(USER_NODE).child(id).observe(.value, with: {(snapshot) in
+            if let userNode = snapshot.value as? NSDictionary {
+                let name = userNode[USER_NAME] as! String
+                let email = userNode[USER_EMAIL] as! String
+                var pictures = userNode[USER_PICTURES] as? [String]
+                var friendsID = userNode[USER_FRIENDS_ID] as? [String]
+                let username = userNode[USER_USERNAME] as! String
+                var activeChallengeID = userNode[USER_ACTIVE_CHALLENGE_ID] as? String
+                var activeChallengePoints = userNode[USER_ACTIVE_CHALLENGE_POINTS] as? String
+                let user: User
+                if pictures == nil {
+                    pictures = []
+                }
+                if friendsID == nil {
+                    friendsID = []
+                }
+                if activeChallengeID == nil {
+                    activeChallengeID = ""
+                }
+                if activeChallengePoints == nil {
+                    activeChallengePoints = ""
+                }
+                user = User(id: id, name: name, email: email, username: username, pictures: pictures!, friendsID: friendsID!, activeChallengeID: activeChallengeID!, activeChallengePoints: activeChallengePoints!)
+                completion(user)
+            }
+            else {
+                // No users in the database
+                completion(nil)
+            }
+        })
+    }
+    
+    /*class func getUser(with_id id: String, ref: DatabaseReference, with_completion completion: @escaping (_ user: User?) -> ()) {
         ref.observe(.value, with: {(snapshot) in
             let root = snapshot.value as! NSDictionary
             if let users = root[USER_NODE] as? NSDictionary {
@@ -274,7 +307,7 @@ class FBDatabase {
                 completion(nil)
             }
         })
-    }
+    }*/
     
     // MARK: - Picture Data Methods
     
@@ -327,6 +360,34 @@ class FBDatabase {
             }
         })
     }
+    
+    /*class func getPictureData(id: String, ref: DatabaseReference, with_completion completion: @escaping (_ pictureData: PictureData?) -> ()) {
+        ref.observe(.value, with: {(snapshot) in
+            let root = snapshot.value as! NSDictionary
+            if let pictureDataNode = root[PICTURE_DATA_NODE] as? NSDictionary {
+                // Database has picture data in it
+                if let pictureDataData = pictureDataNode[id] as? NSDictionary {
+                    let name = pictureDataData[PICTURE_DATA_NAME] as! String
+                    let description = pictureDataData[PICTURE_DESCRIPTION] as! String
+                    let coordinates = pictureDataData[PICTURE_DATA_GPS] as! [Double]
+                    let orientation = pictureDataData[PICTURE_DATA_ORIENTATION] as! Int
+                    let owner = pictureDataData[PICTURE_DATA_OWNER] as! String
+                    let time = pictureDataData[PICTURE_DATA_TIME] as! String
+                    let locationName = pictureDataData[PICTURE_DATA_LOCATION_NAME] as! String
+                    let id = pictureDataData[PICTURE_DATA_ID] as! String
+                    let pictureData = PictureData(name: name, description: description, gpsCoordinates: coordinates, orientation: orientation, owner: owner, time: time, locationName: locationName, id: id)
+                    completion(pictureData)
+                }
+                else {
+                    completion(nil)
+                }
+            }
+            else {
+                // Database does not have picture data in it
+                completion(nil)
+            }
+        })
+    }*/
     
     /*
      Gets all picture data for a user
