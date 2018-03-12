@@ -58,7 +58,8 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     
     @IBAction func buttonPressed(_ sender: Any) {
         
-        stillImageOutput?.capturePhoto(with: photoSetting, delegate: self)
+        
+        self.stillImageOutput?.capturePhoto(with: self.photoSetting, delegate: self)
         
     }
     
@@ -72,10 +73,6 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
             configureButton()
             setupGestures()
         }
-        
-        //self.viewDidAppear(false)
-        
-        // Do any additional setup after loading the view.
     }
 
     func setupProfileImage() {
@@ -413,6 +410,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
             if self.videoPreviewLayer != nil {
                 self.setupOrientation()
+                
             }
         }
     }
@@ -420,6 +418,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     
     override func viewWillAppear(_ animated: Bool) {
         self.setupOrientation()
+        
         if self.user != nil {
             DispatchQueue.main.asyncAfter(deadline: .now()) {
                 if self.videoPreviewLayer != nil {
@@ -446,6 +445,8 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     @available(iOS 11.0, *)
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         if error == nil {
+            
+            
             let imageData = photo.fileDataRepresentation()
             
             var orientation: UIImageOrientation? = UIImageOrientation.right
@@ -479,14 +480,12 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
             
             let orientedImage = UIImage(cgImage: newImage.cgImage!, scale: newImage.scale, orientation: orientation!)
             
-            //self.imageView.image = orientedImage
-            
             self.imageToPass = orientedImage
             
             self.performSegue(withIdentifier: "confirmPictureSegue", sender: self)
         }
         
-        session?.stopRunning()
+        //session?.stopRunning()
         
         
     }

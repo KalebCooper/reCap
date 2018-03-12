@@ -40,7 +40,6 @@ class MapVC: UIViewController, MGLMapViewDelegate {
         super.viewDidLoad()
         if user != nil {
             setupMap()
-            setupPictures()
             setupPins()
         }
         // Do any additional setup after loading the view.
@@ -73,35 +72,74 @@ class MapVC: UIViewController, MGLMapViewDelegate {
         
         locations = []
         locationDictionary = [:]
-        FBDatabase.getPictureData(for_user: self.user, ref: ref, with_completion: {(pictureDataList) in
-            for pictureData in pictureDataList {
-                let location = pictureData.locationName
-                if !self.locations.contains(location!) {
-                    // Location is not in the locations array
-                    // Add it to the array and initialize
-                    // an empty array for the key location
-                    self.locations.append(location!)
-                    self.locationDictionary[location!] = []
+        
+        
+        FBDatabase.getAllPictureData(ref: ref) { (rawPictureDataArray) in
+            if (rawPictureDataArray?.count)! > 0 {
+//                FBDatabase.getPictureData(for_user: self.user, ref: self.ref, with_completion: {(pictureDataList) in
+//                    for pictureData in pictureDataList {
+//                        let location = pictureData.locationName
+//                        if !self.locations.contains(location!) {
+//                            // Location is not in the locations array
+//                            // Add it to the array and initialize
+//                            // an empty array for the key location
+//                            self.locations.append(location!)
+//                            self.locationDictionary[location!] = []
+//                        }
+//                        self.pictureDataArray = self.locationDictionary[location!]!
+//                        self.pictureDataArray.append(pictureData)
+//                        self.locationDictionary[location!] = self.pictureDataArray
+//
+//                        let pin = MGLPointAnnotation()
+//                        pin.coordinate = CLLocationCoordinate2D(latitude: pictureData.gpsCoordinates[0], longitude: pictureData.gpsCoordinates[1])
+//                        pin.title = pictureData.name
+//                        pin.subtitle = pictureData.time
+//
+//                        self.pictureIDArray.append(pictureData.id)
+//
+//                        self.pins.append(pin)
+//
+//                    }
+//
+//                    print(self.locations)
+//                    self.setupPins()
+//                })
+                
+                for rawPictureData in rawPictureDataArray! {
+                    
+                    FBDatabase.getPictureData(id: rawPictureData.id, ref: self.ref, with_completion: { (pictureData) in
+                        let location = pictureData?.locationName
+                        if !self.locations.contains(location!) {
+                            // Location is not in the locations array
+                            // Add it to the array and initialize
+                            // an empty array for the key location
+                            self.locations.append(location!)
+                            self.locationDictionary[location!] = []
+                        }
+                        self.pictureDataArray = self.locationDictionary[location!]!
+                        self.pictureDataArray.append(pictureData!)
+                        self.locationDictionary[location!] = self.pictureDataArray
+                        
+                        let pin = MGLPointAnnotation()
+                        pin.coordinate = CLLocationCoordinate2D(latitude: (pictureData?.gpsCoordinates[0])!, longitude: (pictureData?.gpsCoordinates[1])!)
+                        pin.title = pictureData?.name
+                        pin.subtitle = pictureData?.time
+                        
+                        self.pictureIDArray.append((pictureData?.id)!)
+                        
+                        self.pins.append(pin)
+                        
+                        if rawPictureData.id == rawPictureDataArray?.last?.id {
+                            print(self.locations.count)
+                            print(self.pins.count)
+                            self.setupPins()
+                        }
+                    })
+                    
                 }
-                self.pictureDataArray = self.locationDictionary[location!]!
-                self.pictureDataArray.append(pictureData)
-                self.locationDictionary[location!] = self.pictureDataArray
-                
-                let pin = MGLPointAnnotation()
-                pin.coordinate = CLLocationCoordinate2D(latitude: pictureData.gpsCoordinates[0], longitude: pictureData.gpsCoordinates[1])
-                pin.title = pictureData.name
-                pin.subtitle = pictureData.time
-                
-                self.pictureIDArray.append(pictureData.id)
-                
-                self.pins.append(pin)
                 
             }
-            
-            print(self.locations)
-            self.setupPins()
-        })
-        
+        }
         
     }
     
@@ -140,14 +178,22 @@ class MapVC: UIViewController, MGLMapViewDelegate {
     
     func mapView(_ mapView: MGLMapView, leftCalloutAccessoryViewFor annotation: MGLAnnotation) -> UIView? {
         for i in 0 ..< pins.count {
+            
+            print(pictureIDArray.count)
             if (annotation.coordinate.latitude == pins[i].coordinate.latitude) && annotation.coordinate.longitude == pins[i].coordinate.longitude {
+                print(pictureIDArray[i])
                 let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 60, height: 50))
                 FBDatabase.getPictureData(id: pictureIDArray[i], ref: ref) { (pictureData) in
+                    print("Testing 3")
+                    print(pictureData?.locationName)
                     if let realPictureData = pictureData{
+                        print("Testing 4")
                         FBDatabase.getPicture(pictureData: realPictureData, with_progress: {(progress, total) in
                             
                         }, with_completion: {(image) in
+                            print("Testing 5")
                             if let realImage = image {
+                                print("Testing 6")
                                 imageView.image = realImage
                                 imageView.contentMode = .scaleAspectFit
                                 self.pictureDataToPass = realPictureData
@@ -157,9 +203,12 @@ class MapVC: UIViewController, MGLMapViewDelegate {
                             else {
                             }
                         })
+                        
                     }
                 }
                 return imageView
+                
+            
             }
         }
         return nil

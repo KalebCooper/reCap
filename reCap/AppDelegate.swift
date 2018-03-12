@@ -22,6 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         Database.database().isPersistenceEnabled = true
         UIApplication.shared.statusBarStyle = .lightContent
+        
         if FBDatabase.getSignedInUserID() != nil {
             // If a user is signed in
             FBDatabase.signInAutomaticUser(with_completion: {(id, error) in

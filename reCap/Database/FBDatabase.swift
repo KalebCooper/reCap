@@ -349,7 +349,7 @@ class FBDatabase {
      Gets picture data from database
      */
     class func getPictureData(id: String, ref: DatabaseReference, with_completion completion: @escaping (_ pictureData: PictureData?) -> ()) {
-        ref.child(PICTURE_NODE).child(id).observe(.value, with: {(snapshot) in
+        ref.child(PICTURE_DATA_NODE).child(id).observe(.value, with: {(snapshot) in
             if let pictureDataNode = snapshot.value as? NSDictionary {
                 let name = pictureDataNode[PICTURE_DATA_NAME] as! String
                 let description = pictureDataNode[PICTURE_DESCRIPTION] as! String
@@ -368,6 +368,29 @@ class FBDatabase {
                 completion(nil)
             }
         })
+    }
+    
+    class func getAllPictureData(ref: DatabaseReference, with_completion completion: @escaping (_ pictureDataArray: [PictureData]?) -> ()) {
+        ref.child(PICTURE_DATA_NODE).observeSingleEvent(of: .value) { (snapshot) in
+            if snapshot.childrenCount > 0 {
+                var dataArray: [PictureData] = []
+                for child in snapshot.children {
+                    let realSnapshot = child as! DataSnapshot
+                    let key = realSnapshot.key
+                    FBDatabase.getPictureData(id: key, ref: ref, with_completion: { (pictureData) in
+                        if pictureData != nil {
+                            dataArray.append(pictureData!)
+                        }
+                        if dataArray.count == snapshot.childrenCount {
+                            completion(dataArray)
+                        }
+                    })
+                }
+            }
+            else {
+                completion(nil)
+            }
+        } 
     }
     
     /*class func getPictureData(id: String, ref: DatabaseReference, with_completion completion: @escaping (_ pictureData: PictureData?) -> ()) {

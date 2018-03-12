@@ -49,7 +49,7 @@ class ChallengeViewVC: UIViewController {
         
         imageOutlet.hero.id = "imageID"
         imageOutlet.image = image
-        locationOutlet.text = pictureData.locationName
+        locationOutlet.text = String.convertGPSCoordinatesToOutput(coordinates: pictureData.gpsCoordinates)
         let coordinates = CLLocationCoordinate2D(latitude: pictureData.gpsCoordinates[0], longitude: pictureData.gpsCoordinates[1])
         Locator.location(fromCoordinates: coordinates, using: .apple, onSuccess: { places in
             print(places)
