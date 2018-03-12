@@ -29,11 +29,11 @@ class LeaderboardsFriendsVC: UITableViewController {
             if mode == LeaderboardsFriendsVC.FRIENDS_LIST_MODE {
                 // Friends list mode has been picked
                 setupFriendsList()
-                self.navigationController?.title = "Friends List"
+                self.title = "Friends List"
             }
             else if mode == LeaderboardsFriendsVC.LEADERBOARD_MODE {
                 setupLeaderboards()
-                self.navigationController?.title = "Leaderboards"
+                self.title = "Leaderboards"
                 backButtonOutlet.isEnabled = false
                 backButtonOutlet.title = " "
             }

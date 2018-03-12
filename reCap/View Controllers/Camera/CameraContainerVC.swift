@@ -407,21 +407,10 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         
         setupLocation()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
-            if self.videoPreviewLayer != nil {
-                self.setupOrientation()
-                
-            }
-        }
-    }
-    
-    
-    override func viewWillAppear(_ animated: Bool) {
-        self.setupOrientation()
-        
         if self.user != nil {
             DispatchQueue.main.asyncAfter(deadline: .now()) {
                 if self.videoPreviewLayer != nil {
+                    self.setupOrientation()
                     self.session?.startRunning()
                     print("Camera Session Resuming in viewWillAppear")
                 }
@@ -429,15 +418,37 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         }
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        DispatchQueue.main.asyncAfter(deadline: .now()) {
+            self.session?.stopRunning()
+            print("Camera Session Stopping")
+        }
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+//        self.setupOrientation()
+//
+//        if self.user != nil {
+//            DispatchQueue.main.asyncAfter(deadline: .now()) {
+//                if self.videoPreviewLayer != nil {
+//                    self.session?.startRunning()
+//                    print("Camera Session Resuming in viewWillAppear")
+//                }
+//            }
+//        }
+    }
+    
 
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
-        DispatchQueue.main.asyncAfter(deadline: .now()) {
-            self.session?.stopRunning()
-            print("Camera Session Stopping")
-        }
+//        DispatchQueue.main.asyncAfter(deadline: .now()) {
+//            self.session?.stopRunning()
+//            print("Camera Session Stopping")
+//        }
         
     }
     

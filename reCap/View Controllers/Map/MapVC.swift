@@ -24,8 +24,10 @@ class MapVC: UIViewController, MGLMapViewDelegate {
     var mapView: NavigationMapView!
     var pins: [MGLPointAnnotation]! = []
     var pictureDataArray: [PictureData]! = []
+    var userPictureDataArray: [PictureData]! = []
     var pictureIDArray: [String]! = []
     var pictureArray: [UIImage]! = []
+    
     
     var directionsRoute: Route?
     var mapViewNavigation: NavigationMapView!
@@ -80,17 +82,6 @@ class MapVC: UIViewController, MGLMapViewDelegate {
                 for rawPictureData in rawPictureDataArray! {
                     
                     FBDatabase.getPictureData(id: rawPictureData.id, ref: self.ref, with_completion: { (pictureData) in
-                        let location = pictureData?.locationName
-                        if !self.locations.contains(location!) {
-                            // Location is not in the locations array
-                            // Add it to the array and initialize
-                            // an empty array for the key location
-                            self.locations.append(location!)
-                            self.locationDictionary[location!] = []
-                        }
-                        self.pictureDataArray = self.locationDictionary[location!]!
-                        self.pictureDataArray.append(pictureData!)
-                        self.locationDictionary[location!] = self.pictureDataArray
                         
                         let pin = MGLPointAnnotation()
                         pin.coordinate = CLLocationCoordinate2D(latitude: (pictureData?.gpsCoordinates[0])!, longitude: (pictureData?.gpsCoordinates[1])!)
@@ -102,13 +93,20 @@ class MapVC: UIViewController, MGLMapViewDelegate {
                         self.pins.append(pin)
                         
                         if rawPictureData.id == rawPictureDataArray?.last?.id {
-                            print(self.locations.count)
-                            print(self.pins.count)
                             self.setupPins()
                         }
                     })
                     
                 }
+            }
+        }
+        
+        FBDatabase.getPictureData(for_user: user, ref: ref) { (pictureData) in
+            for picture in pictureData {
+                
+                self.userPictureDataArray.append(picture)
+                self.setupPins()
+                
             }
         }
         
@@ -137,7 +135,36 @@ class MapVC: UIViewController, MGLMapViewDelegate {
     
     // Use the default marker. See also: our view annotation or custom marker examples.
     func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
-        return nil
+        
+        
+        // Assign a reuse identifier to be used by both of the annotation views, taking advantage of their similarities.
+        let reuseIdentifier = "reusableDotView"
+        
+        // For better performance, always try to reuse existing annotations.
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
+        
+        // If there’s no reusable annotation view available, initialize a new one.
+        if annotationView == nil {
+            annotationView = MGLAnnotationView(reuseIdentifier: reuseIdentifier)
+            annotationView?.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+            annotationView?.layer.cornerRadius = (annotationView?.frame.size.width)! / 2
+            annotationView?.layer.borderWidth = 4.0
+            annotationView?.layer.borderColor = UIColor.white.cgColor
+            
+            for pin in userPictureDataArray {
+                
+                if (annotation.coordinate.latitude == pin.gpsCoordinates[0]) && (annotation.coordinate.longitude == pin.gpsCoordinates[1]) {
+                    annotationView!.backgroundColor = UIColor.blue
+                    return annotationView
+                }
+                //Else check for active challenge
+                
+            }
+            
+            annotationView!.backgroundColor = UIColor(red:0.03, green:0.80, blue:0.69, alpha:1.0)
+        }
+        
+        return annotationView
     }
     
     // Allow callout view to appear when an annotation is tapped.

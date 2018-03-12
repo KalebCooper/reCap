@@ -12,7 +12,8 @@ class SettingsVC: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        applyBlurEffect(image: #imageLiteral(resourceName: "Gradient"))
+        self.title = "Settings"
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -132,5 +133,23 @@ class SettingsVC: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    func applyBlurEffect(image: UIImage){
+        let imageToBlur = CIImage(image: image)
+        let blurfilter = CIFilter(name: "CIGaussianBlur")
+        blurfilter?.setValue(imageToBlur, forKey: "inputImage")
+        let resultImage = blurfilter?.value(forKey: "outputImage") as! CIImage
+        let blurredImage = UIImage(ciImage: resultImage)
+        
+        let blurredView = UIImageView(image: blurredImage)
+        blurredView.contentMode = .center
+        self.tableView.backgroundView = blurredView
+        
+        
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
 
 }
