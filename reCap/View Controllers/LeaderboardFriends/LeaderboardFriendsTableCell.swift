@@ -19,6 +19,12 @@ class LeaderboardFriendsTableCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        self.imageOutlet.layer.borderWidth = 1
+        self.imageOutlet.layer.borderColor = UIColor.white.cgColor
+        self.imageOutlet.layer.cornerRadius = self.imageOutlet.layer.frame.width / 2
+        self.imageOutlet.layer.masksToBounds = false
+        self.imageOutlet.clipsToBounds = true
+        self.imageOutlet.contentMode = .scaleAspectFill
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
