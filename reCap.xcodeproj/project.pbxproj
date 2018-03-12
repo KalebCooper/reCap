@@ -30,7 +30,6 @@
 		34A7ACB62027A4F500ACFB12 /* Camera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34A7ACB52027A4F500ACFB12 /* Camera.storyboard */; };
 		34A7ACB82027A51700ACFB12 /* LeaderboardsFriends.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34A7ACB72027A51700ACFB12 /* LeaderboardsFriends.storyboard */; };
 		34F60577203FD24C001A74E4 /* ImageConfirmVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F60575203FD24C001A74E4 /* ImageConfirmVC.swift */; };
-		34FB30B4205618D000D37022 /* LeaderboardsFriendsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FB30B3205618D000D37022 /* LeaderboardsFriendsVC.swift */; };
 		3BD76B62D24CA017D72CCCDA /* Pods_reCapUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CD7EFB0164AE95822E97FC9 /* Pods_reCapUITests.framework */; };
 		4166566AA68139D9E70F183A /* Pods_reCap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0C6A1AA7E56B3B8DAD1F814 /* Pods_reCap.framework */; };
 		431B5E71E2A82C2D5591C9FD /* Pods_reCapTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A855F58760B4E1DE5F6226D /* Pods_reCapTests.framework */; };
@@ -67,6 +66,7 @@
 		7AA8EE8C2054AD3F0043B73C /* ChallengeView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AA8EE8B2054AD3F0043B73C /* ChallengeView.storyboard */; };
 		7AA8EE902055A4F20043B73C /* ChallengeViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA8EE8F2055A4F20043B73C /* ChallengeViewVC.swift */; };
 		7AA8EE922055A5000043B73C /* ImageCreateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA8EE912055A5000043B73C /* ImageCreateVC.swift */; };
+		7AA8EE94205624050043B73C /* LeaderboardsFriendsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA8EE93205624050043B73C /* LeaderboardsFriendsVC.swift */; };
 		7ABF80C8203A509900BCE787 /* ProfileMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABF80C5203A509800BCE787 /* ProfileMenuVC.swift */; };
 		7ABF80CC203A50AA00BCE787 /* CameraContainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ABF80CB203A50AA00BCE787 /* CameraContainerVC.swift */; };
 		7ABF80CE203A63F800BCE787 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7ABF80CD203A63F800BCE787 /* Settings.storyboard */; };
@@ -129,7 +129,6 @@
 		34A7ACB52027A4F500ACFB12 /* Camera.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Camera.storyboard; sourceTree = "<group>"; };
 		34A7ACB72027A51700ACFB12 /* LeaderboardsFriends.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LeaderboardsFriends.storyboard; sourceTree = "<group>"; };
 		34F60575203FD24C001A74E4 /* ImageConfirmVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageConfirmVC.swift; path = "reCap/View Controllers/Camera/ImageConfirmVC.swift"; sourceTree = SOURCE_ROOT; };
-		34FB30B3205618D000D37022 /* LeaderboardsFriendsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LeaderboardsFriendsVC.swift; path = "../../../../../../../kaleb/Documents/SideProjects/reCap/reCap/View Controllers/LeaderboardFriends/LeaderboardsFriendsVC.swift"; sourceTree = "<group>"; };
 		6E7F0BE298641A4C1885D691 /* Pods-reCap.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-reCap.debug.xcconfig"; path = "Pods/Target Support Files/Pods-reCap/Pods-reCap.debug.xcconfig"; sourceTree = "<group>"; };
 		7A0162C9204E3D91000539E0 /* DateGetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateGetter.swift; sourceTree = "<group>"; };
 		7A120DC2203E6BBB0003EE1F /* Profile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
@@ -164,6 +163,7 @@
 		7AA8EE8B2054AD3F0043B73C /* ChallengeView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ChallengeView.storyboard; sourceTree = "<group>"; };
 		7AA8EE8F2055A4F20043B73C /* ChallengeViewVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeViewVC.swift; sourceTree = "<group>"; };
 		7AA8EE912055A5000043B73C /* ImageCreateVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCreateVC.swift; sourceTree = "<group>"; };
+		7AA8EE93205624050043B73C /* LeaderboardsFriendsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaderboardsFriendsVC.swift; sourceTree = "<group>"; };
 		7AB6A13E203E68EA00933F30 /* ImageConfirmVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageConfirmVC.swift; sourceTree = "<group>"; };
 		7AB6A140203E68F700933F30 /* ImageCreateVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCreateVC.swift; sourceTree = "<group>"; };
 		7ABF80C5203A509800BCE787 /* ProfileMenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileMenuVC.swift; sourceTree = "<group>"; };
@@ -452,8 +452,8 @@
 		7AE375682037C8E100CA9946 /* LeaderboardFriends */ = {
 			isa = PBXGroup;
 			children = (
+				7AA8EE93205624050043B73C /* LeaderboardsFriendsVC.swift */,
 				7AE3756A2037C8E100CA9946 /* LeaderboardFriendsTableCell.swift */,
-				34FB30B3205618D000D37022 /* LeaderboardsFriendsVC.swift */,
 			);
 			path = LeaderboardFriends;
 			sourceTree = "<group>";
@@ -846,7 +846,6 @@
 				7A120DCF2041F0570003EE1F /* PhotoChalColCell.swift in Sources */,
 				7A0162CA204E3D91000539E0 /* DateGetter.swift in Sources */,
 				347A06A4202A14BB00961024 /* SignInTransitionVC.swift in Sources */,
-				34FB30B4205618D000D37022 /* LeaderboardsFriendsVC.swift in Sources */,
 				7AF3594A2038CDE500713EA3 /* SettingsVC.swift in Sources */,
 				7A4D8A4020277F450043878E /* MapVC.swift in Sources */,
 				7ABF80C8203A509900BCE787 /* ProfileMenuVC.swift in Sources */,
@@ -856,6 +855,7 @@
 				7A38A275202AB56100DF239F /* PhotoChallengeTableCell.swift in Sources */,
 				7A3B468C202AB3FC001D19B6 /* EdgeShadowLayer.swift in Sources */,
 				348591FF203A79DA003E3704 /* TutorialErosionVC.swift in Sources */,
+				7AA8EE94205624050043B73C /* LeaderboardsFriendsVC.swift in Sources */,
 				34859207203A7A26003E3704 /* TutorialCollabVC.swift in Sources */,
 				7AE375672037C6DA00CA9946 /* FBDatabase.swift in Sources */,
 				3485920F203A7BAA003E3704 /* TutorialPageVC.swift in Sources */,
@@ -1024,7 +1024,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = VPT5835T5T;
+				DEVELOPMENT_TEAM = CZ7R6F7L6H;
 				INFOPLIST_FILE = reCap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Kaleb-Cooper-Team-Red.reCap";
@@ -1041,7 +1041,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = VPT5835T5T;
+				DEVELOPMENT_TEAM = CZ7R6F7L6H;
 				INFOPLIST_FILE = reCap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Kaleb-Cooper-Team-Red.reCap";

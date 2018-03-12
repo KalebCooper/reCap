@@ -73,6 +73,13 @@ class LeaderboardsFriendsVC: UITableViewController {
     // MARK: - Setup Methods
     private func setupLeaderboards() {
         leaderboardsList = []
+        let ref = Database.database().reference()
+        FBDatabase.getAllUsers(query_by: FBDatabase.USER_POINTS, with_max_query: 50, with_ref: ref, with_completion: {(users) in
+            for user in users {
+                self.leaderboardsList.append(user)
+            }
+            self.tableView.reloadData()
+        })
         /*let settingsButton = UIBarButtonItem(title: "Settings", style: .plain, target: self, action: #selector(settingsPressed))
          let navController = self.navigationController
          let navBar = navController?.navigationBar
