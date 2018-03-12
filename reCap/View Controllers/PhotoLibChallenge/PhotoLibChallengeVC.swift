@@ -26,10 +26,10 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
     private static let VIEW_CHALLENGE_SEGUE = "ViewChallengeSegue"
     private static let PHOTO_SEGUE_PICTURE_DATA_INDEX = 0
     private static let PHOTO_SEGUE_PICTURE_INDEX = 1
-    private static let TAKE_PIC_FROM_RECENT = "Recapture recent photos"
-    private static let TAKE_PIC_FROM_WEEK = "Recapture photos from a week ago"
-    private static let TAKE_PIC_FROM_MONTH = "Recapture photos from a month ago"
-    private static let TAKE_PIC_FROM_YEAR = "Recapture photos from a year ago"
+    private static let TAKE_PIC_FROM_RECENT = "Recent Photos (+1 point)"
+    private static let TAKE_PIC_FROM_WEEK = "Photos over a week ago (+5 points)"
+    private static let TAKE_PIC_FROM_MONTH = "Photos over a month ago (+15 points)"
+    private static let TAKE_PIC_FROM_YEAR = "Photos from over a year ago (+50 points)"
     private static let CHALLENGE_RECENT_POINTS = 1
     private static let CHALLENGE_WEEK_POINTS = 5
     private static let CHALLENGE_MONTH_POINTS = 10
@@ -107,6 +107,7 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
             }
             self.tableView.reloadData()
         })
+        
     }
     
     private func setupChallenge() {
@@ -115,14 +116,30 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
         self.tableView.allowsSelection = false
         let ref = Database.database().reference()
         let currentDate = Date()
-        FBDatabase.getPictureData(for_user: user, ref: ref, with_completion: {(pictureDataList) in
-            ref.removeAllObservers()
-            for pictureData in pictureDataList {
-                let challengeCategory = self.getPicChallengeCategory(pictureData: pictureData, currentDate: currentDate)
-                self.challengesDictionary[challengeCategory]?.append(pictureData)
+//        FBDatabase.getPictureData(for_user: user, ref: ref, with_completion: {(pictureDataList) in
+//            ref.removeAllObservers()
+//            for pictureData in pictureDataList {
+//                let challengeCategory = self.getPicChallengeCategory(pictureData: pictureData, currentDate: currentDate)
+//                self.challengesDictionary[challengeCategory]?.append(pictureData)
+//            }
+//            self.tableView.reloadData()
+//        })
+        
+        FBDatabase.getAllPictureData(count: 50, ref: ref) { (rawPictureDataArray) in
+            if (rawPictureDataArray?.count)! > 0 {
+
+                for rawPictureData in rawPictureDataArray! {
+
+                    FBDatabase.getPictureData(id: rawPictureData.id, ref: ref, with_completion: { (pictureData) in
+                        let challengeCategory = self.getPicChallengeCategory(pictureData: pictureData!, currentDate: currentDate)
+                        self.challengesDictionary[challengeCategory]?.append(pictureData!)
+                        if rawPictureData.id == rawPictureDataArray?.last?.id {
+                            self.tableView.reloadData()
+                        }
+                    })
+                }
             }
-            self.tableView.reloadData()
-        })
+        }
     }
     
     // MARK: - ImageButton Methods

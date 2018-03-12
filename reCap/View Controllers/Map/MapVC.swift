@@ -76,34 +76,6 @@ class MapVC: UIViewController, MGLMapViewDelegate {
         
         FBDatabase.getAllPictureData(ref: ref) { (rawPictureDataArray) in
             if (rawPictureDataArray?.count)! > 0 {
-//                FBDatabase.getPictureData(for_user: self.user, ref: self.ref, with_completion: {(pictureDataList) in
-//                    for pictureData in pictureDataList {
-//                        let location = pictureData.locationName
-//                        if !self.locations.contains(location!) {
-//                            // Location is not in the locations array
-//                            // Add it to the array and initialize
-//                            // an empty array for the key location
-//                            self.locations.append(location!)
-//                            self.locationDictionary[location!] = []
-//                        }
-//                        self.pictureDataArray = self.locationDictionary[location!]!
-//                        self.pictureDataArray.append(pictureData)
-//                        self.locationDictionary[location!] = self.pictureDataArray
-//
-//                        let pin = MGLPointAnnotation()
-//                        pin.coordinate = CLLocationCoordinate2D(latitude: pictureData.gpsCoordinates[0], longitude: pictureData.gpsCoordinates[1])
-//                        pin.title = pictureData.name
-//                        pin.subtitle = pictureData.time
-//
-//                        self.pictureIDArray.append(pictureData.id)
-//
-//                        self.pins.append(pin)
-//
-//                    }
-//
-//                    print(self.locations)
-//                    self.setupPins()
-//                })
                 
                 for rawPictureData in rawPictureDataArray! {
                     
@@ -137,7 +109,6 @@ class MapVC: UIViewController, MGLMapViewDelegate {
                     })
                     
                 }
-                
             }
         }
         

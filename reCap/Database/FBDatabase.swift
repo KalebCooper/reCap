@@ -370,7 +370,7 @@ class FBDatabase {
         })
     }
     
-    class func getAllPictureData(ref: DatabaseReference, with_completion completion: @escaping (_ pictureDataArray: [PictureData]?) -> ()) {
+    class func getAllPictureData(count: Int? = -1, ref: DatabaseReference, with_completion completion: @escaping (_ pictureDataArray: [PictureData]?) -> ()) {
         ref.child(PICTURE_DATA_NODE).observeSingleEvent(of: .value) { (snapshot) in
             if snapshot.childrenCount > 0 {
                 var dataArray: [PictureData] = []
@@ -378,10 +378,11 @@ class FBDatabase {
                     let realSnapshot = child as! DataSnapshot
                     let key = realSnapshot.key
                     FBDatabase.getPictureData(id: key, ref: ref, with_completion: { (pictureData) in
-                        if pictureData != nil {
-                            dataArray.append(pictureData!)
-                        }
+                        dataArray.append(pictureData!)
                         if dataArray.count == snapshot.childrenCount {
+                            completion(dataArray)
+                        }
+                        else if dataArray.count == count {
                             completion(dataArray)
                         }
                     })
