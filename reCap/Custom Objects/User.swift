@@ -22,13 +22,13 @@ class User {
     var activeChallengePoints: String!
     
     // MARK: - Initializers
-    public init(id: String, name: String, email: String, username: String, pictures: [String] = [], friendsID: [String] = [], activeChallengeID: String = "", activeChallengePoints: String = "") {
+    public init(id: String, name: String, email: String, username: String, pictures: [String] = [], friendsID: [String] = [], activeChallengeID: String = "", activeChallengePoints: String = "", points: Int = 0) {
         self.id = id
         self.name = name
         self.email = email
         self.username = username
         self.pictures = pictures
-        self.points = 0
+        self.points = points
         self.friendsID = friendsID
         self.activeChallengeID = activeChallengeID
         self.activeChallengePoints = activeChallengePoints
