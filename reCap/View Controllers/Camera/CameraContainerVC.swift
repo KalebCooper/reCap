@@ -14,7 +14,7 @@ import Hero
 import Firebase
 import CoreLocation
 
-class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavigationControllerDelegate {
+class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate {
     
     @IBOutlet weak var cameraButton: UIButton!
     @IBOutlet weak var locationOutlet: UILabel!
@@ -22,6 +22,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     @IBOutlet weak var profileOutlet: UIImageView!
     @IBOutlet weak var albumOutlet: UIButton!
     @IBOutlet weak var previousOutlet: UIButton!
+    @IBOutlet weak var arrowOutlet: UIImageView!
     
     @IBOutlet weak var previewView: UIView!
     //@IBOutlet weak var imageView: UIImageView!
@@ -38,6 +39,8 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     var longToPass: Double?
     var locationToPass: String?
     private var isAtChallengeLocation: Bool!
+    let locationManager = CLLocationManager()
+    var destinationAngle: Double? = 0
     
     var profileImage: UIImage?
     
@@ -50,10 +53,14 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     
     var captureDevice: AVCaptureDevice?
     
+    
+    
     let blackColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
     var user: User!
     private var activeChallengePicData: PictureData!
-    private let chalCoordThreshold = 0.000017
+    //private let Threshold = 0.000017
+    private let chalBestCoordThreshold = 0.00006
+    private let chalCloseCoordThreshold = 0.0008
     
     
     @IBAction func buttonPressed(_ sender: Any) {
@@ -74,7 +81,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
             setupGestures()
         }
     }
-
+    
     func setupProfileImage() {
         
         FBDatabase.getProfilePicture(for_user: user!, with_progress: { (progress, total)  in
@@ -102,7 +109,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
      Gets the GPS coordinates of the active
      picture challenges. Used to change the color
      of the gps coordinates when on the exact location
-    */
+     */
     private func setupActiveChallengeData() {
         let id = self.user.activeChallengeID
         if id != "" {
@@ -293,46 +300,35 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
                     self.landscapeBotShadow?.removeFromSuperlayer()
                 }
                 
-                
                 let shadowRadius = self.logoText.layer.frame.maxY + 8
                 
                 self.portraitTopShadow = EdgeShadowLayer(forView: self.view, edge: .Top, shadowRadius: shadowRadius, toColor: .clear, fromColor: self.blackColor)
                 self.view.layer.insertSublayer(self.portraitTopShadow!, at: 1)
                 
             }
-            
-            
-            
         }
         
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        
         let when = DispatchTime.now() + 0.01 // change 2 to desired number of seconds
         DispatchQueue.main.asyncAfter(deadline: when) {
-            
             self.viewDidAppear(false)
-            
-            
         }
-        
     }
     
     
     func setupLocation() {
         
-        
-        
-        
         Locator.requestAuthorizationIfNeeded(.always)
         Locator.requestAuthorizationIfNeeded(.whenInUse)
         
         
-        Locator.subscribeHeadingUpdates(accuracy: 2, onUpdate: { newHeading in
-            print("New heading \(newHeading)")
-        }) { err in
-            print("Failed with error: \(err)")
+        // Azimuth
+        if (CLLocationManager.headingAvailable()) {
+            locationManager.headingFilter = 1
+            locationManager.startUpdatingHeading()
+            locationManager.delegate = self
         }
         
         
@@ -341,9 +337,52 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
                                     
                                     let lat = location.coordinate.latitude.truncate(places: 6)
                                     let long = location.coordinate.longitude.truncate(places: 6)
+                                
+                                    
+                                    
+                                    //Get Active Challenge ID
+                                    //Get Challenge Coordinates
+                                    //Get angle between current location and challenge location
+                                    //Update self.destinationAngle
+                                    //Go to didUpdateHeading and rotate arrowOutlet using angle compared to true north.
+                                    
+                                    //Testing with 0,0 for now
+                                    
+                                    if self.user.activeChallengeID != "" {
+                                        let activeChallengeID = String(self.user.activeChallengeID)
+                                        var destination: CLLocation? = CLLocation(latitude: 0, longitude: 0)
+                                        var angle: Double = 0
+                                        
+                                        let ref = Database.database().reference()
+                                        FBDatabase.getPictureData(id: activeChallengeID, ref: ref, with_completion: { (pictureData) in
+                                            let destinationArray = pictureData?.gpsCoordinates
+                                            destination = CLLocation(latitude: destinationArray![0], longitude: destinationArray![1])
+                                            angle = self.getBearingBetweenTwoPoints1(point1: location, point2: destination!)
+                                            
+                                            //Check for orientation WIP
+//                                            if UIDevice.current.orientation == .landscapeLeft {
+//                                                angle = angle + 90
+//                                            }
+//                                            else if UIDevice.current.orientation == .landscapeRight {
+//                                                angle = angle - 90
+//                                            }
+                                            
+                                            
+                                            self.destinationAngle = angle
+                                            
+                                            
+                                        })
+                                        
+                                        
+                                    }
+                                    else {
+                                        self.arrowOutlet.isHidden = true
+                                    }
+                                    
+                                    
                                     
                                     let gpsString = String.convertGPSCoordinatesToOutput(coordinates: [lat, long])
-
+                                    
                                     self.locationOutlet.text = gpsString
                                     
                                     self.latToPass = lat
@@ -355,13 +394,18 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
                                         let picLat = self.activeChallengePicData.gpsCoordinates[PictureData.LATTITUDE_INDEX]
                                         let longDiff = abs(picLong - long)
                                         let latDiff = abs(picLat - lat)
-                                        if longDiff <= self.chalCoordThreshold, latDiff <= self.chalCoordThreshold {
-                                            self.locationOutlet.textColor = UIColor.red
-                                            self.isAtChallengeLocation = true
-                                        }
-                                        else {
+
+                                        if longDiff > self.chalBestCoordThreshold, latDiff > self.chalBestCoordThreshold {
                                             self.locationOutlet.textColor = UIColor.white
                                             self.isAtChallengeLocation = false
+                                        }
+                                        else if longDiff <= self.chalBestCoordThreshold, latDiff <= self.chalBestCoordThreshold {
+                                            self.locationOutlet.textColor = UIColor.green
+                                            self.isAtChallengeLocation = true
+                                        }
+                                        else if longDiff <= self.chalCloseCoordThreshold, latDiff <= self.chalCloseCoordThreshold {
+                                            self.locationOutlet.textColor = UIColor.yellow
+                                            self.isAtChallengeLocation = true
                                         }
                                     }
                                     else {
@@ -376,6 +420,15 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         )
         
     }
+    
+    
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateHeading heading: CLHeading) {
+        UIView.animate(withDuration: 0.25, animations: {
+            self.arrowOutlet.transform = CGAffineTransform(rotationAngle: CGFloat((self.destinationAngle! - heading.magneticHeading) * Double.pi / 180))
+        })
+    }
+    
     
     public func updateViewController(user: User) {
         self.user = user
@@ -412,6 +465,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
                 if self.videoPreviewLayer != nil {
                     self.setupOrientation()
                     self.session?.startRunning()
+                    self.locationManager.startUpdatingHeading()
                     print("Camera Session Resuming in viewWillAppear")
                 }
             }
@@ -422,33 +476,34 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         super.viewDidDisappear(animated)
         DispatchQueue.main.asyncAfter(deadline: .now()) {
             self.session?.stopRunning()
+            self.locationManager.stopUpdatingHeading()
             print("Camera Session Stopping")
         }
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
-//        self.setupOrientation()
-//
-//        if self.user != nil {
-//            DispatchQueue.main.asyncAfter(deadline: .now()) {
-//                if self.videoPreviewLayer != nil {
-//                    self.session?.startRunning()
-//                    print("Camera Session Resuming in viewWillAppear")
-//                }
-//            }
-//        }
+        //        self.setupOrientation()
+        //
+        //        if self.user != nil {
+        //            DispatchQueue.main.asyncAfter(deadline: .now()) {
+        //                if self.videoPreviewLayer != nil {
+        //                    self.session?.startRunning()
+        //                    print("Camera Session Resuming in viewWillAppear")
+        //                }
+        //            }
+        //        }
     }
     
-
+    
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
-//        DispatchQueue.main.asyncAfter(deadline: .now()) {
-//            self.session?.stopRunning()
-//            print("Camera Session Stopping")
-//        }
+        //        DispatchQueue.main.asyncAfter(deadline: .now()) {
+        //            self.session?.stopRunning()
+        //            print("Camera Session Stopping")
+        //        }
         
     }
     
@@ -539,7 +594,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
             vc.longToPass = self.longToPass
             vc.locationToPass = self.locationToPass
             vc.user = self.user
-
+            
         }
         
         if segue.identifier == "toProfileSegue" {

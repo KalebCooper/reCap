@@ -220,6 +220,7 @@
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="albumOutlet" destination="Ykf-Zg-DG4" id="2Gt-1J-qQ2"/>
+                        <outlet property="arrowOutlet" destination="H1a-lg-RtO" id="20g-fj-LYL"/>
                         <outlet property="cameraButton" destination="gc9-NS-DgZ" id="69z-h1-QT4"/>
                         <outlet property="locationOutlet" destination="oeN-Wr-Wxk" id="zxR-Tq-8UW"/>
                         <outlet property="logoText" destination="PPX-Rz-LL0" id="IoR-CC-TNj"/>

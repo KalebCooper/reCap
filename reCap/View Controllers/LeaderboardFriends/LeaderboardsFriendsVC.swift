@@ -45,6 +45,21 @@ class LeaderboardsFriendsVC: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if mode != nil, user != nil {
+            // If the mode has been selected
+            if mode == LeaderboardsFriendsVC.FRIENDS_LIST_MODE {
+                // Friends list mode has been picked
+                setupFriendsList()
+            }
+            else if mode == LeaderboardsFriendsVC.LEADERBOARD_MODE {
+                setupLeaderboards()
+            }
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -146,11 +161,12 @@ class LeaderboardsFriendsVC: UITableViewController {
     
     // MARK: - Outlet Action Methods
     @IBAction func addFriendPressed(_ sender: Any) {
-        let alert = UIAlertController(title: "Add Friend", message: "Enter friends username", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Add Friend", message: "Enter the exact username of the person you are wishing to add.", preferredStyle: .alert)
         alert.addTextField(configurationHandler: {(textField) in
-            textField.placeholder = "username"
+            textField.placeholder = "Username"
+            textField.keyboardAppearance = .dark
         })
-        let okAction = UIAlertAction(title: "ok", style: .default, handler: {(action) in
+        let okAction = UIAlertAction(title: "Add", style: .default, handler: {(action) in
             let usernameTextField = alert.textFields![0]
             let username = usernameTextField.text
             let ref = Database.database().reference()
@@ -185,7 +201,7 @@ class LeaderboardsFriendsVC: UITableViewController {
                 }
             })
         })
-        let cancelAction = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alert.addAction(okAction)
         alert.addAction(cancelAction)
         self.present(alert, animated: true, completion: nil)

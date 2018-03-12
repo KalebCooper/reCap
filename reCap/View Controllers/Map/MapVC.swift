@@ -36,7 +36,6 @@ class MapVC: UIViewController, MGLMapViewDelegate {
     var pictureDataToPass: PictureData?
     
     
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,6 +74,14 @@ class MapVC: UIViewController, MGLMapViewDelegate {
         locations = []
         locationDictionary = [:]
         
+        FBDatabase.getPictureData(for_user: user, ref: ref) { (pictureData) in
+            for picture in pictureData {
+                
+                self.userPictureDataArray.append(picture)
+                self.setupPins()
+                
+            }
+        }
         
         FBDatabase.getAllPictureData(ref: ref) { (rawPictureDataArray) in
             if (rawPictureDataArray?.count)! > 0 {
@@ -98,15 +105,6 @@ class MapVC: UIViewController, MGLMapViewDelegate {
                     })
                     
                 }
-            }
-        }
-        
-        FBDatabase.getPictureData(for_user: user, ref: ref) { (pictureData) in
-            for picture in pictureData {
-                
-                self.userPictureDataArray.append(picture)
-                self.setupPins()
-                
             }
         }
         
@@ -135,35 +133,40 @@ class MapVC: UIViewController, MGLMapViewDelegate {
     
     // Use the default marker. See also: our view annotation or custom marker examples.
     func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
-        
-        
+
+
         // Assign a reuse identifier to be used by both of the annotation views, taking advantage of their similarities.
         let reuseIdentifier = "reusableDotView"
-        
+
         // For better performance, always try to reuse existing annotations.
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
         
+
         // If there’s no reusable annotation view available, initialize a new one.
         if annotationView == nil {
-            annotationView = MGLAnnotationView(reuseIdentifier: reuseIdentifier)
-            annotationView?.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-            annotationView?.layer.cornerRadius = (annotationView?.frame.size.width)! / 2
-            annotationView?.layer.borderWidth = 4.0
-            annotationView?.layer.borderColor = UIColor.white.cgColor
-            
+//            annotationView = MGLAnnotationView(reuseIdentifier: reuseIdentifier)
+//            annotationView?.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+//            annotationView?.layer.cornerRadius = (annotationView?.frame.size.width)! / 2
+//            annotationView?.layer.borderWidth = 4.0
+//            annotationView?.layer.borderColor = UIColor.white.cgColor
+            annotationView = CustomAnnotationView(reuseIdentifier: reuseIdentifier)
+            annotationView!.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+
             for pin in userPictureDataArray {
                 
+                print(annotation.coordinate.latitude)
+                print(pin.gpsCoordinates[0])
+
                 if (annotation.coordinate.latitude == pin.gpsCoordinates[0]) && (annotation.coordinate.longitude == pin.gpsCoordinates[1]) {
-                    annotationView!.backgroundColor = UIColor.blue
+                    //annotationView!.backgroundColor = UIColor(red: 0/255, green: 150/255, blue: 255/255, alpha: 1.0)
+                    annotationView!.backgroundColor = UIColor(red: 204/255, green: 51/255, blue: 51/255, alpha: 1.0)
+                    print("Entered statement")
                     return annotationView
                 }
                 //Else check for active challenge
-                
             }
-            
-            annotationView!.backgroundColor = UIColor(red:0.03, green:0.80, blue:0.69, alpha:1.0)
+            annotationView!.backgroundColor = UIColor(red: 99/255, green: 207/255, blue: 155/255, alpha: 1.0)
         }
-        
         return annotationView
     }
     
@@ -173,25 +176,16 @@ class MapVC: UIViewController, MGLMapViewDelegate {
     }
     
     
-    
     func mapView(_ mapView: MGLMapView, leftCalloutAccessoryViewFor annotation: MGLAnnotation) -> UIView? {
         for i in 0 ..< pins.count {
-            
-            print(pictureIDArray.count)
             if (annotation.coordinate.latitude == pins[i].coordinate.latitude) && annotation.coordinate.longitude == pins[i].coordinate.longitude {
-                print(pictureIDArray[i])
                 let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 60, height: 50))
                 FBDatabase.getPictureData(id: pictureIDArray[i], ref: ref) { (pictureData) in
-                    print("Testing 3")
-                    print(pictureData?.locationName)
                     if let realPictureData = pictureData{
-                        print("Testing 4")
                         FBDatabase.getPicture(pictureData: realPictureData, with_progress: {(progress, total) in
                             
                         }, with_completion: {(image) in
-                            print("Testing 5")
                             if let realImage = image {
-                                print("Testing 6")
                                 imageView.image = realImage
                                 imageView.contentMode = .scaleAspectFit
                                 self.pictureDataToPass = realPictureData
@@ -205,8 +199,6 @@ class MapVC: UIViewController, MGLMapViewDelegate {
                     }
                 }
                 return imageView
-                
-            
             }
         }
         return nil
@@ -276,6 +268,9 @@ class MapVC: UIViewController, MGLMapViewDelegate {
     
     
     
+    
+    
+    
     func drawRoute(route: Route) {
         guard route.coordinateCount > 0 else { return }
         // Convert the route’s coordinates into a polyline
@@ -302,6 +297,7 @@ class MapVC: UIViewController, MGLMapViewDelegate {
     func beginNavigation() {
         print("Presenting Navigation View")
         let navigationViewController = NavigationViewController(for: self.directionsRoute!)
+        
         self.present(navigationViewController, animated: true, completion: nil)
     }
     
@@ -326,4 +322,30 @@ class MapVC: UIViewController, MGLMapViewDelegate {
         }
     }
 
+}
+
+
+// MGLAnnotationView subclass
+class CustomAnnotationView: MGLAnnotationView {
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        // Force the annotation view to maintain a constant size when the map is tilted.
+        scalesWithViewingDistance = false
+        
+        // Use CALayer’s corner radius to turn this view into a circle.
+        layer.cornerRadius = frame.width / 2
+        layer.borderWidth = 2
+        layer.borderColor = UIColor.white.cgColor
+    }
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        
+        // Animate the border width in/out, creating an iris effect.
+        let animation = CABasicAnimation(keyPath: "borderWidth")
+        animation.duration = 0.1
+        layer.borderWidth = selected ? frame.width / 4 : 2
+        layer.add(animation, forKey: "borderWidth")
+    }
 }

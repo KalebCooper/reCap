@@ -64,6 +64,23 @@ extension UIViewController
     }
 }
 
+
+extension UIView{
+    func rotateToDestination(from: Double, to: Double) {
+        
+        let rotation : CABasicAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
+        rotation.fromValue = NSNumber(value: from)
+        rotation.toValue = NSNumber(value: to)
+        rotation.duration = 0.25
+        rotation.isCumulative = true
+        rotation.repeatCount = Float.greatestFiniteMagnitude
+        self.layer.add(rotation, forKey: "rotationAnimation")
+        
+        
+    }
+}
+
+
 extension UINavigationController {
     open override var preferredStatusBarStyle: UIStatusBarStyle {
         return topViewController?.preferredStatusBarStyle ?? .default
