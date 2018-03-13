@@ -25,7 +25,6 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     @IBOutlet weak var arrowOutlet: UIImageView!
     
     @IBOutlet weak var previewView: UIView!
-    //@IBOutlet weak var imageView: UIImageView!
     
     var portraitTopShadow: EdgeShadowLayer? = nil
     var portraitBotShadow: EdgeShadowLayer? = nil
@@ -68,6 +67,9 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         
         self.stillImageOutput?.capturePhoto(with: self.photoSetting, delegate: self)
         
+    }
+    @IBAction func albumAction(_ sender: Any) {
+        self.performSegue(withIdentifier: "PhotoLibSegue", sender: self.user)
     }
     
     override func viewDidLoad() {
@@ -570,7 +572,9 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         
-        if segue.identifier == "confirmPictureSegue" {
+        let segueID = segue.identifier
+        
+        if segueID == "confirmPictureSegue" {
             let vc = segue.destination as! ImageConfirmVC
             vc.isAtChallengeLocation = self.isAtChallengeLocation
             vc.image = self.imageToPass
@@ -580,11 +584,16 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
             vc.user = self.user
             
         }
-        
-        if segue.identifier == "toProfileSegue" {
+        else if segueID == "toProfileSegue" {
             let vc = segue.destination as! ProfileMenuVC
             vc.image = self.profileOutlet.image
             vc.user = self.user
+        }
+        else if segueID == "PhotoLibSegue" {
+            let destination = segue.destination as! UINavigationController
+            let photoLibVC = destination.topViewController as! PhotoLibChallengeVC
+            photoLibVC.user = self.user
+            photoLibVC.mode = PhotoLibChallengeVC.PHOTO_LIB_MODE
         }
         
     }

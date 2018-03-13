@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="xl8-vX-Gxx">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14105" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="xl8-vX-Gxx">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -64,7 +64,7 @@
                                         <constraints>
                                             <constraint firstAttribute="width" constant="30" id="gGn-oA-frr"/>
                                         </constraints>
-                                        <state key="normal" image="Album"/>
+                                        <state key="normal" image="Friends"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="albumID"/>
                                         </userDefinedRuntimeAttributes>
@@ -84,7 +84,7 @@
                                             </mask>
                                         </variation>
                                         <connections>
-                                            <action selector="photoLibPressed:" destination="xl8-vX-Gxx" eventType="touchUpInside" id="BFg-d1-c7z"/>
+                                            <segue destination="yxH-WE-kfZ" kind="show" identifier="FriendsListSegue" id="ubx-0L-B1x"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LsS-Sf-gqa">
@@ -130,7 +130,7 @@
                                             </mask>
                                         </variation>
                                         <connections>
-                                            <segue destination="yxH-WE-kfZ" kind="show" identifier="FriendsListSegue" action="showDetailViewController:sender:" id="fKc-ek-JHm"/>
+                                            <action selector="tutorialAction:" destination="xl8-vX-Gxx" eventType="touchUpInside" id="pEN-g5-9F7"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -304,20 +304,12 @@
                         <outlet property="pointsOutlet" destination="iZ6-Va-TeO" id="w20-yM-5gl"/>
                         <outlet property="profileImage" destination="Xmp-Hf-UuP" id="zEb-Lu-S21"/>
                         <outlet property="settingsOutlet" destination="biY-QW-0fE" id="QAG-L3-SKH"/>
-                        <segue destination="AQ6-lx-qlO" kind="show" identifier="PhotoLibSegue" id="6Za-nQ-0Vc"/>
+                        <segue destination="ntT-mi-ebp" kind="show" identifier="TutorialSegue" id="lRe-Zc-Lec"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sYY-XP-D5C" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="890.39999999999998" y="-55.418719211822662"/>
-        </scene>
-        <!--PhotoLibChallenge-->
-        <scene sceneID="rf1-Wh-0UX">
-            <objects>
-                <viewControllerPlaceholder storyboardName="PhotoLibChallenge" id="AQ6-lx-qlO" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="O7o-tc-pEq" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1705" y="-157"/>
         </scene>
         <!--Settings-->
         <scene sceneID="MMS-Nc-cDu">
@@ -325,7 +317,15 @@
                 <viewControllerPlaceholder storyboardName="Settings" id="OHf-KD-epp" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i7M-zg-oNZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1706" y="160"/>
+            <point key="canvasLocation" x="1694" y="-55"/>
+        </scene>
+        <!--Tutorial-->
+        <scene sceneID="R08-0m-CMS">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Tutorial" id="ntT-mi-ebp" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cTG-zh-Kvt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1694" y="-2"/>
         </scene>
         <!--LeaderboardsFriends-->
         <scene sceneID="rqR-US-Mr2">
@@ -333,13 +333,13 @@
                 <viewControllerPlaceholder storyboardIdentifier="LeaderboardsFriends" storyboardName="LeaderboardsFriends" id="yxH-WE-kfZ" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="shL-Vz-AX3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1458" y="336"/>
+            <point key="canvasLocation" x="890" y="451"/>
         </scene>
     </scenes>
     <resources>
         <image name="About" width="250" height="250"/>
-        <image name="Album" width="256" height="256"/>
         <image name="ArrowDown" width="100" height="100"/>
+        <image name="Friends" width="256" height="256"/>
         <image name="Logo Text Wide" width="682" height="233"/>
         <image name="Settings" width="250" height="250"/>
     </resources>

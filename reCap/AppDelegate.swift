@@ -63,9 +63,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     private func setRootAsSignIn() {
-        let signInStoryboard = UIStoryboard(name: "SignIn", bundle: nil)
-        self.window?.rootViewController = signInStoryboard.instantiateInitialViewController()
+        
+        let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
+        if launchedBefore  {
+            print("Not first launch.")
+            let signInStoryboard = UIStoryboard(name: "SignIn", bundle: nil)
+            self.window?.rootViewController = signInStoryboard.instantiateInitialViewController()
+        } else {
+            print("First launch, setting UserDefault.")
+            UserDefaults.standard.set(true, forKey: "launchedBefore")
+            let signInStoryboard = UIStoryboard(name: "Tutorial", bundle: nil)
+            self.window?.rootViewController = signInStoryboard.instantiateInitialViewController()
+        }
+        
+        
     }
+    
+    
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+        if self.window?.rootViewController?.presentedViewController is TutorialContainerVC {
+            print("Is onboard view controller, locking orientation.")
+            return UIInterfaceOrientationMask.portrait
+        } else {
+            return UIInterfaceOrientationMask.all
+        }
+    }
+    
+
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

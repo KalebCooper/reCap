@@ -58,7 +58,7 @@ class ProfileMenuVC: UIViewController {
         
         logoOutlet.hero.modifiers = [.duration(duration), .useScaleBasedSizeChange]
         
-        albumOutlet.hero.modifiers = [.duration(duration), .arc(intensity: 1.0)]
+        albumOutlet.hero.modifiers = [.fade, .duration(duration), .arc(intensity: 1.0)]
         
         settingsOutlet.hero.modifiers = [.fade, .duration(duration), .arc(intensity: 1.0)]
         
@@ -68,12 +68,16 @@ class ProfileMenuVC: UIViewController {
     }
     
     // MARK: - Outlet Actions
-
+    
     /*
      Photo library button pressed
-    */
+     */
     @IBAction func photoLibPressed(_ sender: Any) {
         self.performSegue(withIdentifier: "PhotoLibSegue", sender: self.user)
+    }
+    
+    @IBAction func tutorialAction(_ sender: Any) {
+        self.performSegue(withIdentifier: "TutorialSegue", sender: self.user)
     }
     
     func setupGestures() {
@@ -95,7 +99,7 @@ class ProfileMenuVC: UIViewController {
                 print("Swiped left")
             case UISwipeGestureRecognizerDirection.up:
                 print("Swiped up")
-                //self.performSegue(withIdentifier: "toCameraSegue", sender: self)
+            //self.performSegue(withIdentifier: "toCameraSegue", sender: self)
             default:
                 break
             }
@@ -117,7 +121,7 @@ class ProfileMenuVC: UIViewController {
                 
                 self.nameOutlet.text = name
                 self.pointsOutlet.text = "Points: \(points)"
-            
+                
             }
             
             
@@ -168,10 +172,10 @@ class ProfileMenuVC: UIViewController {
         
     }
     
-
+    
     
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
@@ -189,7 +193,12 @@ class ProfileMenuVC: UIViewController {
             friendsVC.user = self.user
             friendsVC.mode = LeaderboardsFriendsVC.FRIENDS_LIST_MODE
         }
+        else if segueID == "TutorialSegue" {
+            let desination = segue.destination as! UINavigationController
+            let tutorialVC = desination.topViewController as! TutorialContainerVC
+            
+        }
     }
     
-
+    
 }

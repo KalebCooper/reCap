@@ -87,6 +87,7 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
     // MARK: - Setup Methods
     
     private func setupPhotoLib() {
+        self.title = "Photo Library"
         locations = []
         locationDictionary = [:]
         self.tableView.allowsSelection = false
@@ -111,6 +112,7 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
     }
     
     private func setupChallenge() {
+        self.title = "Challenges"
         challenges = [PhotoLibChallengeVC.TAKE_PIC_FROM_RECENT, PhotoLibChallengeVC.TAKE_PIC_FROM_WEEK, PhotoLibChallengeVC.TAKE_PIC_FROM_MONTH, PhotoLibChallengeVC.TAKE_PIC_FROM_YEAR]
         challengesDictionary = [PhotoLibChallengeVC.TAKE_PIC_FROM_RECENT : [], PhotoLibChallengeVC.TAKE_PIC_FROM_WEEK : [], PhotoLibChallengeVC.TAKE_PIC_FROM_MONTH : [], PhotoLibChallengeVC.TAKE_PIC_FROM_YEAR : []]
         self.tableView.allowsSelection = false

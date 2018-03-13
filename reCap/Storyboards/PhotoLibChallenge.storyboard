@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Challenges-->
+        <!--Photo Lib ChallengeVC-->
         <scene sceneID="8Ru-Ie-HI6">
             <objects>
                 <tableViewController storyboardIdentifier="PhotoLibChalTable" automaticallyAdjustsScrollViewInsets="NO" id="KeL-9O-FUY" customClass="PhotoLibChallengeVC" customModule="reCap" customModuleProvider="target" sceneMemberID="viewController">
@@ -98,7 +98,7 @@
                             <outlet property="delegate" destination="KeL-9O-FUY" id="d35-VW-Oye"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Challenges" id="ezU-ss-VqU">
+                    <navigationItem key="navigationItem" id="ezU-ss-VqU">
                         <barButtonItem key="leftBarButtonItem" title="Back" id="v8F-P5-OGe">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <connections>

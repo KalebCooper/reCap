@@ -19,6 +19,7 @@ target 'reCap' do
   pod 'Pageboy'
   pod 'SkyFloatingLabelTextField'
   pod 'IHKeyboardAvoiding'
+  pod 'SwiftyOnboard'
 
   target 'reCapTests' do
     inherit! :search_paths

@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D97824C5E1225A5396300CA556612848"
+               BlueprintIdentifier = "0E987C0B4C374D85212D376162AABE2C"
                BuildableName = "MapboxDirections.framework"
                BlueprintName = "MapboxDirections.swift"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D97824C5E1225A5396300CA556612848"
+            BlueprintIdentifier = "0E987C0B4C374D85212D376162AABE2C"
             BuildableName = "MapboxDirections.framework"
             BlueprintName = "MapboxDirections.swift"
             ReferencedContainer = "container:Pods.xcodeproj">

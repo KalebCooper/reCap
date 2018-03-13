@@ -26,7 +26,7 @@
                 <viewControllerPlaceholder storyboardName="Profile" id="4eq-Id-h8l" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hf3-C8-0i5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1699" y="-672"/>
+            <point key="canvasLocation" x="1698" y="-446"/>
         </scene>
         <!--Camera ContainerVC-->
         <scene sceneID="imP-jy-psf">
@@ -107,6 +107,9 @@
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="albumID"/>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="albumAction:" destination="eaR-CF-qzQ" eventType="touchUpInside" id="rwK-Qg-aX8"/>
+                                </connections>
                             </button>
                             <button opaque="NO" clipsSubviews="YES" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gc9-NS-DgZ">
                                 <rect key="frame" x="147.66666666666666" y="698" width="80" height="80"/>
@@ -228,6 +231,7 @@
                         <outlet property="previousOutlet" destination="FOv-tB-rnB" id="Nn4-Tg-pjQ"/>
                         <outlet property="profileOutlet" destination="5ki-EW-e73" id="p0g-qW-Ebt"/>
                         <segue destination="5FS-bp-BS6" kind="show" identifier="confirmPictureSegue" id="kFW-dU-a72"/>
+                        <segue destination="s0g-WG-yhX" kind="show" identifier="PhotoLibSegue" id="Kv9-wl-Yjg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XEx-pb-nLB" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -248,6 +252,14 @@
                 </containerView>
             </objects>
             <point key="canvasLocation" x="1160.8" y="-155.17241379310346"/>
+        </scene>
+        <!--PhotoLibChallenge-->
+        <scene sceneID="xXo-mU-OGD">
+            <objects>
+                <viewControllerPlaceholder storyboardName="PhotoLibChallenge" id="s0g-WG-yhX" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="U6f-AL-bVT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1758" y="135"/>
         </scene>
         <!--Image ConfirmVC-->
         <scene sceneID="AKJ-OD-tFd">
@@ -379,7 +391,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="KA9-3D-ilP" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                        <rect key="frame" x="8" y="126" width="359" height="31"/>
+                                        <rect key="frame" x="8" y="144.33333333333337" width="359" height="48.666666666666657"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <fontDescription key="fontDescription" name="Triomphe-Light" family="Triomphe" pointSize="18"/>
@@ -421,7 +433,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="O7M-hv-fHF" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                        <rect key="frame" x="8" y="60" width="359" height="58"/>
+                                        <rect key="frame" x="8" y="59.999999999999993" width="359" height="76.333333333333314"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <fontDescription key="fontDescription" name="Triomphe-Bold" family="Triomphe" pointSize="36"/>

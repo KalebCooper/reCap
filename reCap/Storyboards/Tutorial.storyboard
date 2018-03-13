@@ -1,203 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14101" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="OzK-Za-X6g">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14105" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="4ye-9R-NCZ">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14086"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="triomphe-bold-autoinstr.ttf">
-            <string>Triomphe-Bold</string>
-        </array>
-        <array key="triomphe-light-autoinstr.ttf">
-            <string>Triomphe-Light</string>
-        </array>
-    </customFonts>
     <scenes>
-        <!--Tutorial WelcomeVC-->
-        <scene sceneID="u65-Km-xX7">
-            <objects>
-                <viewController storyboardIdentifier="TutorialWelcome" useStoryboardIdentifierAsRestorationIdentifier="YES" id="XWU-eU-ZT4" customClass="TutorialWelcomeVC" customModule="reCap" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="bmk-J1-mUS">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="reCapp" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1H4-MG-Dyk">
-                                <rect key="frame" x="16" y="306" width="343" height="200"/>
-                                <fontDescription key="fontDescription" name="Triomphe-Bold" family="Triomphe" pointSize="90"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="reCapp"/>
-                                </userDefinedRuntimeAttributes>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to.." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gyd-dz-Ylp">
-                                <rect key="frame" x="16" y="306" width="343" height="39"/>
-                                <fontDescription key="fontDescription" name="Triomphe-Light" family="Triomphe" pointSize="30"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="reCapp"/>
-                                </userDefinedRuntimeAttributes>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="Jvj-LI-RYk" firstAttribute="bottom" secondItem="gyd-dz-Ylp" secondAttribute="bottom" constant="433" id="0Je-8W-aBQ"/>
-                            <constraint firstItem="gyd-dz-Ylp" firstAttribute="trailing" secondItem="1H4-MG-Dyk" secondAttribute="trailing" id="7EE-fE-7G5"/>
-                            <constraint firstItem="gyd-dz-Ylp" firstAttribute="top" secondItem="1H4-MG-Dyk" secondAttribute="top" id="9ly-MO-txq"/>
-                            <constraint firstItem="1H4-MG-Dyk" firstAttribute="leading" secondItem="bmk-J1-mUS" secondAttribute="leadingMargin" id="A8u-Ql-VR7"/>
-                            <constraint firstItem="1H4-MG-Dyk" firstAttribute="centerY" secondItem="bmk-J1-mUS" secondAttribute="centerY" id="V66-gy-VAM"/>
-                            <constraint firstItem="gyd-dz-Ylp" firstAttribute="leading" secondItem="1H4-MG-Dyk" secondAttribute="leading" id="pwZ-40-TKs"/>
-                            <constraint firstItem="1H4-MG-Dyk" firstAttribute="top" secondItem="Jvj-LI-RYk" secondAttribute="top" constant="262" id="r4O-dk-EUP"/>
-                            <constraint firstItem="1H4-MG-Dyk" firstAttribute="trailing" secondItem="bmk-J1-mUS" secondAttribute="trailingMargin" id="tbE-GH-I3r"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="Jvj-LI-RYk"/>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
-                        </userDefinedRuntimeAttributes>
-                    </view>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
-                    </userDefinedRuntimeAttributes>
-                    <connections>
-                        <outlet property="recappOutlet" destination="1H4-MG-Dyk" id="bkz-DL-eIZ"/>
-                        <segue destination="OzK-Za-X6g" kind="presentation" identifier="backward" id="EeX-sB-la1"/>
-                        <segue destination="IT8-F3-oET" kind="presentation" identifier="forward" id="tcX-ou-8JR"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="kXN-mk-3On" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1820" y="68.7192118226601"/>
-        </scene>
-        <!--Tutorial ErosionVC-->
-        <scene sceneID="ccc-RW-1dq">
-            <objects>
-                <viewController storyboardIdentifier="TutorialErosion" useStoryboardIdentifierAsRestorationIdentifier="YES" id="IT8-F3-oET" customClass="TutorialErosionVC" customModule="reCap" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="qVP-46-yPT">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="                 allows you to document town and city growth over time." textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="y2g-8g-LUL">
-                                <rect key="frame" x="37" y="200" width="300" height="184"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" name="Triomphe-Bold" family="Triomphe" pointSize="24"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabledForSubviews" value="YES"/>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
-                                </userDefinedRuntimeAttributes>
-                            </textView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="reCapp" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zra-hH-tti">
-                                <rect key="frame" x="58" y="200" width="100" height="51"/>
-                                <fontDescription key="fontDescription" name="Triomphe-Bold" family="Triomphe" pointSize="27"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="reCapp"/>
-                                </userDefinedRuntimeAttributes>
-                            </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qfj-gW-NTI" customClass="LayerView" customModule="reCap" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
-                                <color key="backgroundColor" red="0.90823972225189209" green="0.92638683319091797" blue="0.9317171573638916" alpha="1" colorSpace="calibratedRGB"/>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="Qfj-gW-NTI" firstAttribute="centerX" secondItem="y2g-8g-LUL" secondAttribute="centerX" id="67r-rE-Q96"/>
-                            <constraint firstAttribute="trailing" secondItem="Qfj-gW-NTI" secondAttribute="trailing" id="7NH-g0-8tj"/>
-                            <constraint firstItem="y2g-8g-LUL" firstAttribute="top" secondItem="zra-hH-tti" secondAttribute="top" id="9Nz-Rf-Aza"/>
-                            <constraint firstAttribute="bottom" secondItem="Qfj-gW-NTI" secondAttribute="bottom" id="BUs-C3-2mT"/>
-                            <constraint firstItem="ku2-tx-2Sz" firstAttribute="bottom" secondItem="y2g-8g-LUL" secondAttribute="bottom" constant="394" id="CbU-As-FPX"/>
-                            <constraint firstItem="y2g-8g-LUL" firstAttribute="leading" secondItem="ku2-tx-2Sz" secondAttribute="leading" constant="37" id="Els-R6-3w8"/>
-                            <constraint firstItem="ku2-tx-2Sz" firstAttribute="trailing" secondItem="zra-hH-tti" secondAttribute="trailing" constant="217" id="QNa-Do-rPl"/>
-                            <constraint firstItem="Qfj-gW-NTI" firstAttribute="leading" secondItem="qVP-46-yPT" secondAttribute="leading" id="a2F-nr-Zeu"/>
-                            <constraint firstItem="zra-hH-tti" firstAttribute="top" secondItem="ku2-tx-2Sz" secondAttribute="top" constant="156" id="g8N-4x-vlf"/>
-                            <constraint firstItem="ku2-tx-2Sz" firstAttribute="bottom" secondItem="zra-hH-tti" secondAttribute="bottom" constant="527" id="gXf-ME-4CJ"/>
-                            <constraint firstItem="Qfj-gW-NTI" firstAttribute="top" secondItem="qVP-46-yPT" secondAttribute="top" id="lbB-nK-kUw"/>
-                            <constraint firstItem="zra-hH-tti" firstAttribute="leading" secondItem="ku2-tx-2Sz" secondAttribute="leading" constant="58" id="tzd-CE-C51"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="ku2-tx-2Sz"/>
-                    </view>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
-                    </userDefinedRuntimeAttributes>
-                    <connections>
-                        <outlet property="recappOutlet" destination="zra-hH-tti" id="VaU-nU-qKf"/>
-                        <segue destination="XWU-eU-ZT4" kind="presentation" identifier="backward" id="4Tn-yf-VKZ"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="JNL-zI-YSD" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2629.5999999999999" y="68.7192118226601"/>
-        </scene>
-        <!--Tutorial TransitionVC-->
+        <!--Tutorial ContainerVC-->
         <scene sceneID="Yjx-tk-zfX">
             <objects>
-                <viewController storyboardIdentifier="TutorialTransition" useStoryboardIdentifierAsRestorationIdentifier="YES" id="fed-Cj-5Lu" customClass="TutorialTransitionVC" customModule="reCap" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="B82-VA-MHK" customClass="TutorialTrans">
+                <viewController useStoryboardIdentifierAsRestorationIdentifier="YES" id="fed-Cj-5Lu" customClass="TutorialContainerVC" customModule="reCap" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="B82-VA-MHK">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo Text Wide" translatesAutoresizingMaskIntoConstraints="NO" id="9lT-Xb-pnn">
-                                <rect key="frame" x="0.0" y="277" width="375" height="258"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="reCapp"/>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
-                                </userDefinedRuntimeAttributes>
-                            </imageView>
-                        </subviews>
-                        <constraints>
-                            <constraint firstItem="9lT-Xb-pnn" firstAttribute="leading" secondItem="B82-VA-MHK" secondAttribute="leading" id="1DN-yG-clL"/>
-                            <constraint firstItem="9lT-Xb-pnn" firstAttribute="centerY" secondItem="B82-VA-MHK" secondAttribute="centerY" id="Io6-sM-yPg"/>
-                            <constraint firstItem="9lT-Xb-pnn" firstAttribute="top" secondItem="S4z-eh-amO" secondAttribute="top" constant="233" id="RCd-tR-zlA"/>
-                            <constraint firstAttribute="trailing" secondItem="9lT-Xb-pnn" secondAttribute="trailing" id="axp-Vl-Pr8"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="S4z-eh-amO"/>
                     </view>
                     <navigationItem key="navigationItem" id="qZh-wG-GU2"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
                     </userDefinedRuntimeAttributes>
-                    <connections>
-                        <outlet property="logoOutlet" destination="9lT-Xb-pnn" id="EwA-Gn-eaJ"/>
-                        <segue destination="XWU-eU-ZT4" kind="presentation" identifier="forward" id="TRk-Zk-fCV"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h4e-jf-QcW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="914.39999999999998" y="68.7192118226601"/>
+            <point key="canvasLocation" x="1856.8" y="68.7192118226601"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="Un6-qu-xTc">
+        <scene sceneID="yhw-fy-0Cf">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="OzK-Za-X6g" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="4ye-9R-NCZ" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="bsV-EQ-WWs">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="DTt-DU-u03">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
-                    </userDefinedRuntimeAttributes>
                     <connections>
-                        <segue destination="fed-Cj-5Lu" kind="relationship" relationship="rootViewController" id="rdd-Ms-ctT"/>
+                        <segue destination="fed-Cj-5Lu" kind="relationship" relationship="rootViewController" id="O3h-03-7KC"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="2eC-cv-cFY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="otZ-Xl-GGk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-28" y="68.7192118226601"/>
+            <point key="canvasLocation" x="914.39999999999998" y="68.7192118226601"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="Logo Text Wide" width="682" height="233"/>
-    </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="4Tn-yf-VKZ"/>
-    </inferredMetricsTieBreakers>
 </document>

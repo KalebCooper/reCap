@@ -152,7 +152,7 @@
                 <viewControllerPlaceholder storyboardName="PhotoLibChallenge" id="Ztc-u2-vd8" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qJo-W9-y9Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2441" y="-203"/>
+            <point key="canvasLocation" x="2441" y="-191"/>
         </scene>
         <!--Leaderboards-->
         <scene sceneID="Lx1-2j-jBS">
