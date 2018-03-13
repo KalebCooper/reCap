@@ -5,7 +5,6 @@
 //  Created by Jackson Delametter on 2/4/18.
 //  Copyright © 2018 Kaleb Cooper. All rights reserved.
 //
-
 import Foundation
 import Firebase
 
@@ -272,7 +271,7 @@ class FBDatabase {
      Gets all users ordered by given
      child and the maximum number
      of users to fetch
-    */
+     */
     class func getAllUsers(query_by child: String, with_max_query number: Int, with_ref ref: DatabaseReference, with_completion completion: @escaping (_ users: [User]) -> ()) {
         ref.child(USER_NODE).queryOrdered(byChild: child).queryLimited(toFirst: UInt(number)).observe(.value, with: {(snapshot) in
             var userList: [User] = []
@@ -347,7 +346,7 @@ class FBDatabase {
                 let pictureData = PictureData(name: name, description: description, gpsCoordinates: coordinates, orientation: orientation, owner: owner, time: time, locationName: locationName, id: id)
                 completion(pictureData)
             }
-            
+                
             else {
                 // Database does not have picture data in it
                 completion(nil)
@@ -376,7 +375,7 @@ class FBDatabase {
             else {
                 completion(nil)
             }
-        } 
+        }
     }
     
     /*
@@ -485,4 +484,3 @@ class FBDatabase {
         
     }
 }
-

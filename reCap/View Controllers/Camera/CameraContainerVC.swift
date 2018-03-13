@@ -339,15 +339,6 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
                                     let long = location.coordinate.longitude.truncate(places: 6)
                                 
                                     
-                                    
-                                    //Get Active Challenge ID
-                                    //Get Challenge Coordinates
-                                    //Get angle between current location and challenge location
-                                    //Update self.destinationAngle
-                                    //Go to didUpdateHeading and rotate arrowOutlet using angle compared to true north.
-                                    
-                                    //Testing with 0,0 for now
-                                    
                                     if self.user.activeChallengeID != "" {
                                         let activeChallengeID = String(self.user.activeChallengeID)
                                         var destination: CLLocation? = CLLocation(latitude: 0, longitude: 0)
@@ -359,13 +350,6 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
                                             destination = CLLocation(latitude: destinationArray![0], longitude: destinationArray![1])
                                             angle = self.getBearingBetweenTwoPoints1(point1: location, point2: destination!)
                                             
-                                            //Check for orientation WIP
-//                                            if UIDevice.current.orientation == .landscapeLeft {
-//                                                angle = angle + 90
-//                                            }
-//                                            else if UIDevice.current.orientation == .landscapeRight {
-//                                                angle = angle - 90
-//                                            }
                                             
                                             
                                             self.destinationAngle = angle

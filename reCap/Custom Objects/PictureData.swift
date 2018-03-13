@@ -5,7 +5,6 @@
 //  Created by Jackson Delametter on 2/4/18.
 //  Copyright © 2018 Kaleb Cooper. All rights reserved.
 //
-
 import Foundation
 
 class PictureData {
@@ -41,7 +40,7 @@ class PictureData {
     
     /*
      Returns an id for picture data
-    */
+     */
     class func createPictureDataID() -> String {
         var id = UUID().uuidString
         id = id.replacingOccurrences(of: "-", with: "")

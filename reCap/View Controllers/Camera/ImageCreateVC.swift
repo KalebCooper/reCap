@@ -5,7 +5,6 @@
 //  Created by Kaleb Cooper on 2/9/18.
 //  Copyright © 2018 Kaleb Cooper. All rights reserved.
 //
-
 import UIKit
 import IHKeyboardAvoiding
 import SkyFloatingLabelTextField
@@ -99,7 +98,7 @@ class ImageCreateVC: UIViewController {
         
         
         imageView.image = image
-         self.locationOutlet.text = self.location
+        self.locationOutlet.text = self.location
         
         applyBlurEffect(image: image!)
         
@@ -139,4 +138,3 @@ class ImageCreateVC: UIViewController {
      */
     
 }
-

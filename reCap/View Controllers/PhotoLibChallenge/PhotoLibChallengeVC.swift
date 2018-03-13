@@ -146,17 +146,17 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
     func imageButtonPressed(image: UIImage, pictureData: PictureData) {
         print("Image Pressed")
         if mode == PhotoLibChallengeVC.CHALLENGE_MODE {
-            let alert = UIAlertController(title: nil, message: "How would you like to acept this challenge?", preferredStyle: .actionSheet)
-            let withNav = UIAlertAction(title: "With navigation", style: .default, handler: {(action) in
+            let alert = UIAlertController(title: nil, message: "What would you like to do with this challenge?", preferredStyle: .actionSheet)
+            let withNav = UIAlertAction(title: "Start Navigation", style: .default, handler: {(action) in
                 self.addChallengeToUser(pictureData: pictureData)
                 // TODO: Start navigation
                 self.navigationController?.dismiss(animated: true, completion: nil)
             })
-            let withoutNav = UIAlertAction(title: "Withought navigation", style: .default, handler: {(action) in
+            let withoutNav = UIAlertAction(title: "Make active challenge without navigation", style: .default, handler: {(action) in
                 self.addChallengeToUser(pictureData: pictureData)
                 self.navigationController?.dismiss(animated: true, completion: nil)
             })
-            let viewChallenge = UIAlertAction(title: "View Challenge", style: .default, handler: {(action) in
+            let viewChallenge = UIAlertAction(title: "View this challenge", style: .default, handler: {(action) in
                 self.performSegue(withIdentifier: "ViewChallengeSegue", sender: [pictureData, image])
             })
             let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
