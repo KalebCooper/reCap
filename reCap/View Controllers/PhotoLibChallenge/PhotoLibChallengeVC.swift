@@ -141,7 +141,7 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
                     })
                 }
             }
-        }*/
+        }
         FBDatabase.getRootPictureData(ref: ref, with_completion: {(pictureDataList) in
             ref.removeAllObservers()
             for pictureData in pictureDataList {
