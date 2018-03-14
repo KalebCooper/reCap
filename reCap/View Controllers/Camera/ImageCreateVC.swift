@@ -39,15 +39,25 @@ class ImageCreateVC: UIViewController {
     
     @IBAction func confirmPressed(_ sender: Any) {
         print("Confirmed Pressed")
+        var isRoot: Bool!
+        var groupID: String!
         let currentDate = Date()
         let stringPictureDate = DateGetter.getStringFromDate(date: currentDate)
-        let pictureData = PictureData(name: self.titleOutlet.text, description: self.descriptionOutlet.text!, gpsCoordinates: [self.lat!, self.long!], orientation: PictureData.ORIENTATION_PORTRAIT, owner: self.user.id, time: stringPictureDate, locationName: self.locationNameOutlet.text!, id: PictureData.createPictureDataID())
-        self.user.pictures.append(pictureData.id)
+        let pictureID = PictureData.createPictureDataID()
         if self.isAtChallengeLocation {
             // If the user took the picture at the challenge coordinates
             self.user.points = self.user.points + Int(self.user.activeChallengePoints)!
+            isRoot = false
+            groupID = self.user.activeChallengeID
             print("User earned \(self.user.activeChallengePoints) points")
         }
+        else {
+            print("root picture")
+            isRoot = true
+            groupID = pictureID
+        }
+        let pictureData = PictureData(name: self.titleOutlet.text, description: self.descriptionOutlet.text!, gpsCoordinates: [self.lat!, self.long!], orientation: PictureData.ORIENTATION_PORTRAIT, owner: self.user.id, time: stringPictureDate, locationName: self.locationNameOutlet.text!, id: pictureID, isRootPicture: isRoot, groupID: groupID)
+        self.user.pictures.append(pictureData.id)
         FBDatabase.addPicture(image: self.image!, pictureData: pictureData, with_completion: {(error) in
             if let actualError = error {
                 // There was an error

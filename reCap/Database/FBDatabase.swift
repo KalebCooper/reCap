@@ -35,6 +35,8 @@ class FBDatabase {
     public static let PICTURE_DATA_NODE = "Picture Data"
     public static let PICTURE_DATA_ID = "id"
     public static let PICTURE_NODE = "Pictures"
+    public static let PICTURE_IS_ROOT = "Root Picture"
+    public static let PICTURE_GROUP_ID = "Group ID"
     
     public static let LOGGED_IN_ID = "Logged in ID"
     public static let LOGGED_IN_EMAIL = "Logged in email"
@@ -315,7 +317,7 @@ class FBDatabase {
      */
     
     class func addUpdatePictureData(pictureData: PictureData, with_completion completion: @escaping (_ error: String?) -> ()) {
-        let jsonObject: [String : Any] = [PICTURE_DATA_NAME : pictureData.name, PICTURE_DESCRIPTION : pictureData.description, PICTURE_DATA_GPS : pictureData.gpsCoordinates, PICTURE_DATA_ORIENTATION : pictureData.orientation, PICTURE_DATA_OWNER : pictureData.owner, PICTURE_DATA_TIME : pictureData.time, PICTURE_DATA_LOCATION_NAME : pictureData.locationName, PICTURE_DATA_ID : pictureData.id]
+        let jsonObject: [String : Any] = [PICTURE_DATA_NAME : pictureData.name, PICTURE_DESCRIPTION : pictureData.description, PICTURE_DATA_GPS : pictureData.gpsCoordinates, PICTURE_DATA_ORIENTATION : pictureData.orientation, PICTURE_DATA_OWNER : pictureData.owner, PICTURE_DATA_TIME : pictureData.time, PICTURE_DATA_LOCATION_NAME : pictureData.locationName, PICTURE_DATA_ID : pictureData.id, PICTURE_IS_ROOT : pictureData.isRootPicture, PICTURE_GROUP_ID : pictureData.groupID]
         let ref = Database.database().reference()
         ref.child(PICTURE_DATA_NODE).child(pictureData.id).setValue(jsonObject, withCompletionBlock: {(error, ref) in
             if let actualError = error {
@@ -343,7 +345,9 @@ class FBDatabase {
                 let time = pictureDataNode[PICTURE_DATA_TIME] as! String
                 let locationName = pictureDataNode[PICTURE_DATA_LOCATION_NAME] as! String
                 let id = pictureDataNode[PICTURE_DATA_ID] as! String
-                let pictureData = PictureData(name: name, description: description, gpsCoordinates: coordinates, orientation: orientation, owner: owner, time: time, locationName: locationName, id: id)
+                let isRoot = pictureDataNode[PICTURE_IS_ROOT] as! Bool
+                let groupID = pictureDataNode[PICTURE_GROUP_ID] as! String
+                let pictureData = PictureData(name: name, description: description, gpsCoordinates: coordinates, orientation: orientation, owner: owner, time: time, locationName: locationName, id: id, isRootPicture: isRoot, groupID: groupID)
                 completion(pictureData)
             }
                 
@@ -351,6 +355,62 @@ class FBDatabase {
                 // Database does not have picture data in it
                 completion(nil)
             }
+        })
+    }
+    
+    /*
+     Gets all picture data with
+     the given group id
+    */
+    class func getPictureData(in_group group: String, ref: DatabaseReference, with_completion completion: @escaping (_ pictureData: [PictureData]) -> ()) {
+        var pictureDataList: [PictureData] = []
+        ref.child(PICTURE_DATA_NODE).queryOrdered(byChild: PICTURE_GROUP_ID).queryEqual(toValue: group).observe(.value, with: {(snapshot) in
+            print(snapshot.value)
+            if let pictureDataNodes = snapshot.value as? NSDictionary {
+                for node in pictureDataNodes {
+                    let pictureDataNode = node.value as! NSDictionary
+                    let name = pictureDataNode[PICTURE_DATA_NAME] as! String
+                    let description = pictureDataNode[PICTURE_DESCRIPTION] as! String
+                    let coordinates = pictureDataNode[PICTURE_DATA_GPS] as! [Double]
+                    let orientation = pictureDataNode[PICTURE_DATA_ORIENTATION] as! Int
+                    let owner = pictureDataNode[PICTURE_DATA_OWNER] as! String
+                    let time = pictureDataNode[PICTURE_DATA_TIME] as! String
+                    let locationName = pictureDataNode[PICTURE_DATA_LOCATION_NAME] as! String
+                    let id = pictureDataNode[PICTURE_DATA_ID] as! String
+                    let isRoot = pictureDataNode[PICTURE_IS_ROOT] as! Bool
+                    let groupID = pictureDataNode[PICTURE_GROUP_ID] as! String
+                    let pictureData = PictureData(name: name, description: description, gpsCoordinates: coordinates, orientation: orientation, owner: owner, time: time, locationName: locationName, id: id, isRootPicture: isRoot, groupID: groupID)
+                    pictureDataList.append(pictureData)
+                }
+            }
+            completion(pictureDataList)
+        })
+    }
+    
+    /*
+     Gets root picture data
+    */
+    class func getRootPictureData(ref: DatabaseReference, with_completion completion: @escaping (_ pictureData: [PictureData]) -> ()) {
+        var pictureDataList: [PictureData] = []
+        ref.child(PICTURE_DATA_NODE).queryOrdered(byChild: PICTURE_IS_ROOT).queryEqual(toValue: true).observe(.value, with: {(snapshot) in
+            if let pictureDataNodes = snapshot.value as? NSDictionary {
+                for node in pictureDataNodes {
+                    let pictureDataNode = node.value as! NSDictionary
+                    let name = pictureDataNode[PICTURE_DATA_NAME] as! String
+                    let description = pictureDataNode[PICTURE_DESCRIPTION] as! String
+                    let coordinates = pictureDataNode[PICTURE_DATA_GPS] as! [Double]
+                    let orientation = pictureDataNode[PICTURE_DATA_ORIENTATION] as! Int
+                    let owner = pictureDataNode[PICTURE_DATA_OWNER] as! String
+                    let time = pictureDataNode[PICTURE_DATA_TIME] as! String
+                    let locationName = pictureDataNode[PICTURE_DATA_LOCATION_NAME] as! String
+                    let id = pictureDataNode[PICTURE_DATA_ID] as! String
+                    let isRoot = pictureDataNode[PICTURE_IS_ROOT] as! Bool
+                    let groupID = pictureDataNode[PICTURE_GROUP_ID] as! String
+                    let pictureData = PictureData(name: name, description: description, gpsCoordinates: coordinates, orientation: orientation, owner: owner, time: time, locationName: locationName, id: id, isRootPicture: isRoot, groupID: groupID)
+                    pictureDataList.append(pictureData)
+                }
+            }
+            completion(pictureDataList)
         })
     }
     
@@ -399,7 +459,9 @@ class FBDatabase {
                     let time = pictureDataData[PICTURE_DATA_TIME] as! String
                     let locationName = pictureDataData[PICTURE_DATA_LOCATION_NAME] as! String
                     let id = pictureDataData[PICTURE_DATA_ID] as! String
-                    let pictureData = PictureData(name: name, description: description, gpsCoordinates: coordinates, orientation: orientation, owner: owner, time: time, locationName: locationName, id: id)
+                    let isRoot = pictureDataData[PICTURE_IS_ROOT] as! Bool
+                    let groupID = pictureDataData[PICTURE_GROUP_ID] as! String
+                    let pictureData = PictureData(name: name, description: description, gpsCoordinates: coordinates, orientation: orientation, owner: owner, time: time, locationName: locationName, id: id, isRootPicture: isRoot, groupID: groupID)
                     pictureDataList.append(pictureData)
                 }
             }
