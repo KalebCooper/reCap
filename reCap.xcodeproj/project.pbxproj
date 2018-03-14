@@ -358,6 +358,8 @@
 			children = (
 				7A38A276202AB56C00DF239F /* PhotoLibChallengeVC.swift */,
 				7A120DD02041F4B50003EE1F /* ImageButtonDelegate.swift */,
+				7A120DCE2041F0560003EE1F /* PhotoChalColCell.swift */,
+				7A38A274202AB56100DF239F /* PhotoChallengeTableCell.swift */,
 			);
 			path = PhotoLibChallenge;
 			sourceTree = "<group>";
@@ -388,8 +390,6 @@
 			isa = PBXGroup;
 			children = (
 				7AF10F562058DA7D00019C70 /* SnappingCollectionViewLayout.swift */,
-				7A38A274202AB56100DF239F /* PhotoChallengeTableCell.swift */,
-				7A120DCE2041F0560003EE1F /* PhotoChalColCell.swift */,
 				7A120DD22041F7A70003EE1F /* PhotoVC.swift */,
 			);
 			path = Reusable;
