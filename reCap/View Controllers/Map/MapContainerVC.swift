@@ -12,15 +12,12 @@ import Firebase
 class MapContainerVC: UIViewController {
     
     // MARK: - Properties
-    var portraitShadow: EdgeShadowLayer? = nil
-    var landscapeShadow: EdgeShadowLayer? = nil
     var user: User!
     private static let CHALLENGE_SEGUE = "ChallengeSegue"
 
     override func viewDidLoad() {
         super.viewDidLoad()
         if user != nil {
-            initializeShadow()
         }
         // Do any additional setup after loading the view.
     }
@@ -29,39 +26,6 @@ class MapContainerVC: UIViewController {
         return .lightContent
     }
     
-    func initializeShadow() {
-        if UIDevice.current.orientation.isLandscape {
-            landscapeShadow = EdgeShadowLayer(forView: view, edge: .Top)
-            self.view.layer.insertSublayer(landscapeShadow!, at: 1)
-        }
-        else {
-            portraitShadow = EdgeShadowLayer(forView: view, edge: .Top)
-            self.view.layer.insertSublayer(portraitShadow!, at: 1)
-        }
-    }
-    
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        let when = DispatchTime.now() + 0.15 // change 2 to desired number of seconds
-        DispatchQueue.main.asyncAfter(deadline: when) {
-            
-            if UIDevice.current.orientation.isLandscape {
-                if (self.view.layer.sublayers?.contains(self.portraitShadow!))! {
-                    self.portraitShadow?.removeFromSuperlayer()
-                }
-                self.landscapeShadow = EdgeShadowLayer(forView: self.view, edge: .Top)
-                self.view.layer.insertSublayer(self.landscapeShadow!, at: 1)
-            }
-            else {
-                if (self.view.layer.sublayers?.contains(self.landscapeShadow!))! {
-                    self.landscapeShadow?.removeFromSuperlayer()
-                }
-                self.portraitShadow = EdgeShadowLayer(forView: self.view, edge: .Top)
-                self.view.layer.insertSublayer(self.portraitShadow!, at: 1)
-            }
-        }
-        
-        
-    }
     
     // MARK: - Outlet Actions
     

@@ -26,12 +26,6 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     
     @IBOutlet weak var previewView: UIView!
     
-    var portraitTopShadow: EdgeShadowLayer? = nil
-    var portraitBotShadow: EdgeShadowLayer? = nil
-    var landscapeTopShadow: EdgeShadowLayer? = nil
-    var landscapeBotShadow: EdgeShadowLayer? = nil
-    
-    
     
     var imageToPass: UIImage?
     var latToPass: Double?
@@ -52,6 +46,8 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     
     var captureDevice: AVCaptureDevice?
     
+    var previousImageView: UIImageView?
+    var previousImageContentMode: UIViewContentMode?
     
     
     let blackColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
@@ -63,13 +59,61 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     
     
     @IBAction func buttonPressed(_ sender: Any) {
-        
-        
         self.stillImageOutput?.capturePhoto(with: self.photoSetting, delegate: self)
-        
     }
     @IBAction func albumAction(_ sender: Any) {
         self.performSegue(withIdentifier: "PhotoLibSegue", sender: self.user)
+    }
+
+    
+    @IBAction func previousHoldAction(_ sender: Any) {
+        print("Touching")
+        
+        //self.previewView.addSubview(self.previousImageView!)
+        
+         if self.previousImageContentMode == .scaleToFill {
+            
+            if UIDevice.current.orientation == .portrait {
+                UIView.animate(withDuration: 0.25, animations: {
+                    self.previousImageView?.alpha = 1.0
+                })
+            }
+            
+        }
+        else {
+            
+            UIView.animate(withDuration: 0.25, animations: {
+                self.previousImageView?.alpha = 1.0
+            })
+            
+        }
+        
+
+        
+        
+        
+        
+        
+    }
+    
+    @IBAction func previousUpInside(_ sender: Any) {
+        
+        UIView.animate(withDuration: 0.25, animations: {
+            self.previousImageView?.alpha = 0.0
+        })
+        
+        //self.previousImageView?.removeFromSuperview()
+        print("Touching ended inside")
+        
+        
+    }
+    @IBAction func previousUpOutside(_ sender: Any) {
+        
+        UIView.animate(withDuration: 0.25, animations: {
+            self.previousImageView?.alpha = 0.0
+        })
+        //self.previousImageView?.removeFromSuperview()
+        print("Touching ended outside")
     }
     
     override func viewDidLoad() {
@@ -78,7 +122,6 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
             setupProfileImage()
             setupHero()
             setupCamera()
-            initializeShadow()
             configureButton()
             setupGestures()
         }
@@ -254,65 +297,29 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     }
     
     
-    func initializeShadow() {
-        
-        let shadowRadius = self.logoText.layer.frame.maxY + 8
-        
-        if UIDevice.current.orientation.isLandscape {
-            self.landscapeTopShadow = EdgeShadowLayer(forView: view, edge: .Top, shadowRadius: shadowRadius, toColor: .clear, fromColor: blackColor)
-            self.view.layer.insertSublayer(landscapeTopShadow!, at: 1)
-            
-            self.landscapeBotShadow = EdgeShadowLayer(forView: view, edge: .Bottom, shadowRadius: self.locationOutlet.frame.minY - 8, toColor: .clear, fromColor: blackColor)
-            self.view.layer.insertSublayer(landscapeBotShadow!, at: 1)
-        }
-        else {
-            self.portraitTopShadow = EdgeShadowLayer(forView: view, edge: .Top, shadowRadius: shadowRadius, toColor: .clear, fromColor: blackColor)
-            self.view.layer.insertSublayer(portraitTopShadow!, at: 1)
-            
-            
-            self.portraitBotShadow = EdgeShadowLayer(forView: view, edge: .Bottom, shadowRadius: self.locationOutlet.frame.minY - 8, toColor: .clear, fromColor: blackColor)
-            self.view.layer.insertSublayer(portraitBotShadow!, at: 1)
-        }
-    }
-    
-    func updateShadows() {
-        
-        if UIDevice.current.orientation.isLandscape {
-            
-            if self.portraitTopShadow != nil {
-                
-                if (self.view.layer.sublayers?.contains(self.portraitTopShadow!))! {
-                    self.portraitTopShadow?.removeFromSuperlayer()
-                    self.portraitBotShadow?.removeFromSuperlayer()
-                }
-                
-                let shadowRadius = self.logoText.layer.frame.maxY + 8
-                self.landscapeTopShadow = EdgeShadowLayer(forView: self.view, edge: .Top, shadowRadius: shadowRadius, toColor: .clear, fromColor: self.blackColor)
-                self.view.layer.insertSublayer(self.landscapeTopShadow!, at: 1)
-                
-                
-            }
-            
-        }
-        else {
-            if self.landscapeTopShadow != nil {
-                
-                if (self.view.layer.sublayers?.contains(self.landscapeTopShadow!))! {
-                    self.landscapeTopShadow?.removeFromSuperlayer()
-                    self.landscapeBotShadow?.removeFromSuperlayer()
-                }
-                
-                let shadowRadius = self.logoText.layer.frame.maxY + 8
-                
-                self.portraitTopShadow = EdgeShadowLayer(forView: self.view, edge: .Top, shadowRadius: shadowRadius, toColor: .clear, fromColor: self.blackColor)
-                self.view.layer.insertSublayer(self.portraitTopShadow!, at: 1)
-                
-            }
-        }
-        
-    }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        
+        
+        if self.previousImageContentMode == .scaleToFill {
+            
+            if UIDevice.current.orientation == .landscapeLeft || UIDevice.current.orientation == .landscapeRight {
+                
+                print("Setting to scaleAspectFit")
+                self.previousImageView?.frame = self.previewView.frame
+                self.previousImageView?.contentMode = .center
+                self.previousOutlet.isEnabled = false
+                
+            }
+            else {
+                print("Setting to scaleToFill")
+                self.previousImageView?.contentMode = .scaleToFill
+                self.previousOutlet.isEnabled = true
+            }
+            
+        }
+        
+        
         let when = DispatchTime.now() + 0.01 // change 2 to desired number of seconds
         DispatchQueue.main.asyncAfter(deadline: when) {
             self.viewDidAppear(false)
@@ -436,7 +443,52 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         
         videoPreviewLayer!.frame = previewView.bounds
         
-        updateShadows()
+        
+    }
+    
+    func setupPreviousPicture() {
+        
+        let challengeID = self.user.activeChallengeID
+        let ref = Database.database().reference()
+        
+        FBDatabase.getPictureData(id: challengeID!, ref: ref) { (pictureData) in
+            
+            if pictureData != nil {
+                
+                FBDatabase.getPicture(pictureData: pictureData!, with_progress: { (progress, total) in
+                    
+                }, with_completion: { (image) in
+                    
+                    self.previousImageView = UIImageView(frame: self.view.frame)
+                    self.previousImageView?.image = image
+                    self.previousImageView?.alpha = 0.0
+                    
+                    if image?.imageOrientation == .left || image?.imageOrientation == .right {
+                        print("Image orientation up")
+                        self.previousImageView?.contentMode = .scaleToFill
+                        self.previousImageContentMode = .scaleToFill
+                    }
+                    else {
+                        print("Image Orientation landscape")
+                        self.previousImageView?.contentMode = .scaleAspectFill
+                        self.previousImageContentMode = .scaleAspectFill
+                    }
+                    
+                    self.previewView.addSubview(self.previousImageView!)
+                    
+                }
+                )
+                
+            }
+            else {
+                
+                self.previousOutlet.isEnabled = false
+                self.previousOutlet.isHidden = true
+                
+            }
+            
+            
+        }
         
     }
     
@@ -444,6 +496,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        setupPreviousPicture()
         setupLocation()
         
         if self.user != nil {

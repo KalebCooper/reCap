@@ -36,7 +36,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zzR-PA-LKL">
+                            <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="zzR-PA-LKL">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
@@ -92,6 +92,11 @@
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="leftID"/>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="previousHoldAction:" destination="eaR-CF-qzQ" eventType="touchDown" id="GE3-el-cJU"/>
+                                    <action selector="previousUpInside:" destination="eaR-CF-qzQ" eventType="touchUpInside" id="95l-0a-1pl"/>
+                                    <action selector="previousUpOutside:" destination="eaR-CF-qzQ" eventType="touchUpOutside" id="bKi-J6-uVC"/>
+                                </connections>
                             </button>
                             <button opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ykf-Zg-DG4">
                                 <rect key="frame" x="275" y="708" width="60" height="60"/>
@@ -154,7 +159,6 @@
                             <constraint firstItem="PPX-Rz-LL0" firstAttribute="top" secondItem="h5t-gw-Uin" secondAttribute="top" constant="10" id="9hI-9R-4BD"/>
                             <constraint firstItem="h5t-gw-Uin" firstAttribute="trailing" secondItem="Ykf-Zg-DG4" secondAttribute="trailing" constant="40" id="BcG-XN-k0v"/>
                             <constraint firstItem="zzR-PA-LKL" firstAttribute="top" secondItem="Ili-fW-OPC" secondAttribute="top" id="BcZ-7y-LvV"/>
-                            <constraint firstItem="zzR-PA-LKL" firstAttribute="centerY" secondItem="Ili-fW-OPC" secondAttribute="centerY" id="CVQ-ut-aVI"/>
                             <constraint firstItem="gc9-NS-DgZ" firstAttribute="centerY" secondItem="Ili-fW-OPC" secondAttribute="centerY" id="DEd-AF-EvZ"/>
                             <constraint firstItem="5ki-EW-e73" firstAttribute="centerX" secondItem="Ykf-Zg-DG4" secondAttribute="centerX" id="Gbf-nu-RPn"/>
                             <constraint firstItem="oeN-Wr-Wxk" firstAttribute="bottom" secondItem="h5t-gw-Uin" secondAttribute="bottom" id="HQK-9P-Yt0"/>
@@ -165,7 +169,6 @@
                             <constraint firstItem="h5t-gw-Uin" firstAttribute="bottom" secondItem="Ykf-Zg-DG4" secondAttribute="bottom" constant="10" id="WP2-XP-ALb"/>
                             <constraint firstItem="oeN-Wr-Wxk" firstAttribute="leading" secondItem="h5t-gw-Uin" secondAttribute="leading" id="aLp-wS-ppy"/>
                             <constraint firstItem="Ykf-Zg-DG4" firstAttribute="centerX" secondItem="gc9-NS-DgZ" secondAttribute="centerX" id="dHL-l8-gIO"/>
-                            <constraint firstItem="zzR-PA-LKL" firstAttribute="centerX" secondItem="Ili-fW-OPC" secondAttribute="centerX" id="dk4-Bd-Rip"/>
                             <constraint firstItem="Nhb-hh-UNR" firstAttribute="centerY" secondItem="5ki-EW-e73" secondAttribute="centerY" id="hBX-Uo-VXz"/>
                             <constraint firstItem="h5t-gw-Uin" firstAttribute="bottom" secondItem="gc9-NS-DgZ" secondAttribute="bottom" id="j57-jJ-Bik"/>
                             <constraint firstItem="gc9-NS-DgZ" firstAttribute="top" secondItem="oeN-Wr-Wxk" secondAttribute="bottom" constant="8" id="kZc-hP-zoE"/>
@@ -200,7 +203,6 @@
                             <mask key="constraints">
                                 <exclude reference="j57-jJ-Bik"/>
                                 <include reference="16e-CY-YcQ"/>
-                                <include reference="CVQ-ut-aVI"/>
                                 <include reference="HQK-9P-Yt0"/>
                                 <include reference="8iY-dD-ljB"/>
                                 <include reference="DEd-AF-EvZ"/>

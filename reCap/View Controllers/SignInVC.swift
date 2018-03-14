@@ -157,7 +157,7 @@ class SignInVC: UIViewController, UITextFieldDelegate {
                 
                 print("Test")
                 //emailUsernameOutlet.hasErrorMessage = true
-                emailUsernameOutlet.errorMessage = "Invalid E-mail"
+                emailUsernameOutlet.errorMessage = "Invalid E-mail or Username"
             }
             
         }
@@ -168,7 +168,7 @@ class SignInVC: UIViewController, UITextFieldDelegate {
         if textField == passwordOutlet {
             if !(emailUsernameOutlet.text?.contains("@"))! || ((emailUsernameOutlet.text?.count)! < 7) {
                 //emailUsernameOutlet.hasErrorMessage = true
-                emailUsernameOutlet.errorMessage = "Invalid E-mail"
+                emailUsernameOutlet.errorMessage = "Invalid E-mail or Username"
             }
             else {
                 emailUsernameOutlet.errorMessage = ""
