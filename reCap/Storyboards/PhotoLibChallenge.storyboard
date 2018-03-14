@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14105" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="73b-MN-egD">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="73b-MN-egD">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -110,21 +110,12 @@
                         <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <segue destination="5kf-go-Eg0" kind="show" identifier="PhotoSegue" id="tYO-Ko-esN"/>
-                        <segue destination="BMy-HM-f6t" kind="show" identifier="ViewChallengeSegue" id="2Ik-6p-Q3v"/>
+                        <segue destination="BMy-HM-f6t" kind="show" identifier="PhotoSegue" id="5In-3T-9hI"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zed-5s-mHP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="160.80000000000001" y="16.256157635467982"/>
-        </scene>
-        <!--Photo-->
-        <scene sceneID="Z95-Ba-VKZ">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Photo" id="5kf-go-Eg0" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="tqn-ju-Q8u" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1054.4000000000001" y="15.517241379310345"/>
         </scene>
         <!--ChallengeView-->
         <scene sceneID="hFb-mh-nMZ">
@@ -132,7 +123,7 @@
                 <viewControllerPlaceholder storyboardName="ChallengeView" id="BMy-HM-f6t" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J1l-Mo-YeC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1098" y="101"/>
+            <point key="canvasLocation" x="1131" y="16"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="bz7-FG-dq3">

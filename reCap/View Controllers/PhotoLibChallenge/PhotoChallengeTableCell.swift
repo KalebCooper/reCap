@@ -31,6 +31,7 @@ class PhotoChallengeTableCell: UITableViewCell {
         
         pictureCollection.delegate = dataSourceDelegate
         pictureCollection.dataSource = dataSourceDelegate
+        pictureCollection.allowsSelection = true
         pictureCollection.tag = section
         pictureCollection.reloadData()
     }

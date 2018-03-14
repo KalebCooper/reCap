@@ -16,6 +16,8 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
     // MARK: - Properties
     private var locations: [String]!
     private var locationDictionary: [String : [PictureData]]!
+    private var tableSectionArray: [String]!
+    private var collectionDictionaryData: [String : [PictureData]]!
     private var challenges: [String]!
     private var challengesDictionary: [String : [PictureData]]!
     var user: User!
@@ -50,6 +52,8 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
         super.viewDidLoad()
         applyBlurEffect(image: #imageLiteral(resourceName: "Gradient"))
         if user != nil, mode != nil {
+            tableSectionArray = []
+            collectionDictionaryData = [:]
             if mode == PhotoLibChallengeVC.PHOTO_LIB_MODE {
                 setupPhotoLib()
             }
@@ -88,23 +92,24 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
     
     private func setupPhotoLib() {
         self.title = "Photo Library"
-        locations = []
-        locationDictionary = [:]
         self.tableView.allowsSelection = false
         let ref = Database.database().reference()
         FBDatabase.getPictureData(for_user: user, ref: ref, with_completion: {(pictureDataList) in
             for pictureData in pictureDataList {
-                let location = pictureData.locationName
-                if !self.locations.contains(location!) {
-                    // Location is not in the locations array
-                    // Add it to the array and initialize
-                    // an empty array for the key location
-                    self.locations.append(location!)
-                    self.locationDictionary[location!] = []
+                if pictureData.isRootPicture {
+                    // Only display photos that are root pictures
+                    let location = pictureData.locationName
+                    if !self.tableSectionArray.contains(location!) {
+                        // Location is not in the locations array
+                        // Add it to the array and initialize
+                        // an empty array for the key location
+                        self.tableSectionArray.append(location!)
+                        self.collectionDictionaryData[location!] = []
+                    }
+                    var pictureDataArray = self.collectionDictionaryData[location!]!
+                    pictureDataArray.append(pictureData)
+                    self.collectionDictionaryData[location!] = pictureDataArray
                 }
-                var pictureDataArray = self.locationDictionary[location!]!
-                pictureDataArray.append(pictureData)
-                self.locationDictionary[location!] = pictureDataArray
             }
             self.tableView.reloadData()
         })
@@ -113,8 +118,8 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
     
     private func setupChallenge() {
         self.title = "Challenges"
-        challenges = [PhotoLibChallengeVC.TAKE_PIC_FROM_RECENT, PhotoLibChallengeVC.TAKE_PIC_FROM_WEEK, PhotoLibChallengeVC.TAKE_PIC_FROM_MONTH, PhotoLibChallengeVC.TAKE_PIC_FROM_YEAR]
-        challengesDictionary = [PhotoLibChallengeVC.TAKE_PIC_FROM_RECENT : [], PhotoLibChallengeVC.TAKE_PIC_FROM_WEEK : [], PhotoLibChallengeVC.TAKE_PIC_FROM_MONTH : [], PhotoLibChallengeVC.TAKE_PIC_FROM_YEAR : []]
+        self.tableSectionArray = [PhotoLibChallengeVC.TAKE_PIC_FROM_RECENT, PhotoLibChallengeVC.TAKE_PIC_FROM_WEEK, PhotoLibChallengeVC.TAKE_PIC_FROM_MONTH, PhotoLibChallengeVC.TAKE_PIC_FROM_YEAR]
+        self.collectionDictionaryData = [PhotoLibChallengeVC.TAKE_PIC_FROM_RECENT : [], PhotoLibChallengeVC.TAKE_PIC_FROM_WEEK : [], PhotoLibChallengeVC.TAKE_PIC_FROM_MONTH : [], PhotoLibChallengeVC.TAKE_PIC_FROM_YEAR : []]
         self.tableView.allowsSelection = false
         let ref = Database.database().reference()
         let currentDate = Date()
@@ -122,7 +127,8 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
             ref.removeAllObservers()
             for pictureData in pictureDataList {
                 let challengeCategory = self.getPicChallengeCategory(pictureData: pictureData, currentDate: currentDate)
-                self.challengesDictionary[challengeCategory]?.append(pictureData)
+                //self.challengesDictionary[challengeCategory]?.append(pictureData)
+                self.collectionDictionaryData[challengeCategory]?.append(pictureData)
             }
             self.removeEmptySection(section: PhotoLibChallengeVC.TAKE_PIC_FROM_RECENT)
             self.removeEmptySection(section: PhotoLibChallengeVC.TAKE_PIC_FROM_WEEK)
@@ -133,8 +139,8 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
     }
     
     private func removeEmptySection(section: String) {
-        if challengesDictionary[section]?.count == 0 {
-            challenges.remove(at: challenges.index(of: section)!)
+        if self.collectionDictionaryData[section]?.count == 0 {
+            self.tableSectionArray.remove(at: self.tableSectionArray.index(of: section)!)
         }
     }
     
@@ -164,8 +170,7 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
         }
         else if mode == PhotoLibChallengeVC.PHOTO_LIB_MODE {
             //self.performSegue(withIdentifier: "PhotoSegue", sender: [pictureData, image])
-            
-            self.performSegue(withIdentifier: "ViewChallengeSegue", sender: [pictureData, image])
+            self.performSegue(withIdentifier: "PhotoSegue", sender: [pictureData, image])
         }
     }
     
@@ -224,18 +229,7 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        if mode == PhotoLibChallengeVC.PHOTO_LIB_MODE {
-            return locations.count
-        }
-        else if mode == PhotoLibChallengeVC.CHALLENGE_MODE {
-            return challenges.count
-        }
-        else if mode == PhotoLibChallengeVC.ACTIVE_CHALLENGE_MODE {
-            return challenges.count
-        }
-        else {
-            return 0
-        }
+        return tableSectionArray.count
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -244,15 +238,7 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if mode == PhotoLibChallengeVC.PHOTO_LIB_MODE {
-            return locations[section]
-        }
-        else if mode == PhotoLibChallengeVC.CHALLENGE_MODE {
-            return challenges[section]
-        }
-        else {
-            return ""
-        }
+        return tableSectionArray[section]
     }
     
     
@@ -283,12 +269,7 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
         
         let label = UILabel(frame: headerView.frame)
         label.font.withSize(30)
-        if mode == PhotoLibChallengeVC.CHALLENGE_MODE {
-            label.text = self.challenges[section]
-        }
-        else if mode == PhotoLibChallengeVC.PHOTO_LIB_MODE {
-            label.text = self.locations[section]
-        }
+        label.text = self.tableSectionArray[section]
         label.textColor = UIColor.white
         label.textAlignment = .center
         headerView.addSubview(label)
@@ -300,38 +281,21 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
     // MARK: - Collection View Methods
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let collectionViewTag = collectionView.tag
-        if mode == PhotoLibChallengeVC.PHOTO_LIB_MODE {
-            let location = locations[collectionViewTag]
-            return (locationDictionary[location]?.count)!
-        }
-        else if mode == PhotoLibChallengeVC.CHALLENGE_MODE {
-            let challenge = challenges[collectionViewTag]
-            return (challengesDictionary[challenge]?.count)!
-        }
-        else {
-            return 0
-        }
+        let sectionIndex = collectionView.tag
+        let sectionTitle = self.tableSectionArray[sectionIndex]
+        return (self.collectionDictionaryData[sectionTitle]?.count)!
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PictureCell", for: indexPath) as! PhotoChalColCell
         cell.setImageViewDelegate(delegate: self)
-        let index = collectionView.tag
+        let sectionIndex = collectionView.tag
         let row = indexPath.row
         var pictureData: PictureData?
-        if mode == PhotoLibChallengeVC.PHOTO_LIB_MODE {
-            let location = locations[index]
-            let locationDataArray = locationDictionary[location]
-            pictureData = locationDataArray![row]
-            cell.pictureData = pictureData
-        }
-        else if (mode == PhotoLibChallengeVC.CHALLENGE_MODE) || (mode == PhotoLibChallengeVC.ACTIVE_CHALLENGE_MODE) {
-            let challenge = challenges[index]
-            let challengeDataArray = challengesDictionary[challenge]
-            pictureData = challengeDataArray![row]
-            cell.pictureData = pictureData
-        }
+        let sectionTitle = self.tableSectionArray[sectionIndex]
+        let collectionDataArray = self.collectionDictionaryData[sectionTitle]
+        pictureData = collectionDataArray?[row]
+        cell.pictureData = pictureData
         if let realPictureData = pictureData{
             FBDatabase.getPicture(pictureData: realPictureData, with_progress: {(progress, total) in
                 
@@ -413,12 +377,13 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
         // Pass the selected object to the new view controller.
         let segueID = segue.identifier
         if segueID == PhotoLibChallengeVC.PHOTO_SEGUE {
-            let destination = segue.destination as! PhotoVC
+            let destination = segue.destination as! UINavigationController
+            let photoView = destination.topViewController as! ChallengeViewVC
             let infoArray = sender as! [Any]
             let pictureData = infoArray[PhotoLibChallengeVC.PHOTO_SEGUE_PICTURE_DATA_INDEX] as! PictureData
             let picture = infoArray[PhotoLibChallengeVC.PHOTO_SEGUE_PICTURE_INDEX] as! UIImage
-            destination.pictureData = pictureData
-            destination.image = picture
+            photoView.pictureData = pictureData
+            photoView.image = picture
         }
         
         if segueID == PhotoLibChallengeVC.VIEW_CHALLENGE_SEGUE {
