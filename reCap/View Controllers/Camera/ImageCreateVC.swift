@@ -19,6 +19,7 @@ class ImageCreateVC: UIViewController {
     var long: Double?
     var location: String?
     var isAtChallengeLocation: Bool!
+    var previousPic: PictureData!
     var user: User!
     
     @IBOutlet weak var imageBackground: UIImageView!
@@ -42,13 +43,16 @@ class ImageCreateVC: UIViewController {
         var isRoot: Bool!
         var groupID: String!
         let currentDate = Int((Date().timeIntervalSince1970)).description
-        //let stringPictureDate = DateGetter.getStringFromDate(date: currentDate)
         let pictureID = PictureData.createPictureDataID()
         if self.isAtChallengeLocation {
-            // If the user took the picture at the challenge coordinates
+            // If the user took the picture at the challenge coordinates, there is an active challenge
             self.user.points = self.user.points + Int(self.user.activeChallengePoints)!
             isRoot = false
             groupID = self.user.activeChallengeID
+            self.previousPic.isMostRecentPicture = false
+            FBDatabase.addUpdatePictureData(pictureData: self.previousPic, with_completion: {(error) in
+                
+            })
             print("User earned \(self.user.activeChallengePoints) points")
         }
         else {
@@ -56,7 +60,7 @@ class ImageCreateVC: UIViewController {
             isRoot = true
             groupID = pictureID
         }
-        let pictureData = PictureData(name: self.titleOutlet.text, description: self.descriptionOutlet.text!, gpsCoordinates: [self.lat!, self.long!], orientation: PictureData.ORIENTATION_PORTRAIT, owner: self.user.id, time: currentDate, locationName: self.locationNameOutlet.text!, id: pictureID, isRootPicture: isRoot, groupID: groupID)
+        let pictureData = PictureData(name: self.titleOutlet.text, description: self.descriptionOutlet.text!, gpsCoordinates: [self.lat!, self.long!], orientation: PictureData.ORIENTATION_PORTRAIT, owner: self.user.id, time: currentDate, locationName: self.locationNameOutlet.text!, id: pictureID, isRootPicture: isRoot, groupID: groupID, isMostRecentPicture: true)
         self.user.pictures.append(pictureData.id)
         FBDatabase.addPicture(image: self.image!, pictureData: pictureData, with_completion: {(error) in
             if let actualError = error {

@@ -34,6 +34,8 @@ class FBDatabase {
     public static let PICTURE_DATA_LOCATION_NAME = "Location"
     public static let PICTURE_DATA_NODE = "Picture Data"
     public static let PICTURE_DATA_ID = "id"
+    public static let PICTURE_DATA_IS_MOST_RECENT_PIC = "Is Most Recent Picture"
+    
     public static let PICTURE_NODE = "Pictures"
     public static let PICTURE_IS_ROOT = "Root Picture"
     public static let PICTURE_GROUP_ID = "Group ID"
@@ -304,7 +306,7 @@ class FBDatabase {
     
 
     class func addUpdatePictureData(pictureData: PictureData, with_completion completion: @escaping (_ error: String?) -> ()) {
-        let jsonObject: [String : Any] = [PICTURE_DATA_NAME : pictureData.name, PICTURE_DESCRIPTION : pictureData.description, PICTURE_DATA_GPS : pictureData.gpsCoordinates, PICTURE_DATA_ORIENTATION : pictureData.orientation, PICTURE_DATA_OWNER : pictureData.owner, PICTURE_DATA_TIME : pictureData.time, PICTURE_DATA_LOCATION_NAME : pictureData.locationName, PICTURE_DATA_ID : pictureData.id, PICTURE_IS_ROOT : pictureData.isRootPicture, PICTURE_GROUP_ID : pictureData.groupID]
+        let jsonObject: [String : Any] = [PICTURE_DATA_NAME : pictureData.name, PICTURE_DESCRIPTION : pictureData.description, PICTURE_DATA_GPS : pictureData.gpsCoordinates, PICTURE_DATA_ORIENTATION : pictureData.orientation, PICTURE_DATA_OWNER : pictureData.owner, PICTURE_DATA_TIME : pictureData.time, PICTURE_DATA_LOCATION_NAME : pictureData.locationName, PICTURE_DATA_ID : pictureData.id, PICTURE_GROUP_ID : pictureData.groupID, PICTURE_IS_ROOT : pictureData.isRootPicture, PICTURE_DATA_IS_MOST_RECENT_PIC : pictureData.isMostRecentPicture]
         let ref = Database.database().reference()
         ref.child(PICTURE_DATA_NODE).child(pictureData.id).setValue(jsonObject, withCompletionBlock: {(error, ref) in
             if let actualError = error {
@@ -330,9 +332,10 @@ class FBDatabase {
         let time = pictureDataNode[PICTURE_DATA_TIME] as! String
         let locationName = pictureDataNode[PICTURE_DATA_LOCATION_NAME] as! String
         let id = pictureDataNode[PICTURE_DATA_ID] as! String
-        let isRoot = pictureDataNode[PICTURE_IS_ROOT] as! Bool
         let groupID = pictureDataNode[PICTURE_GROUP_ID] as! String
-        let pictureData = PictureData(name: name, description: description, gpsCoordinates: coordinates, orientation: orientation, owner: owner, time: time, locationName: locationName, id: id, isRootPicture: isRoot, groupID: groupID)
+        let isRoot = pictureDataNode[PICTURE_IS_ROOT] as! Bool
+        let isMostRecentPicture = pictureDataNode[PICTURE_DATA_IS_MOST_RECENT_PIC] as! Bool
+        let pictureData = PictureData(name: name, description: description, gpsCoordinates: coordinates, orientation: orientation, owner: owner, time: time, locationName: locationName, id: id, isRootPicture: isRoot, groupID: groupID, isMostRecentPicture: isMostRecentPicture)
         return pictureData
     }
     
@@ -384,19 +387,6 @@ class FBDatabase {
         })
     }
     
-    /*class func getRootPictureData(for_user user: User, ref: DatabaseReference, with_completion completion: @escaping (_ pictureData: [PictureData]) -> ()) {
-        var pictureDataList: [PictureData] = []
-        ref.child(PICTURE_DATA_NODE).child(user.).queryOrdered(byChild: PICTURE_IS_ROOT).queryEqual(toValue: true).observe(.value, with: {(snapshot) in
-            if let pictureDataNodes = snapshot.value as? NSDictionary {
-                for node in pictureDataNodes {
-                    let pictureDataNode = node.value as! NSDictionary
-                    pictureDataList.append(parsePictureData(from_dictionary: pictureDataNode))
-                }
-            }
-            completion(pictureDataList)
-        })
-    }*/
-    
     class func getAllPictureData(count: Int? = -1, ref: DatabaseReference, with_completion completion: @escaping (_ pictureDataArray: [PictureData]?) -> ()) {
         ref.child(PICTURE_DATA_NODE).observeSingleEvent(of: .value) { (snapshot) in
             if snapshot.childrenCount > 0 {
@@ -419,6 +409,19 @@ class FBDatabase {
                 completion(nil)
             }
         }
+    }
+    
+    class func getMostRecentPictureData(from_user user: User, ref: DatabaseReference, with_completion completion: @escaping (_ pictureData: [PictureData]) -> ()) {
+        var pictureDataList: [PictureData] = []
+        ref.child(PICTURE_DATA_NODE).queryOrdered(byChild: PICTURE_DATA_IS_MOST_RECENT_PIC).queryEqual(toValue: true).observe(.value, with: {(snapshot) in
+            if let pictureDataNodes = snapshot.value as? NSDictionary {
+                for node in pictureDataNodes {
+                    let pictureDataNode = node.value as! NSDictionary
+                    pictureDataList.append(parsePictureData(from_dictionary: pictureDataNode))
+                }
+            }
+            completion(pictureDataList)
+        })
     }
     
     /*

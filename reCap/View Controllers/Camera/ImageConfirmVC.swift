@@ -16,6 +16,7 @@ class ImageConfirmVC: UIViewController {
     var longToPass: Double?
     var locationToPass: String?
     var isAtChallengeLocation: Bool!
+    var previousPic: PictureData!
     var user: User!
 
     @IBOutlet weak var imageView: UIImageView!
@@ -79,6 +80,7 @@ class ImageConfirmVC: UIViewController {
             vc.long = self.longToPass
             vc.location = self.locationToPass
             vc.user = self.user
+            vc.previousPic = self.previousPic
         }
     }
  

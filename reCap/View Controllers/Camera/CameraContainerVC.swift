@@ -639,7 +639,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
             vc.longToPass = self.longToPass
             vc.locationToPass = self.locationToPass
             vc.user = self.user
-            
+            vc.previousPic = self.activeChallengePicData
         }
         else if segueID == "toProfileSegue" {
             let vc = segue.destination as! ProfileMenuVC
