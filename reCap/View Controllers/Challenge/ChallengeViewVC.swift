@@ -13,7 +13,9 @@ import SwiftLocation
 import CoreLocation
 import Firebase
 
-class ChallengeViewVC: UIViewController {
+class ChallengeViewVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, ImageButtonDelegate {
+    
+    
     
     var image: UIImage!
     var pictureData: PictureData!
@@ -25,6 +27,7 @@ class ChallengeViewVC: UIViewController {
     @IBOutlet weak var descriptionOutlet: SkyFloatingLabelTextField!
     @IBOutlet weak var imageBackground: UIImageView!
     @IBOutlet var avoidingView: UIView!
+    @IBOutlet weak var collectionView: UICollectionView!
     
     @IBAction func donePressed(_ sender: Any) {
         
@@ -43,6 +46,7 @@ class ChallengeViewVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("View loaded")
+        setupCollectionView()
         applyBlurEffect(image: image)
         
         self.navigationController?.toolbar.isHidden = false
@@ -77,9 +81,84 @@ class ChallengeViewVC: UIViewController {
         
     }
     
+    func setupCollectionView() {
+        
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        
+        
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    
+    // MARK: - Collection View Methods
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//        let collectionViewTag = collectionView.tag
+//        if mode == PhotoLibChallengeVC.PHOTO_LIB_MODE {
+//            let location = locations[collectionViewTag]
+//            return (locationDictionary[location]?.count)!
+//        }
+//        else if mode == PhotoLibChallengeVC.CHALLENGE_MODE {
+//            let challenge = challenges[collectionViewTag]
+//            return (challengesDictionary[challenge]?.count)!
+//        }
+//        else {
+//            return 0
+//        }
+        
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PictureCell", for: indexPath) as! PhotoChalColCell
+        cell.setImageViewDelegate(delegate: self)
+        let index = collectionView.tag
+        let row = indexPath.row
+        var pictureData: PictureData?
+        
+        
+//        if mode == PhotoLibChallengeVC.PHOTO_LIB_MODE {
+//            let location = locations[index]
+//            let locationDataArray = locationDictionary[location]
+//            pictureData = locationDataArray![row]
+//            cell.pictureData = pictureData
+//        }
+//        else if (mode == PhotoLibChallengeVC.CHALLENGE_MODE) || (mode == PhotoLibChallengeVC.ACTIVE_CHALLENGE_MODE) {
+//            let challenge = challenges[index]
+//            let challengeDataArray = challengesDictionary[challenge]
+//            pictureData = challengeDataArray![row]
+//            cell.pictureData = pictureData
+//        }
+        
+        
+        if let realPictureData = pictureData{
+            FBDatabase.getPicture(pictureData: realPictureData, with_progress: {(progress, total) in
+                
+            }, with_completion: {(image) in
+                if let realImage = image {
+                    print("Got image in PhotoLibChal VC")
+                    cell.imageView.image = realImage
+                }
+                else {
+                    print("Did not get image in PhotoLibChal VC")
+                }
+            })
+            return cell
+        }
+        return cell
+    }
+    
+    
+    
+    
+    // MARK: - ImageButton Methods
+    func imageButtonPressed(image: UIImage, pictureData: PictureData) {
+        
     }
     
     

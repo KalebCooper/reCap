@@ -41,9 +41,13 @@ class MapVC: UIViewController, MGLMapViewDelegate {
         super.viewDidLoad()
         if user != nil {
             setupMap()
-            setupPins()
         }
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        setupPins()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -84,29 +88,28 @@ class MapVC: UIViewController, MGLMapViewDelegate {
         }
         
         FBDatabase.getAllPictureData(ref: ref) { (rawPictureDataArray) in
+            
             if rawPictureDataArray != nil {
-                if (rawPictureDataArray?.count)! > 0 {
+                for rawPictureData in rawPictureDataArray! {
                     
-                    for rawPictureData in rawPictureDataArray! {
+                    FBDatabase.getPictureData(id: rawPictureData.id, ref: self.ref, with_completion: { (pictureData) in
                         
-                        FBDatabase.getPictureData(id: rawPictureData.id, ref: self.ref, with_completion: { (pictureData) in
-                            
-                            let pin = MGLPointAnnotation()
-                            pin.coordinate = CLLocationCoordinate2D(latitude: (pictureData?.gpsCoordinates[0])!, longitude: (pictureData?.gpsCoordinates[1])!)
-                            pin.title = pictureData?.name
-                            pin.subtitle = pictureData?.time
-                            
-                            self.pictureIDArray.append((pictureData?.id)!)
-                            
-                            self.pins.append(pin)
-                            
-                            if rawPictureData.id == rawPictureDataArray?.last?.id {
-                                self.setupPins()
-                            }
-                        })
+                        let pin = MGLPointAnnotation()
+                        pin.coordinate = CLLocationCoordinate2D(latitude: (pictureData?.gpsCoordinates[0])!, longitude: (pictureData?.gpsCoordinates[1])!)
+                        pin.title = pictureData?.name
+                        pin.subtitle = pictureData?.time
                         
-                    }
+                        self.pictureIDArray.append((pictureData?.id)!)
+                        
+                        self.pins.append(pin)
+                        
+                        if rawPictureData.id == rawPictureDataArray?.last?.id {
+                            self.setupPins()
+                        }
+                    })
+                    
                 }
+                
             }
         }
         

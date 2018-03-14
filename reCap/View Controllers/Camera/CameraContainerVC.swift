@@ -160,17 +160,24 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     private func setupActiveChallengeData() {
         let id = self.user.activeChallengeID
         if id != "" {
+            
             // If there is an actual id and not just the place holder
             let ref = Database.database().reference()
             FBDatabase.getPictureData(id: id!, ref: ref, with_completion: {(pictureData) in
-                ref.removeAllObservers()
-                if let activePictureData = pictureData {
-                    self.activeChallengePicData = activePictureData
-                    print("Got challenge pic data in Camera Container VC")
+                
+                if pictureData != nil {
+                    
+                    ref.removeAllObservers()
+                    if let activePictureData = pictureData {
+                        self.activeChallengePicData = activePictureData
+                        print("Got challenge pic data in Camera Container VC")
+                    }
+                    else {
+                        print("Did not get challenge pic data in camera container VC")
+                    }
+                    
                 }
-                else {
-                    print("Did not get challenge pic data in camera container VC")
-                }
+                
             })
         }
         else {
@@ -331,6 +338,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     
     func setupLocation() {
         
+        
         Locator.requestAuthorizationIfNeeded(.always)
         Locator.requestAuthorizationIfNeeded(.whenInUse)
         
@@ -362,7 +370,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
                                             angle = self.getBearingBetweenTwoPoints1(point1: location, point2: destination!)
                                             
                                             
-                                            
+                                            self.arrowOutlet.isHidden = false
                                             self.destinationAngle = angle
                                             
                                             
@@ -450,11 +458,17 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     
     func setupPreviousPicture() {
         
+        
+        
         let challengeID = self.user.activeChallengeID
+        
         let ref = Database.database().reference()
         
         if challengeID != "" {
+            
             FBDatabase.getPictureData(id: challengeID!, ref: ref) { (pictureData) in
+                
+                print("testing")
                 
                 if pictureData != nil {
                     
@@ -489,8 +503,12 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
                     self.previousOutlet.isHidden = true
                     
                 }
+                
+                
             }
         }
+        
+        
         
     }
     

@@ -41,6 +41,10 @@ class CreateAccountVC: UITableViewController, UIImagePickerControllerDelegate, U
         // Dispose of any resources that can be recreated.
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     // MARK: - Setup Methods
     
     private func setup() {
