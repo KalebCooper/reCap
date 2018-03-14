@@ -198,16 +198,20 @@ class FBDatabase {
     class func getUsername(with_ref ref: DatabaseReference,with_username username: String, with_completion completion : @escaping (_ username: Username?) -> ()) {
         ref.child(USERNAME_NODE).child(username).observe(.value, with: {(snapshot) in
             if let usernameData = snapshot.value as? NSDictionary {
-                let id = usernameData[USERNAME_ID] as! String
-                let email = usernameData[USERNAME_EMAIL] as! String
-                let usernameObj = Username(username: username, email: email, id: id)
-                completion(usernameObj)
+                completion(parseUsernameData(with_dictionary: usernameData, username: username))
             }
             else {
                 // Could not get root element
                 completion(nil)
             }
         })
+    }
+    
+    private class func parseUsernameData(with_dictionary usernameNode: NSDictionary, username: String) -> Username {
+        let id = usernameNode[USERNAME_ID] as! String
+        let email = usernameNode[USERNAME_EMAIL] as! String
+        let usernameObj = Username(username: username, email: email, id: id)
+        return usernameObj
     }
     
     // MARK: - User Methods
@@ -238,29 +242,7 @@ class FBDatabase {
     class func getUser(with_id id: String, ref: DatabaseReference, with_completion completion: @escaping (_ user: User?) -> ()) {
         ref.child(USER_NODE).child(id).observe(.value, with: {(snapshot) in
             if let userNode = snapshot.value as? NSDictionary {
-                let name = userNode[USER_NAME] as! String
-                let email = userNode[USER_EMAIL] as! String
-                var pictures = userNode[USER_PICTURES] as? [String]
-                var friendsID = userNode[USER_FRIENDS_ID] as? [String]
-                let username = userNode[USER_USERNAME] as! String
-                let points = userNode[USER_POINTS] as! Int
-                var activeChallengeID = userNode[USER_ACTIVE_CHALLENGE_ID] as? String
-                var activeChallengePoints = userNode[USER_ACTIVE_CHALLENGE_POINTS] as? String
-                let user: User
-                if pictures == nil {
-                    pictures = []
-                }
-                if friendsID == nil {
-                    friendsID = []
-                }
-                if activeChallengeID == nil {
-                    activeChallengeID = ""
-                }
-                if activeChallengePoints == nil {
-                    activeChallengePoints = ""
-                }
-                user = User(id: id, name: name, email: email, username: username, pictures: pictures!, friendsID: friendsID!, activeChallengeID: activeChallengeID!, activeChallengePoints: activeChallengePoints!, points: points)
-                completion(user)
+                completion(parseUserData(with_dictionary: userNode))
             }
             else {
                 // No users in the database
@@ -280,34 +262,38 @@ class FBDatabase {
             if let usersNode = snapshot.value as? NSDictionary {
                 for node in usersNode {
                     let userNode = node.value as! NSDictionary
-                    let id = userNode[USER_USER_ID] as! String
-                    let name = userNode[USER_NAME] as! String
-                    let email = userNode[USER_EMAIL] as! String
-                    var pictures = userNode[USER_PICTURES] as? [String]
-                    var friendsID = userNode[USER_FRIENDS_ID] as? [String]
-                    let username = userNode[USER_USERNAME] as! String
-                    let points = userNode[USER_POINTS] as! Int
-                    var activeChallengeID = userNode[USER_ACTIVE_CHALLENGE_ID] as? String
-                    var activeChallengePoints = userNode[USER_ACTIVE_CHALLENGE_POINTS] as? String
-                    let user: User
-                    if pictures == nil {
-                        pictures = []
-                    }
-                    if friendsID == nil {
-                        friendsID = []
-                    }
-                    if activeChallengeID == nil {
-                        activeChallengeID = ""
-                    }
-                    if activeChallengePoints == nil {
-                        activeChallengePoints = ""
-                    }
-                    user = User(id: id, name: name, email: email, username: username, pictures: pictures!, friendsID: friendsID!, activeChallengeID: activeChallengeID!, activeChallengePoints: activeChallengePoints!, points: points)
-                    userList.append(user)
+                    userList.append(parseUserData(with_dictionary: userNode))
                 }
             }
             completion(userList)
         })
+    }
+    
+    private class func parseUserData(with_dictionary userNode: NSDictionary) -> User {
+        let id = userNode[USER_USER_ID] as! String
+        let name = userNode[USER_NAME] as! String
+        let email = userNode[USER_EMAIL] as! String
+        var pictures = userNode[USER_PICTURES] as? [String]
+        var friendsID = userNode[USER_FRIENDS_ID] as? [String]
+        let username = userNode[USER_USERNAME] as! String
+        let points = userNode[USER_POINTS] as! Int
+        var activeChallengeID = userNode[USER_ACTIVE_CHALLENGE_ID] as? String
+        var activeChallengePoints = userNode[USER_ACTIVE_CHALLENGE_POINTS] as? String
+        let user: User
+        if pictures == nil {
+            pictures = []
+        }
+        if friendsID == nil {
+            friendsID = []
+        }
+        if activeChallengeID == nil {
+            activeChallengeID = ""
+        }
+        if activeChallengePoints == nil {
+            activeChallengePoints = ""
+        }
+        user = User(id: id, name: name, email: email, username: username, pictures: pictures!, friendsID: friendsID!, activeChallengeID: activeChallengeID!, activeChallengePoints: activeChallengePoints!, points: points)
+        return user
     }
     
     // MARK: - Picture Data Methods
@@ -356,20 +342,8 @@ class FBDatabase {
     class func getPictureData(id: String, ref: DatabaseReference, with_completion completion: @escaping (_ pictureData: PictureData?) -> ()) {
         ref.child(PICTURE_DATA_NODE).child(id).observe(.value, with: {(snapshot) in
             if let pictureDataNode = snapshot.value as? NSDictionary {
-                let name = pictureDataNode[PICTURE_DATA_NAME] as! String
-                let description = pictureDataNode[PICTURE_DESCRIPTION] as! String
-                let coordinates = pictureDataNode[PICTURE_DATA_GPS] as! [Double]
-                let orientation = pictureDataNode[PICTURE_DATA_ORIENTATION] as! Int
-                let owner = pictureDataNode[PICTURE_DATA_OWNER] as! String
-                let time = pictureDataNode[PICTURE_DATA_TIME] as! String
-                let locationName = pictureDataNode[PICTURE_DATA_LOCATION_NAME] as! String
-                let id = pictureDataNode[PICTURE_DATA_ID] as! String
-                let isRoot = pictureDataNode[PICTURE_IS_ROOT] as! Bool
-                let groupID = pictureDataNode[PICTURE_GROUP_ID] as! String
-                let pictureData = PictureData(name: name, description: description, gpsCoordinates: coordinates, orientation: orientation, owner: owner, time: time, locationName: locationName, id: id, isRootPicture: isRoot, groupID: groupID)
-                completion(pictureData)
+                completion(parsePictureData(from_dictionary: pictureDataNode))
             }
-                
             else {
                 // Database does not have picture data in it
                 completion(nil)
@@ -387,18 +361,7 @@ class FBDatabase {
             if let pictureDataNodes = snapshot.value as? NSDictionary {
                 for node in pictureDataNodes {
                     let pictureDataNode = node.value as! NSDictionary
-                    let name = pictureDataNode[PICTURE_DATA_NAME] as! String
-                    let description = pictureDataNode[PICTURE_DESCRIPTION] as! String
-                    let coordinates = pictureDataNode[PICTURE_DATA_GPS] as! [Double]
-                    let orientation = pictureDataNode[PICTURE_DATA_ORIENTATION] as! Int
-                    let owner = pictureDataNode[PICTURE_DATA_OWNER] as! String
-                    let time = pictureDataNode[PICTURE_DATA_TIME] as! String
-                    let locationName = pictureDataNode[PICTURE_DATA_LOCATION_NAME] as! String
-                    let id = pictureDataNode[PICTURE_DATA_ID] as! String
-                    let isRoot = pictureDataNode[PICTURE_IS_ROOT] as! Bool
-                    let groupID = pictureDataNode[PICTURE_GROUP_ID] as! String
-                    let pictureData = PictureData(name: name, description: description, gpsCoordinates: coordinates, orientation: orientation, owner: owner, time: time, locationName: locationName, id: id, isRootPicture: isRoot, groupID: groupID)
-                    pictureDataList.append(pictureData)
+                    pictureDataList.append(parsePictureData(from_dictionary: pictureDataNode))
                 }
             }
             completion(pictureDataList)
@@ -414,23 +377,25 @@ class FBDatabase {
             if let pictureDataNodes = snapshot.value as? NSDictionary {
                 for node in pictureDataNodes {
                     let pictureDataNode = node.value as! NSDictionary
-                    let name = pictureDataNode[PICTURE_DATA_NAME] as! String
-                    let description = pictureDataNode[PICTURE_DESCRIPTION] as! String
-                    let coordinates = pictureDataNode[PICTURE_DATA_GPS] as! [Double]
-                    let orientation = pictureDataNode[PICTURE_DATA_ORIENTATION] as! Int
-                    let owner = pictureDataNode[PICTURE_DATA_OWNER] as! String
-                    let time = pictureDataNode[PICTURE_DATA_TIME] as! String
-                    let locationName = pictureDataNode[PICTURE_DATA_LOCATION_NAME] as! String
-                    let id = pictureDataNode[PICTURE_DATA_ID] as! String
-                    let isRoot = pictureDataNode[PICTURE_IS_ROOT] as! Bool
-                    let groupID = pictureDataNode[PICTURE_GROUP_ID] as! String
-                    let pictureData = PictureData(name: name, description: description, gpsCoordinates: coordinates, orientation: orientation, owner: owner, time: time, locationName: locationName, id: id, isRootPicture: isRoot, groupID: groupID)
-                    pictureDataList.append(pictureData)
+                    pictureDataList.append(parsePictureData(from_dictionary: pictureDataNode))
                 }
             }
             completion(pictureDataList)
         })
     }
+    
+    /*class func getRootPictureData(for_user user: User, ref: DatabaseReference, with_completion completion: @escaping (_ pictureData: [PictureData]) -> ()) {
+        var pictureDataList: [PictureData] = []
+        ref.child(PICTURE_DATA_NODE).child(user.).queryOrdered(byChild: PICTURE_IS_ROOT).queryEqual(toValue: true).observe(.value, with: {(snapshot) in
+            if let pictureDataNodes = snapshot.value as? NSDictionary {
+                for node in pictureDataNodes {
+                    let pictureDataNode = node.value as! NSDictionary
+                    pictureDataList.append(parsePictureData(from_dictionary: pictureDataNode))
+                }
+            }
+            completion(pictureDataList)
+        })
+    }*/
     
     class func getAllPictureData(count: Int? = -1, ref: DatabaseReference, with_completion completion: @escaping (_ pictureDataArray: [PictureData]?) -> ()) {
         ref.child(PICTURE_DATA_NODE).observeSingleEvent(of: .value) { (snapshot) in
@@ -460,6 +425,20 @@ class FBDatabase {
      Gets all picture data for a user
      */
     class func getPictureData(for_user user: User, ref: DatabaseReference, with_completion completion: @escaping (_ pictureData: [PictureData]) -> ()) {
+        ref.child(PICTURE_DATA_NODE).queryOrdered(byChild: PICTURE_DATA_OWNER).queryEqual(toValue: user.id).observe(.value, with: {(snapshot) in
+            var pictureDataList: [PictureData] = []
+            if let pictureDataNodes = snapshot.value as? NSDictionary {
+                // Database has picture data in it
+                for node in pictureDataNodes {
+                    let pictureDataNode = node.value as! NSDictionary
+                    pictureDataList.append(parsePictureData(from_dictionary: pictureDataNode))
+                }
+            }
+            completion(pictureDataList)
+        })
+    }
+    
+    /*class func getPictureData(for_user user: User, ref: DatabaseReference, with_completion completion: @escaping (_ pictureData: [PictureData]) -> ()) {
         ref.observe(.value, with: {(snapshot) in
             let root = snapshot.value as! NSDictionary
             var pictureDataList: [PictureData] = []
@@ -485,7 +464,7 @@ class FBDatabase {
             }
             completion(pictureDataList)
         })
-    }
+    }*/
     
     // MARK: - Storage Methods
     

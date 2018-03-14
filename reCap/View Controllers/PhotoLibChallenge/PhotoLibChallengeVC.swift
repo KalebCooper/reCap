@@ -96,17 +96,20 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
         let ref = Database.database().reference()
         FBDatabase.getPictureData(for_user: user, ref: ref, with_completion: {(pictureDataList) in
             for pictureData in pictureDataList {
-                let location = pictureData.locationName
-                if !self.tableSectionArray.contains(location!) {
-                    // Location is not in the locations array
-                    // Add it to the array and initialize
-                    // an empty array for the key location
-                    self.tableSectionArray.append(location!)
-                    self.collectionDictionaryData[location!] = []
+                if pictureData.isRootPicture {
+                    // Only display photos that are root pictures
+                    let location = pictureData.locationName
+                    if !self.tableSectionArray.contains(location!) {
+                        // Location is not in the locations array
+                        // Add it to the array and initialize
+                        // an empty array for the key location
+                        self.tableSectionArray.append(location!)
+                        self.collectionDictionaryData[location!] = []
+                    }
+                    var pictureDataArray = self.collectionDictionaryData[location!]!
+                    pictureDataArray.append(pictureData)
+                    self.collectionDictionaryData[location!] = pictureDataArray
                 }
-                var pictureDataArray = self.collectionDictionaryData[location!]!
-                pictureDataArray.append(pictureData)
-                self.collectionDictionaryData[location!] = pictureDataArray
             }
             self.tableView.reloadData()
         })
