@@ -118,38 +118,24 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
         self.tableView.allowsSelection = false
         let ref = Database.database().reference()
         let currentDate = Date()
-//        FBDatabase.getPictureData(for_user: user, ref: ref, with_completion: {(pictureDataList) in
-//            ref.removeAllObservers()
-//            for pictureData in pictureDataList {
-//                let challengeCategory = self.getPicChallengeCategory(pictureData: pictureData, currentDate: currentDate)
-//                self.challengesDictionary[challengeCategory]?.append(pictureData)
-//            }
-//            self.tableView.reloadData()
-//        })
-        
-        /*FBDatabase.getAllPictureData(count: 50, ref: ref) { (rawPictureDataArray) in
-            if (rawPictureDataArray?.count)! > 0 {
-
-                for rawPictureData in rawPictureDataArray! {
-
-                    FBDatabase.getPictureData(id: rawPictureData.id, ref: ref, with_completion: { (pictureData) in
-                        let challengeCategory = self.getPicChallengeCategory(pictureData: pictureData!, currentDate: currentDate)
-                        self.challengesDictionary[challengeCategory]?.append(pictureData!)
-                        if rawPictureData.id == rawPictureDataArray?.last?.id {
-                            self.tableView.reloadData()
-                        }
-                    })
-                }
-            }
-        }*/
         FBDatabase.getRootPictureData(ref: ref, with_completion: {(pictureDataList) in
             ref.removeAllObservers()
             for pictureData in pictureDataList {
                 let challengeCategory = self.getPicChallengeCategory(pictureData: pictureData, currentDate: currentDate)
                 self.challengesDictionary[challengeCategory]?.append(pictureData)
             }
+            self.removeEmptySection(section: PhotoLibChallengeVC.TAKE_PIC_FROM_RECENT)
+            self.removeEmptySection(section: PhotoLibChallengeVC.TAKE_PIC_FROM_WEEK)
+            self.removeEmptySection(section: PhotoLibChallengeVC.TAKE_PIC_FROM_MONTH)
+            self.removeEmptySection(section: PhotoLibChallengeVC.TAKE_PIC_FROM_YEAR)
             self.tableView.reloadData()
         })
+    }
+    
+    private func removeEmptySection(section: String) {
+        if challengesDictionary[section]?.count == 0 {
+            challenges.remove(at: challenges.index(of: section)!)
+        }
     }
     
     // MARK: - ImageButton Methods
