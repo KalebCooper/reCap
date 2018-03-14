@@ -365,13 +365,20 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
                                         
                                         let ref = Database.database().reference()
                                         FBDatabase.getPictureData(id: activeChallengeID, ref: ref, with_completion: { (pictureData) in
-                                            let destinationArray = pictureData?.gpsCoordinates
-                                            destination = CLLocation(latitude: destinationArray![0], longitude: destinationArray![1])
-                                            angle = self.getBearingBetweenTwoPoints1(point1: location, point2: destination!)
+                                            
+                                            if pictureData != nil {
+                                                
+                                                let destinationArray = pictureData?.gpsCoordinates
+                                                destination = CLLocation(latitude: destinationArray![0], longitude: destinationArray![1])
+                                                angle = self.getBearingBetweenTwoPoints1(point1: location, point2: destination!)
+                                                
+                                                
+                                                self.arrowOutlet.isHidden = false
+                                                self.destinationAngle = angle
+                                                
+                                            }
                                             
                                             
-                                            self.arrowOutlet.isHidden = false
-                                            self.destinationAngle = angle
                                             
                                             
                                         })
