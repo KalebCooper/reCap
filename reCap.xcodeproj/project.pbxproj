@@ -20,15 +20,11 @@
 		34A7ACB42027A4EB00ACFB12 /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34A7ACB32027A4EB00ACFB12 /* Map.storyboard */; };
 		34A7ACB62027A4F500ACFB12 /* Camera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34A7ACB52027A4F500ACFB12 /* Camera.storyboard */; };
 		34A7ACB82027A51700ACFB12 /* LeaderboardsFriends.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34A7ACB72027A51700ACFB12 /* LeaderboardsFriends.storyboard */; };
-		34B359A2205829960093D02C /* TutorialContainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B359A1205829960093D02C /* TutorialContainerVC.swift */; };
-		34B359A4205832F20093D02C /* AppLoading.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34B359A3205832F20093D02C /* AppLoading.storyboard */; };
 		34B359A920583F9B0093D02C /* CustomOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B359A520583F940093D02C /* CustomOverlay.swift */; };
 		34B359AA20583F9B0093D02C /* CustomPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B359A620583F960093D02C /* CustomPage.swift */; };
 		34B359AB20583F9B0093D02C /* CustomPage.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34B359A720583F980093D02C /* CustomPage.xib */; };
 		34B359AC20583F9B0093D02C /* CustomOverlay.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34B359A820583F9A0093D02C /* CustomOverlay.xib */; };
-		34B359AE205846330093D02C /* ProfileMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B359AD205846330093D02C /* ProfileMenuVC.swift */; };
 		34F60577203FD24C001A74E4 /* ImageConfirmVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F60575203FD24C001A74E4 /* ImageConfirmVC.swift */; };
-		34FB30B62056F58800D37022 /* CameraContainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34FB30B52056F58800D37022 /* CameraContainerVC.swift */; };
 		3BD76B62D24CA017D72CCCDA /* Pods_reCapUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CD7EFB0164AE95822E97FC9 /* Pods_reCapUITests.framework */; };
 		4166566AA68139D9E70F183A /* Pods_reCap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0C6A1AA7E56B3B8DAD1F814 /* Pods_reCap.framework */; };
 		431B5E71E2A82C2D5591C9FD /* Pods_reCapTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A855F58760B4E1DE5F6226D /* Pods_reCapTests.framework */; };
@@ -69,6 +65,10 @@
 		7AE3755F2037C56000CA9946 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AE3755E2037C56000CA9946 /* Launch Screen.storyboard */; };
 		7AE375672037C6DA00CA9946 /* FBDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE375662037C6D900CA9946 /* FBDatabase.swift */; };
 		7AE3756C2037C8E100CA9946 /* LeaderboardFriendsTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE3756A2037C8E100CA9946 /* LeaderboardFriendsTableCell.swift */; };
+		7AF10F4F2058A46C00019C70 /* AppLoading.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AF10F4E2058A46C00019C70 /* AppLoading.storyboard */; };
+		7AF10F512058A47B00019C70 /* ProfileMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF10F502058A47B00019C70 /* ProfileMenuVC.swift */; };
+		7AF10F532058A48B00019C70 /* TutorialContainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF10F522058A48A00019C70 /* TutorialContainerVC.swift */; };
+		7AF10F552058A49800019C70 /* CameraContainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF10F542058A49800019C70 /* CameraContainerVC.swift */; };
 		7AF3594A2038CDE500713EA3 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF359492038CDE500713EA3 /* SettingsVC.swift */; };
 		7AF3594E2038FB6700713EA3 /* Username.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF3594D2038FB6700713EA3 /* Username.swift */; };
 /* End PBXBuildFile section */
@@ -114,15 +114,11 @@
 		34A7ACB32027A4EB00ACFB12 /* Map.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Map.storyboard; sourceTree = "<group>"; };
 		34A7ACB52027A4F500ACFB12 /* Camera.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Camera.storyboard; sourceTree = "<group>"; };
 		34A7ACB72027A51700ACFB12 /* LeaderboardsFriends.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LeaderboardsFriends.storyboard; sourceTree = "<group>"; };
-		34B359A1205829960093D02C /* TutorialContainerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TutorialContainerVC.swift; path = "../../../../../../../kaleb/Documents/SideProjects/reCap/reCap/View Controllers/Tutorial/TutorialContainerVC.swift"; sourceTree = "<group>"; };
-		34B359A3205832F20093D02C /* AppLoading.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = AppLoading.storyboard; path = ../../../../../../kaleb/Documents/SideProjects/reCap/reCap/Storyboards/AppLoading.storyboard; sourceTree = "<group>"; };
 		34B359A520583F940093D02C /* CustomOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomOverlay.swift; sourceTree = "<group>"; };
 		34B359A620583F960093D02C /* CustomPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPage.swift; sourceTree = "<group>"; };
 		34B359A720583F980093D02C /* CustomPage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomPage.xib; sourceTree = "<group>"; };
 		34B359A820583F9A0093D02C /* CustomOverlay.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomOverlay.xib; sourceTree = "<group>"; };
-		34B359AD205846330093D02C /* ProfileMenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProfileMenuVC.swift; path = "../../../../../../kaleb/Documents/SideProjects/reCap/reCap/View Controllers/ProfileMenuVC.swift"; sourceTree = "<group>"; };
 		34F60575203FD24C001A74E4 /* ImageConfirmVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageConfirmVC.swift; path = "reCap/View Controllers/Camera/ImageConfirmVC.swift"; sourceTree = SOURCE_ROOT; };
-		34FB30B52056F58800D37022 /* CameraContainerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CameraContainerVC.swift; path = "../../../../../../../kaleb/Documents/SideProjects/reCap/reCap/View Controllers/Camera/CameraContainerVC.swift"; sourceTree = "<group>"; };
 		6E7F0BE298641A4C1885D691 /* Pods-reCap.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-reCap.debug.xcconfig"; path = "Pods/Target Support Files/Pods-reCap/Pods-reCap.debug.xcconfig"; sourceTree = "<group>"; };
 		7A0162C9204E3D91000539E0 /* DateGetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateGetter.swift; sourceTree = "<group>"; };
 		7A120DC2203E6BBB0003EE1F /* Profile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
@@ -163,6 +159,10 @@
 		7AE3755E2037C56000CA9946 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		7AE375662037C6D900CA9946 /* FBDatabase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBDatabase.swift; sourceTree = "<group>"; };
 		7AE3756A2037C8E100CA9946 /* LeaderboardFriendsTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaderboardFriendsTableCell.swift; sourceTree = "<group>"; };
+		7AF10F4E2058A46C00019C70 /* AppLoading.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AppLoading.storyboard; sourceTree = "<group>"; };
+		7AF10F502058A47B00019C70 /* ProfileMenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileMenuVC.swift; sourceTree = "<group>"; };
+		7AF10F522058A48A00019C70 /* TutorialContainerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialContainerVC.swift; sourceTree = "<group>"; };
+		7AF10F542058A49800019C70 /* CameraContainerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraContainerVC.swift; sourceTree = "<group>"; };
 		7AF359492038CDE500713EA3 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		7AF3594D2038FB6700713EA3 /* Username.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Username.swift; sourceTree = "<group>"; };
 		9CD7EFB0164AE95822E97FC9 /* Pods_reCapUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_reCapUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -276,9 +276,9 @@
 		348591F8203A7942003E3704 /* Camera */ = {
 			isa = PBXGroup;
 			children = (
+				7AF10F542058A49800019C70 /* CameraContainerVC.swift */,
 				7AA8EE912055A5000043B73C /* ImageCreateVC.swift */,
 				34F60575203FD24C001A74E4 /* ImageConfirmVC.swift */,
-				34FB30B52056F58800D37022 /* CameraContainerVC.swift */,
 			);
 			path = Camera;
 			sourceTree = "<group>";
@@ -296,7 +296,7 @@
 		348591FA203A7971003E3704 /* Tutorial */ = {
 			isa = PBXGroup;
 			children = (
-				34B359A1205829960093D02C /* TutorialContainerVC.swift */,
+				7AF10F522058A48A00019C70 /* TutorialContainerVC.swift */,
 				34B359A520583F940093D02C /* CustomOverlay.swift */,
 				34B359A820583F9A0093D02C /* CustomOverlay.xib */,
 				34B359A620583F960093D02C /* CustomPage.swift */,
@@ -308,6 +308,7 @@
 		34A7ACA62027878E00ACFB12 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
+				7AF10F4E2058A46C00019C70 /* AppLoading.storyboard */,
 				7A120DC6203E6EB10003EE1F /* Tutorial.storyboard */,
 				7A120DC2203E6BBB0003EE1F /* Profile.storyboard */,
 				7AE3755E2037C56000CA9946 /* Launch Screen.storyboard */,
@@ -322,7 +323,6 @@
 				7ABF80CD203A63F800BCE787 /* Settings.storyboard */,
 				7ABF80CF203A64D300BCE787 /* Photo.storyboard */,
 				7AA8EE8B2054AD3F0043B73C /* ChallengeView.storyboard */,
-				34B359A3205832F20093D02C /* AppLoading.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -363,6 +363,7 @@
 		7A4D8A3820277DFF0043878E /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				7AF10F502058A47B00019C70 /* ProfileMenuVC.swift */,
 				7AF359492038CDE500713EA3 /* SettingsVC.swift */,
 				7A0162CD204E4C5A000539E0 /* Challenge */,
 				348591FA203A7971003E3704 /* Tutorial */,
@@ -376,7 +377,6 @@
 				347A06A3202A14BB00961024 /* SignInTransitionVC.swift */,
 				7A4D8A45202780A00043878E /* RecentPicturesVC.swift */,
 				7A4D8A492027818A0043878E /* ProfileSettingsVC.swift */,
-				34B359AD205846330093D02C /* ProfileMenuVC.swift */,
 				7AE375682037C8E100CA9946 /* LeaderboardFriends */,
 			);
 			path = "View Controllers";
@@ -570,7 +570,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7A5878522030D25900F36A56 /* triomphe-light-italic-autoinstr.ttf in Resources */,
-				34B359A4205832F20093D02C /* AppLoading.storyboard in Resources */,
 				7A5878532030D25900F36A56 /* triomphe-bold-italic-autoinstr.ttf in Resources */,
 				34A7ACB82027A51700ACFB12 /* LeaderboardsFriends.storyboard in Resources */,
 				7A38A279202AB57600DF239F /* PhotoLibChallenge.storyboard in Resources */,
@@ -578,6 +577,7 @@
 				34B359AC20583F9B0093D02C /* CustomOverlay.xib in Resources */,
 				7A3C60112027B99A00ABC9E1 /* PageView.storyboard in Resources */,
 				34B359AB20583F9B0093D02C /* CustomPage.xib in Resources */,
+				7AF10F4F2058A46C00019C70 /* AppLoading.storyboard in Resources */,
 				7A120DC3203E6BBB0003EE1F /* Profile.storyboard in Resources */,
 				34A7ACB62027A4F500ACFB12 /* Camera.storyboard in Resources */,
 				7A3B468E202AB407001D19B6 /* SignIn.storyboard in Resources */,
@@ -828,8 +828,6 @@
 				7A120DCF2041F0570003EE1F /* PhotoChalColCell.swift in Sources */,
 				7A0162CA204E3D91000539E0 /* DateGetter.swift in Sources */,
 				34B359AA20583F9B0093D02C /* CustomPage.swift in Sources */,
-				34B359A2205829960093D02C /* TutorialContainerVC.swift in Sources */,
-				34B359AE205846330093D02C /* ProfileMenuVC.swift in Sources */,
 				347A06A4202A14BB00961024 /* SignInTransitionVC.swift in Sources */,
 				34B359A920583F9B0093D02C /* CustomOverlay.swift in Sources */,
 				7AF3594A2038CDE500713EA3 /* SettingsVC.swift in Sources */,
@@ -838,11 +836,13 @@
 				7A3C60132027BAE300ABC9E1 /* MapContainerVC.swift in Sources */,
 				7A38A275202AB56100DF239F /* PhotoChallengeTableCell.swift in Sources */,
 				7A3B468C202AB3FC001D19B6 /* EdgeShadowLayer.swift in Sources */,
-				34FB30B62056F58800D37022 /* CameraContainerVC.swift in Sources */,
+				7AF10F512058A47B00019C70 /* ProfileMenuVC.swift in Sources */,
+				7AF10F532058A48B00019C70 /* TutorialContainerVC.swift in Sources */,
 				7AA8EE94205624050043B73C /* LeaderboardsFriendsVC.swift in Sources */,
 				7AE375672037C6DA00CA9946 /* FBDatabase.swift in Sources */,
 				7AF3594E2038FB6700713EA3 /* Username.swift in Sources */,
 				7A4D8A3A20277E4F0043878E /* CreateAccountVC.swift in Sources */,
+				7AF10F552058A49800019C70 /* CameraContainerVC.swift in Sources */,
 				34A7ACA8202787DA00ACFB12 /* PageViewController.swift in Sources */,
 				344C93EA20226E280025E4C5 /* AppDelegate.swift in Sources */,
 				7A120DD32041F7A70003EE1F /* PhotoVC.swift in Sources */,
@@ -1006,7 +1006,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = VPT5835T5T;
+				DEVELOPMENT_TEAM = CZ7R6F7L6H;
 				INFOPLIST_FILE = reCap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Kaleb-Cooper-Team-Red.reCap";
@@ -1023,7 +1023,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = VPT5835T5T;
+				DEVELOPMENT_TEAM = CZ7R6F7L6H;
 				INFOPLIST_FILE = reCap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Kaleb-Cooper-Team-Red.reCap";

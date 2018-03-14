@@ -24,9 +24,11 @@ class PictureData {
     var owner: String!
     var time: String!
     var locationName: String!
+    var isRootPicture: Bool!
+    var groupID: String!
     
     // MARK: - Initializers
-    public init(name: String!, description: String, gpsCoordinates: [Double], orientation: Int, owner: String, time: String, locationName: String, id: String) {
+    public init(name: String!, description: String, gpsCoordinates: [Double], orientation: Int, owner: String, time: String, locationName: String, id: String, isRootPicture: Bool, groupID: String) {
         self.name = name
         self.description = description
         self.gpsCoordinates = []
@@ -36,6 +38,8 @@ class PictureData {
         self.time = time
         self.locationName = locationName
         self.id = id
+        self.isRootPicture = isRootPicture
+        self.groupID = groupID
     }
     
     /*
