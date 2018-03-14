@@ -316,6 +316,7 @@ class FBDatabase {
      Adds/updates picture data to the database
      */
     
+
     class func addUpdatePictureData(pictureData: PictureData, with_completion completion: @escaping (_ error: String?) -> ()) {
         let jsonObject: [String : Any] = [PICTURE_DATA_NAME : pictureData.name, PICTURE_DESCRIPTION : pictureData.description, PICTURE_DATA_GPS : pictureData.gpsCoordinates, PICTURE_DATA_ORIENTATION : pictureData.orientation, PICTURE_DATA_OWNER : pictureData.owner, PICTURE_DATA_TIME : pictureData.time, PICTURE_DATA_LOCATION_NAME : pictureData.locationName, PICTURE_DATA_ID : pictureData.id, PICTURE_IS_ROOT : pictureData.isRootPicture, PICTURE_GROUP_ID : pictureData.groupID]
         let ref = Database.database().reference()
@@ -329,6 +330,24 @@ class FBDatabase {
                 completion(nil)
             }
         })
+    }
+    
+    /*
+     
+    */
+    private class func parsePictureData(from_dictionary pictureDataNode: NSDictionary) ->PictureData {
+        let name = pictureDataNode[PICTURE_DATA_NAME] as! String
+        let description = pictureDataNode[PICTURE_DESCRIPTION] as! String
+        let coordinates = pictureDataNode[PICTURE_DATA_GPS] as! [Double]
+        let orientation = pictureDataNode[PICTURE_DATA_ORIENTATION] as! Int
+        let owner = pictureDataNode[PICTURE_DATA_OWNER] as! String
+        let time = pictureDataNode[PICTURE_DATA_TIME] as! String
+        let locationName = pictureDataNode[PICTURE_DATA_LOCATION_NAME] as! String
+        let id = pictureDataNode[PICTURE_DATA_ID] as! String
+        let isRoot = pictureDataNode[PICTURE_IS_ROOT] as! Bool
+        let groupID = pictureDataNode[PICTURE_GROUP_ID] as! String
+        let pictureData = PictureData(name: name, description: description, gpsCoordinates: coordinates, orientation: orientation, owner: owner, time: time, locationName: locationName, id: id, isRootPicture: isRoot, groupID: groupID)
+        return pictureData
     }
     
     /*
