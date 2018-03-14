@@ -128,7 +128,7 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
 //        })
         
         FBDatabase.getAllPictureData(count: 50, ref: ref) { (rawPictureDataArray) in
-            if (rawPictureDataArray?.count)! > 0 {
+            if rawPictureDataArray != nil {
 
                 for rawPictureData in rawPictureDataArray! {
 

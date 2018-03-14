@@ -158,17 +158,24 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     private func setupActiveChallengeData() {
         let id = self.user.activeChallengeID
         if id != "" {
+            
             // If there is an actual id and not just the place holder
             let ref = Database.database().reference()
             FBDatabase.getPictureData(id: id!, ref: ref, with_completion: {(pictureData) in
-                ref.removeAllObservers()
-                if let activePictureData = pictureData {
-                    self.activeChallengePicData = activePictureData
-                    print("Got challenge pic data in Camera Container VC")
+                
+                if pictureData != nil {
+                    
+                    ref.removeAllObservers()
+                    if let activePictureData = pictureData {
+                        self.activeChallengePicData = activePictureData
+                        print("Got challenge pic data in Camera Container VC")
+                    }
+                    else {
+                        print("Did not get challenge pic data in camera container VC")
+                    }
+                    
                 }
-                else {
-                    print("Did not get challenge pic data in camera container VC")
-                }
+                
             })
         }
         else {
@@ -329,6 +336,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     
     func setupLocation() {
         
+        
         Locator.requestAuthorizationIfNeeded(.always)
         Locator.requestAuthorizationIfNeeded(.whenInUse)
         
@@ -360,7 +368,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
                                             angle = self.getBearingBetweenTwoPoints1(point1: location, point2: destination!)
                                             
                                             
-                                            
+                                            self.arrowOutlet.isHidden = false
                                             self.destinationAngle = angle
                                             
                                             
@@ -448,47 +456,57 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     
     func setupPreviousPicture() {
         
+        
+        
         let challengeID = self.user.activeChallengeID
+        
         let ref = Database.database().reference()
         
-        FBDatabase.getPictureData(id: challengeID!, ref: ref) { (pictureData) in
+        if challengeID != "" {
             
-            if pictureData != nil {
+            FBDatabase.getPictureData(id: challengeID!, ref: ref) { (pictureData) in
                 
-                FBDatabase.getPicture(pictureData: pictureData!, with_progress: { (progress, total) in
+                print("testing")
+                
+                if pictureData != nil {
                     
-                }, with_completion: { (image) in
-                    
-                    self.previousImageView = UIImageView(frame: self.view.frame)
-                    self.previousImageView?.image = image
-                    self.previousImageView?.alpha = 0.0
-                    
-                    if image?.imageOrientation == .left || image?.imageOrientation == .right {
-                        print("Image orientation up")
-                        self.previousImageView?.contentMode = .scaleToFill
-                        self.previousImageContentMode = .scaleToFill
+                    FBDatabase.getPicture(pictureData: pictureData!, with_progress: { (progress, total) in
+                        
+                    }, with_completion: { (image) in
+                        
+                        self.previousImageView = UIImageView(frame: self.view.frame)
+                        self.previousImageView?.image = image
+                        self.previousImageView?.alpha = 0.0
+                        
+                        if image?.imageOrientation == .left || image?.imageOrientation == .right {
+                            print("Image orientation up")
+                            self.previousImageView?.contentMode = .scaleToFill
+                            self.previousImageContentMode = .scaleToFill
+                        }
+                        else {
+                            print("Image Orientation landscape")
+                            self.previousImageView?.contentMode = .scaleAspectFill
+                            self.previousImageContentMode = .scaleAspectFill
+                        }
+                        
+                        self.previewView.addSubview(self.previousImageView!)
+                        
                     }
-                    else {
-                        print("Image Orientation landscape")
-                        self.previousImageView?.contentMode = .scaleAspectFill
-                        self.previousImageContentMode = .scaleAspectFill
-                    }
-                    
-                    self.previewView.addSubview(self.previousImageView!)
+                    )
                     
                 }
-                )
+                else {
+                    
+                    self.previousOutlet.isEnabled = false
+                    self.previousOutlet.isHidden = true
+                    
+                }
+                
                 
             }
-            else {
-                
-                self.previousOutlet.isEnabled = false
-                self.previousOutlet.isHidden = true
-                
-            }
-            
-            
         }
+        
+        
         
     }
     

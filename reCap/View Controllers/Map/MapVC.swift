@@ -41,9 +41,13 @@ class MapVC: UIViewController, MGLMapViewDelegate {
         super.viewDidLoad()
         if user != nil {
             setupMap()
-            setupPins()
         }
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        setupPins()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -84,8 +88,8 @@ class MapVC: UIViewController, MGLMapViewDelegate {
         }
         
         FBDatabase.getAllPictureData(ref: ref) { (rawPictureDataArray) in
-            if (rawPictureDataArray?.count)! > 0 {
-                
+            
+            if rawPictureDataArray != nil {
                 for rawPictureData in rawPictureDataArray! {
                     
                     FBDatabase.getPictureData(id: rawPictureData.id, ref: self.ref, with_completion: { (pictureData) in
@@ -105,6 +109,7 @@ class MapVC: UIViewController, MGLMapViewDelegate {
                     })
                     
                 }
+                
             }
         }
         
