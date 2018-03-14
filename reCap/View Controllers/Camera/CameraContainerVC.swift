@@ -339,6 +339,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     func setupLocation() {
         
         
+        
         Locator.requestAuthorizationIfNeeded(.always)
         Locator.requestAuthorizationIfNeeded(.whenInUse)
         
@@ -358,6 +359,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
                                     let long = location.coordinate.longitude.truncate(places: 6)
                                 
                                     
+                                    
                                     if self.user.activeChallengeID != "" {
                                         let activeChallengeID = String(self.user.activeChallengeID)
                                         var destination: CLLocation? = CLLocation(latitude: 0, longitude: 0)
@@ -372,20 +374,20 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
                                                 destination = CLLocation(latitude: destinationArray![0], longitude: destinationArray![1])
                                                 angle = self.getBearingBetweenTwoPoints1(point1: location, point2: destination!)
                                                 
+                                                print("Arrow stuff")
                                                 
+                                                self.previousOutlet.isEnabled = true
                                                 self.arrowOutlet.isHidden = false
                                                 self.destinationAngle = angle
                                                 
                                             }
-                                            
-                                            
-                                            
-                                            
+
                                         })
                                         
                                         
                                     }
                                     else {
+                                        self.previousOutlet.isEnabled = false
                                         self.arrowOutlet.isHidden = true
                                     }
                                     
@@ -475,8 +477,6 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
             
             FBDatabase.getPictureData(id: challengeID!, ref: ref) { (pictureData) in
                 
-                print("testing")
-                
                 if pictureData != nil {
                     
                     FBDatabase.getPicture(pictureData: pictureData!, with_progress: { (progress, total) in
@@ -526,13 +526,15 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         setupPreviousPicture()
         setupLocation()
         
+        print("Test")
+        
         if self.user != nil {
             DispatchQueue.main.asyncAfter(deadline: .now()) {
                 if self.videoPreviewLayer != nil {
                     self.setupOrientation()
                     self.session?.startRunning()
                     self.locationManager.startUpdatingHeading()
-                    print("Camera Session Resuming in viewWillAppear")
+                    print("Camera Session Resuming in viewDidAppear")
                 }
             }
         }
@@ -547,31 +549,6 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         }
     }
     
-    
-    override func viewWillAppear(_ animated: Bool) {
-        //        self.setupOrientation()
-        //
-        //        if self.user != nil {
-        //            DispatchQueue.main.asyncAfter(deadline: .now()) {
-        //                if self.videoPreviewLayer != nil {
-        //                    self.session?.startRunning()
-        //                    print("Camera Session Resuming in viewWillAppear")
-        //                }
-        //            }
-        //        }
-    }
-    
-    
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        
-        //        DispatchQueue.main.asyncAfter(deadline: .now()) {
-        //            self.session?.stopRunning()
-        //            print("Camera Session Stopping")
-        //        }
-        
-    }
     
     
     @available(iOS 11.0, *)

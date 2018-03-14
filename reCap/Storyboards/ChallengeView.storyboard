@@ -287,7 +287,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hen-qa-Q4Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4127.1999999999998" y="-155.17241379310346"/>
+            <point key="canvasLocation" x="4095" y="-155"/>
         </scene>
         <!--Challenge ViewVC-->
         <scene sceneID="S2O-Te-1UR">
@@ -550,21 +550,30 @@
             <point key="canvasLocation" x="5321" y="550"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="9xn-5A-Ofo">
+        <scene sceneID="DsF-W2-t92">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="TvR-5q-hBR" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" toolbarHidden="NO" id="gdR-Eg-XAu" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="sQO-VY-NYA">
+                    <nil key="simulatedTopBarMetrics"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics" barStyle="black"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="FQB-OE-Y73">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="6NT-Em-D6S">
+                        <rect key="frame" x="0.0" y="729" width="375" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
-                        <segue destination="mUE-Nm-i7o" kind="relationship" relationship="rootViewController" id="SHI-Nm-Luw"/>
+                        <segue destination="mUE-Nm-i7o" kind="relationship" relationship="rootViewController" id="6aG-Hl-wbJ"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6DM-a9-SSZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DZQ-aN-P8S" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4127" y="550"/>
+            <point key="canvasLocation" x="4094" y="550"/>
         </scene>
     </scenes>
 </document>
