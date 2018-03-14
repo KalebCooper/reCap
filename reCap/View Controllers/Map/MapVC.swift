@@ -84,26 +84,28 @@ class MapVC: UIViewController, MGLMapViewDelegate {
         }
         
         FBDatabase.getAllPictureData(ref: ref) { (rawPictureDataArray) in
-            if (rawPictureDataArray?.count)! > 0 {
-                
-                for rawPictureData in rawPictureDataArray! {
+            if rawPictureDataArray != nil {
+                if (rawPictureDataArray?.count)! > 0 {
                     
-                    FBDatabase.getPictureData(id: rawPictureData.id, ref: self.ref, with_completion: { (pictureData) in
+                    for rawPictureData in rawPictureDataArray! {
                         
-                        let pin = MGLPointAnnotation()
-                        pin.coordinate = CLLocationCoordinate2D(latitude: (pictureData?.gpsCoordinates[0])!, longitude: (pictureData?.gpsCoordinates[1])!)
-                        pin.title = pictureData?.name
-                        pin.subtitle = pictureData?.time
+                        FBDatabase.getPictureData(id: rawPictureData.id, ref: self.ref, with_completion: { (pictureData) in
+                            
+                            let pin = MGLPointAnnotation()
+                            pin.coordinate = CLLocationCoordinate2D(latitude: (pictureData?.gpsCoordinates[0])!, longitude: (pictureData?.gpsCoordinates[1])!)
+                            pin.title = pictureData?.name
+                            pin.subtitle = pictureData?.time
+                            
+                            self.pictureIDArray.append((pictureData?.id)!)
+                            
+                            self.pins.append(pin)
+                            
+                            if rawPictureData.id == rawPictureDataArray?.last?.id {
+                                self.setupPins()
+                            }
+                        })
                         
-                        self.pictureIDArray.append((pictureData?.id)!)
-                        
-                        self.pins.append(pin)
-                        
-                        if rawPictureData.id == rawPictureDataArray?.last?.id {
-                            self.setupPins()
-                        }
-                    })
-                    
+                    }
                 }
             }
         }

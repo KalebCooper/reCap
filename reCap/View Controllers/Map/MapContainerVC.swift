@@ -17,6 +17,7 @@ class MapContainerVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("Map container loaded")
         if user != nil {
         }
         // Do any additional setup after loading the view.

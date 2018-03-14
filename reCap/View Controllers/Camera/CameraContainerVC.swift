@@ -118,12 +118,14 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("Camera container loaded")
         if user != nil {
             setupProfileImage()
             setupHero()
             setupCamera()
             configureButton()
             setupGestures()
+            print("Finished setting up camera container")
         }
     }
     
@@ -451,43 +453,43 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         let challengeID = self.user.activeChallengeID
         let ref = Database.database().reference()
         
-        FBDatabase.getPictureData(id: challengeID!, ref: ref) { (pictureData) in
-            
-            if pictureData != nil {
+        if challengeID != "" {
+            FBDatabase.getPictureData(id: challengeID!, ref: ref) { (pictureData) in
                 
-                FBDatabase.getPicture(pictureData: pictureData!, with_progress: { (progress, total) in
+                if pictureData != nil {
                     
-                }, with_completion: { (image) in
-                    
-                    self.previousImageView = UIImageView(frame: self.view.frame)
-                    self.previousImageView?.image = image
-                    self.previousImageView?.alpha = 0.0
-                    
-                    if image?.imageOrientation == .left || image?.imageOrientation == .right {
-                        print("Image orientation up")
-                        self.previousImageView?.contentMode = .scaleToFill
-                        self.previousImageContentMode = .scaleToFill
+                    FBDatabase.getPicture(pictureData: pictureData!, with_progress: { (progress, total) in
+                        
+                    }, with_completion: { (image) in
+                        
+                        self.previousImageView = UIImageView(frame: self.view.frame)
+                        self.previousImageView?.image = image
+                        self.previousImageView?.alpha = 0.0
+                        
+                        if image?.imageOrientation == .left || image?.imageOrientation == .right {
+                            print("Image orientation up")
+                            self.previousImageView?.contentMode = .scaleToFill
+                            self.previousImageContentMode = .scaleToFill
+                        }
+                        else {
+                            print("Image Orientation landscape")
+                            self.previousImageView?.contentMode = .scaleAspectFill
+                            self.previousImageContentMode = .scaleAspectFill
+                        }
+                        
+                        self.previewView.addSubview(self.previousImageView!)
+                        
                     }
-                    else {
-                        print("Image Orientation landscape")
-                        self.previousImageView?.contentMode = .scaleAspectFill
-                        self.previousImageContentMode = .scaleAspectFill
-                    }
-                    
-                    self.previewView.addSubview(self.previousImageView!)
+                    )
                     
                 }
-                )
-                
+                else {
+                    
+                    self.previousOutlet.isEnabled = false
+                    self.previousOutlet.isHidden = true
+                    
+                }
             }
-            else {
-                
-                self.previousOutlet.isEnabled = false
-                self.previousOutlet.isHidden = true
-                
-            }
-            
-            
         }
         
     }

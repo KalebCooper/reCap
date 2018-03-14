@@ -24,6 +24,7 @@ class LeaderboardsFriendsVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         applyBlurEffect(image: #imageLiteral(resourceName: "Gradient"))
+        print("Leaderboards loaded")
         if mode != nil, user != nil {
             // If the mode has been selected
             if mode == LeaderboardsFriendsVC.FRIENDS_LIST_MODE {

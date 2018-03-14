@@ -127,7 +127,7 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
 //            self.tableView.reloadData()
 //        })
         
-        FBDatabase.getAllPictureData(count: 50, ref: ref) { (rawPictureDataArray) in
+        /*FBDatabase.getAllPictureData(count: 50, ref: ref) { (rawPictureDataArray) in
             if (rawPictureDataArray?.count)! > 0 {
 
                 for rawPictureData in rawPictureDataArray! {
@@ -141,7 +141,15 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
                     })
                 }
             }
-        }
+        }*/
+        FBDatabase.getRootPictureData(ref: ref, with_completion: {(pictureDataList) in
+            ref.removeAllObservers()
+            for pictureData in pictureDataList {
+                let challengeCategory = self.getPicChallengeCategory(pictureData: pictureData, currentDate: currentDate)
+                self.challengesDictionary[challengeCategory]?.append(pictureData)
+            }
+            self.tableView.reloadData()
+        })
     }
     
     // MARK: - ImageButton Methods
@@ -182,8 +190,9 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
      falls into
     */
     private func getPicChallengeCategory(pictureData: PictureData, currentDate: Date) -> String {
-        let pictureDate = DateGetter.getDateFromString(string: pictureData.time)
-        let dateDiffSec = Int(abs(pictureDate.timeIntervalSince(currentDate)))
+        //let pictureDate = DateGetter.getDateFromString(string: pictureData.time)
+        let dateDiffSec = Int(abs(TimeInterval(pictureData.time)! - currentDate.timeIntervalSince1970))
+        //let dateDiffSec = Int(abs(pictureDate.timeIntervalSince(currentDate)))
         if dateDiffSec >= PhotoLibChallengeVC.SECONDS_IN_YEAR {
             return PhotoLibChallengeVC.TAKE_PIC_FROM_YEAR
         }
