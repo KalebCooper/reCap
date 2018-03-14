@@ -141,7 +141,15 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
                     })
                 }
             }
-        }
+        }*/
+        FBDatabase.getRootPictureData(ref: ref, with_completion: {(pictureDataList) in
+            ref.removeAllObservers()
+            for pictureData in pictureDataList {
+                let challengeCategory = self.getPicChallengeCategory(pictureData: pictureData, currentDate: currentDate)
+                self.challengesDictionary[challengeCategory]?.append(pictureData)
+            }
+            self.tableView.reloadData()
+        })
     }
     
     // MARK: - ImageButton Methods
@@ -182,8 +190,9 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
      falls into
     */
     private func getPicChallengeCategory(pictureData: PictureData, currentDate: Date) -> String {
-        let pictureDate = DateGetter.getDateFromString(string: pictureData.time)
-        let dateDiffSec = Int(abs(pictureDate.timeIntervalSince(currentDate)))
+        //let pictureDate = DateGetter.getDateFromString(string: pictureData.time)
+        let dateDiffSec = Int(abs(TimeInterval(pictureData.time)! - currentDate.timeIntervalSince1970))
+        //let dateDiffSec = Int(abs(pictureDate.timeIntervalSince(currentDate)))
         if dateDiffSec >= PhotoLibChallengeVC.SECONDS_IN_YEAR {
             return PhotoLibChallengeVC.TAKE_PIC_FROM_YEAR
         }

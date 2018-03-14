@@ -118,12 +118,14 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("Camera container loaded")
         if user != nil {
             setupProfileImage()
             setupHero()
             setupCamera()
             configureButton()
             setupGestures()
+            print("Finished setting up camera container")
         }
     }
     

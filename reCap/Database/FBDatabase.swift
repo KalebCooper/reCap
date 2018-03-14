@@ -365,7 +365,6 @@ class FBDatabase {
     class func getPictureData(in_group group: String, ref: DatabaseReference, with_completion completion: @escaping (_ pictureData: [PictureData]) -> ()) {
         var pictureDataList: [PictureData] = []
         ref.child(PICTURE_DATA_NODE).queryOrdered(byChild: PICTURE_GROUP_ID).queryEqual(toValue: group).observe(.value, with: {(snapshot) in
-            print(snapshot.value)
             if let pictureDataNodes = snapshot.value as? NSDictionary {
                 for node in pictureDataNodes {
                     let pictureDataNode = node.value as! NSDictionary
