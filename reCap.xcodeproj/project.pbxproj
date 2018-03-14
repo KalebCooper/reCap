@@ -25,7 +25,6 @@
 		34B359AA20583F9B0093D02C /* CustomPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B359A620583F960093D02C /* CustomPage.swift */; };
 		34B359AB20583F9B0093D02C /* CustomPage.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34B359A720583F980093D02C /* CustomPage.xib */; };
 		34B359AC20583F9B0093D02C /* CustomOverlay.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34B359A820583F9A0093D02C /* CustomOverlay.xib */; };
-		34B359B02058C50C0093D02C /* SnappingCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B359AF2058C50C0093D02C /* SnappingCollectionViewLayout.swift */; };
 		34F60577203FD24C001A74E4 /* ImageConfirmVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F60575203FD24C001A74E4 /* ImageConfirmVC.swift */; };
 		3BD76B62D24CA017D72CCCDA /* Pods_reCapUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CD7EFB0164AE95822E97FC9 /* Pods_reCapUITests.framework */; };
 		4166566AA68139D9E70F183A /* Pods_reCap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0C6A1AA7E56B3B8DAD1F814 /* Pods_reCap.framework */; };
@@ -70,6 +69,7 @@
 		7AF10F512058A47B00019C70 /* ProfileMenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF10F502058A47B00019C70 /* ProfileMenuVC.swift */; };
 		7AF10F532058A48B00019C70 /* TutorialContainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF10F522058A48A00019C70 /* TutorialContainerVC.swift */; };
 		7AF10F552058A49800019C70 /* CameraContainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF10F542058A49800019C70 /* CameraContainerVC.swift */; };
+		7AF10F572058DA7D00019C70 /* SnappingCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF10F562058DA7D00019C70 /* SnappingCollectionViewLayout.swift */; };
 		7AF3594A2038CDE500713EA3 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF359492038CDE500713EA3 /* SettingsVC.swift */; };
 		7AF3594E2038FB6700713EA3 /* Username.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF3594D2038FB6700713EA3 /* Username.swift */; };
 /* End PBXBuildFile section */
@@ -120,7 +120,6 @@
 		34B359A620583F960093D02C /* CustomPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPage.swift; sourceTree = "<group>"; };
 		34B359A720583F980093D02C /* CustomPage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomPage.xib; sourceTree = "<group>"; };
 		34B359A820583F9A0093D02C /* CustomOverlay.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomOverlay.xib; sourceTree = "<group>"; };
-		34B359AF2058C50C0093D02C /* SnappingCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SnappingCollectionViewLayout.swift; path = "../../../../../../../kaleb/Documents/SideProjects/reCap/reCap/View Controllers/Reusable/SnappingCollectionViewLayout.swift"; sourceTree = "<group>"; };
 		34F60575203FD24C001A74E4 /* ImageConfirmVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageConfirmVC.swift; path = "reCap/View Controllers/Camera/ImageConfirmVC.swift"; sourceTree = SOURCE_ROOT; };
 		6E7F0BE298641A4C1885D691 /* Pods-reCap.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-reCap.debug.xcconfig"; path = "Pods/Target Support Files/Pods-reCap/Pods-reCap.debug.xcconfig"; sourceTree = "<group>"; };
 		7A0162C9204E3D91000539E0 /* DateGetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateGetter.swift; sourceTree = "<group>"; };
@@ -165,6 +164,7 @@
 		7AF10F502058A47B00019C70 /* ProfileMenuVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileMenuVC.swift; sourceTree = "<group>"; };
 		7AF10F522058A48A00019C70 /* TutorialContainerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialContainerVC.swift; sourceTree = "<group>"; };
 		7AF10F542058A49800019C70 /* CameraContainerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraContainerVC.swift; sourceTree = "<group>"; };
+		7AF10F562058DA7D00019C70 /* SnappingCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnappingCollectionViewLayout.swift; sourceTree = "<group>"; };
 		7AF359492038CDE500713EA3 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		7AF3594D2038FB6700713EA3 /* Username.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Username.swift; sourceTree = "<group>"; };
 		9CD7EFB0164AE95822E97FC9 /* Pods_reCapUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_reCapUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -387,10 +387,10 @@
 		7A4D8A4B202781A80043878E /* Reusable */ = {
 			isa = PBXGroup;
 			children = (
+				7AF10F562058DA7D00019C70 /* SnappingCollectionViewLayout.swift */,
 				7A38A274202AB56100DF239F /* PhotoChallengeTableCell.swift */,
 				7A120DCE2041F0560003EE1F /* PhotoChalColCell.swift */,
 				7A120DD22041F7A70003EE1F /* PhotoVC.swift */,
-				34B359AF2058C50C0093D02C /* SnappingCollectionViewLayout.swift */,
 			);
 			path = Reusable;
 			sourceTree = "<group>";
@@ -830,13 +830,13 @@
 				7AA8EE922055A5000043B73C /* ImageCreateVC.swift in Sources */,
 				7A120DCF2041F0570003EE1F /* PhotoChalColCell.swift in Sources */,
 				7A0162CA204E3D91000539E0 /* DateGetter.swift in Sources */,
-				34B359B02058C50C0093D02C /* SnappingCollectionViewLayout.swift in Sources */,
 				34B359AA20583F9B0093D02C /* CustomPage.swift in Sources */,
 				347A06A4202A14BB00961024 /* SignInTransitionVC.swift in Sources */,
 				34B359A920583F9B0093D02C /* CustomOverlay.swift in Sources */,
 				7AF3594A2038CDE500713EA3 /* SettingsVC.swift in Sources */,
 				7A4D8A4020277F450043878E /* MapVC.swift in Sources */,
 				7AE3756C2037C8E100CA9946 /* LeaderboardFriendsTableCell.swift in Sources */,
+				7AF10F572058DA7D00019C70 /* SnappingCollectionViewLayout.swift in Sources */,
 				7A3C60132027BAE300ABC9E1 /* MapContainerVC.swift in Sources */,
 				7A38A275202AB56100DF239F /* PhotoChallengeTableCell.swift in Sources */,
 				7A3B468C202AB3FC001D19B6 /* EdgeShadowLayer.swift in Sources */,
@@ -1010,7 +1010,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = VPT5835T5T;
+				DEVELOPMENT_TEAM = CZ7R6F7L6H;
 				INFOPLIST_FILE = reCap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Kaleb-Cooper-Team-Red.reCap";
@@ -1027,7 +1027,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = VPT5835T5T;
+				DEVELOPMENT_TEAM = CZ7R6F7L6H;
 				INFOPLIST_FILE = reCap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Kaleb-Cooper-Team-Red.reCap";
