@@ -14,6 +14,7 @@ class CustomOverlay: SwiftyOnboardOverlay {
     @IBOutlet weak var skip: UIButton!
     @IBOutlet weak var buttonContinue: UIButton!
     @IBOutlet weak var contentControl: UIPageControl!
+    @IBOutlet weak var image: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -21,6 +22,8 @@ class CustomOverlay: SwiftyOnboardOverlay {
         buttonContinue.layer.borderColor = UIColor.white.cgColor
         buttonContinue.layer.borderWidth = 1
         buttonContinue.layer.cornerRadius = buttonContinue.bounds.height / 2
+        
+        image.hero.id = "logoID"
     }
     
     class func instanceFromNib() -> UIView {

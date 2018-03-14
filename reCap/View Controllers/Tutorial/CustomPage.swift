@@ -19,4 +19,10 @@ class CustomPage: SwiftyOnboardPage {
         return UINib(nibName: "CustomPage", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! UIView
     }
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        image.hero.id = "profileID"
+    }
+    
 }
