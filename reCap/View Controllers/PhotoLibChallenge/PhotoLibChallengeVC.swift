@@ -169,7 +169,9 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
             self.present(alert, animated: true, completion: nil)
         }
         else if mode == PhotoLibChallengeVC.PHOTO_LIB_MODE {
-            self.performSegue(withIdentifier: "PhotoSegue", sender: [pictureData, image])
+            //self.performSegue(withIdentifier: "PhotoSegue", sender: [pictureData, image])
+            
+            self.performSegue(withIdentifier: "ViewChallengeSegue", sender: [pictureData, image])
         }
     }
     
