@@ -52,19 +52,21 @@ extension Bool {
         
         let calendar = Calendar.current
         let now = Date()
-        let eight_today = calendar.date(
-            bySettingHour: between,
-            minute: 0,
-            second: 0,
-            of: now)!
         
-        let four_thirty_today = calendar.date(
-            bySettingHour: and,
-            minute: 0,
-            second: 0,
-            of: now)!
+        let date1 = calendar.date(bySettingHour: between, minute: 0, second: 0, of: now)!
         
-        if now >= eight_today && now <= four_thirty_today {
+        var date2 = Date()
+        
+        if and == 23 {
+            date2 = calendar.date(bySettingHour: and, minute: 59, second: 59, of: now)!
+        }
+        else {
+            date2 = calendar.date(bySettingHour: and, minute: 0, second: 0, of: now)!
+        }
+        
+        
+        
+        if now >= date1 && now <= date2 {
             return true
         }
         else {

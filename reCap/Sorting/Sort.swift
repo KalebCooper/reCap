@@ -11,10 +11,6 @@ import Foundation
 class Sort {
     
     class func SortUsersByDescendingOrder(users: [User]) -> [User] {
-        print("Before sort")
-        for user in users {
-            print("\(user.points), ")
-        }
         var usersArray = users
         var currentIndex = 0
         while(true) {
@@ -33,10 +29,6 @@ class Sort {
                 // The current index is sorted, go to the next
                 currentIndex = currentIndex + 1
             }
-        }
-        print("After Sort")
-        for user in usersArray {
-            print("\(user.points), ")
         }
         return usersArray
     }

@@ -75,7 +75,7 @@ class MapVC: UIViewController, MGLMapViewDelegate {
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapView.showsUserLocation = true
         
-        if Bool.checkIfTimeIs(between: 0, and: 7) == true || Bool.checkIfTimeIs(between: 18, and: 24) == true {
+        if Bool.checkIfTimeIs(between: 0, and: 7) == true || Bool.checkIfTimeIs(between: 18, and: 23) == true {
             mapView.styleURL = MGLStyle.darkStyleURL()
             styleControl.selectedSegmentIndex = 1
             styleControl.tintColor = UIColor.white
