@@ -47,8 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private func setRootAsPageView() {
         let id = FBDatabase.getSignedInUserID()!
         let ref = Database.database().reference()
-        FBDatabase.getUser(with_id: id, ref: ref, with_completion: {(user) in
-            ref.removeAllObservers()
+        FBDatabase.getUserOnce(with_id: id, ref: ref, with_completion: {(user) in
             if let activeUser = user {
                 print("Got user in app delegate")
                 let pageViewStoryboard = UIStoryboard(name: "PageView", bundle: nil)
