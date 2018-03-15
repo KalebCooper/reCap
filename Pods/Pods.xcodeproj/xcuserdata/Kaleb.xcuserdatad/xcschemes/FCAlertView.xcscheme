@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3A13F5D085B58095E730E8E745ED4ACB"
-               BlueprintName = "SwiftLocation"
+               BlueprintIdentifier = "EF1ABE20DAA23760FBF0359740C1F0B9"
+               BlueprintName = "FCAlertView"
                ReferencedContainer = "container:Pods.xcodeproj"
-               BuildableName = "SwiftLocation.framework">
+               BuildableName = "FCAlertView.framework">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

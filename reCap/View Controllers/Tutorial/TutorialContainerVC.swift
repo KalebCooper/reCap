@@ -11,6 +11,8 @@ import SwiftyOnboard
 
 class TutorialContainerVC: UIViewController, SwiftyOnboardDelegate, SwiftyOnboardDataSource {
     
+    var window: UIWindow?
+    
     var swiftyOnboard: SwiftyOnboard!
     let colors:[UIColor] = [#colorLiteral(red: 0.9980840087, green: 0.3723873496, blue: 0.4952875376, alpha: 1),#colorLiteral(red: 0.2666860223, green: 0.5116362572, blue: 1, alpha: 1),#colorLiteral(red: 0.1019607857, green: 0.2784313858, blue: 0.400000006, alpha: 1)]
     var pageCount: Int = 9
@@ -79,7 +81,25 @@ class TutorialContainerVC: UIViewController, SwiftyOnboardDelegate, SwiftyOnboar
     @objc func handleContinue(sender: UIButton) {
         let index = sender.tag
         if index == pageCount - 1 {
-            self.dismiss(animated: true, completion: nil)
+            
+            let launchedBefore = UserDefaults.standard.bool(forKey: "launchedBefore")
+            if launchedBefore  {
+                self.dismiss(animated: true, completion: nil)
+            }
+            else {
+                print("Sending to Sign In")
+                UserDefaults.standard.set(true, forKey: "launchedBefore")
+//                let signInStoryboard = UIStoryboard(name: "SignIn", bundle: nil)
+//
+//                self.window?.rootViewController = signInStoryboard.instantiateInitialViewController()
+                
+                let storyboard = UIStoryboard(name: "SignIn", bundle: nil)
+                let controller = storyboard.instantiateInitialViewController()
+                self.present(controller!, animated: true, completion: nil)
+            }
+            
+            
+            
         }
         swiftyOnboard?.goToPage(index: index + 1, animated: true)
     }

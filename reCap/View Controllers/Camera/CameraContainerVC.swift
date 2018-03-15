@@ -59,7 +59,26 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     
     
     @IBAction func buttonPressed(_ sender: Any) {
+        
         self.stillImageOutput?.capturePhoto(with: self.photoSetting, delegate: self)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now()) {
+            
+            let inputs = self.session?.inputs
+            for oldInput:AVCaptureInput in inputs! {
+                self.session?.removeInput(oldInput)
+            }
+            
+            let outputs = self.session?.outputs
+            for oldOutput:AVCaptureOutput in outputs! {
+                self.session?.removeOutput(oldOutput)
+            }
+            
+            self.session?.stopRunning()
+            self.locationManager.stopUpdatingHeading()
+            print("Camera Session Stopping")
+        }
+        
     }
     @IBAction func albumAction(_ sender: Any) {
         self.performSegue(withIdentifier: "PhotoLibSegue", sender: self.user)
@@ -122,7 +141,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         if user != nil {
             setupProfileImage()
             setupHero()
-            setupCamera()
+            setupCamera(clear: false)
             configureButton()
             setupGestures()
             print("Finished setting up camera container")
@@ -232,7 +251,9 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     }
     
     
-    public func setupCamera() {
+    public func setupCamera(clear: Bool) {
+        
+        print("Setting up camera")
         
         photoSetting = AVCapturePhotoSettings.init(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])
         photoSetting.isAutoStillImageStabilizationEnabled = true
@@ -273,6 +294,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
             
             if session!.canAddOutput(stillImageOutput!) {
                 session!.addOutput(stillImageOutput!)
+                
                 // Configure the Live Preview here...
                 videoPreviewLayer = AVCaptureVideoPreviewLayer(session: session!)
                 videoPreviewLayer!.videoGravity = AVLayerVideoGravity.resizeAspectFill
@@ -287,14 +309,17 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
                     videoPreviewLayer!.connection?.videoOrientation = AVCaptureVideoOrientation.landscapeRight
                 }
                 
-                
-                
                 previewView.layer.addSublayer(videoPreviewLayer!)
                 session!.startRunning()
                 
+                let when = DispatchTime.now() + 0.01 // change 2 to desired number of seconds
+                DispatchQueue.main.asyncAfter(deadline: when) {
+                    self.viewDidAppear(false)
+                }
                 
             }
         }
+        
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -530,15 +555,16 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         setupPreviousPicture()
         setupLocation()
         
-        print("Test")
-        
         if self.user != nil {
             DispatchQueue.main.asyncAfter(deadline: .now()) {
                 if self.videoPreviewLayer != nil {
                     self.setupOrientation()
-                    self.session?.startRunning()
+                    if self.session?.inputs.count == 0 {
+                        print("TESTING CAMERA")
+                        self.setupCamera(clear: false)
+                    }
                     self.locationManager.startUpdatingHeading()
-                    print("Camera Session Resuming in viewDidAppear")
+                    print("Camera Session Resuming")
                 }
             }
         }
@@ -546,11 +572,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        DispatchQueue.main.asyncAfter(deadline: .now()) {
-            self.session?.stopRunning()
-            self.locationManager.stopUpdatingHeading()
-            print("Camera Session Stopping")
-        }
+        
     }
     
     
@@ -598,7 +620,6 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
             self.performSegue(withIdentifier: "confirmPictureSegue", sender: self)
         }
         
-        //session?.stopRunning()
         
         
     }

@@ -11,6 +11,7 @@ import SkyFloatingLabelTextField
 import Firebase
 import SwiftLocation
 import CoreLocation
+import FCAlertView
 
 class ImageCreateVC: UIViewController {
     
@@ -34,8 +35,10 @@ class ImageCreateVC: UIViewController {
     @IBOutlet var avoidingView: UIView!
     
     @IBAction func cancelPressed(_ sender: Any) {
+        
         self.navigationController?.setToolbarHidden(true, animated: true)
         self.navigationController?.popToRootViewController(animated: true)
+        
     }
     
     @IBAction func confirmPressed(_ sender: Any) {
@@ -54,6 +57,27 @@ class ImageCreateVC: UIViewController {
                 
             })
             print("User earned \(self.user.activeChallengePoints) points")
+            
+            let alert = FCAlertView()
+            alert.makeAlertTypeSuccess()
+            alert.dismissOnOutsideTouch = true
+            
+            let challengePoints: Int = Int(self.user.activeChallengePoints)!
+            let totalPoints: Int = self.user.points
+            
+            let titleString = "+\(challengePoints) Points"
+            let subtitleString = "Good Job! You now have \(totalPoints) points!"
+            
+            alert.showAlert(inView: self,
+                            withTitle: titleString,
+                            withSubtitle: subtitleString,
+                            withCustomImage: nil,
+                            withDoneButtonTitle: "Hooray!",
+                            andButtons: nil)
+            
+            //Clear challenge ID and points
+            self.user.activeChallengeID = ""
+            self.user.activeChallengePoints = ""
         }
         else {
             print("root picture")

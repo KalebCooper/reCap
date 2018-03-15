@@ -46,6 +46,35 @@ extension String
     }
 }
 
+extension Bool {
+    
+    static func checkIfTimeIs(between: Int, and: Int) -> Bool {
+        
+        let calendar = Calendar.current
+        let now = Date()
+        let eight_today = calendar.date(
+            bySettingHour: between,
+            minute: 0,
+            second: 0,
+            of: now)!
+        
+        let four_thirty_today = calendar.date(
+            bySettingHour: and,
+            minute: 0,
+            second: 0,
+            of: now)!
+        
+        if now >= eight_today && now <= four_thirty_today {
+            return true
+        }
+        else {
+            return false
+        }
+        
+    }
+    
+}
+
 
 extension UIViewController
 {

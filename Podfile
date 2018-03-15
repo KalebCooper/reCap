@@ -20,6 +20,7 @@ target 'reCap' do
   pod 'SkyFloatingLabelTextField'
   pod 'IHKeyboardAvoiding'
   pod 'SwiftyOnboard'
+  pod 'FCAlertView'
 
   target 'reCapTests' do
     inherit! :search_paths

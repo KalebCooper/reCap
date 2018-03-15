@@ -151,16 +151,16 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
         print("Image Pressed")
         if mode == PhotoLibChallengeVC.CHALLENGE_MODE {
             let alert = UIAlertController(title: nil, message: "What would you like to do with this challenge?", preferredStyle: .actionSheet)
-            let withNav = UIAlertAction(title: "Start Navigation", style: .default, handler: {(action) in
+            let withNav = UIAlertAction(title: "Make Active & Start Navigation", style: .default, handler: {(action) in
                 self.addChallengeToUser(pictureData: pictureData)
                 // TODO: Start navigation
                 self.navigationController?.dismiss(animated: true, completion: nil)
             })
-            let withoutNav = UIAlertAction(title: "Make active challenge without navigation", style: .default, handler: {(action) in
+            let withoutNav = UIAlertAction(title: "Make Active", style: .default, handler: {(action) in
                 self.addChallengeToUser(pictureData: pictureData)
-                //self.navigationController?.dismiss(animated: true, completion: nil)
+                self.navigationController?.dismiss(animated: true, completion: nil)
             })
-            let viewChallenge = UIAlertAction(title: "View this challenge", style: .default, handler: {(action) in
+            let viewChallenge = UIAlertAction(title: "View This Challenge", style: .default, handler: {(action) in
                 self.performSegue(withIdentifier: "ViewChallengeSegue", sender: [pictureData, image])
             })
             let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -388,11 +388,14 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
         }
         
         if segueID == PhotoLibChallengeVC.VIEW_CHALLENGE_SEGUE {
+            print("Test")
             let nav = segue.destination as! UINavigationController
             let destination = nav.topViewController as! ChallengeViewVC
+            print("Test")
             let infoArray = sender as! [Any]
             let pictureData = infoArray[PhotoLibChallengeVC.PHOTO_SEGUE_PICTURE_DATA_INDEX] as! PictureData
             let picture = infoArray[PhotoLibChallengeVC.PHOTO_SEGUE_PICTURE_INDEX] as! UIImage
+            print("Test")
             destination.pictureData = pictureData
             destination.image = picture
             print("Segue Done")

@@ -35,8 +35,21 @@ class MapVC: UIViewController, MGLMapViewDelegate {
     var imageToPass: UIImage?
     var pictureDataToPass: PictureData?
     
+    @IBOutlet weak var styleControl: UISegmentedControl!
+    @IBAction func styleControlAction(_ sender: Any) {
+        
+        if styleControl.selectedSegmentIndex == 0 {
+            mapView.styleURL = MGLStyle.outdoorsStyleURL()
+            styleControl.tintColor = UIColor(red: 0, green: 122/255, blue: 255/255, alpha: 1.0)
+        }
+        else {
+            mapView.styleURL = MGLStyle.darkStyleURL()
+            styleControl.tintColor = UIColor.white
+        }
+        
+    }
     
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         if user != nil {
@@ -52,7 +65,7 @@ class MapVC: UIViewController, MGLMapViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-
+        
     }
     
     func setupMap() {
@@ -62,13 +75,25 @@ class MapVC: UIViewController, MGLMapViewDelegate {
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapView.showsUserLocation = true
         
-        mapView.styleURL = MGLStyle.outdoorsStyleURL()
+        if Bool.checkIfTimeIs(between: 0, and: 7) == true || Bool.checkIfTimeIs(between: 18, and: 24) == true {
+            mapView.styleURL = MGLStyle.darkStyleURL()
+            styleControl.selectedSegmentIndex = 1
+            styleControl.tintColor = UIColor.white
+        }
+        else {
+            mapView.styleURL = MGLStyle.outdoorsStyleURL()
+            styleControl.selectedSegmentIndex = 0
+            styleControl.tintColor = UIColor(red: 0, green: 122/255, blue: 255/255, alpha: 1.0)
+        }
+        
         view.addSubview(mapView)
+        view.bringSubview(toFront: styleControl)
         
         setupPictures()
         
         
     }
+    
     
     func setupPictures() {
         
@@ -77,15 +102,6 @@ class MapVC: UIViewController, MGLMapViewDelegate {
         
         locations = []
         locationDictionary = [:]
-        
-        FBDatabase.getPictureData(for_user: user, ref: ref) { (pictureData) in
-            for picture in pictureData {
-                
-                self.userPictureDataArray.append(picture)
-                self.setupPins()
-                
-            }
-        }
         
         FBDatabase.getAllPictureData(ref: ref) { (rawPictureDataArray) in
             
@@ -101,7 +117,13 @@ class MapVC: UIViewController, MGLMapViewDelegate {
                         
                         self.pictureIDArray.append((pictureData?.id)!)
                         
-                        self.pins.append(pin)
+                        if pictureData?.isRootPicture == true {
+                            
+                            self.pins.append(pin)
+                            
+                        }
+                        
+                        
                         
                         if rawPictureData.id == rawPictureDataArray?.last?.id {
                             self.setupPins()
@@ -138,38 +160,19 @@ class MapVC: UIViewController, MGLMapViewDelegate {
     
     // Use the default marker. See also: our view annotation or custom marker examples.
     func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
-
-
+        
+        
         // Assign a reuse identifier to be used by both of the annotation views, taking advantage of their similarities.
         let reuseIdentifier = "reusableDotView"
-
+        
         // For better performance, always try to reuse existing annotations.
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
         
-
+        
         // If there’s no reusable annotation view available, initialize a new one.
         if annotationView == nil {
-//            annotationView = MGLAnnotationView(reuseIdentifier: reuseIdentifier)
-//            annotationView?.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-//            annotationView?.layer.cornerRadius = (annotationView?.frame.size.width)! / 2
-//            annotationView?.layer.borderWidth = 4.0
-//            annotationView?.layer.borderColor = UIColor.white.cgColor
             annotationView = CustomAnnotationView(reuseIdentifier: reuseIdentifier)
             annotationView!.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-
-            for pin in userPictureDataArray {
-                
-                print(annotation.coordinate.latitude)
-                print(pin.gpsCoordinates[0])
-
-                if (annotation.coordinate.latitude == pin.gpsCoordinates[0]) && (annotation.coordinate.longitude == pin.gpsCoordinates[1]) {
-                    //annotationView!.backgroundColor = UIColor(red: 0/255, green: 150/255, blue: 255/255, alpha: 1.0)
-                    annotationView!.backgroundColor = UIColor(red: 204/255, green: 51/255, blue: 51/255, alpha: 1.0)
-                    print("Entered statement")
-                    return annotationView
-                }
-                //Else check for active challenge
-            }
             annotationView!.backgroundColor = UIColor(red: 99/255, green: 207/255, blue: 155/255, alpha: 1.0)
         }
         return annotationView
@@ -227,15 +230,11 @@ class MapVC: UIViewController, MGLMapViewDelegate {
         
         // Ask user if they want to navigate to the pin.
         let alert = UIAlertController(title: "Navigate here?", message: nil , preferredStyle: .actionSheet)
-        alert.addAction(UIAlertAction(title: "Set as Target", style: .default, handler: { (action) in
-            // Set as target destination
-            self.beginNavigation()
-            
-        }))
+        
         alert.addAction(UIAlertAction(title: "Navigate", style: .default, handler: { (action) in
             // Calculate the route from the user's location to the set destination
             
-           self.beginNavigation()
+            self.beginNavigation()
             
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
@@ -326,7 +325,7 @@ class MapVC: UIViewController, MGLMapViewDelegate {
             print("Segue Done")
         }
     }
-
+    
 }
 
 

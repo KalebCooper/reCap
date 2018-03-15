@@ -71,7 +71,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.window?.rootViewController = signInStoryboard.instantiateInitialViewController()
         } else {
             print("First launch, setting UserDefault.")
-            UserDefaults.standard.set(true, forKey: "launchedBefore")
+            
             let signInStoryboard = UIStoryboard(name: "Tutorial", bundle: nil)
             self.window?.rootViewController = signInStoryboard.instantiateInitialViewController()
         }

@@ -2,6 +2,7 @@ PODS:
   - ClusterKit/Core (0.3.3)
   - ClusterKit/MapKit (0.3.3):
     - ClusterKit/Core
+  - FCAlertView (1.4.0)
   - Firebase/Auth (4.10.1):
     - Firebase/Core
     - FirebaseAuth (= 4.4.4)
@@ -82,6 +83,7 @@ PODS:
 
 DEPENDENCIES:
   - ClusterKit/MapKit
+  - FCAlertView
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
@@ -98,6 +100,7 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   ClusterKit: 52177be19bda5d9c09cb172e61842185268e6b5c
+  FCAlertView: fdddd63381898c1d1a5a20c9f084fbd2c6d12f8b
   Firebase: 92c6ba593e32db0defde464a9adc981d5cb49f97
   FirebaseAnalytics: 3dfae28d4a5e06f86c4fae830efc2ad3fadb19bc
   FirebaseAuth: d040bb7a9db6dfc29d0e7ec82d48be51352b2581
@@ -127,6 +130,6 @@ SPEC CHECKSUMS:
   SwiftyOnboard: 8dec41d4725b3e6ebcae276dd206d7f74c1b7f61
   Turf: 6c169618fa671e3f8a7b764b5b3332053ad6110e
 
-PODFILE CHECKSUM: 47fae528e3f8437898fee4b9ac348944b0dab0fb
+PODFILE CHECKSUM: d71e21948966a218b1d3a6b5f670d4505f10b168
 
 COCOAPODS: 1.4.0

@@ -7,23 +7,43 @@
 //
 
 import UIKit
+import Firebase
 
-class SettingsVC: UITableViewController {
+class SettingsVC: UITableViewController, UITextFieldDelegate {
+    
+    var user: User!
+    var userData: [String]? = []
+    let limitLength = 18
 
     override func viewDidLoad() {
         super.viewDidLoad()
         applyBlurEffect(image: #imageLiteral(resourceName: "Gradient"))
         self.title = "Settings"
         // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
+        self.clearsSelectionOnViewWillAppear = false
+        
+        setupUser()
 
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func setupUser() {
+        
+        let id = FBDatabase.getSignedInUserID()!
+        let ref = Database.database().reference()
+        FBDatabase.getUser(with_id: id, ref: ref, with_completion: {(user) in
+            ref.removeAllObservers()
+            if let activeUser = user {
+                self.user = activeUser
+                self.userData?.append(activeUser.name)
+                self.userData?.append(activeUser.username)
+                self.userData?.append(activeUser.email)
+                self.tableView.reloadData()
+            }
+            else {
+                print("Did not get user in app delegate")
+            }
+        })
+        
     }
 
     // MARK: - Table view data source
@@ -35,13 +55,141 @@ class SettingsVC: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 1
+        return 6
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
+
+        let cellName = cell.textLabel?.text!
+        
+        
+        
+        if self.userData?.count == 3 {
+            print("cellForRowAt")
+            if cellName == "Full Name" {
+                print("Full Name tapped")
+                cell.detailTextLabel?.text = userData?[0]
+            }
+            else if cellName == "Username" {
+                print("Username tapped")
+                cell.detailTextLabel?.text = userData?[1]
+            }
+            else if cellName == "Email" {
+                print("Email tapped")
+                cell.detailTextLabel?.text = userData?[2]
+            }
+        }
+        
+        
+        
+        return cell
+        
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard let text = textField.text else { return true }
+        let newLength = text.count + string.count - range.length
+        return newLength <= limitLength
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath)
         let cellName = cell?.textLabel?.text!
-        if cellName == "Logout" {
+        if cellName == "Full Name" {
+            print("Full Name tapped")
+            
+            let alertController = UIAlertController(title: "Update Full Name", message: "", preferredStyle: .alert)
+            alertController.addTextField(configurationHandler: { (textField) in
+                textField.placeholder = "Enter Full Name"
+                textField.keyboardAppearance = .dark
+                textField.delegate = self
+                
+            })
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action : UIAlertAction!) -> Void in })
+            let saveAction = UIAlertAction(title: "Save", style: .default, handler: { alert -> Void in
+                let firstTextField = alertController.textFields![0] as UITextField
+                
+                
+                self.user.name = firstTextField.text
+                
+                FBDatabase.addUpdateUser(user: self.user, with_completion: { (error) in
+                    if let actualError = error {
+                        // An error occured
+                        print("Did not write profile picture in database")
+                        print(actualError)
+                    }
+                    else {
+                        // No error occured
+                    }
+                })
+                
+            })
+            
+            alertController.addAction(cancelAction)
+            alertController.addAction(saveAction)
+            
+            self.present(alertController, animated: true, completion: nil)
+            
+            
+        }
+        else if cellName == "Username" {
+            print("Username tapped")
+            
+            let alertController = UIAlertController(title: "Update Username", message: "", preferredStyle: .alert)
+            alertController.addTextField(configurationHandler: { (textField) in
+                textField.placeholder = "Enter Username"
+                textField.keyboardAppearance = .dark
+                textField.delegate = self
+                
+            })
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action : UIAlertAction!) -> Void in })
+            let saveAction = UIAlertAction(title: "Save", style: .default, handler: { alert -> Void in
+                let firstTextField = alertController.textFields![0] as UITextField
+                
+                
+                //Update Username through Firebase Authentication AND Database
+                
+            })
+            
+            alertController.addAction(cancelAction)
+            alertController.addAction(saveAction)
+            
+            self.present(alertController, animated: true, completion: nil)
+            
+        }
+        else if cellName == "Email" {
+            print("Email tapped")
+
+            let alertController = UIAlertController(title: "Update Email", message: "", preferredStyle: .alert)
+            alertController.addTextField(configurationHandler: { (textField) in
+                textField.placeholder = "Enter Email"
+                textField.keyboardAppearance = .dark
+                textField.delegate = self
+                
+            })
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action : UIAlertAction!) -> Void in })
+            let saveAction = UIAlertAction(title: "Save", style: .default, handler: { alert -> Void in
+                let firstTextField = alertController.textFields![0] as UITextField
+                
+                
+                //Update Email through Firebase Authentication AND Database
+                
+            })
+            
+            alertController.addAction(cancelAction)
+            alertController.addAction(saveAction)
+            
+            self.present(alertController, animated: true, completion: nil)
+            
+        }
+        else if cellName == "Notifications" {
+            print("Notifications tapped")
+        }
+        else if cellName == "About" {
+            print("About tapped")
+        }
+        else if cellName == "Logout" {
             // Logout pressed
             logoutPressed()
         }

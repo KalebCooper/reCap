@@ -33,6 +33,16 @@ class PhotoChalColCell: UICollectionViewCell {
         self.layer.shadowOpacity = 0.9
         self.layer.masksToBounds = false
         self.layer.shadowPath = UIBezierPath(roundedRect: self.bounds, cornerRadius: self.contentView.layer.cornerRadius).cgPath
+        
+//        self.imageView.layer.shadowColor = UIColor.black.cgColor
+//        self.imageView.layer.shadowOffset = CGSize(width: 2, height: 5.0)
+//        self.imageView.layer.shadowRadius = 5.0
+//        self.imageView.layer.shadowOpacity = 0.9
+//        self.imageView.layer.masksToBounds = false
+//        self.imageView.layer.shadowPath = UIBezierPath(roundedRect: self.bounds, cornerRadius: self.contentView.layer.cornerRadius).cgPath
+        
+        self.imageView.contentMode = .scaleAspectFill
+        self.imageView.hero.id = "imageID"
 
     }
 

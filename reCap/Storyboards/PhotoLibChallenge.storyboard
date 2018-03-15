@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="73b-MN-egD">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14105" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="73b-MN-egD">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -59,7 +59,7 @@
                                                             </button>
                                                         </subviews>
                                                     </view>
-                                                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="trailing" secondItem="WvD-BN-ke0" secondAttribute="trailing" id="1Ko-QT-igp"/>
                                                         <constraint firstItem="S2n-Co-G1N" firstAttribute="top" secondItem="ohF-9F-W2q" secondAttribute="top" id="E0C-PJ-Ibm"/>
@@ -111,6 +111,7 @@
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <segue destination="BMy-HM-f6t" kind="show" identifier="PhotoSegue" id="5In-3T-9hI"/>
+                        <segue destination="BMy-HM-f6t" kind="show" identifier="ViewChallengeSegue" id="Gnd-dq-OOz"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zed-5s-mHP" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -148,4 +149,7 @@
             <point key="canvasLocation" x="-834" y="16"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="5In-3T-9hI"/>
+    </inferredMetricsTieBreakers>
 </document>

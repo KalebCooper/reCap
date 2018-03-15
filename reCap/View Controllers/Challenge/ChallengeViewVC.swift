@@ -19,6 +19,7 @@ class ChallengeViewVC: UIViewController, UICollectionViewDelegate, UICollectionV
     
     var image: UIImage!
     var pictureData: PictureData!
+    var pictureArray: [PictureData] = []
     
     @IBOutlet weak var imageOutlet: UIImageView!
     @IBOutlet weak var locationOutlet: UILabel!
@@ -52,8 +53,6 @@ class ChallengeViewVC: UIViewController, UICollectionViewDelegate, UICollectionV
         self.navigationController?.toolbar.isHidden = false
         self.navigationController?.navigationBar.isHidden = true
         
-//        imageOutlet.hero.id = "imageID"
-//        imageOutlet.image = image
         locationOutlet.text = String.convertGPSCoordinatesToOutput(coordinates: pictureData.gpsCoordinates)
         let coordinates = CLLocationCoordinate2D(latitude: pictureData.gpsCoordinates[0], longitude: pictureData.gpsCoordinates[1])
         Locator.location(fromCoordinates: coordinates, using: .apple, onSuccess: { places in
@@ -68,7 +67,6 @@ class ChallengeViewVC: UIViewController, UICollectionViewDelegate, UICollectionV
         FBDatabase.getPictureData(in_group: "1054C096E512441B84D91ED1392EDE13", ref: ref, with_completion: {(data) in
             
         })
-        // Do any additional setup after loading the view.
     }
     
     func applyBlurEffect(image: UIImage){
@@ -85,33 +83,37 @@ class ChallengeViewVC: UIViewController, UICollectionViewDelegate, UICollectionV
         
         collectionView.delegate = self
         collectionView.dataSource = self
-        
+        getPictureData()
         
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func getPictureData() {
+        let ref = Database.database().reference()
+        
+        //Make sure pictureArray is empty
+        self.pictureArray = []
+        
+        //Set groupID
+        let groupID = pictureData.groupID
+        
+        //Get pictureData that's passed in, and grab all pictureData using groupID
+        FBDatabase.getPictureData(in_group: groupID!, ref: ref) { (array) in
+            
+            //Set all pictureData obtained to the
+            self.pictureArray = array
+            //Refresh collectionView
+            self.collectionView.reloadData()
+            
+        }
+        
+        
+        
     }
-    
     
     // MARK: - Collection View Methods
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        let collectionViewTag = collectionView.tag
-//        if mode == PhotoLibChallengeVC.PHOTO_LIB_MODE {
-//            let location = locations[collectionViewTag]
-//            return (locationDictionary[location]?.count)!
-//        }
-//        else if mode == PhotoLibChallengeVC.CHALLENGE_MODE {
-//            let challenge = challenges[collectionViewTag]
-//            return (challengesDictionary[challenge]?.count)!
-//        }
-//        else {
-//            return 0
-//        }
-        
-        return 1
+        return pictureArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -119,39 +121,37 @@ class ChallengeViewVC: UIViewController, UICollectionViewDelegate, UICollectionV
         cell.setImageViewDelegate(delegate: self)
         let index = collectionView.tag
         let row = indexPath.row
-        var pictureData: PictureData?
         
-        
-//        if mode == PhotoLibChallengeVC.PHOTO_LIB_MODE {
-//            let location = locations[index]
-//            let locationDataArray = locationDictionary[location]
-//            pictureData = locationDataArray![row]
-//            cell.pictureData = pictureData
-//        }
-//        else if (mode == PhotoLibChallengeVC.CHALLENGE_MODE) || (mode == PhotoLibChallengeVC.ACTIVE_CHALLENGE_MODE) {
-//            let challenge = challenges[index]
-//            let challengeDataArray = challengesDictionary[challenge]
-//            pictureData = challengeDataArray![row]
-//            cell.pictureData = pictureData
-//        }
-        
-        
-        if let realPictureData = pictureData{
-            FBDatabase.getPicture(pictureData: realPictureData, with_progress: {(progress, total) in
-                
-            }, with_completion: {(image) in
-                if let realImage = image {
-                    print("Got image in PhotoLibChal VC")
-                    cell.imageView.image = realImage
-                }
-                else {
-                    print("Did not get image in PhotoLibChal VC")
-                }
-            })
-            return cell
-        }
+        let cellPictureData = pictureArray[row]
+        FBDatabase.getPicture(pictureData: cellPictureData, with_progress: {(progress, total) in
+            
+        }, with_completion: {(image) in
+            if let realImage = image {
+                print("Got image in PhotoLibChal VC")
+                cell.imageView.image = realImage
+            }
+            else {
+                print("Did not get image in PhotoLibChal VC")
+            }
+        })
         return cell
     }
+    
+    
+    
+//    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
+//
+//        let totalCellWidth = CellWidth * CellCount
+//        let totalSpacingWidth = CellSpacing * (CellCount - 1)
+//
+//        let leftInset = (collectionViewWidth - CGFloat(totalCellWidth + totalSpacingWidth)) / 2
+//        let rightInset = leftInset
+//
+//        return UIEdgeInsetsMake(0, leftInset, 0, rightInset)
+//    }
+    
+    
+
     
     
     
