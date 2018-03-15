@@ -89,11 +89,13 @@ class LeaderboardsFriendsVC: UITableViewController {
     // MARK: - Setup Methods
     private func setupLeaderboards() {
         leaderboardsList = []
+        var unsortedList: [User] = []
         let ref = Database.database().reference()
         FBDatabase.getAllUsers(query_by: FBDatabase.USER_POINTS, with_max_query: 50, with_ref: ref, with_completion: {(users) in
             for user in users {
-                self.leaderboardsList.append(user)
+                unsortedList.append(user)
             }
+            self.leaderboardsList = Sort.SortUsersByDescendingOrder(users: unsortedList)
             self.tableView.reloadData()
         })
         /*let settingsButton = UIBarButtonItem(title: "Settings", style: .plain, target: self, action: #selector(settingsPressed))

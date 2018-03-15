@@ -20,27 +20,7 @@ class PageViewController: PageboyViewController, PageboyViewControllerDataSource
     private var leaderboardsVC: LeaderboardsFriendsVC!
     private var ref: DatabaseReference!
     
-    /*let viewControllersArray: [UIViewController] = {
-        
-        let mapStoryboard = UIStoryboard(name: "Map", bundle: Bundle.main)
-        let cameraStoryboard = UIStoryboard(name: "Camera", bundle: Bundle.main)
-        let leaderboardsStoryboard = UIStoryboard(name: "LeaderboardsFriends", bundle: Bundle.main)
-        
-        let mapVC = mapStoryboard.instantiateViewController(withIdentifier: "MapContainerVC") as! MapContainerVC
-        let cameraVC = cameraStoryboard.instantiateViewController(withIdentifier: "CameraContainerVC") as! CameraContainerVC
-        
-        let leaderboardsNav = leaderboardsStoryboard.instantiateViewController(withIdentifier: "LeaderboardsFriendsNav") as! UINavigationController
-        let leaderboardsVC = leaderboardsNav.topViewController as! LeaderboardsFriendsVC
-        leaderboardsVC.mode = LeaderboardsFriendsVC.LEADERBOARD_MODE
-        var viewControllers = [UIViewController]()
-        viewControllers.append(mapVC)
-        viewControllers.append(cameraVC)
-        viewControllers.append(leaderboardsVC)
-        
-        return viewControllers
-    }()*/
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
         if user != nil {
@@ -74,10 +54,6 @@ class PageViewController: PageboyViewController, PageboyViewControllerDataSource
         FBDatabase.getUser(with_id: id, ref: ref, with_completion: {(user) in
             if let activeUser = user {
                 print("Got updated user in Page View Controller")
-                self.user = user
-                self.mapVC.updateViewController(user: activeUser)
-                self.cameraVC.updateViewController(user: activeUser)
-                self.leaderboardsVC.updateViewController(user: activeUser)
             }
             else {
                 print("Did not get update user in Page View Controller")

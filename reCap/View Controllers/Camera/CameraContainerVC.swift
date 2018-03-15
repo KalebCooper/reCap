@@ -129,6 +129,10 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        print("The active challenge id is \(user.activeChallengeID)")
+    }
+    
     func setupProfileImage() {
         
         FBDatabase.getProfilePicture(for_user: user!, with_progress: { (progress, total)  in
@@ -639,7 +643,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
             vc.longToPass = self.longToPass
             vc.locationToPass = self.locationToPass
             vc.user = self.user
-            
+            vc.previousPic = self.activeChallengePicData
         }
         else if segueID == "toProfileSegue" {
             let vc = segue.destination as! ProfileMenuVC
