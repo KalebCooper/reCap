@@ -254,6 +254,21 @@ class FBDatabase {
     }
     
     /*
+     Gets a user once
+    */
+    class func getUserOnce(with_id id: String, ref: DatabaseReference, with_completion completion: @escaping (_ user: User?) -> ()) {
+        ref.child(USER_NODE).child(id).observeSingleEvent(of: .value, with: {(snapshot) in
+            if let userNode = snapshot.value as? NSDictionary {
+                completion(parseUserData(with_dictionary: userNode))
+            }
+            else {
+                // No users in the database
+                completion(nil)
+            }
+        })
+    }
+    
+    /*
      Gets all users ordered by given
      child and the maximum number
      of users to fetch
