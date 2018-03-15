@@ -129,6 +129,10 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        print("The active challenge id is \(user.activeChallengeID)")
+    }
+    
     func setupProfileImage() {
         
         FBDatabase.getProfilePicture(for_user: user!, with_progress: { (progress, total)  in

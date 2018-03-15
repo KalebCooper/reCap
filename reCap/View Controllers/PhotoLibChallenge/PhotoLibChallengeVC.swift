@@ -99,7 +99,7 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
         self.tableView.allowsSelection = false
         FBDatabase.getPictureData(for_user: user, ref: self.photoLibChalReference, with_completion: {(pictureDataList) in
             for pictureData in pictureDataList {
-                if pictureData.isRootPicture {
+                if pictureData.isMostRecentPicture {
                     // Only display photos that are root pictures
                     let location = pictureData.locationName
                     if !self.tableSectionArray.contains(location!) {
@@ -121,28 +121,29 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
     
     private func setupChallenge() {
         self.title = "Challenges"
-        self.tableSectionArray = [PhotoLibChallengeVC.TAKE_PIC_FROM_RECENT, PhotoLibChallengeVC.TAKE_PIC_FROM_WEEK, PhotoLibChallengeVC.TAKE_PIC_FROM_MONTH, PhotoLibChallengeVC.TAKE_PIC_FROM_YEAR]
+        //self.tableSectionArray = [PhotoLibChallengeVC.TAKE_PIC_FROM_RECENT, PhotoLibChallengeVC.TAKE_PIC_FROM_WEEK, PhotoLibChallengeVC.TAKE_PIC_FROM_MONTH, PhotoLibChallengeVC.TAKE_PIC_FROM_YEAR]
         self.collectionDictionaryData = [PhotoLibChallengeVC.TAKE_PIC_FROM_RECENT : [], PhotoLibChallengeVC.TAKE_PIC_FROM_WEEK : [], PhotoLibChallengeVC.TAKE_PIC_FROM_MONTH : [], PhotoLibChallengeVC.TAKE_PIC_FROM_YEAR : []]
         self.tableView.allowsSelection = false
         let currentDate = Date()
-        FBDatabase.getRootPictureData(ref: self.photoLibChalReference, with_completion: {(pictureDataList) in
+        FBDatabase.getAllMostRecentPictureData(ref: photoLibChalReference, with_completion: {(pictureDataList) in
             for pictureData in pictureDataList {
                 let challengeCategory = self.getPicChallengeCategory(pictureData: pictureData, currentDate: currentDate)
-                //self.challengesDictionary[challengeCategory]?.append(pictureData)
                 self.collectionDictionaryData[challengeCategory]?.append(pictureData)
             }
-            self.removeEmptySection(section: PhotoLibChallengeVC.TAKE_PIC_FROM_RECENT)
-            self.removeEmptySection(section: PhotoLibChallengeVC.TAKE_PIC_FROM_WEEK)
-            self.removeEmptySection(section: PhotoLibChallengeVC.TAKE_PIC_FROM_MONTH)
-            self.removeEmptySection(section: PhotoLibChallengeVC.TAKE_PIC_FROM_YEAR)
+            if self.collectionDictionaryData[PhotoLibChallengeVC.TAKE_PIC_FROM_RECENT]?.count != 0 {
+                self.tableSectionArray.append(PhotoLibChallengeVC.TAKE_PIC_FROM_RECENT)
+            }
+            if self.collectionDictionaryData[PhotoLibChallengeVC.TAKE_PIC_FROM_WEEK]?.count != 0 {
+                self.tableSectionArray.append(PhotoLibChallengeVC.TAKE_PIC_FROM_WEEK)
+            }
+            if self.collectionDictionaryData[PhotoLibChallengeVC.TAKE_PIC_FROM_MONTH]?.count != 0 {
+                self.tableSectionArray.append(PhotoLibChallengeVC.TAKE_PIC_FROM_MONTH)
+            }
+            if self.collectionDictionaryData[PhotoLibChallengeVC.TAKE_PIC_FROM_YEAR]?.count != 0 {
+                self.tableSectionArray.append(PhotoLibChallengeVC.TAKE_PIC_FROM_YEAR)
+            }
             self.tableView.reloadData()
         })
-    }
-    
-    private func removeEmptySection(section: String) {
-        if self.collectionDictionaryData[section]?.count == 0 {
-            self.tableSectionArray.remove(at: self.tableSectionArray.index(of: section)!)
-        }
     }
     
     // MARK: - ImageButton Methods
@@ -157,7 +158,7 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
             })
             let withoutNav = UIAlertAction(title: "Make active challenge without navigation", style: .default, handler: {(action) in
                 self.addChallengeToUser(pictureData: pictureData)
-                self.navigationController?.dismiss(animated: true, completion: nil)
+                //self.navigationController?.dismiss(animated: true, completion: nil)
             })
             let viewChallenge = UIAlertAction(title: "View this challenge", style: .default, handler: {(action) in
                 self.performSegue(withIdentifier: "ViewChallengeSegue", sender: [pictureData, image])
@@ -170,7 +171,6 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
             self.present(alert, animated: true, completion: nil)
         }
         else if mode == PhotoLibChallengeVC.PHOTO_LIB_MODE {
-            //self.performSegue(withIdentifier: "PhotoSegue", sender: [pictureData, image])
             self.performSegue(withIdentifier: "PhotoSegue", sender: [pictureData, image])
         }
     }

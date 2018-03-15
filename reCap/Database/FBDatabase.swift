@@ -259,7 +259,8 @@ class FBDatabase {
      of users to fetch
      */
     class func getAllUsers(query_by child: String, with_max_query number: Int, with_ref ref: DatabaseReference, with_completion completion: @escaping (_ users: [User]) -> ()) {
-        ref.child(USER_NODE).queryOrdered(byChild: child).queryLimited(toFirst: UInt(number)).observe(.value, with: {(snapshot) in
+        ref.child(USER_NODE).queryLimited(toFirst: UInt(number)).observe(.value, with: {(snapshot) in
+            print(snapshot.value)
             var userList: [User] = []
             if let usersNode = snapshot.value as? NSDictionary {
                 for node in usersNode {
@@ -411,7 +412,7 @@ class FBDatabase {
         }
     }
     
-    class func getMostRecentPictureData(from_user user: User, ref: DatabaseReference, with_completion completion: @escaping (_ pictureData: [PictureData]) -> ()) {
+    class func getAllMostRecentPictureData(ref: DatabaseReference, with_completion completion: @escaping (_ pictureData: [PictureData]) -> ()) {
         var pictureDataList: [PictureData] = []
         ref.child(PICTURE_DATA_NODE).queryOrdered(byChild: PICTURE_DATA_IS_MOST_RECENT_PIC).queryEqual(toValue: true).observe(.value, with: {(snapshot) in
             if let pictureDataNodes = snapshot.value as? NSDictionary {

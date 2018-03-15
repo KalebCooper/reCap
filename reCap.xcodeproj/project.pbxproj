@@ -70,6 +70,7 @@
 		7AF10F532058A48B00019C70 /* TutorialContainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF10F522058A48A00019C70 /* TutorialContainerVC.swift */; };
 		7AF10F552058A49800019C70 /* CameraContainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF10F542058A49800019C70 /* CameraContainerVC.swift */; };
 		7AF10F572058DA7D00019C70 /* SnappingCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF10F562058DA7D00019C70 /* SnappingCollectionViewLayout.swift */; };
+		7AF10F5A2059EEF500019C70 /* Sort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF10F592059EEF500019C70 /* Sort.swift */; };
 		7AF3594A2038CDE500713EA3 /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF359492038CDE500713EA3 /* SettingsVC.swift */; };
 		7AF3594E2038FB6700713EA3 /* Username.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AF3594D2038FB6700713EA3 /* Username.swift */; };
 /* End PBXBuildFile section */
@@ -165,6 +166,7 @@
 		7AF10F522058A48A00019C70 /* TutorialContainerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialContainerVC.swift; sourceTree = "<group>"; };
 		7AF10F542058A49800019C70 /* CameraContainerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraContainerVC.swift; sourceTree = "<group>"; };
 		7AF10F562058DA7D00019C70 /* SnappingCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnappingCollectionViewLayout.swift; sourceTree = "<group>"; };
+		7AF10F592059EEF500019C70 /* Sort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sort.swift; sourceTree = "<group>"; };
 		7AF359492038CDE500713EA3 /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
 		7AF3594D2038FB6700713EA3 /* Username.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Username.swift; sourceTree = "<group>"; };
 		9CD7EFB0164AE95822E97FC9 /* Pods_reCapUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_reCapUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -241,6 +243,7 @@
 		344C93E820226E280025E4C5 /* reCap */ = {
 			isa = PBXGroup;
 			children = (
+				7AF10F582059EED500019C70 /* Sorting */,
 				7A0162C8204E3D6D000539E0 /* Getter Classes */,
 				7AE3755D2037C51D00CA9946 /* Custom Fonts */,
 				7A5878462030D22600F36A56 /* Extensions.swift */,
@@ -444,6 +447,14 @@
 				7AE3756A2037C8E100CA9946 /* LeaderboardFriendsTableCell.swift */,
 			);
 			path = LeaderboardFriends;
+			sourceTree = "<group>";
+		};
+		7AF10F582059EED500019C70 /* Sorting */ = {
+			isa = PBXGroup;
+			children = (
+				7AF10F592059EEF500019C70 /* Sort.swift */,
+			);
+			path = Sorting;
 			sourceTree = "<group>";
 		};
 		C6FF080457583B7CA4FEF83E /* Frameworks */ = {
@@ -835,6 +846,7 @@
 				34B359A920583F9B0093D02C /* CustomOverlay.swift in Sources */,
 				7AF3594A2038CDE500713EA3 /* SettingsVC.swift in Sources */,
 				7A4D8A4020277F450043878E /* MapVC.swift in Sources */,
+				7AF10F5A2059EEF500019C70 /* Sort.swift in Sources */,
 				7AE3756C2037C8E100CA9946 /* LeaderboardFriendsTableCell.swift in Sources */,
 				7AF10F572058DA7D00019C70 /* SnappingCollectionViewLayout.swift in Sources */,
 				7A3C60132027BAE300ABC9E1 /* MapContainerVC.swift in Sources */,
