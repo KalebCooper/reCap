@@ -153,7 +153,7 @@
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="styleControl" destination="aUG-ky-J5u" id="CAR-Ns-yQY"/>
-                        <segue destination="Lbj-9G-dvc" kind="presentation" identifier="ChallengeViewSegue" id="zSe-Kw-OVj"/>
+                        <segue destination="Lbj-9G-dvc" kind="show" identifier="ChallengeViewSegue" id="zSe-Kw-OVj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LM1-qn-Qhh" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -15,6 +15,18 @@ import Firebase
 
 class MapVC: UIViewController, MGLMapViewDelegate {
     
+    private static let TAKE_PIC_FROM_RECENT = "Recent Photos (+1 point)"
+    private static let TAKE_PIC_FROM_WEEK = "Photos over a week ago (+5 points)"
+    private static let TAKE_PIC_FROM_MONTH = "Photos over a month ago (+15 points)"
+    private static let TAKE_PIC_FROM_YEAR = "Photos from over a year ago (+50 points)"
+    private static let CHALLENGE_RECENT_POINTS = 1
+    private static let CHALLENGE_WEEK_POINTS = 5
+    private static let CHALLENGE_MONTH_POINTS = 10
+    private static let CHALLENGE_YEAR_POINTS = 20
+    static let SECONDS_IN_WEEK = 604800
+    static let SECONDS_IN_MONTH = PhotoLibChallengeVC.SECONDS_IN_WEEK * 4
+    static let SECONDS_IN_YEAR = PhotoLibChallengeVC.SECONDS_IN_MONTH * 12
+    
     // MARK: - Properties
     private var locations: [String]!
     private var locationDictionary: [String : [PictureData]]!
@@ -25,6 +37,8 @@ class MapVC: UIViewController, MGLMapViewDelegate {
     var pins: [MGLPointAnnotation]! = []
     var pictureDataArray: [PictureData]! = []
     var userPictureDataArray: [PictureData]! = []
+    
+    
     var pictureIDArray: [String]! = []
     var pictureArray: [UIImage]! = []
     
@@ -103,29 +117,27 @@ class MapVC: UIViewController, MGLMapViewDelegate {
         locations = []
         locationDictionary = [:]
         
-        FBDatabase.getAllPictureData(ref: ref) { (rawPictureDataArray) in
+        FBDatabase.getAllMostRecentPictureData(ref: ref) { (rawPictureDataArray) in
             
-            if rawPictureDataArray != nil {
-                for rawPictureData in rawPictureDataArray! {
+            if rawPictureDataArray.count > 0 {
+                for rawPictureData in rawPictureDataArray {
                     
                     FBDatabase.getPictureData(id: rawPictureData.id, ref: self.ref, with_completion: { (pictureData) in
                         
                         let pin = MGLPointAnnotation()
                         pin.coordinate = CLLocationCoordinate2D(latitude: (pictureData?.gpsCoordinates[0])!, longitude: (pictureData?.gpsCoordinates[1])!)
                         pin.title = pictureData?.name
-                        pin.subtitle = pictureData?.time
+                        pin.subtitle = pictureData?.locationName
                         
                         self.pictureIDArray.append((pictureData?.id)!)
+                        self.pictureDataArray.append(pictureData!)
                         
-                        if pictureData?.isRootPicture == true {
-                            
-                            self.pins.append(pin)
-                            
-                        }
+                        self.pins.append(pin)
                         
                         
                         
-                        if rawPictureData.id == rawPictureDataArray?.last?.id {
+                        
+                        if rawPictureData.id == rawPictureDataArray.last?.id {
                             self.setupPins()
                         }
                     })
@@ -169,11 +181,31 @@ class MapVC: UIViewController, MGLMapViewDelegate {
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
         
         
+        
         // If there’s no reusable annotation view available, initialize a new one.
         if annotationView == nil {
             annotationView = CustomAnnotationView(reuseIdentifier: reuseIdentifier)
             annotationView!.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-            annotationView!.backgroundColor = UIColor(red: 99/255, green: 207/255, blue: 155/255, alpha: 1.0)
+            
+            for picture in pictureDataArray {
+                
+                if picture.id == self.user.activeChallengeID {
+                    if (annotation.coordinate.latitude == picture.gpsCoordinates[0]) && annotation.coordinate.longitude == picture.gpsCoordinates[1] {
+                        print("Found active challenge annotation")
+                        annotationView!.backgroundColor = UIColor(red: 204/255, green: 51/255, blue: 51/255, alpha: 1.0)
+                        return annotationView
+                    }
+                }
+                
+                if picture.id == pictureDataArray.last?.id {
+                    print("Identified non-active challenge annotation")
+                    annotationView!.backgroundColor = UIColor(red: 99/255, green: 207/255, blue: 155/255, alpha: 1.0)
+                    return annotationView
+                }
+                
+            }
+            
+            return annotationView
         }
         return annotationView
     }
@@ -215,7 +247,15 @@ class MapVC: UIViewController, MGLMapViewDelegate {
     
     
     func mapView(_ mapView: MGLMapView, rightCalloutAccessoryViewFor annotation: MGLAnnotation) -> UIView? {
-        return UIButton(type: .detailDisclosure)
+        
+        if annotation is MGLUserLocation && mapView.userLocation != nil {
+            return nil
+        }
+        else {
+            return UIButton(type: .detailDisclosure)
+        }
+        
+        
     }
     
     func mapView(_ mapView: MGLMapView, annotation: MGLAnnotation, calloutAccessoryControlTapped control: UIControl) {
@@ -228,17 +268,39 @@ class MapVC: UIViewController, MGLMapViewDelegate {
             }
         }
         
+            
         // Ask user if they want to navigate to the pin.
         let alert = UIAlertController(title: "Navigate here?", message: nil , preferredStyle: .actionSheet)
         
         alert.addAction(UIAlertAction(title: "Navigate", style: .default, handler: { (action) in
             // Calculate the route from the user's location to the set destination
-            
             self.beginNavigation()
+        }))
+        alert.addAction(UIAlertAction(title: "Set as Active Challenge", style: .default, handler: { (action) in
+            // Calculate the route from the user's location to the set destination
+            
+            FBDatabase.getAllMostRecentPictureData(ref: self.ref, with_completion: { (pictureArray) in
+                
+                for picture in pictureArray {
+                    
+                    if (annotation.coordinate.latitude == picture.gpsCoordinates[0]) && annotation.coordinate.longitude == picture.gpsCoordinates[1] {
+                        self.addChallengeToUser(pictureData: picture)
+                        break
+                    }
+                }
+                
+                self.setupPins()
+                
+            })
+            
+            
             
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)
+        
+        
+        
         
     }
     
@@ -304,6 +366,56 @@ class MapVC: UIViewController, MGLMapViewDelegate {
         
         self.present(navigationViewController, animated: true, completion: nil)
     }
+    
+    
+    
+    
+    private func getPicChallengeCategory(pictureData: PictureData, currentDate: Date) -> String {
+        //let pictureDate = DateGetter.getDateFromString(string: pictureData.time)
+        let dateDiffSec = Int(abs(TimeInterval(pictureData.time)! - currentDate.timeIntervalSince1970))
+        //let dateDiffSec = Int(abs(pictureDate.timeIntervalSince(currentDate)))
+        if dateDiffSec >= MapVC.SECONDS_IN_YEAR {
+            return MapVC.TAKE_PIC_FROM_YEAR
+        }
+        else if dateDiffSec >= MapVC.SECONDS_IN_MONTH {
+            return MapVC.TAKE_PIC_FROM_MONTH
+        }
+        else if dateDiffSec >= MapVC.SECONDS_IN_WEEK {
+            return MapVC.TAKE_PIC_FROM_WEEK
+        }
+        else {
+            return MapVC.TAKE_PIC_FROM_RECENT
+        }
+    }
+    
+    private func addChallengeToUser(pictureData: PictureData) {
+        let challengeCategory = getPicChallengeCategory(pictureData: pictureData, currentDate: Date())
+        var points = 0
+        if challengeCategory == MapVC.TAKE_PIC_FROM_WEEK {
+            points = MapVC.CHALLENGE_WEEK_POINTS
+        }
+        else if challengeCategory == MapVC.TAKE_PIC_FROM_MONTH {
+            points = MapVC.CHALLENGE_MONTH_POINTS
+        }
+        else if challengeCategory == MapVC.TAKE_PIC_FROM_YEAR {
+            points = MapVC.CHALLENGE_YEAR_POINTS
+        }
+        else if challengeCategory == MapVC.TAKE_PIC_FROM_RECENT {
+            points = MapVC.CHALLENGE_RECENT_POINTS
+        }
+        self.user.activeChallengeID = pictureData.id
+        self.user.activeChallengePoints = points.description
+        FBDatabase.addUpdateUser(user: self.user, with_completion: {(error) in
+            if let actualError = error {
+                print(actualError)
+            }
+            else {
+                print("Added challenge to user")
+            }
+        })
+    }
+    
+    
     
     
     // MARK: - Navigation

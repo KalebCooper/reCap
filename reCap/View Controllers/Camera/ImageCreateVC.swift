@@ -51,7 +51,7 @@ class ImageCreateVC: UIViewController {
             // If the user took the picture at the challenge coordinates, there is an active challenge
             self.user.points = self.user.points + Int(self.user.activeChallengePoints)!
             isRoot = false
-            groupID = self.user.activeChallengeID
+            groupID = self.previousPic.groupID
             self.previousPic.isMostRecentPicture = false
             FBDatabase.addUpdatePictureData(pictureData: self.previousPic, with_completion: {(error) in
                 
