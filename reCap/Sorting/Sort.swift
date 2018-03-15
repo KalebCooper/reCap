@@ -40,4 +40,37 @@ class Sort {
         }
         return usersArray
     }
+    
+    class func SortPictureDataByDescendingOrder(dataList: [PictureData]) -> [PictureData] {
+        print("Before sort")
+        for pictureData in dataList {
+            print("\(pictureData.time), ")
+        }
+        var pictureDataList = dataList
+        var currentIndex = 0
+        while(true) {
+            if (currentIndex + 1) > pictureDataList.count-1 {
+                break
+            }
+            let currentPictureData = pictureDataList[currentIndex]
+            let nextPictureData = pictureDataList[currentIndex + 1]
+            let currentPicTime = Int(currentPictureData.time)!
+            let nextPicTime = Int(nextPictureData.time)!
+            if currentPicTime < nextPicTime {
+                // Current index needs to be sorted, loop back through
+                pictureDataList[currentIndex] = nextPictureData
+                pictureDataList[currentIndex + 1] = currentPictureData
+                currentIndex = 0
+            }
+            else {
+                // The current index is sorted, go to the next
+                currentIndex = currentIndex + 1
+            }
+        }
+        print("After Sort")
+        for pictureData in dataList {
+            print("\(pictureData.time), ")
+        }
+        return pictureDataList
+    }
 }

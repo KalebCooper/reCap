@@ -33,6 +33,7 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
     private static let CHALLENGE_WEEK_POINTS = 5
     private static let CHALLENGE_MONTH_POINTS = 10
     private static let CHALLENGE_YEAR_POINTS = 20
+    private var dispatchGroup: DispatchGroup!
     static let PHOTO_LIB_MODE = 0
     static let CHALLENGE_MODE = 1
     static let ACTIVE_CHALLENGE_MODE = 2
@@ -121,29 +122,50 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
     
     private func setupChallenge() {
         self.title = "Challenges"
+        self.dispatchGroup = DispatchGroup()
         //self.tableSectionArray = [PhotoLibChallengeVC.TAKE_PIC_FROM_RECENT, PhotoLibChallengeVC.TAKE_PIC_FROM_WEEK, PhotoLibChallengeVC.TAKE_PIC_FROM_MONTH, PhotoLibChallengeVC.TAKE_PIC_FROM_YEAR]
         self.collectionDictionaryData = [PhotoLibChallengeVC.TAKE_PIC_FROM_RECENT : [], PhotoLibChallengeVC.TAKE_PIC_FROM_WEEK : [], PhotoLibChallengeVC.TAKE_PIC_FROM_MONTH : [], PhotoLibChallengeVC.TAKE_PIC_FROM_YEAR : []]
+        var unsortedChallenges: [String : [PictureData]] = [PhotoLibChallengeVC.TAKE_PIC_FROM_RECENT : [], PhotoLibChallengeVC.TAKE_PIC_FROM_WEEK : [], PhotoLibChallengeVC.TAKE_PIC_FROM_MONTH : [], PhotoLibChallengeVC.TAKE_PIC_FROM_YEAR : []]
         self.tableView.allowsSelection = false
         let currentDate = Date()
         FBDatabase.getAllMostRecentPictureData(ref: photoLibChalReference, with_completion: {(pictureDataList) in
             for pictureData in pictureDataList {
                 let challengeCategory = self.getPicChallengeCategory(pictureData: pictureData, currentDate: currentDate)
-                self.collectionDictionaryData[challengeCategory]?.append(pictureData)
+                //self.collectionDictionaryData[challengeCategory]?.append(pictureData)
+                unsortedChallenges[challengeCategory]?.append(pictureData)
             }
-            if self.collectionDictionaryData[PhotoLibChallengeVC.TAKE_PIC_FROM_RECENT]?.count != 0 {
-                self.tableSectionArray.append(PhotoLibChallengeVC.TAKE_PIC_FROM_RECENT)
-            }
-            if self.collectionDictionaryData[PhotoLibChallengeVC.TAKE_PIC_FROM_WEEK]?.count != 0 {
-                self.tableSectionArray.append(PhotoLibChallengeVC.TAKE_PIC_FROM_WEEK)
-            }
-            if self.collectionDictionaryData[PhotoLibChallengeVC.TAKE_PIC_FROM_MONTH]?.count != 0 {
-                self.tableSectionArray.append(PhotoLibChallengeVC.TAKE_PIC_FROM_MONTH)
-            }
-            if self.collectionDictionaryData[PhotoLibChallengeVC.TAKE_PIC_FROM_YEAR]?.count != 0 {
-                self.tableSectionArray.append(PhotoLibChallengeVC.TAKE_PIC_FROM_YEAR)
-            }
-            self.tableView.reloadData()
+            self.dispatchGroup = DispatchGroup()
+            self.dispatchGroup.enter()
+            self.runChallengeSortingThread(section: PhotoLibChallengeVC.TAKE_PIC_FROM_RECENT, unsortedChallenges: unsortedChallenges)
+            self.dispatchGroup.enter()
+            self.runChallengeSortingThread(section: PhotoLibChallengeVC.TAKE_PIC_FROM_WEEK, unsortedChallenges: unsortedChallenges)
+            self.dispatchGroup.enter()
+            self.runChallengeSortingThread(section: PhotoLibChallengeVC.TAKE_PIC_FROM_MONTH, unsortedChallenges: unsortedChallenges)
+            self.dispatchGroup.enter()
+            self.runChallengeSortingThread(section: PhotoLibChallengeVC.TAKE_PIC_FROM_YEAR, unsortedChallenges: unsortedChallenges)
+            self.dispatchGroup.notify(queue: .main, execute: {
+                if self.collectionDictionaryData[PhotoLibChallengeVC.TAKE_PIC_FROM_RECENT]?.count != 0 {
+                    self.tableSectionArray.append(PhotoLibChallengeVC.TAKE_PIC_FROM_RECENT)
+                }
+                if self.collectionDictionaryData[PhotoLibChallengeVC.TAKE_PIC_FROM_WEEK]?.count != 0 {
+                    self.tableSectionArray.append(PhotoLibChallengeVC.TAKE_PIC_FROM_WEEK)
+                }
+                if self.collectionDictionaryData[PhotoLibChallengeVC.TAKE_PIC_FROM_MONTH]?.count != 0 {
+                    self.tableSectionArray.append(PhotoLibChallengeVC.TAKE_PIC_FROM_MONTH)
+                }
+                if self.collectionDictionaryData[PhotoLibChallengeVC.TAKE_PIC_FROM_YEAR]?.count != 0 {
+                    self.tableSectionArray.append(PhotoLibChallengeVC.TAKE_PIC_FROM_YEAR)
+                }
+                self.tableView.reloadData()
+            })
         })
+    }
+    
+    private func runChallengeSortingThread(section: String, unsortedChallenges: [String : [PictureData]]) {
+        DispatchQueue.global().async {
+            self.collectionDictionaryData[section] = Sort.SortPictureDataByDescendingOrder(dataList: unsortedChallenges[section]!)
+            self.dispatchGroup.leave()
+        }
     }
     
     // MARK: - ImageButton Methods
