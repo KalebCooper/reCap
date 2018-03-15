@@ -57,27 +57,7 @@ class ImageCreateVC: UIViewController {
                 
             })
             print("User earned \(self.user.activeChallengePoints) points")
-            
-            let alert = FCAlertView()
-            alert.makeAlertTypeSuccess()
-            alert.dismissOnOutsideTouch = true
-            
-            let challengePoints: Int = Int(self.user.activeChallengePoints)!
-            let totalPoints: Int = self.user.points
-            
-            let titleString = "+\(challengePoints) Points"
-            let subtitleString = "Good Job! You now have \(totalPoints) points!"
-            
-            alert.showAlert(inView: self,
-                            withTitle: titleString,
-                            withSubtitle: subtitleString,
-                            withCustomImage: nil,
-                            withDoneButtonTitle: "Hooray!",
-                            andButtons: nil)
-            
-            //Clear challenge ID and points
-            self.user.activeChallengeID = ""
-            self.user.activeChallengePoints = ""
+            self.displayChallengeComplete()
         }
         else {
             print("root picture")
@@ -117,6 +97,46 @@ class ImageCreateVC: UIViewController {
                 })
             }
         })
+    }
+    
+    private func displayChallengeComplete() {
+        let alert = FCAlertView()
+        alert.makeAlertTypeSuccess()
+        alert.dismissOnOutsideTouch = true
+        
+        let challengePoints: Int = Int(self.user.activeChallengePoints)!
+        let totalPoints: Int = self.user.points
+        
+        let titleString = "+\(challengePoints) Points"
+        let subtitleString = "Good Job! You now have \(totalPoints) points!"
+        
+        alert.showAlert(inView: self,
+                        withTitle: titleString,
+                        withSubtitle: subtitleString,
+                        withCustomImage: nil,
+                        withDoneButtonTitle: "Hooray!",
+                        andButtons: nil)
+        
+        //Clear challenge ID and points
+        self.user.activeChallengeID = ""
+        self.user.activeChallengePoints = ""
+    }
+    
+    private func displayPictureAdded(pictureData: PictureData) {
+        let alert = FCAlertView()
+        alert.makeAlertTypeSuccess()
+        alert.dismissOnOutsideTouch = true
+        
+        let titleString = "Picture Added"
+        let subtitleString = "Good Job! You now have added \(pictureData.name) to your library"
+        
+        alert.showAlert(inView: self,
+                        withTitle: titleString,
+                        withSubtitle: subtitleString,
+                        withCustomImage: nil,
+                        withDoneButtonTitle: "Hooray!",
+                        andButtons: nil)
+        
     }
     
     override func viewDidLoad() {
