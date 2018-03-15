@@ -273,6 +273,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         backCamera?.whiteBalanceMode = .continuousAutoWhiteBalance
         backCamera?.unlockForConfiguration()
         
+        
         var error: NSError?
         var input: AVCaptureDeviceInput!
         do {
@@ -366,6 +367,8 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     
     
     func setupLocation() {
+        
+        
         
         
         

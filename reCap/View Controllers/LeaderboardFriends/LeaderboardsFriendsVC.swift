@@ -8,10 +8,16 @@
 
 import UIKit
 import Firebase
+import SwiftLocation
+import CoreLocation
 
 class LeaderboardsFriendsVC: UITableViewController {
     
     @IBOutlet weak var backButtonOutlet: UIBarButtonItem!
+    @IBOutlet weak var locationControl: UISegmentedControl!
+    
+    @IBAction func locationFilterChanged(_ sender: Any) {
+    }
     
     // MARK: - Properties
     static var LEADERBOARD_MODE = 0
@@ -30,20 +36,11 @@ class LeaderboardsFriendsVC: UITableViewController {
             if mode == LeaderboardsFriendsVC.FRIENDS_LIST_MODE {
                 // Friends list mode has been picked
                 setupFriendsList()
-                self.title = "Friends List"
             }
             else if mode == LeaderboardsFriendsVC.LEADERBOARD_MODE {
                 setupLeaderboards()
-                self.title = "Leaderboards"
-                self.navigationItem.leftBarButtonItem = nil
-                self.navigationItem.rightBarButtonItem = nil
             }
         }
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -53,10 +50,14 @@ class LeaderboardsFriendsVC: UITableViewController {
             // If the mode has been selected
             if mode == LeaderboardsFriendsVC.FRIENDS_LIST_MODE {
                 // Friends list mode has been picked
-                setupFriendsList()
+                self.title = "Friends List"
+                self.locationControl.isHidden = true
+                
             }
             else if mode == LeaderboardsFriendsVC.LEADERBOARD_MODE {
-                setupLeaderboards()
+                self.title = "Leaderboards"
+                self.navigationItem.leftBarButtonItem = nil
+                self.navigationItem.rightBarButtonItem = nil
             }
         }
     }
@@ -98,13 +99,24 @@ class LeaderboardsFriendsVC: UITableViewController {
             self.leaderboardsList = Sort.SortUsersByDescendingOrder(users: unsortedList)
             self.tableView.reloadData()
         })
-        /*let settingsButton = UIBarButtonItem(title: "Settings", style: .plain, target: self, action: #selector(settingsPressed))
-         let navController = self.navigationController
-         let navBar = navController?.navigationBar
-         let navItem = navBar?.topItem
-         navItem?.setRightBarButton(settingsButton, animated: true)
-         navItem?.title = "Leaderboards"
-         navBar?.setItems([navItem!], animated: true)*/
+        
+        
+        let currentLocation = Locator.currentLocation
+        
+        let geocoder = CLGeocoder()
+        geocoder.reverseGeocodeLocation(currentLocation!, completionHandler: { (placemarks, error) in
+            
+            
+            print("Name: \(placemarks![0].name)")
+            print("Country: \(placemarks![0].country)")
+            print("Administrative Area: \(placemarks![0].administrativeArea)")
+            print("SubAdministrative Area: \(placemarks![0].subAdministrativeArea)")
+            print("Locality: \(placemarks![0].locality)")
+            print("Sublocality: \(placemarks![0].subLocality)")
+            print("Region: \(placemarks![0].region)")
+            print("thoroughFare: \(placemarks![0].thoroughfare)")
+            
+        })
         
         
         
