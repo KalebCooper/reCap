@@ -21,6 +21,9 @@ class ChallengeViewVC: UIViewController, UICollectionViewDelegate, UICollectionV
     var pictureData: PictureData!
     var pictureArray: [PictureData] = []
     
+    var imageToPass: UIImage?
+    var pictureDataToPass: PictureData?
+    
     @IBOutlet weak var imageOutlet: UIImageView!
     @IBOutlet weak var locationOutlet: UILabel!
     @IBOutlet weak var locationNameOutlet: UILabel!
@@ -81,8 +84,8 @@ class ChallengeViewVC: UIViewController, UICollectionViewDelegate, UICollectionV
     
     func setupCollectionView() {
         
-        collectionView.delegate = self
-        collectionView.dataSource = self
+        self.collectionView.delegate = self
+        self.collectionView.dataSource = self
         getPictureData()
         
     }
@@ -101,10 +104,13 @@ class ChallengeViewVC: UIViewController, UICollectionViewDelegate, UICollectionV
             
             //Set all pictureData obtained to the
             self.pictureArray = array
+            //TEMPORARY Reverse array to get then in order
+            self.pictureArray.reverse()
             //Refresh collectionView
             self.collectionView.reloadData()
             
         }
+
         
         
         
@@ -119,7 +125,7 @@ class ChallengeViewVC: UIViewController, UICollectionViewDelegate, UICollectionV
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PictureCell", for: indexPath) as! PhotoChalColCell
         cell.setImageViewDelegate(delegate: self)
-        let index = collectionView.tag
+
         let row = indexPath.row
         
         let cellPictureData = pictureArray[row]
@@ -152,24 +158,35 @@ class ChallengeViewVC: UIViewController, UICollectionViewDelegate, UICollectionV
     
     
 
-    
+
     
     
     
     // MARK: - ImageButton Methods
     func imageButtonPressed(image: UIImage, pictureData: PictureData) {
+        print("Image Pressed")
         
     }
     
     
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
+    // MARK: - Navigation
+    
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+        let segueID = segue.identifier
+        if segueID == "PhotoSegue" {
+            let nav = segue.destination as! UINavigationController
+            let destination = nav.topViewController as! PhotoVC
+            
+            //let destination = segue.destination as! ChallengeViewVC
+            let pictureData = pictureDataToPass
+            let picture = imageToPass
+            destination.pictureData = pictureData
+            destination.image = picture
+            print("Segue Done")
+        }
+    }
     
 }

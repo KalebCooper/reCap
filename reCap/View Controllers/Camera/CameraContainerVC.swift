@@ -55,7 +55,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     private var activeChallengePicData: PictureData!
     //private let Threshold = 0.000017
     private let chalBestCoordThreshold = 0.00006
-    private let chalCloseCoordThreshold = 0.0008
+    private let chalCloseCoordThreshold = 0.0015
     
     
     @IBAction func buttonPressed(_ sender: Any) {
@@ -402,8 +402,6 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
                                                 let destinationArray = pictureData?.gpsCoordinates
                                                 destination = CLLocation(latitude: destinationArray![0], longitude: destinationArray![1])
                                                 angle = self.getBearingBetweenTwoPoints1(point1: location, point2: destination!)
-                                                
-                                                print("Arrow stuff")
                                                 
                                                 self.previousOutlet.isEnabled = true
                                                 self.arrowOutlet.isHidden = false

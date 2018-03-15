@@ -27,21 +27,21 @@ class PhotoChalColCell: UICollectionViewCell {
         self.contentView.layer.borderColor = UIColor.clear.cgColor
         self.contentView.layer.masksToBounds = true
         
-        self.layer.shadowColor = UIColor.black.cgColor
-        self.layer.shadowOffset = CGSize(width: 2, height: 5.0)
-        self.layer.shadowRadius = 5.0
-        self.layer.shadowOpacity = 0.9
-        self.layer.masksToBounds = false
-        self.layer.shadowPath = UIBezierPath(roundedRect: self.bounds, cornerRadius: self.contentView.layer.cornerRadius).cgPath
+//        self.layer.shadowColor = UIColor.black.cgColor
+//        self.layer.shadowOffset = CGSize(width: 2, height: 5.0)
+//        self.layer.shadowRadius = 10.0
+//        self.layer.shadowOpacity = 0.5
+//        self.layer.masksToBounds = false
+//        self.layer.shadowPath = UIBezierPath(roundedRect: self.bounds, cornerRadius: self.contentView.layer.cornerRadius).cgPath
         
 //        self.imageView.layer.shadowColor = UIColor.black.cgColor
 //        self.imageView.layer.shadowOffset = CGSize(width: 2, height: 5.0)
 //        self.imageView.layer.shadowRadius = 5.0
 //        self.imageView.layer.shadowOpacity = 0.9
-//        self.imageView.layer.masksToBounds = false
+//        self.imageView.layer.masksToBounds = true
 //        self.imageView.layer.shadowPath = UIBezierPath(roundedRect: self.bounds, cornerRadius: self.contentView.layer.cornerRadius).cgPath
         
-        self.imageView.contentMode = .scaleAspectFill
+        self.imageView.contentMode = .scaleAspectFit
         self.imageView.hero.id = "imageID"
 
     }
