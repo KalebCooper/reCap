@@ -35,8 +35,8 @@ class LeaderboardsFriendsVC: UITableViewController {
             else if mode == LeaderboardsFriendsVC.LEADERBOARD_MODE {
                 setupLeaderboards()
                 self.title = "Leaderboards"
-                backButtonOutlet.isEnabled = false
-                backButtonOutlet.title = " "
+                self.navigationItem.leftBarButtonItem = nil
+                self.navigationItem.rightBarButtonItem = nil
             }
         }
         // Uncomment the following line to preserve selection between presentations

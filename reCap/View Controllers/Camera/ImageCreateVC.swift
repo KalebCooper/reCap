@@ -86,6 +86,7 @@ class ImageCreateVC: UIViewController {
         }
         let pictureData = PictureData(name: self.titleOutlet.text, description: self.descriptionOutlet.text!, gpsCoordinates: [self.lat!, self.long!], orientation: PictureData.ORIENTATION_PORTRAIT, owner: self.user.id, time: currentDate, locationName: self.locationNameOutlet.text!, id: pictureID, isRootPicture: isRoot, groupID: groupID, isMostRecentPicture: true)
         self.user.pictures.append(pictureData.id)
+        self.user.activeChallengeID = ""
         FBDatabase.addPicture(image: self.image!, pictureData: pictureData, with_completion: {(error) in
             if let actualError = error {
                 // There was an error
