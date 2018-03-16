@@ -225,7 +225,7 @@ class SettingsVC: UITableViewController, UITextFieldDelegate {
     private func logoutPressed() {
         print("Logout pressed")
         let alert = UIAlertController(title: "Logout", message: "Are you sure you want to logout", preferredStyle: .alert)
-        let ok = UIAlertAction(title: "ok", style: .destructive, handler: {(okAction) in
+        let ok = UIAlertAction(title: "Logout", style: .destructive, handler: {(okAction) in
             FBDatabase.signOutUser(with_completion: {(error) in
                 if let realError = error {
                     print(realError)
@@ -241,7 +241,7 @@ class SettingsVC: UITableViewController, UITextFieldDelegate {
                 }
             })
         })
-        let cancel = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alert.addAction(ok)
         alert.addAction(cancel)
         self.present(alert, animated: true, completion: nil)

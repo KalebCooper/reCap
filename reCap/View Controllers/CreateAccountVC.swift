@@ -10,6 +10,7 @@ import UIKit
 import Hero
 import SkyFloatingLabelTextField
 import Firebase
+import FCAlertView
 
 class CreateAccountVC: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     
@@ -72,6 +73,7 @@ class CreateAccountVC: UITableViewController, UIImagePickerControllerDelegate, U
                             // Error
                             print("Did not write user to database in SignInVC")
                             print(realError)
+                            self.displayErrorAlert(message: realError)
                         }
                         else {
                             // No error
@@ -82,6 +84,7 @@ class CreateAccountVC: UITableViewController, UIImagePickerControllerDelegate, U
                                 // An error occured
                                 print("Did not write profile picture in database")
                                 print(actualError)
+                                self.displayErrorAlert(message: actualError)
                             }
                             else {
                                 // No error occured
@@ -96,6 +99,7 @@ class CreateAccountVC: UITableViewController, UIImagePickerControllerDelegate, U
                                 // Error occured
                                 print("Did not write Username to database")
                                 print(actualError)
+                                self.displayErrorAlert(message: actualError)
                             }
                             else {
                                 // No error
@@ -107,11 +111,13 @@ class CreateAccountVC: UITableViewController, UIImagePickerControllerDelegate, U
                 else {
                     print("Did not get id in SignIn VC")
                     print(error!)
+                    self.displayErrorAlert(message: error!)
                 }
             })
         }
         else {
             print("Fill out all fields")
+            displayErrorAlert(message: "Please fill out all fields.")
         }
     }
     
@@ -218,6 +224,24 @@ class CreateAccountVC: UITableViewController, UIImagePickerControllerDelegate, U
         }
         // Do not add a line break
         return false
+    }
+    
+    
+    private func displayErrorAlert(message: String) {
+        let alert = FCAlertView()
+        alert.makeAlertTypeWarning()
+        alert.dismissOnOutsideTouch = true
+        
+        
+        let titleString = "Oops!"
+        let subtitleString = message
+        
+        alert.showAlert(inView: self,
+                        withTitle: titleString,
+                        withSubtitle: subtitleString,
+                        withCustomImage: nil,
+                        withDoneButtonTitle: "Try Again",
+                        andButtons: nil)
     }
     
     
