@@ -12,13 +12,13 @@ import SwiftLocation
 import CoreLocation
 import FCAlertView
 
-class LeaderboardsFriendsVC: UITableViewController {
+class LeaderboardsFriendsVC: UITableViewController, FCAlertViewDelegate {
     
     @IBOutlet weak var backButtonOutlet: UIBarButtonItem!
     @IBOutlet weak var locationControl: UISegmentedControl!
     
     @IBAction func locationFilterChanged(_ sender: Any) {
-        setupLeaderboards()
+        //setupLeaderboards()
     }
     
     // MARK: - Properties
@@ -33,24 +33,29 @@ class LeaderboardsFriendsVC: UITableViewController {
         super.viewDidLoad()
         applyBlurEffect(image: #imageLiteral(resourceName: "Gradient"))
         print("Leaderboards loaded")
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        leaderboardsList = []
+        friendsList = []
         if mode != nil, user != nil {
             // If the mode has been selected
             if mode == LeaderboardsFriendsVC.FRIENDS_LIST_MODE {
                 // Friends list mode has been picked
                 setupFriendsList()
             }
-            else if mode == LeaderboardsFriendsVC.LEADERBOARD_MODE {
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if mode != nil, user != nil {
+            // If the mode has been selected
+            if mode == LeaderboardsFriendsVC.LEADERBOARD_MODE {
                 setupLeaderboards()
             }
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
     }
     
     override func didReceiveMemoryWarning() {
@@ -105,13 +110,11 @@ class LeaderboardsFriendsVC: UITableViewController {
         if filter == "State" {
             
             FBDatabase.getAllUsersByRegion(region: "State", equal_to: self.user.state, with_max_query: 50, with_ref: ref, with_completion: {(users) in
-                
                 for user in users {
                     unsortedList.append(user)
                 }
                 self.leaderboardsList = Sort.SortUsersByDescendingOrder(users: unsortedList)
                 self.tableView.reloadData()
-                
             })
             
         }

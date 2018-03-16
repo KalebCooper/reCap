@@ -214,7 +214,7 @@ class FBDatabase {
      Gets username from database
      */
     class func getUsername(with_ref ref: DatabaseReference,with_username username: String, with_completion completion : @escaping (_ username: Username?) -> ()) {
-        ref.child(USERNAME_NODE).child(username).observe(.value, with: {(snapshot) in
+        ref.child(USERNAME_NODE).child(username).observeSingleEvent(of: .value, with: {(snapshot) in
             if let usernameData = snapshot.value as? NSDictionary {
                 completion(parseUsernameData(with_dictionary: usernameData, username: username))
             }
@@ -306,7 +306,7 @@ class FBDatabase {
      Gets all users by country or state
     */
     class func getAllUsersByRegion(region: String, equal_to value: String, with_max_query number: Int, with_ref ref: DatabaseReference, with_completion completion: @escaping (_ users: [User]) -> ()) {
-        ref.child(USER_NODE).queryOrdered(byChild: region).queryEqual(toValue: value).observe(.value, with: {(snapshot) in
+        ref.child(USER_NODE).queryOrdered(byChild: region).queryEqual(toValue: value).observeSingleEvent(of: .value, with: {(snapshot) in
             print(snapshot.value)
             var userList: [User] = []
             if let usersNode = snapshot.value as? NSDictionary {
@@ -410,7 +410,7 @@ class FBDatabase {
     */
     class func getPictureData(in_group group: String, ref: DatabaseReference, with_completion completion: @escaping (_ pictureData: [PictureData]) -> ()) {
         var pictureDataList: [PictureData] = []
-        ref.child(PICTURE_DATA_NODE).queryOrdered(byChild: PICTURE_GROUP_ID).queryEqual(toValue: group).observe(.value, with: {(snapshot) in
+        ref.child(PICTURE_DATA_NODE).queryOrdered(byChild: PICTURE_GROUP_ID).queryEqual(toValue: group).observeSingleEvent(of: .value, with: {(snapshot) in
             if let pictureDataNodes = snapshot.value as? NSDictionary {
                 for node in pictureDataNodes {
                     let pictureDataNode = node.value as! NSDictionary
@@ -464,7 +464,6 @@ class FBDatabase {
     class func getAllMostRecentPictureData(ref: DatabaseReference, with_completion completion: @escaping (_ pictureData: [PictureData]) -> ()) {
         var pictureDataList: [PictureData] = []
         ref.child(PICTURE_DATA_NODE).queryOrdered(byChild: PICTURE_DATA_IS_MOST_RECENT_PIC).queryEqual(toValue: true).observe(.value, with: {(snapshot) in
-            print(snapshot.value)
             if let pictureDataNodes = snapshot.value as? NSDictionary {
                 for node in pictureDataNodes {
                     let pictureDataNode = node.value as! NSDictionary

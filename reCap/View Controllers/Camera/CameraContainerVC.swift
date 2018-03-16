@@ -88,7 +88,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     @IBAction func previousHoldAction(_ sender: Any) {
         print("Touching")
         
-        //self.previewView.addSubview(self.previousImageView!)
+        self.previewView.addSubview(self.previousImageView!)
         
          if self.previousImageContentMode == .scaleToFill {
             
@@ -151,6 +151,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     
     func userUpdated() {
         self.setupActiveChallengeData()
+        self.setupPreviousPicture()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -522,11 +523,6 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     }
     
     
-    public func updateViewController(user: User) {
-        self.user = user
-    }
-    
-    
     func setupOrientation() {
         
         if UIDevice.current.orientation == .portrait {
@@ -546,19 +542,11 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     }
     
     func setupPreviousPicture() {
-        
-        
-        
         let challengeID = self.user.activeChallengeID
-        
         let ref = Database.database().reference()
-        
         if challengeID != "" {
-            
             FBDatabase.getPictureData(id: challengeID!, ref: ref) { (pictureData) in
-                
                 if pictureData != nil {
-                    
                     FBDatabase.getPicture(pictureData: pictureData!, with_progress: { (progress, total) in
                         
                     }, with_completion: { (image) in
@@ -582,7 +570,6 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
                         
                     }
                     )
-                    
                 }
                 else {
                     
@@ -590,13 +577,8 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
                     self.previousOutlet.isHidden = true
                     
                 }
-                
-                
             }
         }
-        
-        
-        
     }
     
     
