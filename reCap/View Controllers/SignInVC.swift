@@ -85,7 +85,7 @@ class SignInVC: UIViewController, UITextFieldDelegate {
      is pressed
      */
     @IBAction func loginInPressed(_ sender: Any) {
-        if let emailUsername = emailUsernameOutlet.text, let password = passwordOutlet.text {
+        if let emailUsername = emailUsernameOutlet.text, let password = passwordOutlet.text, emailUsername != "", password != "nil" {
             // If fields are filled out
             if emailUsername.contains("@") {
                 // User has entered an email
@@ -125,15 +125,28 @@ class SignInVC: UIViewController, UITextFieldDelegate {
      Used when user enters email
     */
     private func loginWithEmail(email: String, password: String) {
+        let alert = FCAlertView()
+        alert.makeAlertTypeProgress()
+        alert.dismissOnOutsideTouch = false
+        
+        
+        let titleString = "Signing In"
+        
+        alert.showAlert(inView: self,
+                        withTitle: titleString,
+                        withSubtitle: nil,
+                        withCustomImage: nil,
+                        withDoneButtonTitle: nil,
+                        andButtons: nil)
         FBDatabase.signInUser(email: email, password: password, with_completion: {(id, error) in
             if let activeID = id {
                 print("Got user id in sign in VC")
                 FBDatabase.setAutomaticSignIn(with_email: email, with_password: password, with_id: activeID)
                 let ref = Database.database().reference()
                 FBDatabase.getUser(with_id: activeID, ref: ref, with_completion: {(user) in
-                    ref.removeAllObservers()
                     if let activeUser = user {
                         print("Got user in Sign in VC")
+                        alert.dismiss()
                         self.performSegue(withIdentifier: "PageViewSegue", sender: activeUser)
                     }
                     else {

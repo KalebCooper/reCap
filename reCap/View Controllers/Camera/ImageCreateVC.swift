@@ -47,6 +47,17 @@ class ImageCreateVC: UIViewController {
         var groupID: String!
         let currentDate = Int((Date().timeIntervalSince1970)).description
         let pictureID = PictureData.createPictureDataID()
+        let alert = FCAlertView()
+        alert.makeAlertTypeProgress()
+        alert.dismissOnOutsideTouch = false
+        let titleString = "Adding Picture"
+        
+        alert.showAlert(inView: self,
+                        withTitle: titleString,
+                        withSubtitle: nil,
+                        withCustomImage: nil,
+                        withDoneButtonTitle: nil,
+                        andButtons: nil)
         if self.isAtChallengeLocation {
             // If the user took the picture at the challenge coordinates, there is an active challenge
             self.user.points = self.user.points + Int(self.user.activeChallengePoints)!
@@ -77,6 +88,7 @@ class ImageCreateVC: UIViewController {
                     self.displayChallengeComplete()
                 }
                 else {
+                    alert.dismiss()
                     self.displayPictureAdded(pictureData: pictureData)
                 }
                 print("Added picture for user in ImageCreateVC")

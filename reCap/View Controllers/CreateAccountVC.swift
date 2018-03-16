@@ -62,50 +62,64 @@ class CreateAccountVC: UITableViewController, UIImagePickerControllerDelegate, U
         if let name = fullNameOutlet.text, let email = emailOutlet.text, let username = usernameOutlet.text, let password = passwordOutlet.text, let verifyPass = verifyPasswordOutlet.text, let image = imageView.image, password == verifyPass {
             // If all fields are filled out
             print("Creating user")
+            let alert = FCAlertView()
+            alert.makeAlertTypeProgress()
+            alert.dismissOnOutsideTouch = false
+            
+            
+            let titleString = "Creating Account"
+            
+            alert.showAlert(inView: self,
+                            withTitle: titleString,
+                            withSubtitle: nil,
+                            withCustomImage: nil,
+                            withDoneButtonTitle: nil,
+                            andButtons: nil)
             FBDatabase.createUserAuth(email: email, password: password, with_completion: {(id, error) in
                 if let activeID = id {
                     print("Got id in SignIn VC")
                     let user = User(id: activeID, name: name, email: email, username: username, state: "state", country: "country")
                     FBDatabase.setAutomaticSignIn(with_email: email, with_password: password, with_id: activeID)
                     let usernameObj = Username(username: username, email: email, id: id!)
-                    FBDatabase.addUpdateUser(user: user, with_completion: {(error) in
-                        if let realError = error {
-                            // Error
-                            print("Did not write user to database in SignInVC")
-                            print(realError)
-                            self.displayErrorAlert(message: realError)
+                    FBDatabase.addProfilePicture(with_image: image, for_user: user, with_completion: {(error) in
+                        if let actualError = error {
+                            // An error occured
+                            print("Did not write profile picture in database")
+                            print(actualError)
+                            self.displayErrorAlert(message: actualError)
                         }
                         else {
-                            // No error
-                            print("Wrote user to database in SignInVC")
+                            // No error occured
+                            print("Added profile picture to database")
+                            FBDatabase.addUpdateUsername(with_username: usernameObj, with_completion:{(error) in
+                                if let actualError = error {
+                                    // Error occured
+                                    print("Did not write Username to database")
+                                    print(actualError)
+                                    self.displayErrorAlert(message: actualError)
+                                }
+                                else {
+                                    // No error
+                                    print("Wrote Username in database")
+                                }
+                            })
+                            FBDatabase.addUpdateUser(user: user, with_completion: {(error) in
+                                if let realError = error {
+                                    // Error
+                                    print("Did not write user to database in SignInVC")
+                                    print(realError)
+                                    self.displayErrorAlert(message: realError)
+                                }
+                                else {
+                                    // No error
+                                    print("Wrote user to database in SignInVC")
+                                }
+                            })
+                            alert.dismiss()
+                            let pageViewVC = UIStoryboard(name: "PageView", bundle: nil).instantiateInitialViewController() as! PageViewController
+                            pageViewVC.user = user
+                            self.present(pageViewVC, animated: true, completion: nil)
                         }
-                        FBDatabase.addProfilePicture(with_image: image, for_user: user, with_completion: {(error) in
-                            if let actualError = error {
-                                // An error occured
-                                print("Did not write profile picture in database")
-                                print(actualError)
-                                self.displayErrorAlert(message: actualError)
-                            }
-                            else {
-                                // No error occured
-                                print("Added profile picture to database")
-                                let pageViewVC = UIStoryboard(name: "PageView", bundle: nil).instantiateInitialViewController() as! PageViewController
-                                pageViewVC.user = user
-                                self.present(pageViewVC, animated: true, completion: nil)
-                            }
-                        })
-                        FBDatabase.addUpdateUsername(with_username: usernameObj, with_completion:{(error) in
-                            if let actualError = error {
-                                // Error occured
-                                print("Did not write Username to database")
-                                print(actualError)
-                                self.displayErrorAlert(message: actualError)
-                            }
-                            else {
-                                // No error
-                                print("Wrote Username in database")
-                            }
-                        })
                     })
                 }
                 else {
