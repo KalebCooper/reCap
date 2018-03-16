@@ -100,9 +100,9 @@ class MapVC: UIViewController, MGLMapViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        /*if user != nil {
+        if user != nil {
             setupMap()
-        }*/
+        }
         // Do any additional setup after loading the view.
     }
     
@@ -112,7 +112,6 @@ class MapVC: UIViewController, MGLMapViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        setupMap()
     }
     
     func setupMap() {

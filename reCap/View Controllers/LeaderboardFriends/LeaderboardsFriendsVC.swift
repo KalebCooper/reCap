@@ -33,6 +33,8 @@ class LeaderboardsFriendsVC: UITableViewController, FCAlertViewDelegate {
         super.viewDidLoad()
         applyBlurEffect(image: #imageLiteral(resourceName: "Gradient"))
         print("Leaderboards loaded")
+        leaderboardsList = []
+        friendsList = []
         if mode != nil, user != nil {
             // If the mode has been selected
             if mode == LeaderboardsFriendsVC.FRIENDS_LIST_MODE {
@@ -40,7 +42,6 @@ class LeaderboardsFriendsVC: UITableViewController, FCAlertViewDelegate {
                 setupFriendsList()
             }
         }
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
