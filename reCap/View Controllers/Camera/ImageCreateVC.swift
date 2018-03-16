@@ -120,7 +120,7 @@ class ImageCreateVC: UIViewController {
         //Clear challenge ID and points
         self.user.activeChallengeID = ""
         self.user.activeChallengePoints = ""
-        //FBDatabase.addUpdateUser(user: user) { (error) in }
+        FBDatabase.addUpdateUser(user: user) { (error) in }
     }
     
     private func displayPictureAdded(pictureData: PictureData) {
