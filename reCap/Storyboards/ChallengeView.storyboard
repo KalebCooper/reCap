@@ -330,6 +330,9 @@
                                                 </imageView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GDq-RG-mE0">
                                                     <rect key="frame" x="0.0" y="0.0" width="250" height="375"/>
+                                                    <connections>
+                                                        <action selector="imageButtonPressed:" destination="t0V-ZD-U39" eventType="touchUpInside" id="JWg-YE-O2n"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                         </view>
