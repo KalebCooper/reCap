@@ -99,9 +99,10 @@ class ChallengeViewVC: UIViewController, UICollectionViewDelegate, UICollectionV
         FBDatabase.getPictureData(in_group: groupID!, ref: ref) { (array) in
             
             //Set all pictureData obtained to the
-            self.pictureArray = array
+            self.pictureArray = Sort.SortPictureDataByDescendingOrder(dataList: array)
+            //self.pictureArray = array
             //TEMPORARY Reverse array to get then in order
-            self.pictureArray.reverse()
+            //self.pictureArray.reverse()
             //Refresh collectionView
             self.collectionView.reloadData()
             
