@@ -148,8 +148,12 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         }
     }
     
+    func userUpdated() {
+        self.setupActiveChallengeData()
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
-        print("The users name is \(self.user.name)")
+        print("The users active challenge is \(self.user.activeChallengeID)")
     }
     
     func setupProfileImage() {
@@ -448,6 +452,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
                                         }
                                     }
                                     else {
+                                        self.locationOutlet.textColor = UIColor.white
                                         self.isAtChallengeLocation = false
                                     }
                                     
