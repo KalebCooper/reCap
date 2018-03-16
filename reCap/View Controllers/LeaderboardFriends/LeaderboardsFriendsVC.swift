@@ -32,8 +32,14 @@ class LeaderboardsFriendsVC: UITableViewController {
         super.viewDidLoad()
         applyBlurEffect(image: #imageLiteral(resourceName: "Gradient"))
         print("Leaderboards loaded")
-        let ref = Database.database().reference()
-        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         if mode != nil, user != nil {
             // If the mode has been selected
             if mode == LeaderboardsFriendsVC.FRIENDS_LIST_MODE {
@@ -44,25 +50,6 @@ class LeaderboardsFriendsVC: UITableViewController {
                 setupLeaderboards()
             }
         }
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        /*if mode != nil, user != nil {
-            // If the mode has been selected
-            if mode == LeaderboardsFriendsVC.FRIENDS_LIST_MODE {
-                // Friends list mode has been picked
-                self.title = "Friends List"
-                self.locationControl.isHidden = true
-                
-            }
-            else if mode == LeaderboardsFriendsVC.LEADERBOARD_MODE {
-                self.title = "Leaderboards"
-                self.navigationItem.leftBarButtonItem = nil
-                self.navigationItem.rightBarButtonItem = nil
-            }
-        }*/
     }
     
     override func didReceiveMemoryWarning() {

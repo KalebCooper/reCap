@@ -24,8 +24,6 @@
 		34B359A920583F9B0093D02C /* CustomOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B359A520583F940093D02C /* CustomOverlay.swift */; };
 		34B359AB20583F9B0093D02C /* CustomPage.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34B359A720583F980093D02C /* CustomPage.xib */; };
 		34B359AC20583F9B0093D02C /* CustomOverlay.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34B359A820583F9A0093D02C /* CustomOverlay.xib */; };
-		34D0708A205AFCB600B60E3C /* CustomPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D07089205AFCB600B60E3C /* CustomPage.swift */; };
-		34D0708C205B35B400B60E3C /* LeaderboardsFriendsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D0708B205B35B400B60E3C /* LeaderboardsFriendsVC.swift */; };
 		34F60577203FD24C001A74E4 /* ImageConfirmVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F60575203FD24C001A74E4 /* ImageConfirmVC.swift */; };
 		3BD76B62D24CA017D72CCCDA /* Pods_reCapUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CD7EFB0164AE95822E97FC9 /* Pods_reCapUITests.framework */; };
 		4166566AA68139D9E70F183A /* Pods_reCap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0C6A1AA7E56B3B8DAD1F814 /* Pods_reCap.framework */; };
@@ -51,6 +49,10 @@
 		7A4D8A58202789AA0043878E /* PictureData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4D8A57202789AA0043878E /* PictureData.swift */; };
 		7A5358A4205ADF150047F410 /* AppLoadingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5358A3205ADF150047F410 /* AppLoadingVC.swift */; };
 		7A5358A6205ADF2E0047F410 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5358A5205ADF2E0047F410 /* MapVC.swift */; };
+		7A5358A8205B6E680047F410 /* LeaderboardsFriendsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5358A7205B6E670047F410 /* LeaderboardsFriendsVC.swift */; };
+		7A5358AC205B6EE10047F410 /* CustomPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5358A9205B6EE00047F410 /* CustomPage.swift */; };
+		7A5358AD205B6EE10047F410 /* TutorialTransitionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5358AA205B6EE00047F410 /* TutorialTransitionVC.swift */; };
+		7A5358AE205B6EE10047F410 /* TutorialWelcomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5358AB205B6EE10047F410 /* TutorialWelcomeVC.swift */; };
 		7A5878472030D22700F36A56 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5878462030D22600F36A56 /* Extensions.swift */; };
 		7A58784F2030D25900F36A56 /* triomphe-bold-autoinstr.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A5878492030D25900F36A56 /* triomphe-bold-autoinstr.ttf */; };
 		7A5878502030D25900F36A56 /* triomphe-light-autoinstr.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A58784A2030D25900F36A56 /* triomphe-light-autoinstr.ttf */; };
@@ -121,8 +123,6 @@
 		34B359A520583F940093D02C /* CustomOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomOverlay.swift; sourceTree = "<group>"; };
 		34B359A720583F980093D02C /* CustomPage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomPage.xib; sourceTree = "<group>"; };
 		34B359A820583F9A0093D02C /* CustomOverlay.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomOverlay.xib; sourceTree = "<group>"; };
-		34D07089205AFCB600B60E3C /* CustomPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CustomPage.swift; path = "../../../../../../../kaleb/Documents/SideProjects/reCap/reCap/View Controllers/Tutorial/CustomPage.swift"; sourceTree = "<group>"; };
-		34D0708B205B35B400B60E3C /* LeaderboardsFriendsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LeaderboardsFriendsVC.swift; path = "../../../../../../../kaleb/Documents/SideProjects/reCap/reCap/View Controllers/LeaderboardFriends/LeaderboardsFriendsVC.swift"; sourceTree = "<group>"; };
 		34F60575203FD24C001A74E4 /* ImageConfirmVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageConfirmVC.swift; path = "reCap/View Controllers/Camera/ImageConfirmVC.swift"; sourceTree = SOURCE_ROOT; };
 		6E7F0BE298641A4C1885D691 /* Pods-reCap.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-reCap.debug.xcconfig"; path = "Pods/Target Support Files/Pods-reCap/Pods-reCap.debug.xcconfig"; sourceTree = "<group>"; };
 		7A0162C9204E3D91000539E0 /* DateGetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateGetter.swift; sourceTree = "<group>"; };
@@ -146,6 +146,10 @@
 		7A4D8A57202789AA0043878E /* PictureData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureData.swift; sourceTree = "<group>"; };
 		7A5358A3205ADF150047F410 /* AppLoadingVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppLoadingVC.swift; sourceTree = "<group>"; };
 		7A5358A5205ADF2E0047F410 /* MapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
+		7A5358A7205B6E670047F410 /* LeaderboardsFriendsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaderboardsFriendsVC.swift; sourceTree = "<group>"; };
+		7A5358A9205B6EE00047F410 /* CustomPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPage.swift; sourceTree = "<group>"; };
+		7A5358AA205B6EE00047F410 /* TutorialTransitionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialTransitionVC.swift; sourceTree = "<group>"; };
+		7A5358AB205B6EE10047F410 /* TutorialWelcomeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialWelcomeVC.swift; sourceTree = "<group>"; };
 		7A5878462030D22600F36A56 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		7A5878492030D25900F36A56 /* triomphe-bold-autoinstr.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "triomphe-bold-autoinstr.ttf"; path = "reCap/Custom Fonts/triomphe-bold-autoinstr.ttf"; sourceTree = SOURCE_ROOT; };
 		7A58784A2030D25900F36A56 /* triomphe-light-autoinstr.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "triomphe-light-autoinstr.ttf"; path = "reCap/Custom Fonts/triomphe-light-autoinstr.ttf"; sourceTree = SOURCE_ROOT; };
@@ -303,11 +307,13 @@
 		348591FA203A7971003E3704 /* Tutorial */ = {
 			isa = PBXGroup;
 			children = (
+				7A5358A9205B6EE00047F410 /* CustomPage.swift */,
+				7A5358AA205B6EE00047F410 /* TutorialTransitionVC.swift */,
+				7A5358AB205B6EE10047F410 /* TutorialWelcomeVC.swift */,
 				7AF10F522058A48A00019C70 /* TutorialContainerVC.swift */,
 				34B359A520583F940093D02C /* CustomOverlay.swift */,
 				34B359A820583F9A0093D02C /* CustomOverlay.xib */,
 				34B359A720583F980093D02C /* CustomPage.xib */,
-				34D07089205AFCB600B60E3C /* CustomPage.swift */,
 			);
 			path = Tutorial;
 			sourceTree = "<group>";
@@ -446,8 +452,8 @@
 		7AE375682037C8E100CA9946 /* LeaderboardFriends */ = {
 			isa = PBXGroup;
 			children = (
+				7A5358A7205B6E670047F410 /* LeaderboardsFriendsVC.swift */,
 				7AE3756A2037C8E100CA9946 /* LeaderboardFriendsTableCell.swift */,
-				34D0708B205B35B400B60E3C /* LeaderboardsFriendsVC.swift */,
 			);
 			path = LeaderboardFriends;
 			sourceTree = "<group>";
@@ -841,14 +847,13 @@
 				344C93F220226E280025E4C5 /* reCap.xcdatamodeld in Sources */,
 				34F60577203FD24C001A74E4 /* ImageConfirmVC.swift in Sources */,
 				7A4D8A442027801E0043878E /* NavigationVC.swift in Sources */,
+				7A5358A8205B6E680047F410 /* LeaderboardsFriendsVC.swift in Sources */,
 				7A4D8A56202783090043878E /* User.swift in Sources */,
 				7A5358A6205ADF2E0047F410 /* MapVC.swift in Sources */,
 				7A4D8A4A2027818A0043878E /* ProfileSettingsVC.swift in Sources */,
-				34D0708A205AFCB600B60E3C /* CustomPage.swift in Sources */,
 				7AA8EE922055A5000043B73C /* ImageCreateVC.swift in Sources */,
 				7A120DCF2041F0570003EE1F /* PhotoChalColCell.swift in Sources */,
 				7A0162CA204E3D91000539E0 /* DateGetter.swift in Sources */,
-				34D0708C205B35B400B60E3C /* LeaderboardsFriendsVC.swift in Sources */,
 				347A06A4202A14BB00961024 /* SignInTransitionVC.swift in Sources */,
 				34B359A920583F9B0093D02C /* CustomOverlay.swift in Sources */,
 				7AF3594A2038CDE500713EA3 /* SettingsVC.swift in Sources */,
@@ -862,10 +867,13 @@
 				7AF10F512058A47B00019C70 /* ProfileMenuVC.swift in Sources */,
 				7AF10F532058A48B00019C70 /* TutorialContainerVC.swift in Sources */,
 				7AE375672037C6DA00CA9946 /* FBDatabase.swift in Sources */,
+				7A5358AD205B6EE10047F410 /* TutorialTransitionVC.swift in Sources */,
 				7AF3594E2038FB6700713EA3 /* Username.swift in Sources */,
 				7A4D8A3A20277E4F0043878E /* CreateAccountVC.swift in Sources */,
 				7AF10F552058A49800019C70 /* CameraContainerVC.swift in Sources */,
+				7A5358AE205B6EE10047F410 /* TutorialWelcomeVC.swift in Sources */,
 				34A7ACA8202787DA00ACFB12 /* PageViewController.swift in Sources */,
+				7A5358AC205B6EE10047F410 /* CustomPage.swift in Sources */,
 				344C93EA20226E280025E4C5 /* AppDelegate.swift in Sources */,
 				7A120DD32041F7A70003EE1F /* PhotoVC.swift in Sources */,
 			);
@@ -1028,7 +1036,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = VPT5835T5T;
+				DEVELOPMENT_TEAM = CZ7R6F7L6H;
 				INFOPLIST_FILE = reCap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Kaleb-Cooper-Team-Red.reCap";
@@ -1045,7 +1053,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = VPT5835T5T;
+				DEVELOPMENT_TEAM = CZ7R6F7L6H;
 				INFOPLIST_FILE = reCap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Kaleb-Cooper-Team-Red.reCap";

@@ -247,7 +247,9 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
             })
         }
         else {
+            // There is not an active challenge, make sure the active challenge is set to nil
             print("There is not an active challenge in camera container VC")
+            self.activeChallengePicData = nil
         }
     }
     
