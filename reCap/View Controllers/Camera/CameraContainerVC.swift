@@ -384,6 +384,10 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         
+        UIView.animate(withDuration: 0.25, animations: {
+            self.previousImageView?.alpha = 0.0
+        })
+        
         
         if self.previousImageContentMode == .scaleToFill {
             

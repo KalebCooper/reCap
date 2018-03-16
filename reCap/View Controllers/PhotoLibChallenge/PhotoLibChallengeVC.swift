@@ -99,9 +99,13 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
     }
     
     // MARK: - Setup Methods
+
     
     private func setupPhotoLib() {
-        self.title = "Photo Library"
+        
+        let username = self.user.username!
+        
+        self.title = "\(username)'s Photos"
         self.tableView.allowsSelection = false
         FBDatabase.getPictureData(for_user: user, ref: self.photoLibChalReference, with_completion: {(pictureDataList) in
             for pictureData in pictureDataList {
@@ -127,9 +131,12 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
     /*
      Used to setup when viewing
      a friends photo library
-    */
+     */
     private func setupFriendsPicLib() {
-        self.title = "Photo Library"
+        let username = self.user.username!
+        
+        self.title = "\(username)'s Photos"
+        //self.title = "Photo Library"
         self.tableView.allowsSelection = false
         FBDatabase.getPictureData(for_user: user, ref: self.photoLibChalReference, with_completion: {(pictureDataList) in
             for pictureData in pictureDataList {
@@ -220,6 +227,9 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
         else if mode == PhotoLibChallengeVC.PHOTO_LIB_MODE {
             self.performSegue(withIdentifier: "PhotoSegue", sender: [pictureData, image])
         }
+        else if mode == PhotoLibChallengeVC.FRIENDS_PHOTO_LIB_MODE {
+            self.performSegue(withIdentifier: "PhotoSegue", sender: [pictureData, image])
+        }
     }
     
     private func displaySuccessAlert(message: String) {
@@ -244,7 +254,7 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
      when the picture was taken. Returns a constant
      representing what type of challenge category the pic
      falls into
-    */
+     */
     private func getPicChallengeCategory(pictureData: PictureData, currentDate: Date) -> String {
         //let pictureDate = DateGetter.getDateFromString(string: pictureData.time)
         let dateDiffSec = Int(abs(TimeInterval(pictureData.time)! - currentDate.timeIntervalSince1970))
@@ -415,8 +425,8 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
      }
      */
     
-
-
+    
+    
     
     
     func applyBlurEffect(image: UIImage){

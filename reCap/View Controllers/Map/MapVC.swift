@@ -49,70 +49,80 @@ class MapVC: UIViewController, MGLMapViewDelegate {
     var imageToPass: UIImage?
     var pictureDataToPass: PictureData?
     
+    let darkColor = UIColor(red: 48/255, green: 48/255, blue: 48/255, alpha: 1.0)
+    
     @IBOutlet weak var styleControl: UISegmentedControl!
     @IBOutlet weak var centerButton: UIButton!
     @IBAction func styleControlAction(_ sender: Any) {
         
         if styleControl.selectedSegmentIndex == 0 {
             mapView.styleURL = MGLStyle.outdoorsStyleURL()
-            styleControl.tintColor = UIColor(red: 0, green: 122/255, blue: 255/255, alpha: 1.0)
+            
+            styleControl.tintColor = darkColor
+            mapView.attributionButton.tintColor = darkColor
         }
         else {
             mapView.styleURL = MGLStyle.darkStyleURL()
             styleControl.tintColor = UIColor.white
+            mapView.attributionButton.tintColor = UIColor.white
         }
         
     }
     @IBAction func centerAction(_ sender: Any) {
         
-        for picture in pictureDataArray {
-            
-            if picture.id == self.user.activeChallengeID {
-
-                FBDatabase.getPictureData(id: picture.id, ref: ref) { (pictureData) in
-                    
-                    let lat = pictureData?.gpsCoordinates[0]
-                    let long = pictureData?.gpsCoordinates[1]
-                    
-                    let coordinate = CLLocationCoordinate2DMake(lat!, long!)
-                    
-                    
-                    self.mapView.setCenter(coordinate, zoomLevel: 2, direction: 0, animated: true)
-                    //let camera = MGLMapCamera(lookingAtCenter: coordinate, fromDistance: self.mapView.camera.altitude, pitch: 0, heading: 0)
-                    let camera = MGLMapCamera(lookingAtCenter: coordinate, fromEyeCoordinate: self.mapView.camera.centerCoordinate, eyeAltitude: self.mapView.camera.altitude)
-                    
-                    let when = DispatchTime.now() + 0.5 // change 2 to desired number of seconds
-                    DispatchQueue.main.asyncAfter(deadline: when) {
-                        // Animate the camera movement over 5 seconds.
-                        self.mapView.setCamera(camera, withDuration: 2, animationTimingFunction: CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut))
-                        
-                    }
-                    
-                }
-                
+        if self.user.activeChallengeID != "" {
+            FBDatabase.getPictureData(id: self.user.activeChallengeID, ref: ref) { (pictureData) in
+                let lat = pictureData?.gpsCoordinates[0]
+                let long = pictureData?.gpsCoordinates[1]
+                let coordinate = CLLocationCoordinate2DMake(lat!, long!)
+                self.mapView.setCenter(coordinate, zoomLevel: self.mapView.zoomLevel, direction: 0, animated: true)
             }
-
-            
         }
-        
     }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        /*if user != nil {
+        if user != nil {
             setupMap()
-        }*/
+            let when = DispatchTime.now() + 0.5 // change 2 to desired number of seconds
+            DispatchQueue.main.asyncAfter(deadline: when) {
+                self.setupCamera()
+            }
+            
+        }
         // Do any additional setup after loading the view.
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        setupMap()
+        setupPictures()
+        
+        if self.user.activeChallengeID == "" {
+            self.centerButton.isHidden = true
+        }
+        else {
+            self.centerButton.isHidden = false
+        }
+    }
+    
+    func setupCamera() {
+        
+        let user = self.mapView.userLocation?.coordinate
+        self.mapView.setCenter(user!, zoomLevel: 2, direction: 0, animated: true)
+        let camera = MGLMapCamera(lookingAtCenter: user!, fromDistance: 3000, pitch: 0, heading: 0)
+        
+        let when = DispatchTime.now() + 0.5 // change 2 to desired number of seconds
+        DispatchQueue.main.asyncAfter(deadline: when) {
+            // Animate the camera movement over 5 seconds.
+            self.mapView.setCamera(camera, withDuration: 2, animationTimingFunction: CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut))
+            
+        }
     }
     
     func setupMap() {
@@ -121,16 +131,21 @@ class MapVC: UIViewController, MGLMapViewDelegate {
         mapView.delegate = self
         mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         mapView.showsUserLocation = true
+        mapView.compassView.isHidden = true
+        
+        
         
         if Bool.checkIfTimeIs(between: 0, and: 7) == true || Bool.checkIfTimeIs(between: 18, and: 23) == true {
             mapView.styleURL = MGLStyle.darkStyleURL()
             styleControl.selectedSegmentIndex = 1
             styleControl.tintColor = UIColor.white
+            mapView.attributionButton.tintColor = UIColor.white
         }
         else {
             mapView.styleURL = MGLStyle.outdoorsStyleURL()
             styleControl.selectedSegmentIndex = 0
-            styleControl.tintColor = UIColor(red: 0, green: 122/255, blue: 255/255, alpha: 1.0)
+            styleControl.tintColor = darkColor
+            mapView.attributionButton.tintColor = darkColor
         }
         
         view.addSubview(mapView)
@@ -151,6 +166,10 @@ class MapVC: UIViewController, MGLMapViewDelegate {
         locations = []
         locationDictionary = [:]
         
+        self.mapView.removeAnnotations(self.pins)
+        self.pins.removeAll()
+        
+        
         FBDatabase.getAllMostRecentPictureData(ref: ref) { (rawPictureDataArray) in
             
             if rawPictureDataArray.count > 0 {
@@ -165,10 +184,7 @@ class MapVC: UIViewController, MGLMapViewDelegate {
                     self.pictureDataArray.append(rawPictureData)
                     
                     self.pins.append(pin)
-                    
-                    
-                    
-                    
+
                     if rawPictureData.id == rawPictureDataArray.last?.id {
                         self.setupPins()
                     }
@@ -181,21 +197,13 @@ class MapVC: UIViewController, MGLMapViewDelegate {
     }
     
     func setupPins() {
-        mapView.addAnnotations(pins)
+        print("Refreshing Pins")
+        self.mapView.addAnnotations(self.pins)
     }
     
     func mapViewDidFinishLoadingMap(_ mapView: MGLMapView) {
         
-        let user = mapView.userLocation?.coordinate
-        mapView.setCenter(user!, zoomLevel: 2, direction: 0, animated: true)
-        let camera = MGLMapCamera(lookingAtCenter: user!, fromDistance: 3000, pitch: 0, heading: 0)
         
-        let when = DispatchTime.now() + 0.5 // change 2 to desired number of seconds
-        DispatchQueue.main.asyncAfter(deadline: when) {
-            // Animate the camera movement over 5 seconds.
-            mapView.setCamera(camera, withDuration: 2, animationTimingFunction: CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut))
-            
-        }
         
         
     }
@@ -301,9 +309,9 @@ class MapVC: UIViewController, MGLMapViewDelegate {
         
         
         // Ask user if they want to navigate to the pin.
-        let alert = UIAlertController(title: "Navigate here?", message: nil , preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "What would you like to do?", message: nil , preferredStyle: .actionSheet)
         
-        alert.addAction(UIAlertAction(title: "Navigate", style: .default, handler: { (action) in
+        alert.addAction(UIAlertAction(title: "Navigate Here", style: .default, handler: { (action) in
             // Calculate the route from the user's location to the set destination
             self.beginNavigation()
         }))
@@ -316,11 +324,11 @@ class MapVC: UIViewController, MGLMapViewDelegate {
                     
                     if (annotation.coordinate.latitude == picture.gpsCoordinates[0]) && annotation.coordinate.longitude == picture.gpsCoordinates[1] {
                         self.addChallengeToUser(pictureData: picture)
+                        
+                        self.centerButton.isHidden = false
                         break
                     }
                 }
-                
-                self.setupPins()
                 
             })
             
@@ -444,10 +452,14 @@ class MapVC: UIViewController, MGLMapViewDelegate {
                 print("Added challenge to user")
             }
         })
+        
+        let lat = pictureData.gpsCoordinates[0]
+        let long = pictureData.gpsCoordinates[1]
+        let coordinate = CLLocationCoordinate2DMake(lat, long)
+        self.mapView.setCenter(coordinate, zoomLevel: self.mapView.zoomLevel, direction: 0, animated: true)
     }
     
-    
-    
+
     
     // MARK: - Navigation
     

@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8eq-jF-wpY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14105" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8eq-jF-wpY">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="triomphe-light-autoinstr.ttf">
+            <string>Triomphe-Light</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--PhotoVC-->
         <scene sceneID="x3s-RC-zAs">
@@ -18,26 +23,28 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Die-Va-szX">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wTS-XH-Pb0">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.59632095029999999" colorSpace="custom" customColorSpace="displayP3"/>
+                            </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9HV-Hd-RWT">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="imageID"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
+                                </userDefinedRuntimeAttributes>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jJ6-fG-Ex9">
-                                <rect key="frame" x="87.666666666666686" y="44" width="200" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="n8h-zl-UVn"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4tc-4z-epv">
-                                <rect key="frame" x="154" y="82" width="66" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UYf-88-PPG">
-                                <rect key="frame" x="8" y="44" width="71.666666666666671" height="30"/>
+                                <rect key="frame" x="16" y="44" width="34" height="36"/>
+                                <fontDescription key="fontDescription" name="Triomphe-Light" family="Triomphe" pointSize="16"/>
                                 <state key="normal" title="Back">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -48,18 +55,12 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="UYf-88-PPG" firstAttribute="top" secondItem="jJ6-fG-Ex9" secondAttribute="top" id="1br-hu-LsC"/>
                             <constraint firstAttribute="bottom" secondItem="9HV-Hd-RWT" secondAttribute="bottom" id="33B-om-JUa"/>
                             <constraint firstItem="9HV-Hd-RWT" firstAttribute="top" secondItem="WnU-2g-UkX" secondAttribute="top" id="6pT-Vp-FOP"/>
-                            <constraint firstItem="jJ6-fG-Ex9" firstAttribute="leading" secondItem="UYf-88-PPG" secondAttribute="trailing" constant="8" id="OJf-6r-MIo"/>
-                            <constraint firstItem="4tc-4z-epv" firstAttribute="centerX" secondItem="jJ6-fG-Ex9" secondAttribute="centerX" id="SpW-tS-sm6"/>
-                            <constraint firstItem="UYf-88-PPG" firstAttribute="bottom" secondItem="jJ6-fG-Ex9" secondAttribute="bottom" id="YAj-s4-F4S"/>
-                            <constraint firstItem="4tc-4z-epv" firstAttribute="top" secondItem="jJ6-fG-Ex9" secondAttribute="bottom" constant="8" id="bU4-Dd-2DH"/>
+                            <constraint firstItem="UYf-88-PPG" firstAttribute="top" secondItem="1lx-SE-7qY" secondAttribute="top" id="7La-3M-sKL"/>
                             <constraint firstItem="9HV-Hd-RWT" firstAttribute="leading" secondItem="WnU-2g-UkX" secondAttribute="leading" id="bh0-98-xQZ"/>
-                            <constraint firstItem="jJ6-fG-Ex9" firstAttribute="centerX" secondItem="WnU-2g-UkX" secondAttribute="centerX" id="fxY-OU-TnV"/>
-                            <constraint firstItem="jJ6-fG-Ex9" firstAttribute="top" secondItem="1lx-SE-7qY" secondAttribute="top" id="oQV-TA-7pc"/>
                             <constraint firstItem="9HV-Hd-RWT" firstAttribute="trailing" secondItem="WnU-2g-UkX" secondAttribute="trailing" id="rMM-ED-M0U"/>
-                            <constraint firstItem="UYf-88-PPG" firstAttribute="leading" secondItem="1lx-SE-7qY" secondAttribute="leading" constant="8" id="zrr-ke-Ww9"/>
+                            <constraint firstItem="UYf-88-PPG" firstAttribute="leading" secondItem="1lx-SE-7qY" secondAttribute="leading" constant="16" id="zrr-ke-Ww9"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="1lx-SE-7qY"/>
                     </view>
@@ -68,14 +69,13 @@
                         <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
+                        <outlet property="imageBackground" destination="Die-Va-szX" id="uXx-9D-h6I"/>
                         <outlet property="imageView" destination="9HV-Hd-RWT" id="2GL-2E-5G6"/>
-                        <outlet property="locationLabel" destination="4tc-4z-epv" id="eOb-xJ-aAg"/>
-                        <outlet property="titleLabel" destination="jJ6-fG-Ex9" id="AF1-0d-LVH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tq4-wM-JWq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1324" y="94"/>
+            <point key="canvasLocation" x="1324" y="93.842364532019715"/>
         </scene>
     </scenes>
 </document>

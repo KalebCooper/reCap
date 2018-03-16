@@ -12,8 +12,7 @@ class PhotoVC: UIViewController {
     
     // MARK: - Outlets
     @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var locationLabel: UILabel!
+    @IBOutlet weak var imageBackground: UIImageView!
     
     
     // MARK: - Properties
@@ -24,9 +23,14 @@ class PhotoVC: UIViewController {
         super.viewDidLoad()
         self.navigationController?.setToolbarHidden(true, animated: true)
         if image != nil, pictureData != nil {
+            applyBlurEffect(image: image)
             setup()
         }
         // Do any additional setup after loading the view.
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
     
     /*
@@ -35,8 +39,17 @@ class PhotoVC: UIViewController {
     private func setup() {
         self.navigationController?.setNavigationBarHidden(true, animated: true)
         imageView.image = image
-        titleLabel.text = pictureData.name
-        locationLabel.text = pictureData.locationName
+        
+    }
+    
+    func applyBlurEffect(image: UIImage){
+        let imageToBlur = CIImage(image: image)
+        let blurfilter = CIFilter(name: "CIGaussianBlur")
+        blurfilter?.setValue(imageToBlur, forKey: "inputImage")
+        let resultImage = blurfilter?.value(forKey: "outputImage") as! CIImage
+        let blurredImage = UIImage(ciImage: resultImage)
+        self.imageBackground.image = blurredImage
+        
     }
 
     override func didReceiveMemoryWarning() {

@@ -99,6 +99,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="ezU-ss-VqU">
+                        <nil key="title"/>
                         <barButtonItem key="leftBarButtonItem" title="Back" id="v8F-P5-OGe">
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <connections>

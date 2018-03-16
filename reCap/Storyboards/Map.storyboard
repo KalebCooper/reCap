@@ -127,9 +127,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="aUG-ky-J5u">
-                                <rect key="frame" x="124.66666666666669" y="745" width="125" height="29"/>
+                                <rect key="frame" x="117.33333333333331" y="745" width="140" height="29"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="125" id="uOo-fG-j7f"/>
+                                    <constraint firstAttribute="width" constant="140" id="uOo-fG-j7f"/>
                                 </constraints>
                                 <segments>
                                     <segment title="Light"/>
@@ -141,10 +141,10 @@
                                 </connections>
                             </segmentedControl>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yXK-ts-nzS">
-                                <rect key="frame" x="162.66666666666666" y="687" width="50" height="50"/>
+                                <rect key="frame" x="324" y="52" width="35" height="35"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="yXK-ts-nzS" secondAttribute="height" multiplier="1:1" id="EeB-pP-ytq"/>
-                                    <constraint firstAttribute="width" constant="50" id="Xva-cK-Kxs"/>
+                                    <constraint firstAttribute="height" constant="35" id="719-Oh-276"/>
+                                    <constraint firstAttribute="width" constant="35" id="OL8-1e-XLO"/>
                                 </constraints>
                                 <state key="normal" image="CenterChallengeIcon"/>
                                 <connections>
@@ -154,10 +154,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="yXK-ts-nzS" firstAttribute="centerX" secondItem="aUG-ky-J5u" secondAttribute="centerX" id="0Pv-8L-0To"/>
                             <constraint firstItem="aUG-ky-J5u" firstAttribute="bottom" secondItem="gyg-8r-U5Q" secondAttribute="bottom" constant="-5" id="2Pd-0q-gvL"/>
+                            <constraint firstItem="gyg-8r-U5Q" firstAttribute="trailing" secondItem="yXK-ts-nzS" secondAttribute="trailing" constant="16" id="XOP-EJ-exs"/>
                             <constraint firstItem="aUG-ky-J5u" firstAttribute="centerX" secondItem="Gck-yg-c4Z" secondAttribute="centerX" id="dZb-BL-7sz"/>
-                            <constraint firstItem="aUG-ky-J5u" firstAttribute="top" secondItem="yXK-ts-nzS" secondAttribute="bottom" constant="8" id="vPa-3n-LxD"/>
+                            <constraint firstItem="yXK-ts-nzS" firstAttribute="top" secondItem="gyg-8r-U5Q" secondAttribute="top" constant="8" id="kDS-Aa-cCS"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="gyg-8r-U5Q"/>
                     </view>

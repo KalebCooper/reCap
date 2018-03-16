@@ -47,17 +47,9 @@ class ImageCreateVC: UIViewController {
         var groupID: String!
         let currentDate = Int((Date().timeIntervalSince1970)).description
         let pictureID = PictureData.createPictureDataID()
-        let alert = FCAlertView()
-        alert.makeAlertTypeProgress()
-        alert.dismissOnOutsideTouch = false
-        let titleString = "Adding Picture"
         
-        alert.showAlert(inView: self,
-                        withTitle: titleString,
-                        withSubtitle: nil,
-                        withCustomImage: nil,
-                        withDoneButtonTitle: nil,
-                        andButtons: nil)
+        FCAlertView.displayAlert(title: "Saving Picture...", message: "Adding your picture to the database...", buttonTitle: "", type: "progress", view: self)
+        
         if self.isAtChallengeLocation {
             // If the user took the picture at the challenge coordinates, there is an active challenge
             self.user.points = self.user.points + Int(self.user.activeChallengePoints)!
@@ -88,7 +80,6 @@ class ImageCreateVC: UIViewController {
                     self.displayChallengeComplete()
                 }
                 else {
-                    alert.dismiss()
                     self.displayPictureAdded(pictureData: pictureData)
                 }
                 print("Added picture for user in ImageCreateVC")
@@ -117,9 +108,6 @@ class ImageCreateVC: UIViewController {
     }
     
     private func displayChallengeComplete() {
-        let alert = FCAlertView()
-        alert.makeAlertTypeSuccess()
-        alert.dismissOnOutsideTouch = true
         
         let challengePoints: Int = Int(self.user.activeChallengePoints)!
         let totalPoints: Int = self.user.points
@@ -127,32 +115,20 @@ class ImageCreateVC: UIViewController {
         let titleString = "+\(challengePoints) Points"
         let subtitleString = "Good Job! You now have \(totalPoints) points!"
         
-        alert.showAlert(inView: self,
-                        withTitle: titleString,
-                        withSubtitle: subtitleString,
-                        withCustomImage: nil,
-                        withDoneButtonTitle: "Hooray!",
-                        andButtons: nil)
+        FCAlertView.displayAlert(title: titleString, message: subtitleString, buttonTitle: "Hooray!", type: "success", view: self, blur: true)
         
         //Clear challenge ID and points
         self.user.activeChallengeID = ""
         self.user.activeChallengePoints = ""
+        //FBDatabase.addUpdateUser(user: user) { (error) in }
     }
     
     private func displayPictureAdded(pictureData: PictureData) {
-        let alert = FCAlertView()
-        alert.makeAlertTypeSuccess()
-        alert.dismissOnOutsideTouch = true
-        
+
         let titleString = "Picture Added"
         let subtitleString = "Good Job! You now have added \(pictureData.name!) to your library"
         
-        alert.showAlert(inView: self,
-                        withTitle: titleString,
-                        withSubtitle: subtitleString,
-                        withCustomImage: nil,
-                        withDoneButtonTitle: "Hooray!",
-                        andButtons: nil)
+        FCAlertView.displayAlert(title: titleString, message: subtitleString, buttonTitle: "Hooray!", type: "success", view: self, blur: true)
         
     }
     

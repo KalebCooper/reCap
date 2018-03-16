@@ -99,7 +99,9 @@ class ProfileMenuVC: UIViewController {
                 print("Swiped left")
             case UISwipeGestureRecognizerDirection.up:
                 print("Swiped up")
-            //self.performSegue(withIdentifier: "toCameraSegue", sender: self)
+                print("Back to Camera")
+                self.navigationController?.setToolbarHidden(true, animated: true)
+                self.navigationController?.popViewController(animated: true)
             default:
                 break
             }

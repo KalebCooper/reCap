@@ -8,8 +8,9 @@
 
 import UIKit
 import Firebase
+import FCAlertView
 
-class SettingsVC: UITableViewController, UITextFieldDelegate {
+class SettingsVC: UITableViewController, UITextFieldDelegate, FCAlertViewDelegate {
     
     var user: User!
     var userData: [String]? = []
@@ -55,7 +56,7 @@ class SettingsVC: UITableViewController, UITextFieldDelegate {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 6
+        return 3
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -97,118 +98,115 @@ class SettingsVC: UITableViewController, UITextFieldDelegate {
         let cell = tableView.cellForRow(at: indexPath)
         let cellName = cell?.textLabel?.text!
         if cellName == "Full Name" {
-            print("Full Name tapped")
+
+            let alert = FCAlertView()
+            alert.makeAlertTypeCaution()
+            alert.dismissOnOutsideTouch = false
+            alert.darkTheme = true
+            alert.bounceAnimations = true
+            alert.addTextField(withPlaceholder: "Enter Name") { (name) in
+                
+                
+                if name != "" {
+                    
+                    FCAlertView.displayAlert(title: "Changing...", message: "Your name is being changed...", buttonTitle: "Dismiss", type: "progress", view: self)
+                    
+                    let newName = name
+                    
+                    self.user.name = newName
+                    
+                    FBDatabase.addUpdateUser(user: self.user, with_completion: { (error) in
+                        if error == nil {
+                            FCAlertView.displayAlert(title: "Success!", message: "Your name has been changed.", buttonTitle: "Dismiss", type: "success", view: self)
+                        }
+                        else {
+                            FCAlertView.displayAlert(title: "Uh Oh!", message: error!, buttonTitle: "Dismiss", type: "warning", view: self)
+                        }
+                    })
+                    
+                    
+                }
+                else {
+                    FCAlertView.displayAlert(title: "Oops!", message: "Please make sure to type a name", buttonTitle: "Got It!", type: "warning", view: self)
+                }
+                
+                
+            }
             
-            let alertController = UIAlertController(title: "Update Full Name", message: "", preferredStyle: .alert)
-            alertController.addTextField(configurationHandler: { (textField) in
-                textField.placeholder = "Enter Full Name"
-                textField.keyboardAppearance = .dark
-                textField.delegate = self
-                
-            })
-            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action : UIAlertAction!) -> Void in })
-            let saveAction = UIAlertAction(title: "Save", style: .default, handler: { alert -> Void in
-                let firstTextField = alertController.textFields![0] as UITextField
-                
-                
-                self.user.name = firstTextField.text
-                
-                FBDatabase.addUpdateUser(user: self.user, with_completion: { (error) in
-                    if let actualError = error {
-                        // An error occured
-                        print("Did not write profile picture in database")
-                        print(actualError)
-                    }
-                    else {
-                        // No error occured
-                    }
-                })
-                
-            })
-            
-            alertController.addAction(cancelAction)
-            alertController.addAction(saveAction)
-            
-            self.present(alertController, animated: true, completion: nil)
+            alert.addButton("Cancel") {
+
+            }
+            alert.showAlert(withTitle: "Update Name", withSubtitle: "Please enter a new name.", withCustomImage: nil, withDoneButtonTitle: "Update", andButtons: nil)
+
             
             
         }
         else if cellName == "Username" {
             print("Username tapped")
             
-            let alertController = UIAlertController(title: "Update Username", message: "", preferredStyle: .alert)
-            alertController.addTextField(configurationHandler: { (textField) in
-                textField.placeholder = "Enter Username"
-                textField.keyboardAppearance = .dark
-                textField.delegate = self
-                
-            })
-            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action : UIAlertAction!) -> Void in })
-            let saveAction = UIAlertAction(title: "Save", style: .default, handler: { alert -> Void in
-                let firstTextField = alertController.textFields![0] as UITextField
-                
-                let newUsername = firstTextField.text
-                let ref = Database.database().reference()
-                FBDatabase.getUsername(with_ref: ref, with_username: newUsername!, with_completion: {(username) in
-                    if username == nil {
-                        // The username is not taken
-                        let oldUsernameObj = Username(username: self.user.username, email: self.user.email, id: self.user.id)
-                        let newUsernameObj = Username(username: newUsername!, email: self.user.email, id: self.user.id)
-                        FBDatabase.addUpdateUsername(with_username: newUsernameObj, with_completion: {(error) in
-                            
-                        })
-                        FBDatabase.deleteUsername(username: oldUsernameObj, with_completion: {(error) in
-                            
-                        })
-                        self.user.username = newUsername
-                        FBDatabase.addUpdateUser(user: self.user, with_completion: {(error) in
-                            
-                        })
-                    }
-                    else {
-                        
-                    }
-                })
-                //Update Username through Firebase Authentication AND Database
-                
-            })
-            
-            alertController.addAction(cancelAction)
-            alertController.addAction(saveAction)
-            
-            self.present(alertController, animated: true, completion: nil)
-            
-        }
-        else if cellName == "Email" {
-            print("Email tapped")
+            let alert = FCAlertView()
+            alert.makeAlertTypeCaution()
+            alert.dismissOnOutsideTouch = false
+            alert.darkTheme = true
+            alert.bounceAnimations = true
+            alert.addTextField(withPlaceholder: "Enter Username") { (username) in
 
-            let alertController = UIAlertController(title: "Update Email", message: "", preferredStyle: .alert)
-            alertController.addTextField(configurationHandler: { (textField) in
-                textField.placeholder = "Enter Email"
-                textField.keyboardAppearance = .dark
-                textField.delegate = self
                 
-            })
-            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action : UIAlertAction!) -> Void in })
-            let saveAction = UIAlertAction(title: "Save", style: .default, handler: { alert -> Void in
-                let firstTextField = alertController.textFields![0] as UITextField
+                if username != "" {
+                    
+                    FCAlertView.displayAlert(title: "Changing...", message: "Your username is being changed...", buttonTitle: "Dismiss", type: "progress", view: self)
+                    
+                    let newUsername = username
+                    let ref = Database.database().reference()
+                    FBDatabase.getUsername(with_ref: ref, with_username: newUsername!, with_completion: {(username) in
+                        if username == nil {
+                            // The username is not taken
+                            let oldUsernameObj = Username(username: self.user.username, email: self.user.email, id: self.user.id)
+                            let newUsernameObj = Username(username: newUsername!, email: self.user.email, id: self.user.id)
+                            FBDatabase.addUpdateUsername(with_username: newUsernameObj, with_completion: {(error) in
+                                
+                            })
+                            FBDatabase.deleteUsername(username: oldUsernameObj, with_completion: {(error) in
+                                
+                            })
+                            self.user.username = newUsername
+                            FBDatabase.addUpdateUser(user: self.user, with_completion: {(error) in
+                                
+                                if error == nil {
+                                    FCAlertView.displayAlert(title: "Success!", message: "Your username has been changed.", buttonTitle: "Dismiss", type: "success", view: self)
+                                    self.tableView.reloadData()
+                                }
+                                else {
+                                    FCAlertView.displayAlert(title: "Uh Oh!", message: error!, buttonTitle: "Dismiss", type: "warning", view: self)
+                                }
+                                
+                                
+                            })
+                            
+                            
+                        }
+                        else {
+                            
+                        }
+                    })
+                    
+                    
+                }
+                else {
+                    FCAlertView.displayAlert(title: "Oops!", message: "Please make sure to type a username", buttonTitle: "Got It!", type: "warning", view: self)
+                }
                 
                 
-                //Update Email through Firebase Authentication AND Database
-                
-            })
+            }
             
-            alertController.addAction(cancelAction)
-            alertController.addAction(saveAction)
+            alert.addButton("Cancel") {
+                alert.dismiss()
+            }
+            alert.showAlert(withTitle: "Update Username", withSubtitle: "Please enter a new username.", withCustomImage: nil, withDoneButtonTitle: "Update", andButtons: nil)
+
             
-            self.present(alertController, animated: true, completion: nil)
             
-        }
-        else if cellName == "Notifications" {
-            print("Notifications tapped")
-        }
-        else if cellName == "About" {
-            print("About tapped")
+            
         }
         else if cellName == "Logout" {
             // Logout pressed

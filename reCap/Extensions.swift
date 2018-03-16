@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import FCAlertView
 
 
 extension Double
@@ -74,6 +75,52 @@ extension Bool {
         }
         
     }
+    
+}
+
+extension FCAlertView
+{
+    
+    static func displayAlert(title: String, message: String, buttonTitle: String, type: String, view: UIViewController, blur: Bool = false) {
+        let alert = FCAlertView()
+        alert.dismissOnOutsideTouch = true
+        alert.darkTheme = true
+        alert.bounceAnimations = true
+        
+        if blur == true {
+            alert.blurBackground = true
+        }
+        
+        if type == "caution" {
+            alert.makeAlertTypeCaution()
+        }
+        else if type == "warning" {
+            alert.makeAlertTypeWarning()
+        }
+        else if type == "success" {
+            alert.makeAlertTypeSuccess()
+        }
+        else if type == "progress" {
+            alert.makeAlertTypeProgress()
+            alert.blurBackground = true
+            
+            let when = DispatchTime.now() + 1 // change 2 to desired number of seconds
+            DispatchQueue.main.asyncAfter(deadline: when) {
+                alert.dismiss()
+            }
+        }
+        
+        let titleString = title
+        let subtitleString = message
+        
+        alert.showAlert(inView: view,
+                        withTitle: titleString,
+                        withSubtitle: subtitleString,
+                        withCustomImage: nil,
+                        withDoneButtonTitle: buttonTitle,
+                        andButtons: nil)
+    }
+    
     
 }
 
