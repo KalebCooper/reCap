@@ -64,7 +64,7 @@ class CreateAccountVC: UITableViewController, UIImagePickerControllerDelegate, U
             FBDatabase.createUserAuth(email: email, password: password, with_completion: {(id, error) in
                 if let activeID = id {
                     print("Got id in SignIn VC")
-                    let user = User(id: activeID, name: name, email: email, username: username)
+                    let user = User(id: activeID, name: name, email: email, username: username, state: "state", country: "country")
                     FBDatabase.setAutomaticSignIn(with_email: email, with_password: password, with_id: activeID)
                     let usernameObj = Username(username: username, email: email, id: id!)
                     FBDatabase.addUpdateUser(user: user, with_completion: {(error) in
