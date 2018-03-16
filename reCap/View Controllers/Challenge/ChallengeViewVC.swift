@@ -160,6 +160,7 @@ class ChallengeViewVC: UIViewController, UICollectionViewDelegate, UICollectionV
     // MARK: - ImageButton Methods
     func imageButtonPressed(image: UIImage, pictureData: PictureData) {
         print("Image Pressed")
+        self.performSegue(withIdentifier: "PhotoSegue", sender: self)
     }
     
     

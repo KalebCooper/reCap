@@ -33,12 +33,7 @@ class LeaderboardsFriendsVC: UITableViewController {
         applyBlurEffect(image: #imageLiteral(resourceName: "Gradient"))
         print("Leaderboards loaded")
         let ref = Database.database().reference()
-        /*FBDatabase.getAllUsersByRegion(region: "State", equal_to: "Oklahoma", with_max_query: 50, with_ref: ref, with_completion: {(user) in
-            
-        })*/
-        /*FBDatabase.getAllUsersByRegion(region: FBDatabase.USER_COUNTRY, equal_to: "United States", with_max_query: 50, with_ref: ref, with_completion: {(users) in
-            
-        })*/
+        
         if mode != nil, user != nil {
             // If the mode has been selected
             if mode == LeaderboardsFriendsVC.FRIENDS_LIST_MODE {
@@ -97,95 +92,70 @@ class LeaderboardsFriendsVC: UITableViewController {
     
     // MARK: - Setup Methods
     private func setupLeaderboards() {
-        
-        let currentLocation = Locator.currentLocation
-        var filter: String = ""
-        
-        let geocoder = CLGeocoder()
-        geocoder.reverseGeocodeLocation(currentLocation!, completionHandler: { (placemarks, error) in
-            
-                if self.locationControl.selectedSegmentIndex == 0 {
-                    filter = placemarks![0].administrativeArea!
-                }
-                else if self.locationControl.selectedSegmentIndex == 1 {
-                    filter = placemarks![0].country!
-                }
-                else {
-                    filter = ""
-                }
-            
-            print("Filter \(filter)")
-            geocoder.cancelGeocode()
-        })
-        
-        
+        self.title = "Leaderboards"
+        self.navigationItem.leftBarButtonItem = nil
+        self.navigationItem.rightBarButtonItem = nil
         
         
         leaderboardsList = []
         var unsortedList: [User] = []
         let ref = Database.database().reference()
-        FBDatabase.getAllUsers(query_by: FBDatabase.USER_POINTS, with_max_query: 50, with_ref: ref, with_completion: {(users) in
-            for user in users {
+        
+        var filter: String = ""
+        
+        if self.locationControl.selectedSegmentIndex == 0 {
+            filter = "State"
+        }
+        else if self.locationControl.selectedSegmentIndex == 1 {
+            filter = "Country"
+        }
+        else {
+            filter = ""
+        }
+        
+        
+        if filter == "State" {
+            
+            FBDatabase.getAllUsersByRegion(region: "State", equal_to: self.user.state, with_max_query: 50, with_ref: ref, with_completion: {(users) in
                 
-                FBDatabase.getPictureData(for_user: user, ref: ref, with_completion: { (pictureDataArray) in
-                    
-                    if pictureDataArray.last?.owner == user.id {
-                        
-                        
-                        let otherUserLocation = CLLocation(latitude: (pictureDataArray.last?.gpsCoordinates[0])!, longitude: (pictureDataArray.last?.gpsCoordinates[1])!)
-                        
-                        let newGeocoder = CLGeocoder()
-                        newGeocoder.reverseGeocodeLocation(otherUserLocation, completionHandler: { (placemarks, error) in
-
-                            if error == nil {
-                                if self.locationControl.selectedSegmentIndex == 0 {
-                                    if filter == placemarks![0].administrativeArea! {
-                                        unsortedList.append(user)
-                                    }
-                                    
-                                }
-                                else if self.locationControl.selectedSegmentIndex == 1 {
-                                    if filter == placemarks![0].country! {
-                                        unsortedList.append(user)
-                                    }
-                                }
-                                else {
-                                    filter = ""
-                                    unsortedList.append(user)
-                                }
-                                self.leaderboardsList = Sort.SortUsersByDescendingOrder(users: unsortedList)
-                                self.tableView.reloadData()
-                                
-                                //if user.id == users.last?.id {
-                                    
-//                                    let when = DispatchTime.now() + 0.10 // change 2 to desired number of seconds
-//                                    DispatchQueue.main.asyncAfter(deadline: when) {
-//                                        print(unsortedList.count)
-//                                        print(users.count)
-//                                        // Put your code which should be executed with a delay here
-//
-//                                    }
-                                
-                                //}
-                                
-                                
-                            }
-                            
-                            
-                            newGeocoder.cancelGeocode()
-                        })
-                        
-                    }
-                    
-                    
-                    
-                })
-
-            }
-        })
+                for user in users {
+                    unsortedList.append(user)
+                }
+                self.leaderboardsList = Sort.SortUsersByDescendingOrder(users: unsortedList)
+                self.tableView.reloadData()
+                
+            })
+            
+        }
+        else if filter == "Country" {
+            
+            FBDatabase.getAllUsersByRegion(region: FBDatabase.USER_COUNTRY, equal_to: self.user.country, with_max_query: 50, with_ref: ref, with_completion: {(users) in
+                for user in users {
+                    unsortedList.append(user)
+                }
+                self.leaderboardsList = Sort.SortUsersByDescendingOrder(users: unsortedList)
+                self.tableView.reloadData()
+            })
+            
+        }
+        else {
+            
+            FBDatabase.getAllUsers(query_by: FBDatabase.USER_POINTS, with_max_query: 50, with_ref: ref, with_completion: {(users) in
+                for user in users {
+                    unsortedList.append(user)
+                }
+                self.leaderboardsList = Sort.SortUsersByDescendingOrder(users: unsortedList)
+                self.tableView.reloadData()
+            })
+            
+        }
+        
     }
     
     private func setupFriendsList() {
+        self.title = "Friends List"
+        self.locationControl.isHidden = true
+        
         friendsList = []
         let friendsIDList = user.friendsID
         let ref = Database.database().reference()

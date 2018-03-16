@@ -140,6 +140,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         print("Camera container loaded")
         if user != nil {
             setupProfileImage()
+            setupUserLocation()
             setupHero()
             setupCamera(clear: false)
             configureButton()
@@ -173,6 +174,44 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
             self.profileOutlet.contentMode = .scaleAspectFill
         })
         self.setupActiveChallengeData()
+    }
+    
+    
+    func setupUserLocation() {
+        
+        
+        let when = DispatchTime.now() + 3 // change 2 to desired number of seconds
+        DispatchQueue.main.asyncAfter(deadline: when) {
+            
+            
+            Locator.requestAuthorizationIfNeeded(.always)
+            Locator.requestAuthorizationIfNeeded(.whenInUse)
+            let currentLocation = Locator.currentLocation
+            
+            
+            let geocoder = CLGeocoder()
+            
+            geocoder.reverseGeocodeLocation(currentLocation!) { (placemarks, error) in
+                
+                if error == nil {
+                    self.user.state = placemarks?.last?.administrativeArea
+                    self.user.country = placemarks?.last?.country
+                }
+                else {
+                    self.user.state = ""
+                    self.user.country = ""
+                }
+                
+                FBDatabase.addUpdateUser(user: self.user, with_completion: { (error) in
+                    print(error)
+                })
+                
+                geocoder.cancelGeocode()
+                
+            }
+
+        }
+
     }
     
     /*

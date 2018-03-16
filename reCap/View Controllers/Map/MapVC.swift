@@ -122,30 +122,27 @@ class MapVC: UIViewController, MGLMapViewDelegate {
             if rawPictureDataArray.count > 0 {
                 for rawPictureData in rawPictureDataArray {
                     
-                    FBDatabase.getPictureData(id: rawPictureData.id, ref: self.ref, with_completion: { (pictureData) in
-                        
-                        let pin = MGLPointAnnotation()
-                        pin.coordinate = CLLocationCoordinate2D(latitude: (pictureData?.gpsCoordinates[0])!, longitude: (pictureData?.gpsCoordinates[1])!)
-                        pin.title = pictureData?.name
-                        pin.subtitle = pictureData?.locationName
-                        
-                        self.pictureIDArray.append((pictureData?.id)!)
-                        self.pictureDataArray.append(pictureData!)
-                        
-                        self.pins.append(pin)
-                        
-                        
-                        
-                        
-                        if rawPictureData.id == rawPictureDataArray.last?.id {
-                            self.setupPins()
-                        }
-                    })
+                    let pin = MGLPointAnnotation()
+                    pin.coordinate = CLLocationCoordinate2D(latitude: (rawPictureData.gpsCoordinates[0]), longitude: (rawPictureData.gpsCoordinates[1]))
+                    pin.title = rawPictureData.name
+                    pin.subtitle = rawPictureData.locationName
                     
+                    self.pictureIDArray.append((rawPictureData.id)!)
+                    self.pictureDataArray.append(rawPictureData)
+                    
+                    self.pins.append(pin)
+                    
+                    
+                    
+                    
+                    if rawPictureData.id == rawPictureDataArray.last?.id {
+                        self.setupPins()
+                    }
                 }
-                
             }
+            
         }
+        
         
     }
     
