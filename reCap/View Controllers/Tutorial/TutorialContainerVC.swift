@@ -68,6 +68,15 @@ class TutorialContainerVC: UIViewController, SwiftyOnboardDelegate, SwiftyOnboar
         swiftyOnboard.delegate = self
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        AppUtility.lockOrientation(.portrait)
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        AppUtility.lockOrientation(.all)
+    }
+    
     func gradient() {
         //Add the gradiant to the view:
         self.gradiant.frame = view.bounds
