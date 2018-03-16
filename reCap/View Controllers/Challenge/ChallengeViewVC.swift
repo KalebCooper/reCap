@@ -68,6 +68,10 @@ class ChallengeViewVC: UIViewController, UICollectionViewDelegate, UICollectionV
         descriptionOutlet.text = pictureData.description
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.setToolbarHidden(false, animated: true)
+    }
+    
     func applyBlurEffect(image: UIImage){
         let imageToBlur = CIImage(image: image)
         let blurfilter = CIFilter(name: "CIGaussianBlur")
@@ -161,7 +165,8 @@ class ChallengeViewVC: UIViewController, UICollectionViewDelegate, UICollectionV
     // MARK: - ImageButton Methods
     func imageButtonPressed(image: UIImage, pictureData: PictureData) {
         print("Image Pressed")
-        self.performSegue(withIdentifier: "PhotoSegue", sender: self)
+        let infoArray = [pictureData, image] as [Any]
+        self.performSegue(withIdentifier: "PhotoSegue", sender: infoArray)
     }
     
     
@@ -173,15 +178,12 @@ class ChallengeViewVC: UIViewController, UICollectionViewDelegate, UICollectionV
         // Pass the selected object to the new view controller.
         let segueID = segue.identifier
         if segueID == "PhotoSegue" {
-            let nav = segue.destination as! UINavigationController
-            let destination = nav.topViewController as! PhotoVC
-            
-            //let destination = segue.destination as! ChallengeViewVC
-            let pictureData = pictureDataToPass
-            let picture = imageToPass
+            let destination = segue.destination as! PhotoVC
+            let infoArray = sender as! [Any]
+            let pictureData = infoArray[0] as! PictureData
+            let image = infoArray[1] as! UIImage
             destination.pictureData = pictureData
-            destination.image = picture
-            print("Segue Done")
+            destination.image = image
         }
     }
     

@@ -22,6 +22,7 @@ class PhotoVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.setToolbarHidden(true, animated: true)
         if image != nil, pictureData != nil {
             setup()
         }
@@ -74,8 +75,6 @@ class PhotoVC: UIViewController {
      Activates navigation to go to
      the location where the picture was taken
     */
-    @IBAction func goToLocationPressed(_ sender: Any) {
-    }
     /*
     // MARK: - Navigation
 
