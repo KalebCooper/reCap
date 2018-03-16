@@ -133,7 +133,7 @@ class ImageCreateVC: UIViewController {
         alert.dismissOnOutsideTouch = true
         
         let titleString = "Picture Added"
-        let subtitleString = "Good Job! You now have added \(pictureData.name) to your library"
+        let subtitleString = "Good Job! You now have added \(pictureData.name!) to your library"
         
         alert.showAlert(inView: self,
                         withTitle: titleString,

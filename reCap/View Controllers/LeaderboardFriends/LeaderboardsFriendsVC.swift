@@ -142,13 +142,12 @@ class LeaderboardsFriendsVC: UITableViewController {
     private func setupFriendsList() {
         self.title = "Friends List"
         self.locationControl.isHidden = true
-        
-        friendsList = []
+        self.friendsList = []
         let friendsIDList = user.friendsID
         let ref = Database.database().reference()
         for id in friendsIDList! {
             // Searches through the logged in users friends list
-            FBDatabase.getUser(with_id: id, ref: ref, with_completion: {(user) in
+            FBDatabase.getUserOnce(with_id: id, ref: ref, with_completion: {(user) in
                 if let activeUser = user {
                     self.friendsList.append(activeUser)
                     self.tableView.reloadData()
@@ -205,21 +204,23 @@ class LeaderboardsFriendsVC: UITableViewController {
             let username = usernameTextField.text
             let ref = Database.database().reference()
             FBDatabase.getUsername(with_ref: ref, with_username: username!, with_completion: {(username) in
-                ref.removeAllObservers()
                 if let usernameObj = username {
                     print("Got username in LeaderboardsFriends VC")
                     let id = usernameObj.id
                     self.user.friendsID.append(id!)
                     let ref = Database.database().reference()
-                    FBDatabase.getUser(with_id: id!, ref: ref, with_completion: {(user) in
+                    FBDatabase.getUserOnce(with_id: id!, ref: ref, with_completion: {(user) in
                         if let activeUser = user {
                             print("Got new user in LeaderboardFriends VC")
                             self.friendsList.append(activeUser)
+                            self.tableView.beginUpdates()
+                            let index = IndexPath(row: self.friendsList.count-1, section: 0)
+                            self.tableView.insertRows(at: [index], with: .automatic)
+                            self.tableView.endUpdates()
                         }
                         else {
                             print("Did not get new user in LeaderboardsFriends VC")
                         }
-                        self.tableView.reloadData()
                     })
                     FBDatabase.addUpdateUser(user: self.user, with_completion: {(error) in
                         if let actualError = error {
@@ -227,6 +228,7 @@ class LeaderboardsFriendsVC: UITableViewController {
                         }
                         else {
                             print("Updated user in LeaderboardFriends VC")
+                            // All the users are updated again, reloading the table view. remove all users from friends list array
                         }
                     })
                 }
