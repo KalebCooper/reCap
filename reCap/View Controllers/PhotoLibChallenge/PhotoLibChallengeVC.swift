@@ -217,7 +217,7 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
             alert.addAction(cancel)
             self.present(alert, animated: true, completion: nil)
         }
-        else if mode == PhotoLibChallengeVC.PHOTO_LIB_MODE {
+        else if mode == PhotoLibChallengeVC.PHOTO_LIB_MODE || mode == PhotoLibChallengeVC.FRIENDS_PHOTO_LIB_MODE{
             self.performSegue(withIdentifier: "PhotoSegue", sender: [pictureData, image])
         }
     }
