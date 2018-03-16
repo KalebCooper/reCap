@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import SkyFloatingLabelTextField
+import FCAlertView
 
 class SignInVC: UIViewController, UITextFieldDelegate {
     
@@ -98,6 +99,7 @@ class SignInVC: UIViewController, UITextFieldDelegate {
         else {
             // Not all fields are filled out
             print("All Fields are not filled out")
+            displayErrorAlert(message: "All Fields are not filled out")
         }
     }
     
@@ -113,7 +115,8 @@ class SignInVC: UIViewController, UITextFieldDelegate {
                 self.loginWithEmail(email: email, password: password)
             }
             else {
-                print("Didn ot get username in Sign In VC")
+                print("Didnt get username in Sign In VC")
+                self.displayErrorAlert(message: "Username or Password is not recognized.")
             }
         })
     }
@@ -142,39 +145,11 @@ class SignInVC: UIViewController, UITextFieldDelegate {
             else {
                 print("Did not get user id in sign in VC")
                 print(error!)
+                self.displayErrorAlert(message: error!)
             }
         })
     }
     
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        
-        
-        
-        if passwordOutlet.isEditing {
-            
-            if !(emailUsernameOutlet.text?.contains("@"))! {
-                
-                print("Test")
-                //emailUsernameOutlet.hasErrorMessage = true
-                emailUsernameOutlet.errorMessage = "Invalid E-mail or Username"
-            }
-            
-        }
-        
-    }
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        if textField == passwordOutlet {
-            if !(emailUsernameOutlet.text?.contains("@"))! || ((emailUsernameOutlet.text?.count)! < 7) {
-                //emailUsernameOutlet.hasErrorMessage = true
-                emailUsernameOutlet.errorMessage = "Invalid E-mail or Username"
-            }
-            else {
-                emailUsernameOutlet.errorMessage = ""
-            }
-        }
-    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool
     {
@@ -187,6 +162,25 @@ class SignInVC: UIViewController, UITextFieldDelegate {
         }
         // Do not add a line break
         return false
+    }
+    
+    
+    
+    private func displayErrorAlert(message: String) {
+        let alert = FCAlertView()
+        alert.makeAlertTypeWarning()
+        alert.dismissOnOutsideTouch = true
+        
+        
+        let titleString = "Oops!"
+        let subtitleString = message
+        
+        alert.showAlert(inView: self,
+                        withTitle: titleString,
+                        withSubtitle: subtitleString,
+                        withCustomImage: nil,
+                        withDoneButtonTitle: "Try Again",
+                        andButtons: nil)
     }
     
     

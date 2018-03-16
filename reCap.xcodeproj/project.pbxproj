@@ -17,6 +17,7 @@
 		345FB83920363BE300C59FDB /* SignInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 345FB83820363BE300C59FDB /* SignInVC.swift */; };
 		347A06A4202A14BB00961024 /* SignInTransitionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347A06A3202A14BB00961024 /* SignInTransitionVC.swift */; };
 		347B20FE2058C935001B72A0 /* ChallengeViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347B20FD2058C935001B72A0 /* ChallengeViewVC.swift */; };
+		34819DD5205B6EF300B7D08D /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34819DD4205B6EF300B7D08D /* MapVC.swift */; };
 		34A7ACA8202787DA00ACFB12 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A7ACA7202787DA00ACFB12 /* PageViewController.swift */; };
 		34A7ACB42027A4EB00ACFB12 /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34A7ACB32027A4EB00ACFB12 /* Map.storyboard */; };
 		34A7ACB62027A4F500ACFB12 /* Camera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34A7ACB52027A4F500ACFB12 /* Camera.storyboard */; };
@@ -50,7 +51,6 @@
 		7A4D8A56202783090043878E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4D8A55202783090043878E /* User.swift */; };
 		7A4D8A58202789AA0043878E /* PictureData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4D8A57202789AA0043878E /* PictureData.swift */; };
 		7A5358A4205ADF150047F410 /* AppLoadingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5358A3205ADF150047F410 /* AppLoadingVC.swift */; };
-		7A5358A6205ADF2E0047F410 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5358A5205ADF2E0047F410 /* MapVC.swift */; };
 		7A5878472030D22700F36A56 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5878462030D22600F36A56 /* Extensions.swift */; };
 		7A58784F2030D25900F36A56 /* triomphe-bold-autoinstr.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A5878492030D25900F36A56 /* triomphe-bold-autoinstr.ttf */; };
 		7A5878502030D25900F36A56 /* triomphe-light-autoinstr.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A58784A2030D25900F36A56 /* triomphe-light-autoinstr.ttf */; };
@@ -113,6 +113,7 @@
 		345FB83820363BE300C59FDB /* SignInVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInVC.swift; sourceTree = "<group>"; };
 		347A06A3202A14BB00961024 /* SignInTransitionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInTransitionVC.swift; sourceTree = "<group>"; };
 		347B20FD2058C935001B72A0 /* ChallengeViewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeViewVC.swift; sourceTree = "<group>"; };
+		34819DD4205B6EF300B7D08D /* MapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MapVC.swift; path = "../../../../../../../kaleb/Documents/SideProjects/reCap/reCap/View Controllers/Map/MapVC.swift"; sourceTree = "<group>"; };
 		348591F6203A23C4003E3704 /* Tutorial.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Tutorial.storyboard; path = ../../../../../../kaleb/Documents/SideProjects/reCap/reCap/Storyboards/Tutorial.storyboard; sourceTree = "<group>"; };
 		34A7ACA7202787DA00ACFB12 /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		34A7ACB32027A4EB00ACFB12 /* Map.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Map.storyboard; sourceTree = "<group>"; };
@@ -145,7 +146,6 @@
 		7A4D8A55202783090043878E /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		7A4D8A57202789AA0043878E /* PictureData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureData.swift; sourceTree = "<group>"; };
 		7A5358A3205ADF150047F410 /* AppLoadingVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppLoadingVC.swift; sourceTree = "<group>"; };
-		7A5358A5205ADF2E0047F410 /* MapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
 		7A5878462030D22600F36A56 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		7A5878492030D25900F36A56 /* triomphe-bold-autoinstr.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "triomphe-bold-autoinstr.ttf"; path = "reCap/Custom Fonts/triomphe-bold-autoinstr.ttf"; sourceTree = SOURCE_ROOT; };
 		7A58784A2030D25900F36A56 /* triomphe-light-autoinstr.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "triomphe-light-autoinstr.ttf"; path = "reCap/Custom Fonts/triomphe-light-autoinstr.ttf"; sourceTree = SOURCE_ROOT; };
@@ -293,9 +293,9 @@
 		348591F9203A795D003E3704 /* Map */ = {
 			isa = PBXGroup;
 			children = (
-				7A5358A5205ADF2E0047F410 /* MapVC.swift */,
 				7A4D8A432027801E0043878E /* NavigationVC.swift */,
 				7A3C60122027BAE200ABC9E1 /* MapContainerVC.swift */,
+				34819DD4205B6EF300B7D08D /* MapVC.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -835,6 +835,7 @@
 				7A5878472030D22700F36A56 /* Extensions.swift in Sources */,
 				7A120DD12041F4B50003EE1F /* ImageButtonDelegate.swift in Sources */,
 				345FB83920363BE300C59FDB /* SignInVC.swift in Sources */,
+				34819DD5205B6EF300B7D08D /* MapVC.swift in Sources */,
 				7A38A277202AB56C00DF239F /* PhotoLibChallengeVC.swift in Sources */,
 				347B20FE2058C935001B72A0 /* ChallengeViewVC.swift in Sources */,
 				7A4D8A58202789AA0043878E /* PictureData.swift in Sources */,
@@ -842,7 +843,6 @@
 				34F60577203FD24C001A74E4 /* ImageConfirmVC.swift in Sources */,
 				7A4D8A442027801E0043878E /* NavigationVC.swift in Sources */,
 				7A4D8A56202783090043878E /* User.swift in Sources */,
-				7A5358A6205ADF2E0047F410 /* MapVC.swift in Sources */,
 				7A4D8A4A2027818A0043878E /* ProfileSettingsVC.swift in Sources */,
 				34D0708A205AFCB600B60E3C /* CustomPage.swift in Sources */,
 				7AA8EE922055A5000043B73C /* ImageCreateVC.swift in Sources */,

@@ -140,11 +140,24 @@
                                     <action selector="styleControlAction:" destination="gOT-wK-JaJ" eventType="valueChanged" id="T37-4r-Ieq"/>
                                 </connections>
                             </segmentedControl>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yXK-ts-nzS">
+                                <rect key="frame" x="162.66666666666666" y="687" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="yXK-ts-nzS" secondAttribute="height" multiplier="1:1" id="EeB-pP-ytq"/>
+                                    <constraint firstAttribute="width" constant="50" id="Xva-cK-Kxs"/>
+                                </constraints>
+                                <state key="normal" image="CenterChallengeIcon"/>
+                                <connections>
+                                    <action selector="centerAction:" destination="gOT-wK-JaJ" eventType="touchUpInside" id="fNz-Nq-ljo"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="yXK-ts-nzS" firstAttribute="centerX" secondItem="aUG-ky-J5u" secondAttribute="centerX" id="0Pv-8L-0To"/>
                             <constraint firstItem="aUG-ky-J5u" firstAttribute="bottom" secondItem="gyg-8r-U5Q" secondAttribute="bottom" constant="-5" id="2Pd-0q-gvL"/>
                             <constraint firstItem="aUG-ky-J5u" firstAttribute="centerX" secondItem="Gck-yg-c4Z" secondAttribute="centerX" id="dZb-BL-7sz"/>
+                            <constraint firstItem="aUG-ky-J5u" firstAttribute="top" secondItem="yXK-ts-nzS" secondAttribute="bottom" constant="8" id="vPa-3n-LxD"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="gyg-8r-U5Q"/>
                     </view>
@@ -152,6 +165,7 @@
                         <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
+                        <outlet property="centerButton" destination="yXK-ts-nzS" id="eom-cU-95A"/>
                         <outlet property="styleControl" destination="aUG-ky-J5u" id="CAR-Ns-yQY"/>
                         <segue destination="Lbj-9G-dvc" kind="show" identifier="ChallengeViewSegue" id="zSe-Kw-OVj"/>
                     </connections>
@@ -188,6 +202,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="CenterChallengeIcon" width="150" height="150"/>
         <image name="Challenges" width="512" height="512"/>
         <image name="Logo Text Wide" width="682" height="233"/>
     </resources>

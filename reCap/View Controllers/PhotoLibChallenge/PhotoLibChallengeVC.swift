@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import FCAlertView
 
 class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICollectionViewDataSource, ImageButtonDelegate {
     
@@ -201,20 +202,16 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
         print("Image Pressed")
         if mode == PhotoLibChallengeVC.CHALLENGE_MODE {
             let alert = UIAlertController(title: nil, message: "What would you like to do with this challenge?", preferredStyle: .actionSheet)
-            let withNav = UIAlertAction(title: "Make Active & Start Navigation", style: .default, handler: {(action) in
-                self.addChallengeToUser(pictureData: pictureData)
-                // TODO: Start navigation
-                self.navigationController?.dismiss(animated: true, completion: nil)
-            })
             let withoutNav = UIAlertAction(title: "Make Active", style: .default, handler: {(action) in
                 self.addChallengeToUser(pictureData: pictureData)
                 self.navigationController?.dismiss(animated: true, completion: nil)
+                self.displaySuccessAlert(message: "You just set your active challenge! Make sure to navigate to the pin when you're ready to begin!")
             })
             let viewChallenge = UIAlertAction(title: "View This Challenge", style: .default, handler: {(action) in
                 self.performSegue(withIdentifier: "ViewChallengeSegue", sender: [pictureData, image])
+                
             })
             let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-            alert.addAction(withNav)
             alert.addAction(withoutNav)
             alert.addAction(viewChallenge)
             alert.addAction(cancel)
@@ -223,6 +220,23 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
         else if mode == PhotoLibChallengeVC.PHOTO_LIB_MODE {
             self.performSegue(withIdentifier: "PhotoSegue", sender: [pictureData, image])
         }
+    }
+    
+    private func displaySuccessAlert(message: String) {
+        let alert = FCAlertView()
+        alert.makeAlertTypeSuccess()
+        alert.dismissOnOutsideTouch = true
+        
+        
+        let titleString = "Success!"
+        let subtitleString = message
+        
+        alert.showAlert(inView: self,
+                        withTitle: titleString,
+                        withSubtitle: subtitleString,
+                        withCustomImage: nil,
+                        withDoneButtonTitle: "Let's Go!",
+                        andButtons: nil)
     }
     
     /*

@@ -50,6 +50,7 @@ class MapVC: UIViewController, MGLMapViewDelegate {
     var pictureDataToPass: PictureData?
     
     @IBOutlet weak var styleControl: UISegmentedControl!
+    @IBOutlet weak var centerButton: UIButton!
     @IBAction func styleControlAction(_ sender: Any) {
         
         if styleControl.selectedSegmentIndex == 0 {
@@ -59,6 +60,39 @@ class MapVC: UIViewController, MGLMapViewDelegate {
         else {
             mapView.styleURL = MGLStyle.darkStyleURL()
             styleControl.tintColor = UIColor.white
+        }
+        
+    }
+    @IBAction func centerAction(_ sender: Any) {
+        
+        for picture in pictureDataArray {
+            
+            if picture.id == self.user.activeChallengeID {
+
+                FBDatabase.getPictureData(id: picture.id, ref: ref) { (pictureData) in
+                    
+                    let lat = pictureData?.gpsCoordinates[0]
+                    let long = pictureData?.gpsCoordinates[1]
+                    
+                    let coordinate = CLLocationCoordinate2DMake(lat!, long!)
+                    
+                    
+                    self.mapView.setCenter(coordinate, zoomLevel: 2, direction: 0, animated: true)
+                    //let camera = MGLMapCamera(lookingAtCenter: coordinate, fromDistance: self.mapView.camera.altitude, pitch: 0, heading: 0)
+                    let camera = MGLMapCamera(lookingAtCenter: coordinate, fromEyeCoordinate: self.mapView.camera.centerCoordinate, eyeAltitude: self.mapView.camera.altitude)
+                    
+                    let when = DispatchTime.now() + 0.5 // change 2 to desired number of seconds
+                    DispatchQueue.main.asyncAfter(deadline: when) {
+                        // Animate the camera movement over 5 seconds.
+                        self.mapView.setCamera(camera, withDuration: 2, animationTimingFunction: CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut))
+                        
+                    }
+                    
+                }
+                
+            }
+
+            
         }
         
     }
@@ -102,6 +136,7 @@ class MapVC: UIViewController, MGLMapViewDelegate {
         
         view.addSubview(mapView)
         view.bringSubview(toFront: styleControl)
+        view.bringSubview(toFront: centerButton)
         
         setupPictures()
         
@@ -265,7 +300,7 @@ class MapVC: UIViewController, MGLMapViewDelegate {
             }
         }
         
-            
+        
         // Ask user if they want to navigate to the pin.
         let alert = UIAlertController(title: "Navigate here?", message: nil , preferredStyle: .actionSheet)
         
