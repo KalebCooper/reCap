@@ -66,10 +66,6 @@ class ChallengeViewVC: UIViewController, UICollectionViewDelegate, UICollectionV
         }
         titleOutlet.text = pictureData.name
         descriptionOutlet.text = pictureData.description
-        let ref = Database.database().reference()
-        FBDatabase.getPictureData(in_group: "1054C096E512441B84D91ED1392EDE13", ref: ref, with_completion: {(data) in
-            
-        })
     }
     
     func applyBlurEffect(image: UIImage){
@@ -125,10 +121,9 @@ class ChallengeViewVC: UIViewController, UICollectionViewDelegate, UICollectionV
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PictureCell", for: indexPath) as! PhotoChalColCell
         cell.setImageViewDelegate(delegate: self)
-
         let row = indexPath.row
-        
         let cellPictureData = pictureArray[row]
+        cell.pictureData = cellPictureData
         FBDatabase.getPicture(pictureData: cellPictureData, with_progress: {(progress, total) in
             
         }, with_completion: {(image) in
@@ -165,7 +160,6 @@ class ChallengeViewVC: UIViewController, UICollectionViewDelegate, UICollectionV
     // MARK: - ImageButton Methods
     func imageButtonPressed(image: UIImage, pictureData: PictureData) {
         print("Image Pressed")
-        
     }
     
     

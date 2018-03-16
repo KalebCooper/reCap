@@ -32,6 +32,13 @@ class LeaderboardsFriendsVC: UITableViewController {
         super.viewDidLoad()
         applyBlurEffect(image: #imageLiteral(resourceName: "Gradient"))
         print("Leaderboards loaded")
+        let ref = Database.database().reference()
+        /*FBDatabase.getAllUsersByRegion(region: "State", equal_to: "Oklahoma", with_max_query: 50, with_ref: ref, with_completion: {(user) in
+            
+        })*/
+        /*FBDatabase.getAllUsersByRegion(region: FBDatabase.USER_COUNTRY, equal_to: "United States", with_max_query: 50, with_ref: ref, with_completion: {(users) in
+            
+        })*/
         if mode != nil, user != nil {
             // If the mode has been selected
             if mode == LeaderboardsFriendsVC.FRIENDS_LIST_MODE {
@@ -47,7 +54,7 @@ class LeaderboardsFriendsVC: UITableViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if mode != nil, user != nil {
+        /*if mode != nil, user != nil {
             // If the mode has been selected
             if mode == LeaderboardsFriendsVC.FRIENDS_LIST_MODE {
                 // Friends list mode has been picked
@@ -60,7 +67,7 @@ class LeaderboardsFriendsVC: UITableViewController {
                 self.navigationItem.leftBarButtonItem = nil
                 self.navigationItem.rightBarButtonItem = nil
             }
-        }
+        }*/
     }
     
     override func didReceiveMemoryWarning() {
@@ -279,18 +286,14 @@ class LeaderboardsFriendsVC: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        self.performSegue(withIdentifier: "PhotoLibSegue", sender: friendsList[indexPath.row])
+        if mode == LeaderboardsFriendsVC.FRIENDS_LIST_MODE {
+            self.performSegue(withIdentifier: "PhotoLibSegue", sender: friendsList[indexPath.row])
+        }
     }
     
     // MARK: - Outlet Actions
     @IBAction func backButtonPressed(_ sender: Any) {
         self.navigationController?.dismiss(animated: true, completion: nil)
-    }
-    
-    // MARK: - Misc.
-    public func updateViewController(user: User) {
-        self.user = user
-        self.tableView.reloadData()
     }
     
     /*
@@ -360,7 +363,7 @@ class LeaderboardsFriendsVC: UITableViewController {
             let destination = segue.destination as! UINavigationController
             let photoLibVC = destination.topViewController as! PhotoLibChallengeVC
             photoLibVC.user = friend
-            photoLibVC.mode = PhotoLibChallengeVC.PHOTO_LIB_MODE
+            photoLibVC.mode = PhotoLibChallengeVC.FRIENDS_PHOTO_LIB_MODE
         }
     }
     

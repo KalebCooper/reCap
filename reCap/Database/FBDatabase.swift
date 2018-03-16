@@ -21,6 +21,8 @@ class FBDatabase {
     public static let USER_FRIENDS_ID = "Friends ID"
     public static let USER_ACTIVE_CHALLENGE_ID = "Active Challenge ID"
     public static let USER_ACTIVE_CHALLENGE_POINTS = "Active Challenge Points"
+    public static let USER_STATE = "State"
+    public static let USER_COUNTRY = "Country"
     public static let PROFILE_PICTURE_NODE = "Profile Picture"
     
     public static let EMPTY_VALUE = "Empty"
@@ -194,6 +196,20 @@ class FBDatabase {
         })
     }
     
+    class func deleteUsername(username: Username, with_completion completion: @escaping (_ error: String?) -> ()) {
+        let ref = Database.database().reference()
+        ref.child(USERNAME_NODE).child(username.username).setValue(nil, withCompletionBlock: {(error, ref) in
+            if let realError = error {
+                // Error occured
+                completion(realError.localizedDescription)
+            }
+            else {
+                // No error occured
+                completion(nil)
+            }
+        })
+    }
+    
     /*
      Gets username from database
      */
@@ -223,7 +239,7 @@ class FBDatabase {
      */
     class func addUpdateUser(user: User, with_completion completion: @escaping (_ error: String?) -> ()) {
         let ref = Database.database().reference()
-        let jsonObject: [String : Any] = [USER_USER_ID : user.id, USER_NAME : user.name, USER_PICTURES : user.pictures, USER_EMAIL : user.email, USER_POINTS : user.points, USER_USERNAME : user.username, USER_FRIENDS_ID : user.friendsID, USER_ACTIVE_CHALLENGE_ID : user.activeChallengeID, USER_ACTIVE_CHALLENGE_POINTS : user.activeChallengePoints]
+        let jsonObject: [String : Any] = [USER_USER_ID : user.id, USER_NAME : user.name, USER_PICTURES : user.pictures, USER_EMAIL : user.email, USER_POINTS : user.points, USER_USERNAME : user.username, USER_FRIENDS_ID : user.friendsID, USER_ACTIVE_CHALLENGE_ID : user.activeChallengeID, USER_ACTIVE_CHALLENGE_POINTS : user.activeChallengePoints, USER_STATE : user.state, USER_COUNTRY : user.country]
         ref.child(USER_NODE).child(user.id).setValue(jsonObject, withCompletionBlock: {(error, ref) in
             if let realError = error {
                 // Error occured
@@ -286,6 +302,23 @@ class FBDatabase {
         })
     }
     
+    /*
+     Gets all users by country or state
+    */
+    class func getAllUsersByRegion(region: String, equal_to value: String, with_max_query number: Int, with_ref ref: DatabaseReference, with_completion completion: @escaping (_ users: [User]) -> ()) {
+        ref.child(USER_NODE).queryOrdered(byChild: region).queryEqual(toValue: value).observe(.value, with: {(snapshot) in
+            print(snapshot.value)
+            var userList: [User] = []
+            if let usersNode = snapshot.value as? NSDictionary {
+                for node in usersNode {
+                    let userNode = node.value as! NSDictionary
+                    userList.append(parseUserData(with_dictionary: userNode))
+                }
+            }
+            completion(userList)
+        })
+    }
+    
     private class func parseUserData(with_dictionary userNode: NSDictionary) -> User {
         let id = userNode[USER_USER_ID] as! String
         let name = userNode[USER_NAME] as! String
@@ -296,6 +329,8 @@ class FBDatabase {
         let points = userNode[USER_POINTS] as! Int
         var activeChallengeID = userNode[USER_ACTIVE_CHALLENGE_ID] as? String
         var activeChallengePoints = userNode[USER_ACTIVE_CHALLENGE_POINTS] as? String
+        let state = userNode[USER_STATE] as! String
+        let country = userNode[USER_COUNTRY] as! String
         let user: User
         if pictures == nil {
             pictures = []
@@ -309,7 +344,7 @@ class FBDatabase {
         if activeChallengePoints == nil {
             activeChallengePoints = ""
         }
-        user = User(id: id, name: name, email: email, username: username, pictures: pictures!, friendsID: friendsID!, activeChallengeID: activeChallengeID!, activeChallengePoints: activeChallengePoints!, points: points)
+        user = User(id: id, name: name, email: email, username: username, pictures: pictures!, friendsID: friendsID!, activeChallengeID: activeChallengeID!, activeChallengePoints: activeChallengePoints!, points: points, state: state, country: country)
         return user
     }
     
