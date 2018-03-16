@@ -18,7 +18,7 @@ class LeaderboardsFriendsVC: UITableViewController, FCAlertViewDelegate {
     @IBOutlet weak var locationControl: UISegmentedControl!
     
     @IBAction func locationFilterChanged(_ sender: Any) {
-        setupLeaderboards()
+        //setupLeaderboards()
     }
     
     // MARK: - Properties
@@ -115,7 +115,6 @@ class LeaderboardsFriendsVC: UITableViewController, FCAlertViewDelegate {
                 }
                 self.leaderboardsList = Sort.SortUsersByDescendingOrder(users: unsortedList)
                 self.tableView.reloadData()
-                
             })
             
         }
