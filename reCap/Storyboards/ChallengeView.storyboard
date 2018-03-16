@@ -590,7 +590,7 @@
                         <outlet property="locationNameOutlet" destination="kdq-Jy-JdI" id="ng1-HF-8vF"/>
                         <outlet property="locationOutlet" destination="8O4-Tg-6IF" id="2tc-mJ-Jae"/>
                         <outlet property="titleOutlet" destination="cjA-lZ-Fdk" id="j7k-xi-hIA"/>
-                        <segue destination="mzB-tT-NVw" kind="presentation" identifier="PhotoSegue" id="56M-4w-DRR"/>
+                        <segue destination="UJ0-fe-rxW" kind="show" identifier="PhotoSegue" id="ilw-Bo-opc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="s6P-KJ-cx1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -598,12 +598,12 @@
             <point key="canvasLocation" x="5320.8000000000002" y="549.7536945812808"/>
         </scene>
         <!--Photo-->
-        <scene sceneID="z0z-9h-Qy2">
+        <scene sceneID="JWt-6Z-NIY">
             <objects>
-                <viewControllerPlaceholder storyboardName="Photo" id="mzB-tT-NVw" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Efy-0c-GZy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewControllerPlaceholder storyboardName="Photo" id="UJ0-fe-rxW" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hMQ-p9-n7w" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6179" y="550"/>
+            <point key="canvasLocation" x="6030" y="555"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="DsF-W2-t92">
