@@ -24,7 +24,6 @@
 		34B359A920583F9B0093D02C /* CustomOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B359A520583F940093D02C /* CustomOverlay.swift */; };
 		34B359AB20583F9B0093D02C /* CustomPage.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34B359A720583F980093D02C /* CustomPage.xib */; };
 		34B359AC20583F9B0093D02C /* CustomOverlay.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34B359A820583F9A0093D02C /* CustomOverlay.xib */; };
-		34D07088205A8F9F00B60E3C /* AppLoadingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D07087205A8F9F00B60E3C /* AppLoadingVC.swift */; };
 		34D0708A205AFCB600B60E3C /* CustomPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D07089205AFCB600B60E3C /* CustomPage.swift */; };
 		34D0708C205B35B400B60E3C /* LeaderboardsFriendsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34D0708B205B35B400B60E3C /* LeaderboardsFriendsVC.swift */; };
 		34F60577203FD24C001A74E4 /* ImageConfirmVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F60575203FD24C001A74E4 /* ImageConfirmVC.swift */; };
@@ -122,7 +121,6 @@
 		34B359A520583F940093D02C /* CustomOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomOverlay.swift; sourceTree = "<group>"; };
 		34B359A720583F980093D02C /* CustomPage.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomPage.xib; sourceTree = "<group>"; };
 		34B359A820583F9A0093D02C /* CustomOverlay.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomOverlay.xib; sourceTree = "<group>"; };
-		34D07087205A8F9F00B60E3C /* AppLoadingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppLoadingVC.swift; path = "../../../../../../kaleb/Documents/SideProjects/reCap/reCap/View Controllers/AppLoadingVC.swift"; sourceTree = "<group>"; };
 		34D07089205AFCB600B60E3C /* CustomPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CustomPage.swift; path = "../../../../../../../kaleb/Documents/SideProjects/reCap/reCap/View Controllers/Tutorial/CustomPage.swift"; sourceTree = "<group>"; };
 		34D0708B205B35B400B60E3C /* LeaderboardsFriendsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LeaderboardsFriendsVC.swift; path = "../../../../../../../kaleb/Documents/SideProjects/reCap/reCap/View Controllers/LeaderboardFriends/LeaderboardsFriendsVC.swift"; sourceTree = "<group>"; };
 		34F60575203FD24C001A74E4 /* ImageConfirmVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ImageConfirmVC.swift; path = "reCap/View Controllers/Camera/ImageConfirmVC.swift"; sourceTree = SOURCE_ROOT; };
@@ -1030,7 +1028,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = CZ7R6F7L6H;
+				DEVELOPMENT_TEAM = VPT5835T5T;
 				INFOPLIST_FILE = reCap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Kaleb-Cooper-Team-Red.reCap";
@@ -1047,7 +1045,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = CZ7R6F7L6H;
+				DEVELOPMENT_TEAM = VPT5835T5T;
 				INFOPLIST_FILE = reCap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Kaleb-Cooper-Team-Red.reCap";

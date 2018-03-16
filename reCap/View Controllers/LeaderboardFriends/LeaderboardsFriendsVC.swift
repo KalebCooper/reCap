@@ -17,6 +17,7 @@ class LeaderboardsFriendsVC: UITableViewController {
     @IBOutlet weak var locationControl: UISegmentedControl!
     
     @IBAction func locationFilterChanged(_ sender: Any) {
+        setupLeaderboards()
     }
     
     // MARK: - Properties
@@ -89,38 +90,92 @@ class LeaderboardsFriendsVC: UITableViewController {
     
     // MARK: - Setup Methods
     private func setupLeaderboards() {
+        
+        let currentLocation = Locator.currentLocation
+        var filter: String = ""
+        
+        let geocoder = CLGeocoder()
+        geocoder.reverseGeocodeLocation(currentLocation!, completionHandler: { (placemarks, error) in
+            
+                if self.locationControl.selectedSegmentIndex == 0 {
+                    filter = placemarks![0].administrativeArea!
+                }
+                else if self.locationControl.selectedSegmentIndex == 1 {
+                    filter = placemarks![0].country!
+                }
+                else {
+                    filter = ""
+                }
+            
+            print("Filter \(filter)")
+            geocoder.cancelGeocode()
+        })
+        
+        
+        
+        
         leaderboardsList = []
         var unsortedList: [User] = []
         let ref = Database.database().reference()
         FBDatabase.getAllUsers(query_by: FBDatabase.USER_POINTS, with_max_query: 50, with_ref: ref, with_completion: {(users) in
             for user in users {
-                unsortedList.append(user)
+                
+                FBDatabase.getPictureData(for_user: user, ref: ref, with_completion: { (pictureDataArray) in
+                    
+                    if pictureDataArray.last?.owner == user.id {
+                        
+                        
+                        let otherUserLocation = CLLocation(latitude: (pictureDataArray.last?.gpsCoordinates[0])!, longitude: (pictureDataArray.last?.gpsCoordinates[1])!)
+                        
+                        let newGeocoder = CLGeocoder()
+                        newGeocoder.reverseGeocodeLocation(otherUserLocation, completionHandler: { (placemarks, error) in
+
+                            if error == nil {
+                                if self.locationControl.selectedSegmentIndex == 0 {
+                                    if filter == placemarks![0].administrativeArea! {
+                                        unsortedList.append(user)
+                                    }
+                                    
+                                }
+                                else if self.locationControl.selectedSegmentIndex == 1 {
+                                    if filter == placemarks![0].country! {
+                                        unsortedList.append(user)
+                                    }
+                                }
+                                else {
+                                    filter = ""
+                                    unsortedList.append(user)
+                                }
+                                self.leaderboardsList = Sort.SortUsersByDescendingOrder(users: unsortedList)
+                                self.tableView.reloadData()
+                                
+                                //if user.id == users.last?.id {
+                                    
+//                                    let when = DispatchTime.now() + 0.10 // change 2 to desired number of seconds
+//                                    DispatchQueue.main.asyncAfter(deadline: when) {
+//                                        print(unsortedList.count)
+//                                        print(users.count)
+//                                        // Put your code which should be executed with a delay here
+//
+//                                    }
+                                
+                                //}
+                                
+                                
+                            }
+                            
+                            
+                            newGeocoder.cancelGeocode()
+                        })
+                        
+                    }
+                    
+                    
+                    
+                })
+
             }
-            self.leaderboardsList = Sort.SortUsersByDescendingOrder(users: unsortedList)
-            self.tableView.reloadData()
         })
-        
-        
-        let currentLocation = Locator.currentLocation
-        
-        let geocoder = CLGeocoder()
-        geocoder.reverseGeocodeLocation(currentLocation!, completionHandler: { (placemarks, error) in
-            
-            
-            print("Name: \(placemarks![0].name)")
-            print("Country: \(placemarks![0].country)")
-            print("Administrative Area: \(placemarks![0].administrativeArea)")
-            print("SubAdministrative Area: \(placemarks![0].subAdministrativeArea)")
-            print("Locality: \(placemarks![0].locality)")
-            print("Sublocality: \(placemarks![0].subLocality)")
-            print("Region: \(placemarks![0].region)")
-            print("thoroughFare: \(placemarks![0].thoroughfare)")
-            
-        })
-        
-        
-        
-        
     }
     
     private func setupFriendsList() {
