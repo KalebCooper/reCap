@@ -149,7 +149,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        print("The active challenge id is \(user.activeChallengeID)")
+        print("The users name is \(self.user.name)")
     }
     
     func setupProfileImage() {

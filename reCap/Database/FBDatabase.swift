@@ -194,6 +194,20 @@ class FBDatabase {
         })
     }
     
+    class func deleteUsername(username: Username, with_completion completion: @escaping (_ error: String?) -> ()) {
+        let ref = Database.database().reference()
+        ref.child(USERNAME_NODE).child(username.username).setValue(nil, withCompletionBlock: {(error, ref) in
+            if let realError = error {
+                // Error occured
+                completion(realError.localizedDescription)
+            }
+            else {
+                // No error occured
+                completion(nil)
+            }
+        })
+    }
+    
     /*
      Gets username from database
      */

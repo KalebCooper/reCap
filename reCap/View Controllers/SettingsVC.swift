@@ -147,7 +147,28 @@ class SettingsVC: UITableViewController, UITextFieldDelegate {
             let saveAction = UIAlertAction(title: "Save", style: .default, handler: { alert -> Void in
                 let firstTextField = alertController.textFields![0] as UITextField
                 
-                
+                let newUsername = firstTextField.text
+                let ref = Database.database().reference()
+                FBDatabase.getUsername(with_ref: ref, with_username: newUsername!, with_completion: {(username) in
+                    if username == nil {
+                        // The username is not taken
+                        let oldUsernameObj = Username(username: self.user.username, email: self.user.email, id: self.user.id)
+                        let newUsernameObj = Username(username: newUsername!, email: self.user.email, id: self.user.id)
+                        FBDatabase.addUpdateUsername(with_username: newUsernameObj, with_completion: {(error) in
+                            
+                        })
+                        FBDatabase.deleteUsername(username: oldUsernameObj, with_completion: {(error) in
+                            
+                        })
+                        self.user.username = newUsername
+                        FBDatabase.addUpdateUser(user: self.user, with_completion: {(error) in
+                            
+                        })
+                    }
+                    else {
+                        
+                    }
+                })
                 //Update Username through Firebase Authentication AND Database
                 
             })

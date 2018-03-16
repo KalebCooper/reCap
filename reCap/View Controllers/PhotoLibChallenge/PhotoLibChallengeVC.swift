@@ -36,6 +36,7 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
     private var dispatchGroup: DispatchGroup!
     static let PHOTO_LIB_MODE = 0
     static let CHALLENGE_MODE = 1
+    static let FRIENDS_PHOTO_LIB_MODE = 2
     static let ACTIVE_CHALLENGE_MODE = 2
     static let INVALID_MODE = -1
     static let SECONDS_IN_WEEK = 604800
@@ -58,6 +59,9 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
             }
             else if mode == PhotoLibChallengeVC.CHALLENGE_MODE {
                 setupChallenge()
+            }
+            else if mode == PhotoLibChallengeVC.FRIENDS_PHOTO_LIB_MODE {
+                setupFriendsPicLib()
             }
         }
         else {
@@ -117,7 +121,31 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
             }
             self.tableView.reloadData()
         })
-        
+    }
+    
+    /*
+     Used to setup when viewing
+     a friends photo library
+    */
+    private func setupFriendsPicLib() {
+        self.title = "Photo Library"
+        self.tableView.allowsSelection = false
+        FBDatabase.getPictureData(for_user: user, ref: self.photoLibChalReference, with_completion: {(pictureDataList) in
+            for pictureData in pictureDataList {
+                let location = pictureData.locationName
+                if !self.tableSectionArray.contains(location!) {
+                    // Location is not in the locations array
+                    // Add it to the array and initialize
+                    // an empty array for the key location
+                    self.tableSectionArray.append(location!)
+                    self.collectionDictionaryData[location!] = []
+                }
+                var pictureDataArray = self.collectionDictionaryData[location!]!
+                pictureDataArray.append(pictureData)
+                self.collectionDictionaryData[location!] = pictureDataArray
+            }
+            self.tableView.reloadData()
+        })
     }
     
     private func setupChallenge() {
