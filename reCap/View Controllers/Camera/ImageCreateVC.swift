@@ -77,7 +77,6 @@ class ImageCreateVC: UIViewController {
             else {
                 // No error
                 if self.isAtChallengeLocation {
-                    alert.dismiss()
                     self.displayChallengeComplete()
                 }
                 else {
