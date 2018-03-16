@@ -66,10 +66,6 @@ class ChallengeViewVC: UIViewController, UICollectionViewDelegate, UICollectionV
         }
         titleOutlet.text = pictureData.name
         descriptionOutlet.text = pictureData.description
-        let ref = Database.database().reference()
-        FBDatabase.getPictureData(in_group: "1054C096E512441B84D91ED1392EDE13", ref: ref, with_completion: {(data) in
-            
-        })
     }
     
     func applyBlurEffect(image: UIImage){

@@ -57,7 +57,6 @@ class ImageCreateVC: UIViewController {
                 
             })
             print("User earned \(self.user.activeChallengePoints) points")
-            self.displayChallengeComplete()
         }
         else {
             print("root picture")
@@ -74,6 +73,12 @@ class ImageCreateVC: UIViewController {
             }
             else {
                 // No error
+                if self.isAtChallengeLocation {
+                    self.displayChallengeComplete()
+                }
+                else {
+                    self.displayPictureAdded(pictureData: pictureData)
+                }
                 print("Added picture for user in ImageCreateVC")
                 FBDatabase.addUpdatePictureData(pictureData: pictureData, with_completion: {(error) in
                     if let actualError = error {
