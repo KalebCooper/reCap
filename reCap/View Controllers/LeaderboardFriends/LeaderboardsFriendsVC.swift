@@ -12,7 +12,7 @@ import SwiftLocation
 import CoreLocation
 import FCAlertView
 
-class LeaderboardsFriendsVC: UITableViewController {
+class LeaderboardsFriendsVC: UITableViewController, FCAlertViewDelegate {
     
     @IBOutlet weak var backButtonOutlet: UIBarButtonItem!
     @IBOutlet weak var locationControl: UISegmentedControl!
@@ -33,24 +33,28 @@ class LeaderboardsFriendsVC: UITableViewController {
         super.viewDidLoad()
         applyBlurEffect(image: #imageLiteral(resourceName: "Gradient"))
         print("Leaderboards loaded")
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         if mode != nil, user != nil {
             // If the mode has been selected
             if mode == LeaderboardsFriendsVC.FRIENDS_LIST_MODE {
                 // Friends list mode has been picked
                 setupFriendsList()
             }
-            else if mode == LeaderboardsFriendsVC.LEADERBOARD_MODE {
+        }
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if mode != nil, user != nil {
+            // If the mode has been selected
+            if mode == LeaderboardsFriendsVC.LEADERBOARD_MODE {
                 setupLeaderboards()
             }
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
     }
     
     override func didReceiveMemoryWarning() {
@@ -105,7 +109,6 @@ class LeaderboardsFriendsVC: UITableViewController {
         if filter == "State" {
             
             FBDatabase.getAllUsersByRegion(region: "State", equal_to: self.user.state, with_max_query: 50, with_ref: ref, with_completion: {(users) in
-                
                 for user in users {
                     unsortedList.append(user)
                 }
@@ -195,62 +198,68 @@ class LeaderboardsFriendsVC: UITableViewController {
     
     // MARK: - Outlet Action Methods
     @IBAction func addFriendPressed(_ sender: Any) {
-        let alert = UIAlertController(title: "Add Friend", message: "Enter the exact username of the person you are wishing to add.", preferredStyle: .alert)
-        alert.addTextField(configurationHandler: {(textField) in
-            textField.placeholder = "Username"
-            textField.keyboardAppearance = .dark
+        let friendAlert = FCAlertView()
+        friendAlert.delegate = self
+        friendAlert.dismissOnOutsideTouch = true
+        friendAlert.doneActionBlock({
+            
         })
-        let okAction = UIAlertAction(title: "Add", style: .default, handler: {(action) in
-            let usernameTextField = alert.textFields![0]
-            let username = usernameTextField.text
-            let ref = Database.database().reference()
-            if username != self.user.username {
-                // The user did not entered there own username
-                FBDatabase.getUsername(with_ref: ref, with_username: username!, with_completion: {(username) in
-                    if let usernameObj = username {
-                        print("Got username in LeaderboardsFriends VC")
-                        let id = usernameObj.id
-                        self.user.friendsID.append(id!)
-                        let ref = Database.database().reference()
-                        FBDatabase.getUserOnce(with_id: id!, ref: ref, with_completion: {(user) in
-                            if let activeUser = user {
-                                print("Got new user in LeaderboardFriends VC")
-                                self.friendsList.append(activeUser)
-                                self.displayUsernameAdded()
-                                self.tableView.beginUpdates()
-                                let index = IndexPath(row: self.friendsList.count-1, section: 0)
-                                self.tableView.insertRows(at: [index], with: .automatic)
-                                self.tableView.endUpdates()
-                            }
-                            else {
-                                print("Did not get new user in LeaderboardsFriends VC")
-                            }
-                        })
-                        FBDatabase.addUpdateUser(user: self.user, with_completion: {(error) in
-                            if let actualError = error {
-                                print(actualError)
-                            }
-                            else {
-                                print("Updated user in LeaderboardFriends VC")
-                                // All the users are updated again, reloading the table view. remove all users from friends list array
-                            }
-                        })
-                    }
-                    else {
-                        print("Did not get username in LeaderboardsFriends VC")
-                        self.displayUsernameError(message: "Username does not exit")
-                    }
-                })
-            }
-            else {
-                // User ented his own username
-                self.displayUsernameError(message: "Username does not exist")
-            }
+        friendAlert.addTextField(withPlaceholder: "username", andTextReturn: {(text) in
+            self.addFriend(username: text)
         })
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        alert.addAction(okAction)
-        alert.addAction(cancelAction)
-        self.present(alert, animated: true, completion: nil)
+        friendAlert.showAlert(withTitle: "Add Friend", withSubtitle: "Enter friends username", withCustomImage: nil, withDoneButtonTitle: "Add", andButtons: nil)
+    }
+    
+    private func addFriend(username: String?) {
+        let ref = Database.database().reference()
+        let userFriends = self.user.friendsID
+        if username == self.user.username || username == "" {
+            // User entered nothing into field or the same name as the username
+            self.displayUsernameError(message: "Username does not exits")
+            return
+        }
+        else if !(userFriends?.contains(username!))! {
+            // The user did not entered there own username
+            FBDatabase.getUsername(with_ref: ref, with_username: username!, with_completion: {(username) in
+                if let usernameObj = username {
+                    print("Got username in LeaderboardsFriends VC")
+                    let id = usernameObj.id
+                    self.user.friendsID.append(id!)
+                    let ref = Database.database().reference()
+                    FBDatabase.getUserOnce(with_id: id!, ref: ref, with_completion: {(user) in
+                        if let activeUser = user {
+                            print("Got new user in LeaderboardFriends VC")
+                            self.friendsList.append(activeUser)
+                            self.displayUsernameAdded()
+                            self.tableView.beginUpdates()
+                            let index = IndexPath(row: self.friendsList.count-1, section: 0)
+                            self.tableView.insertRows(at: [index], with: .automatic)
+                            self.tableView.endUpdates()
+                        }
+                        else {
+                            print("Did not get new user in LeaderboardsFriends VC")
+                        }
+                    })
+                    FBDatabase.addUpdateUser(user: self.user, with_completion: {(error) in
+                        if let actualError = error {
+                            print(actualError)
+                        }
+                        else {
+                            print("Updated user in LeaderboardFriends VC")
+                            // All the users are updated again, reloading the table view. remove all users from friends list array
+                        }
+                    })
+                }
+                else {
+                    print("Did not get username in LeaderboardsFriends VC")
+                    self.displayUsernameError(message: "You are already friends")
+                }
+            })
+        }
+        else {
+            // User ented his own username
+            self.displayUsernameError(message: "Username does not exist")
+        }
     }
     
     private func displayUsernameError(message: String) {
