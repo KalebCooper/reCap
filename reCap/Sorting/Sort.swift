@@ -59,10 +59,7 @@ class Sort {
                 currentIndex = currentIndex + 1
             }
         }
-        print("After Sort")
-        for pictureData in dataList {
-            print("\(pictureData.time), ")
-        }
+
         return pictureDataList
     }
 }

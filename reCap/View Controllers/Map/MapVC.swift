@@ -115,12 +115,17 @@ class MapVC: UIViewController, MGLMapViewDelegate {
         super.viewWillAppear(true)
         setupPictures()
         
-        if self.user.activeChallengeID == "" {
-            self.centerButton.isHidden = true
+        let when = DispatchTime.now() + 1.5 // change 2 to desired number of seconds
+        DispatchQueue.main.asyncAfter(deadline: when) {
+            if self.user.activeChallengeID == "" {
+                self.centerButton.isHidden = true
+            }
+            else {
+                self.centerButton.isHidden = false
+            }
         }
-        else {
-            self.centerButton.isHidden = false
-        }
+        
+        
     }
     
     func setupCamera() {
@@ -178,8 +183,11 @@ class MapVC: UIViewController, MGLMapViewDelegate {
         locations = []
         locationDictionary = [:]
         
-        self.mapView.removeAnnotations(self.pins)
-        self.pins.removeAll()
+        if self.pins.count > 0 {
+            self.mapView.removeAnnotations(self.pins)
+            self.pins.removeAll()
+        }
+        
         
         
         FBDatabase.getAllMostRecentPictureData(ref: ref) { (rawPictureDataArray) in
@@ -209,7 +217,6 @@ class MapVC: UIViewController, MGLMapViewDelegate {
     }
     
     func setupPins() {
-        print("Refreshing Pins")
         self.mapView.addAnnotations(self.pins)
     }
     
@@ -242,14 +249,12 @@ class MapVC: UIViewController, MGLMapViewDelegate {
                 
                 if picture.id == self.user.activeChallengeID {
                     if (annotation.coordinate.latitude == picture.gpsCoordinates[0]) && annotation.coordinate.longitude == picture.gpsCoordinates[1] {
-                        print("Found active challenge annotation")
                         annotationView!.backgroundColor = UIColor(red: 204/255, green: 51/255, blue: 51/255, alpha: 1.0)
                         return annotationView
                     }
                 }
                 
                 if picture.id == pictureDataArray.last?.id {
-                    print("Identified non-active challenge annotation")
                     annotationView!.backgroundColor = UIColor(red: 99/255, green: 207/255, blue: 155/255, alpha: 1.0)
                     return annotationView
                 }
