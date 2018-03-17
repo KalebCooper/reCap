@@ -78,14 +78,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
     }
     
+    /// set orientations you want to be allowed in this property by default
+    var orientationLock = UIInterfaceOrientationMask.all
     
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
-        if self.window?.rootViewController?.presentedViewController is TutorialContainerVC {
-            print("Is onboard view controller, locking orientation.")
-            return UIInterfaceOrientationMask.portrait
-        } else {
-            return UIInterfaceOrientationMask.all
-        }
+        return self.orientationLock
     }
     
 

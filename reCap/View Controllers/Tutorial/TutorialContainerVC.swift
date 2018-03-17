@@ -8,8 +8,11 @@
 
 import UIKit
 import SwiftyOnboard
+import AVFoundation
+import Photos
+import CoreLocation
 
-class TutorialContainerVC: UIViewController, SwiftyOnboardDelegate, SwiftyOnboardDataSource {
+class TutorialContainerVC: UIViewController, SwiftyOnboardDelegate, SwiftyOnboardDataSource, CLLocationManagerDelegate {
     
     var window: UIWindow?
     
@@ -66,6 +69,22 @@ class TutorialContainerVC: UIViewController, SwiftyOnboardDelegate, SwiftyOnboar
         view.addSubview(swiftyOnboard)
         swiftyOnboard.dataSource = self
         swiftyOnboard.delegate = self
+        
+        //Location Permission Request
+        var locationManager: CLLocationManager!
+        locationManager = CLLocationManager()
+        locationManager.delegate = self
+        locationManager.requestAlwaysAuthorization()
+
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        AppUtility.lockOrientation(.portrait)
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        AppUtility.lockOrientation(.all)
     }
     
     func gradient() {
@@ -101,6 +120,8 @@ class TutorialContainerVC: UIViewController, SwiftyOnboardDelegate, SwiftyOnboar
             
             
         }
+        
+        
         swiftyOnboard?.goToPage(index: index + 1, animated: true)
     }
     
@@ -186,6 +207,9 @@ class TutorialContainerVC: UIViewController, SwiftyOnboardDelegate, SwiftyOnboar
             overlay?.buttonContinue.setTitle("Get Started!", for: .normal)
             overlay?.skip.isHidden = true
         }
+        
+        
+        
     }
     
     func swiftyOnboard(_ swiftyOnboard: SwiftyOnboard, tapped index: Int) {

@@ -54,8 +54,8 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     var user: User!
     private var activeChallengePicData: PictureData!
     //private let Threshold = 0.000017
-    private let chalBestCoordThreshold = 0.00006
-    private let chalCloseCoordThreshold = 0.0015
+    private let chalBestCoordThreshold = 0.0001
+    private let chalCloseCoordThreshold = 0.005
     
     
     @IBAction func buttonPressed(_ sender: Any) {
@@ -106,13 +106,6 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
             })
             
         }
-        
-
-        
-        
-        
-        
-        
     }
     
     @IBAction func previousUpInside(_ sender: Any) {
@@ -184,19 +177,22 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     
     func setupUserLocation() {
         
+        Locator.requestAuthorizationIfNeeded(.always)
+
+        Locator.subscribePosition(accuracy: .room, onUpdate: { location in
+            Locator.completeAllLocationRequests()
+                                    
+            let lat = location.coordinate.latitude.truncate(places: 6)
+            let long = location.coordinate.longitude.truncate(places: 6)
         
-        let when = DispatchTime.now() + 3 // change 2 to desired number of seconds
-        DispatchQueue.main.asyncAfter(deadline: when) {
-            
-            
-            Locator.requestAuthorizationIfNeeded(.always)
-            Locator.requestAuthorizationIfNeeded(.whenInUse)
-            let currentLocation = Locator.currentLocation
-            
+            let location = CLLocation(latitude: lat, longitude: long)
             
             let geocoder = CLGeocoder()
             
-            geocoder.reverseGeocodeLocation(currentLocation!) { (placemarks, error) in
+            
+            geocoder.reverseGeocodeLocation(location) { (placemarks, error) in
+                
+                print("Getting geocoder")
                 
                 if error == nil {
                     self.user.state = placemarks?.last?.administrativeArea
@@ -215,9 +211,11 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
                 geocoder.cancelGeocode()
                 
             }
-
-        }
-
+            
+        }, onFail: { (error, last) in
+            print(error)
+            
+        })
     }
     
     /*

@@ -36,6 +36,15 @@ class CreateAccountVC: UITableViewController, UIImagePickerControllerDelegate, U
         
         // Do any additional setup after loading the view.
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        AppUtility.lockOrientation(.portrait)
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        AppUtility.lockOrientation(.all)
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -62,19 +71,10 @@ class CreateAccountVC: UITableViewController, UIImagePickerControllerDelegate, U
         if let name = fullNameOutlet.text, let email = emailOutlet.text, let username = usernameOutlet.text, let password = passwordOutlet.text, let verifyPass = verifyPasswordOutlet.text, let image = imageView.image, password == verifyPass {
             // If all fields are filled out
             print("Creating user")
-            let alert = FCAlertView()
-            alert.makeAlertTypeProgress()
-            alert.dismissOnOutsideTouch = false
             
             
-            let titleString = "Creating Account"
+            FCAlertView.displayAlert(title: "Creating Account...", message: "", buttonTitle: "", type: "progress", view: self, blur: true)
             
-            alert.showAlert(inView: self,
-                            withTitle: titleString,
-                            withSubtitle: nil,
-                            withCustomImage: nil,
-                            withDoneButtonTitle: nil,
-                            andButtons: nil)
             FBDatabase.createUserAuth(email: email, password: password, with_completion: {(id, error) in
                 if let activeID = id {
                     print("Got id in SignIn VC")
@@ -115,7 +115,8 @@ class CreateAccountVC: UITableViewController, UIImagePickerControllerDelegate, U
                                     print("Wrote user to database in SignInVC")
                                 }
                             })
-                            alert.dismiss()
+
+                            
                             let pageViewVC = UIStoryboard(name: "PageView", bundle: nil).instantiateInitialViewController() as! PageViewController
                             pageViewVC.user = user
                             self.present(pageViewVC, animated: true, completion: nil)

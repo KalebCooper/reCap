@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14087.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="juj-7o-GYF">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14105" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="juj-7o-GYF">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14075.4"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -41,8 +41,8 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dHh-eP-Ouv">
-                                <rect key="frame" x="8" y="748" width="359" height="30"/>
-                                <fontDescription key="fontDescription" name="Triomphe-Light" family="Triomphe" pointSize="12"/>
+                                <rect key="frame" x="8" y="745" width="359" height="33"/>
+                                <fontDescription key="fontDescription" name="Triomphe-Light" family="Triomphe" pointSize="14"/>
                                 <state key="normal" title="Don't have an account? Create one">
                                     <color key="titleColor" white="1" alpha="0.75346779336734693" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -51,11 +51,14 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5oT-Ia-d59">
-                                <rect key="frame" x="8" y="715" width="359" height="30"/>
-                                <fontDescription key="fontDescription" name="Triomphe-Light" family="Triomphe" pointSize="12"/>
-                                <state key="normal" title="Forgot Password?">
+                                <rect key="frame" x="8" y="709" width="359" height="33"/>
+                                <fontDescription key="fontDescription" name="Triomphe-Light" family="Triomphe" pointSize="14"/>
+                                <state key="normal" title="New to reCapp? Learn More">
                                     <color key="titleColor" white="1" alpha="0.75105628188775508" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <segue destination="K1J-oq-StN" kind="show" id="dUs-Sq-37h"/>
+                                </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo Text Wide" translatesAutoresizingMaskIntoConstraints="NO" id="Gnd-kc-EuT">
                                 <rect key="frame" x="24" y="44" width="327" height="233"/>
@@ -242,6 +245,14 @@
             </objects>
             <point key="canvasLocation" x="1708" y="-216"/>
         </scene>
+        <!--Tutorial-->
+        <scene sceneID="rDV-xt-amg">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Tutorial" id="K1J-oq-StN" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ht8-mB-kvM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1695" y="157"/>
+        </scene>
         <!--Sign In TransitionVC-->
         <scene sceneID="P5P-ts-JPv">
             <objects>
@@ -288,7 +299,7 @@
                         <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <segue destination="C3d-ng-Nsc" kind="show" identifier="SignInTransition" action="showDetailViewController:sender:" id="wOU-CR-CSZ"/>
+                        <segue destination="C3d-ng-Nsc" kind="show" identifier="SignInTransition" id="wOU-CR-CSZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kOy-Fg-g3d" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -297,8 +308,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="EmailIcon" width="33" height="33"/>
+        <image name="EmailIcon" width="100" height="100"/>
         <image name="Logo Text Wide" width="682" height="233"/>
-        <image name="passIcon" width="33" height="33"/>
+        <image name="passIcon" width="100" height="100"/>
     </resources>
 </document>

@@ -40,10 +40,19 @@ class ProfileMenuVC: UIViewController {
             setupProfileImage()
             setupHero()
             setupGestures()
-            setupOutlets()
             setupBlurEffect(image: image!)
         }
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        setupOutlets()
+        AppUtility.lockOrientation(.portrait)
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        AppUtility.lockOrientation(.all)
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
