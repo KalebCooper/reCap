@@ -138,7 +138,12 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
             setupCamera(clear: false)
             configureButton()
             setupGestures()
-        }
+            print("Finished setting up camera container")
+        }*/
+        setupHero()
+        setupCamera(clear: false)
+        configureButton()
+        setupGestures()
     }
     
 

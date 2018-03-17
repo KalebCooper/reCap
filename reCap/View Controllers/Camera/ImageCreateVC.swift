@@ -90,22 +90,26 @@ class ImageCreateVC: UIViewController {
                         print(actualError)
                     }
                     else {
-                        print("Updated user in ImageCreate VC")
-                        self.navigationController?.setToolbarHidden(true, animated: true)
-                        self.navigationController?.popToRootViewController(animated: true)
+                        
+                        print("Added picture for user in ImageCreateVC")
+                        FBDatabase.addUpdatePictureData(pictureData: pictureData, with_completion: {(error) in
+                            if let actualError = error {
+                                // Error
+                                print(actualError)
+                            }
+                            else {
+                                // No error
+                                print("Added picture data for user in ImageCreateVC")
+                                print("Updated user in ImageCreate VC")
+                                self.navigationController?.setToolbarHidden(true, animated: true)
+                                self.navigationController?.popToRootViewController(animated: true)
+                            }
+                        })
+                        
+                        
                     }
                 })
-                print("Added picture for user in ImageCreateVC")
-                FBDatabase.addUpdatePictureData(pictureData: pictureData, with_completion: {(error) in
-                    if let actualError = error {
-                        // Error
-                        print(actualError)
-                    }
-                    else {
-                        // No error
-                        print("Added picture data for user in ImageCreateVC")
-                    }
-                })
+                
             }
         })
     }
