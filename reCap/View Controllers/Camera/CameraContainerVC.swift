@@ -184,12 +184,13 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     
     func setupUserLocation() {
         
-        Locator.requestAuthorizationIfNeeded(.always)
         
-        let locator = Locator
+        
+        Locator.requestAuthorizationIfNeeded(.always)
 
-        let request = locator.subscribePosition(accuracy: .room, onUpdate: { location in
+        let request = Locator.subscribePosition(accuracy: .room, onUpdate: { location in
             
+            print("Getting user location")
                                     
             let lat = location.coordinate.latitude.truncate(places: 6)
             let long = location.coordinate.longitude.truncate(places: 6)
@@ -226,10 +227,16 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         
         }, onFail: { (error, last) in
             print(error)
+            print("DID NOT GET LOCATION")
             
         })
         
-        Locator.stopRequest(request)
+        let when = DispatchTime.now() + 0.5 // change 2 to desired number of seconds
+        DispatchQueue.main.asyncAfter(deadline: when) {
+            Locator.stopRequest(request)
+        }
+        
+        
 
     }
     

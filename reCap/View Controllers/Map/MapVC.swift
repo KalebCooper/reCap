@@ -109,6 +109,18 @@ class MapVC: UIViewController, MGLMapViewDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        
+        print("-----------------------------")
+        print("-----------------------------")
+        print("-----------------------------")
+        
         setupPictures()
         
         let when = DispatchTime.now() + 1.5 // change 2 to desired number of seconds
@@ -120,13 +132,6 @@ class MapVC: UIViewController, MGLMapViewDelegate {
                 self.centerButton.isHidden = false
             }
         }
-        
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        
-        
         
     }
     
@@ -345,7 +350,6 @@ class MapVC: UIViewController, MGLMapViewDelegate {
                         self.addChallengeToUser(pictureData: picture)
                         
                         self.centerButton.isHidden = false
-                        break
                     }
                 }
                 
