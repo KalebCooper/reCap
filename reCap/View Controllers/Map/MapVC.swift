@@ -115,12 +115,17 @@ class MapVC: UIViewController, MGLMapViewDelegate {
         super.viewWillAppear(true)
         setupPictures()
         
-        if self.user.activeChallengeID == "" {
-            self.centerButton.isHidden = true
+        let when = DispatchTime.now() + 1.5 // change 2 to desired number of seconds
+        DispatchQueue.main.asyncAfter(deadline: when) {
+            if self.user.activeChallengeID == "" {
+                self.centerButton.isHidden = true
+            }
+            else {
+                self.centerButton.isHidden = false
+            }
         }
-        else {
-            self.centerButton.isHidden = false
-        }
+        
+        
     }
     
     func setupCamera() {
@@ -178,8 +183,11 @@ class MapVC: UIViewController, MGLMapViewDelegate {
         locations = []
         locationDictionary = [:]
         
-        self.mapView.removeAnnotations(self.pins)
-        self.pins.removeAll()
+        if self.pins.count > 0 {
+            self.mapView.removeAnnotations(self.pins)
+            self.pins.removeAll()
+        }
+        
         
         
         FBDatabase.getAllMostRecentPictureData(ref: ref) { (rawPictureDataArray) in
