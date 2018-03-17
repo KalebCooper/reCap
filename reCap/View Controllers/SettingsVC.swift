@@ -171,7 +171,6 @@ class SettingsVC: UITableViewController, UITextFieldDelegate, FCAlertViewDelegat
                             })
                             self.user.username = newUsername
                             FBDatabase.addUpdateUser(user: self.user, with_completion: {(error) in
-                                
                                 if error == nil {
                                     FCAlertView.displayAlert(title: "Success!", message: "Your username has been changed.", buttonTitle: "Dismiss", type: "success", view: self)
                                     self.tableView.reloadData()
@@ -179,11 +178,7 @@ class SettingsVC: UITableViewController, UITextFieldDelegate, FCAlertViewDelegat
                                 else {
                                     FCAlertView.displayAlert(title: "Uh Oh!", message: error!, buttonTitle: "Dismiss", type: "warning", view: self)
                                 }
-                                
-                                
                             })
-                            
-                            
                         }
                         else {
                             
