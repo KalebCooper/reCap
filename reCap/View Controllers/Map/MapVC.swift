@@ -116,11 +116,6 @@ class MapVC: UIViewController, MGLMapViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
-        
-        print("-----------------------------")
-        print("-----------------------------")
-        print("-----------------------------")
-        
         setupPictures()
         
         let when = DispatchTime.now() + 1.5 // change 2 to desired number of seconds
