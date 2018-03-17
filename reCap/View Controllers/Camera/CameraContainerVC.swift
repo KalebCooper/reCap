@@ -56,6 +56,8 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     //private let Threshold = 0.000017
     private let chalBestCoordThreshold = 0.0001
     private let chalCloseCoordThreshold = 0.005
+//    private let chalBestCoordThreshold = 1.0
+//    private let chalCloseCoordThreshold = 1.0
     
     
     @IBAction func buttonPressed(_ sender: Any) {
@@ -183,9 +185,11 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     func setupUserLocation() {
         
         Locator.requestAuthorizationIfNeeded(.always)
+        
+        let locator = Locator
 
-        Locator.subscribePosition(accuracy: .room, onUpdate: { location in
-            Locator.completeAllLocationRequests()
+        let request = locator.subscribePosition(accuracy: .room, onUpdate: { location in
+            
                                     
             let lat = location.coordinate.latitude.truncate(places: 6)
             let long = location.coordinate.longitude.truncate(places: 6)
@@ -211,18 +215,22 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
                 let when = DispatchTime.now() + 5 // change 2 to desired number of seconds
                 DispatchQueue.main.asyncAfter(deadline: when) {
                     FBDatabase.addUpdateUser(user: self.user, with_completion: { (error) in
-                        print(error)
-                })
+                    })
                     
                     geocoder.cancelGeocode()
                 }
                 
             }
-            
+        
+        
+        
         }, onFail: { (error, last) in
             print(error)
             
         })
+        
+        Locator.stopRequest(request)
+
     }
     
     /*
@@ -491,14 +499,12 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
                                         let longDiff = abs(picLong - long)
                                         let latDiff = abs(picLat - lat)
                                         
-                                        print("LongDiff: \(longDiff)")
-                                        print("LatDiff: \(latDiff)")
 
-                                        if longDiff > self.chalBestCoordThreshold || latDiff > self.chalBestCoordThreshold {
+                                        if longDiff > self.chalCloseCoordThreshold || latDiff > self.chalCloseCoordThreshold {
                                             self.locationOutlet.textColor = UIColor.white
                                             self.isAtChallengeLocation = false
                                         }
-                                        else if longDiff <= self.chalBestCoordThreshold && latDiff <= self.chalBestCoordThreshold {
+                                        else if longDiff < self.chalBestCoordThreshold && latDiff < self.chalBestCoordThreshold {
                                             self.locationOutlet.textColor = UIColor.green
                                             self.isAtChallengeLocation = true
                                         }
