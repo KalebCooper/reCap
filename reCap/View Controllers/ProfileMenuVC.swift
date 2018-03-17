@@ -36,19 +36,24 @@ class ProfileMenuVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if user != nil {
-            setupProfileImage()
-            setupHero()
-            setupGestures()
-            setupBlurEffect(image: image!)
-        }
+        setupProfileImage()
+        setupHero()
+        setupGestures()
+        setupBlurEffect(image: image!)
         // Do any additional setup after loading the view.
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        setupOutlets()
-        AppUtility.lockOrientation(.portrait)
+        let id = FBDatabase.getSignedInUserID()!
+        let ref = Database.database().reference()
+        FBDatabase.getUserOnce(with_id: id, ref: ref, with_completion: {(user) in
+            if let activeUser = user {
+                self.user = activeUser
+                self.setupOutlets()
+                AppUtility.lockOrientation(.portrait)
+            }
+        })
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -118,25 +123,10 @@ class ProfileMenuVC: UIViewController {
     }
     
     func setupOutlets() {
-        
-        let id = FBDatabase.getSignedInUserID()
-        let reference = Database.database().reference()
-        
-        
-        FBDatabase.getUser(with_id: id!, ref: reference) { (user) in
-            
-            if user != nil {
-                
-                let name = user!.name
-                let points = user!.points.description
-                
-                self.nameOutlet.text = name
-                self.pointsOutlet.text = "Points: \(points)"
-                
-            }
-            
-            
-        }
+        let name = self.user.name
+        let points = self.user.points.description
+        self.nameOutlet.text = name
+        self.pointsOutlet.text = "Points: \(points)"
     }
     
     func setupProfileImage() {

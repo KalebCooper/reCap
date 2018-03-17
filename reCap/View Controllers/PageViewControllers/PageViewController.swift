@@ -23,10 +23,11 @@ class PageViewController: PageboyViewController, PageboyViewControllerDataSource
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if user != nil {
+        setupViewControllers()
+        /*if user != nil {
             setupViewControllers()
             //setupUserListener()
-        }
+        }*/
     }
     
     private func setupViewControllers() {
@@ -44,7 +45,8 @@ class PageViewController: PageboyViewController, PageboyViewControllerDataSource
         //cameraVC.user = self.user
         //leaderboardsVC.user = self.user
         leaderboardsVC.mode = LeaderboardsFriendsVC.LEADERBOARD_MODE
-        self.viewControllersArray = [mapVC, cameraNav, leaderboardsNav]
+        //self.viewControllersArray = [mapVC, cameraNav, leaderboardsNav]
+        self.viewControllersArray = [cameraNav, leaderboardsNav]
         self.dataSource = self
     }
     
@@ -78,7 +80,8 @@ class PageViewController: PageboyViewController, PageboyViewControllerDataSource
     }
     
     func defaultPage(for pageboyViewController: PageboyViewController) -> PageboyViewController.Page? {
-        return PageboyViewController.Page.at(index: 1)
+        //return PageboyViewController.Page.at(index: 1)
+        return PageboyViewController.Page.at(index: 0)
     }
     
     
