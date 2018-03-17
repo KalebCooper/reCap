@@ -53,10 +53,10 @@ class PageViewController: PageboyViewController, PageboyViewControllerDataSource
         let id = FBDatabase.getSignedInUserID()!
         FBDatabase.getUser(with_id: id, ref: ref, with_completion: {(user) in
             if let activeUser = user {
-                self.cameraVC.user = activeUser
-                self.cameraVC.userUpdated()
-                self.mapVC.user = activeUser
-                self.leaderboardsVC.user = activeUser
+                //self.cameraVC.user = activeUser
+                //self.cameraVC.userUpdated()
+                //self.mapVC.user = activeUser
+                //self.leaderboardsVC.user = activeUser
                 print("Got updated user in Page View Controller")
             }
             else {

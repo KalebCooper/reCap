@@ -232,8 +232,6 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
             FBDatabase.getPictureData(id: id!, ref: ref, with_completion: {(pictureData) in
                 
                 if pictureData != nil {
-                    
-                    ref.removeAllObservers()
                     if let activePictureData = pictureData {
                         self.activeChallengePicData = activePictureData
                         print("Got challenge pic data in Camera Container VC")

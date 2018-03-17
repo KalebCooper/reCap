@@ -18,10 +18,6 @@ class LeaderboardsFriendsVC: UITableViewController, FCAlertViewDelegate {
     @IBOutlet weak var locationControl: UISegmentedControl!
     
     @IBAction func locationFilterChanged(_ sender: Any) {
-        print("Changed filter")
-        self.leaderboardsList.removeAll()
-        self.tableView.reloadData()
-        
         setupLeaderboards()
     }
     

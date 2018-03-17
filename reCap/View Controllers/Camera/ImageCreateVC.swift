@@ -82,7 +82,6 @@ class ImageCreateVC: UIViewController {
                 print("Added picture for user in ImageCreateVC")
                 FBDatabase.addUpdatePictureData(pictureData: pictureData, with_completion: {(error) in
                     if let actualError = error {
-                        // Error
                         print(actualError)
                     }
                     else {
@@ -90,8 +89,10 @@ class ImageCreateVC: UIViewController {
                         print("Added picture data for user in ImageCreateVC")
                     }
                 })
-                FBDatabase.addUpdateUser(user: self.user, with_completion: {(error) in
+                print("Added picture for user in ImageCreateVC")
+                FBDatabase.addUpdatePictureData(pictureData: pictureData, with_completion: {(error) in
                     if let actualError = error {
+                        // Error
                         print(actualError)
                     }
                     else {
