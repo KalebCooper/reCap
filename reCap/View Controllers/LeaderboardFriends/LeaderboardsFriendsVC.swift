@@ -98,8 +98,13 @@ class LeaderboardsFriendsVC: UITableViewController, FCAlertViewDelegate {
         self.navigationItem.rightBarButtonItem = nil
         
         
+        
+        
         leaderboardsList = []
         var unsortedList: [User] = []
+        
+        
+        
         let ref = Database.database().reference()
         
         var filter: String = ""
