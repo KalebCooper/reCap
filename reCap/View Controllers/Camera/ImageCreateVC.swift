@@ -69,6 +69,7 @@ class ImageCreateVC: UIViewController {
         let pictureData = PictureData(name: self.titleOutlet.text, description: self.descriptionOutlet.text!, gpsCoordinates: [self.lat!, self.long!], orientation: PictureData.ORIENTATION_PORTRAIT, owner: self.user.id, time: currentDate, locationName: self.locationNameOutlet.text!, id: pictureID, isRootPicture: isRoot, groupID: groupID, isMostRecentPicture: true)
         self.user.pictures.append(pictureData.id)
         self.user.activeChallengeID = ""
+        self.user.activeChallengeID = ""
         FBDatabase.addPicture(image: self.image!, pictureData: pictureData, with_completion: {(error) in
             if let actualError = error {
                 // There was an error
@@ -82,6 +83,16 @@ class ImageCreateVC: UIViewController {
                 else {
                     self.displayPictureAdded(pictureData: pictureData)
                 }
+                FBDatabase.addUpdateUser(user: self.user, with_completion: {(error) in
+                    if let actualError = error {
+                        print(actualError)
+                    }
+                    else {
+                        print("Updated user in ImageCreate VC")
+                        self.navigationController?.setToolbarHidden(true, animated: true)
+                        self.navigationController?.popToRootViewController(animated: true)
+                    }
+                })
                 print("Added picture for user in ImageCreateVC")
                 FBDatabase.addUpdatePictureData(pictureData: pictureData, with_completion: {(error) in
                     if let actualError = error {
@@ -91,16 +102,6 @@ class ImageCreateVC: UIViewController {
                     else {
                         // No error
                         print("Added picture data for user in ImageCreateVC")
-                        self.navigationController?.setToolbarHidden(true, animated: true)
-                        self.navigationController?.popToRootViewController(animated: true)
-                    }
-                })
-                FBDatabase.addUpdateUser(user: self.user, with_completion: {(error) in
-                    if let actualError = error {
-                        print(actualError)
-                    }
-                    else {
-                        print("Updated user in ImageCreate VC")
                     }
                 })
             }
@@ -111,16 +112,13 @@ class ImageCreateVC: UIViewController {
         
         let challengePoints: Int = Int(self.user.activeChallengePoints)!
         let totalPoints: Int = self.user.points
+        self.user.points = challengePoints + totalPoints
         
         let titleString = "+\(challengePoints) Points"
         let subtitleString = "Good Job! You now have \(totalPoints) points!"
         
         FCAlertView.displayAlert(title: titleString, message: subtitleString, buttonTitle: "Hooray!", type: "success", view: self, blur: true)
         
-        //Clear challenge ID and points
-        self.user.activeChallengeID = ""
-        self.user.activeChallengePoints = ""
-        //FBDatabase.addUpdateUser(user: user) { (error) in }
     }
     
     private func displayPictureAdded(pictureData: PictureData) {
