@@ -46,12 +46,20 @@ class LeaderboardsFriendsVC: UITableViewController, FCAlertViewDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if mode != nil, user != nil {
-            // If the mode has been selected
-            if mode == LeaderboardsFriendsVC.LEADERBOARD_MODE {
-                setupLeaderboards()
+        let ref = Database.database().reference()
+        let id = FBDatabase.getSignedInUserID()
+        FBDatabase.getUserOnce(with_id: id!, ref: ref, with_completion: {(user) in
+            if let activeUser = user {
+                print("Got user in leaderboards Friends vc")
+                self.user = activeUser
+                if self.mode != nil {
+                    if self.mode == LeaderboardsFriendsVC.LEADERBOARD_MODE {
+                        self.setupLeaderboards()
+                    }
+                }
             }
-        }
+            
+        })
     }
     
     override func viewWillAppear(_ animated: Bool) {
