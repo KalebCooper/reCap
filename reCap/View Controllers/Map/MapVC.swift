@@ -461,14 +461,18 @@ class MapVC: UIViewController, MGLMapViewDelegate {
         else if challengeCategory == MapVC.TAKE_PIC_FROM_RECENT {
             points = MapVC.CHALLENGE_RECENT_POINTS
         }
+        let user = self.user
+        user?.activeChallengeID = pictureData.id
+        user?.activeChallengePoints = points.description
         self.user.activeChallengeID = pictureData.id
         self.user.activeChallengePoints = points.description
-        FBDatabase.addUpdateUser(user: self.user, with_completion: {(error) in
+        FBDatabase.addUpdateUser(user: user!, with_completion: {(error) in
             if let actualError = error {
                 print(actualError)
             }
             else {
                 print("Added challenge to user")
+                
             }
         })
         
