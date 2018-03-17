@@ -197,7 +197,6 @@ class MapVC: UIViewController, MGLMapViewDelegate {
     }
     
     func setupPins() {
-        print("Refreshing Pins")
         self.mapView.addAnnotations(self.pins)
     }
     
@@ -230,14 +229,12 @@ class MapVC: UIViewController, MGLMapViewDelegate {
                 
                 if picture.id == self.user.activeChallengeID {
                     if (annotation.coordinate.latitude == picture.gpsCoordinates[0]) && annotation.coordinate.longitude == picture.gpsCoordinates[1] {
-                        print("Found active challenge annotation")
                         annotationView!.backgroundColor = UIColor(red: 204/255, green: 51/255, blue: 51/255, alpha: 1.0)
                         return annotationView
                     }
                 }
                 
                 if picture.id == pictureDataArray.last?.id {
-                    print("Identified non-active challenge annotation")
                     annotationView!.backgroundColor = UIColor(red: 99/255, green: 207/255, blue: 155/255, alpha: 1.0)
                     return annotationView
                 }

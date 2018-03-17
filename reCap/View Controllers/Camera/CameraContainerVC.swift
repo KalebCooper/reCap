@@ -138,7 +138,6 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
             setupCamera(clear: false)
             configureButton()
             setupGestures()
-            print("Finished setting up camera container")
         }
     }
     
@@ -158,7 +157,6 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         }, with_completion: { (image) in
             if let actualImage = image {
                 self.profileImage = actualImage
-                print("Got profile picture in Camera Container VC")
             }
             else {
                 print("Did not get profile picture in Camera Container VC")
@@ -203,11 +201,14 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
                     self.user.country = ""
                 }
                 
-                FBDatabase.addUpdateUser(user: self.user, with_completion: { (error) in
-                    print(error)
+                let when = DispatchTime.now() + 5 // change 2 to desired number of seconds
+                DispatchQueue.main.asyncAfter(deadline: when) {
+                    FBDatabase.addUpdateUser(user: self.user, with_completion: { (error) in
+                        print(error)
                 })
-                
-                geocoder.cancelGeocode()
+                    
+                    geocoder.cancelGeocode()
+                }
                 
             }
             
@@ -554,12 +555,10 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
                         self.previousImageView?.alpha = 0.0
                         
                         if image?.imageOrientation == .left || image?.imageOrientation == .right {
-                            print("Image orientation up")
                             self.previousImageView?.contentMode = .scaleToFill
                             self.previousImageContentMode = .scaleToFill
                         }
                         else {
-                            print("Image Orientation landscape")
                             self.previousImageView?.contentMode = .scaleAspectFill
                             self.previousImageContentMode = .scaleAspectFill
                         }
