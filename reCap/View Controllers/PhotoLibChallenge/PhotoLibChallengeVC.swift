@@ -54,23 +54,23 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
         tableSectionArray = []
         collectionDictionaryData = [:]
         if mode != nil {
-            photoLibChalReference = Database.database().reference()
-            if mode == PhotoLibChallengeVC.PHOTO_LIB_MODE {
-                setupPhotoLib()
-            }
-            else if mode == PhotoLibChallengeVC.CHALLENGE_MODE {
-                let ref = Database.database().reference()
-                let id = FBDatabase.getSignedInUserID()!
-                FBDatabase.getUserOnce(with_id: id, ref: ref, with_completion: {(user) in
-                    if let activeUser = user {
-                        self.user = activeUser
+            let ref = Database.database().reference()
+            let id = FBDatabase.getSignedInUserID()!
+            FBDatabase.getUserOnce(with_id: id, ref: ref, with_completion: {(user) in
+                if let activeUser = user {
+                    print("Got user in photo lib challenge")
+                    self.user = activeUser
+                    if self.mode == PhotoLibChallengeVC.PHOTO_LIB_MODE {
+                        self.setupPhotoLib()
+                    }
+                    else if self.mode == PhotoLibChallengeVC.CHALLENGE_MODE {
                         self.setupChallenge()
                     }
-                })
-            }
-            else if mode == PhotoLibChallengeVC.FRIENDS_PHOTO_LIB_MODE {
-                setupFriendsPicLib()
-            }
+                    else if self.mode == PhotoLibChallengeVC.FRIENDS_PHOTO_LIB_MODE {
+                        self.setupFriendsPicLib()
+                    }
+                }
+            })
         }
         else {
             mode = PhotoLibChallengeVC.INVALID_MODE
@@ -88,7 +88,6 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.photoLibChalReference.removeAllObservers()
         print("Removed all observers in PhotoLibChallenge VC")
     }
     
@@ -109,12 +108,11 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
 
     
     private func setupPhotoLib() {
-        
         let username = self.user.username!
-        
+        let ref = Database.database().reference()
         self.title = "\(username)'s Photos"
         self.tableView.allowsSelection = false
-        FBDatabase.getPictureData(for_user: user, ref: self.photoLibChalReference, with_completion: {(pictureDataList) in
+        FBDatabase.getPictureData(for_user: user, ref: ref, with_completion: {(pictureDataList) in
             for pictureData in pictureDataList {
                 if pictureData.isMostRecentPicture {
                     // Only display photos that are root pictures
@@ -141,11 +139,11 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
      */
     private func setupFriendsPicLib() {
         let username = self.user.username!
-        
+        let ref = Database.database().reference()
         self.title = "\(username)'s Photos"
         //self.title = "Photo Library"
         self.tableView.allowsSelection = false
-        FBDatabase.getPictureData(for_user: user, ref: self.photoLibChalReference, with_completion: {(pictureDataList) in
+        FBDatabase.getPictureData(for_user: user, ref: ref, with_completion: {(pictureDataList) in
             for pictureData in pictureDataList {
                 let location = pictureData.locationName
                 if !self.tableSectionArray.contains(location!) {
@@ -166,12 +164,12 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
     private func setupChallenge() {
         self.title = "Challenges"
         self.dispatchGroup = DispatchGroup()
-        //self.tableSectionArray = [PhotoLibChallengeVC.TAKE_PIC_FROM_RECENT, PhotoLibChallengeVC.TAKE_PIC_FROM_WEEK, PhotoLibChallengeVC.TAKE_PIC_FROM_MONTH, PhotoLibChallengeVC.TAKE_PIC_FROM_YEAR]
         self.collectionDictionaryData = [PhotoLibChallengeVC.TAKE_PIC_FROM_RECENT : [], PhotoLibChallengeVC.TAKE_PIC_FROM_WEEK : [], PhotoLibChallengeVC.TAKE_PIC_FROM_MONTH : [], PhotoLibChallengeVC.TAKE_PIC_FROM_YEAR : []]
         var unsortedChallenges: [String : [PictureData]] = [PhotoLibChallengeVC.TAKE_PIC_FROM_RECENT : [], PhotoLibChallengeVC.TAKE_PIC_FROM_WEEK : [], PhotoLibChallengeVC.TAKE_PIC_FROM_MONTH : [], PhotoLibChallengeVC.TAKE_PIC_FROM_YEAR : []]
         self.tableView.allowsSelection = false
         let currentDate = Date()
-        FBDatabase.getAllMostRecentPictureData(ref: photoLibChalReference, with_completion: {(pictureDataList) in
+        let ref = Database.database().reference()
+        FBDatabase.getAllMostRecentPictureData(ref: ref, with_completion: {(pictureDataList) in
             for pictureData in pictureDataList {
                 let challengeCategory = self.getPicChallengeCategory(pictureData: pictureData, currentDate: currentDate)
                 //self.collectionDictionaryData[challengeCategory]?.append(pictureData)
