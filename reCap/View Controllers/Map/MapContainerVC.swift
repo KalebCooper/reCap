@@ -22,6 +22,19 @@ class MapContainerVC: UIViewController {
         }
         // Do any additional setup after loading the view.
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        /*let id = FBDatabase.getSignedInUserID()!
+        let ref = Database.database().reference()
+        FBDatabase.getUserOnce(with_id: id, ref: ref, with_completion: {(user) in
+            if let activeUser = user {
+                print("Got user in map container vc")
+                self.user = activeUser
+            }
+            
+        })*/
+    }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent

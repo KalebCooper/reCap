@@ -25,7 +25,7 @@ class PageViewController: PageboyViewController, PageboyViewControllerDataSource
         super.viewDidLoad()
         if user != nil {
             setupViewControllers()
-            setupUserListener()
+            //setupUserListener()
         }
     }
     
@@ -41,8 +41,8 @@ class PageViewController: PageboyViewController, PageboyViewControllerDataSource
         leaderboardsVC = leaderboardsNav.topViewController as! LeaderboardsFriendsVC
         
         mapVC.user = self.user
-        cameraVC.user = self.user
-        leaderboardsVC.user = self.user
+        //cameraVC.user = self.user
+        //leaderboardsVC.user = self.user
         leaderboardsVC.mode = LeaderboardsFriendsVC.LEADERBOARD_MODE
         self.viewControllersArray = [mapVC, cameraNav, leaderboardsNav]
         self.dataSource = self

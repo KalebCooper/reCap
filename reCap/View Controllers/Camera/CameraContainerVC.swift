@@ -131,7 +131,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     override func viewDidLoad() {
         super.viewDidLoad()
         print("Camera container loaded")
-        if user != nil {
+        /*if user != nil {
             setupProfileImage()
             setupUserLocation()
             setupHero()
@@ -139,8 +139,14 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
             configureButton()
             setupGestures()
             print("Finished setting up camera container")
-        }
+        }*/
+        setupHero()
+        setupCamera(clear: false)
+        configureButton()
+        setupGestures()
     }
+    
+
     
     func userUpdated() {
         self.setupActiveChallengeData()
@@ -148,7 +154,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        print("The users active challenge is \(self.user.activeChallengeID)")
+        //print("The users active challenge is \(self.user.activeChallengeID)")
     }
     
     func setupProfileImage() {
@@ -581,11 +587,34 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        let ref = Database.database().reference()
+        let id = FBDatabase.getSignedInUserID()!
+        FBDatabase.getUserOnce(with_id: id, ref: ref, with_completion: {(user) in
+            if let activeUser = user {
+                self.user = activeUser
+                self.setupProfileImage()
+                self.setupUserLocation()
+                self.setupPreviousPicture()
+                self.setupLocation()
+                print("Got user in camera container vc")
+                DispatchQueue.main.asyncAfter(deadline: .now()) {
+                    if self.videoPreviewLayer != nil {
+                        self.setupOrientation()
+                        if self.session?.inputs.count == 0 {
+                            print("TESTING CAMERA")
+                            self.setupCamera(clear: false)
+                        }
+                        self.locationManager.startUpdatingHeading()
+                        print("Camera Session Resuming")
+                    }
+                }
+            }
+            else {
+                print("Did not get active user in Camera container")
+            }
+        })
         
-        setupPreviousPicture()
-        setupLocation()
-        
-        if self.user != nil {
+        /*if self.user != nil {
             DispatchQueue.main.asyncAfter(deadline: .now()) {
                 if self.videoPreviewLayer != nil {
                     self.setupOrientation()
@@ -597,7 +626,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
                     print("Camera Session Resuming")
                 }
             }
-        }
+        }*/
     }
     
     override func viewDidDisappear(_ animated: Bool) {
