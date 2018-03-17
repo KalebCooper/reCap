@@ -53,7 +53,10 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
         applyBlurEffect(image: #imageLiteral(resourceName: "Gradient"))
         tableSectionArray = []
         collectionDictionaryData = [:]
-        if mode != nil {
+        if self.mode == PhotoLibChallengeVC.FRIENDS_PHOTO_LIB_MODE {
+            self.setupFriendsPicLib()
+        }
+        else  {
             let ref = Database.database().reference()
             let id = FBDatabase.getSignedInUserID()!
             FBDatabase.getUserOnce(with_id: id, ref: ref, with_completion: {(user) in
@@ -66,14 +69,8 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
                     else if self.mode == PhotoLibChallengeVC.CHALLENGE_MODE {
                         self.setupChallenge()
                     }
-                    else if self.mode == PhotoLibChallengeVC.FRIENDS_PHOTO_LIB_MODE {
-                        self.setupFriendsPicLib()
-                    }
                 }
             })
-        }
-        else {
-            mode = PhotoLibChallengeVC.INVALID_MODE
         }
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
