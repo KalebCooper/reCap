@@ -83,14 +83,26 @@ class MapVC: UIViewController, MGLMapViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if user != nil {
+        let id = FBDatabase.getSignedInUserID()!
+        let ref = Database.database().reference()
+        FBDatabase.getUserOnce(with_id: id, ref: ref, with_completion: {(user) in
+            if let activeUser = user {
+                self.user = activeUser
+                self.setupMap()
+                let when = DispatchTime.now() + 0.5 // change 2 to desired number of seconds
+                DispatchQueue.main.asyncAfter(deadline: when) {
+                    self.setupCamera()
+                }
+            }
+        })
+        /*if user != nil {
             setupMap()
             let when = DispatchTime.now() + 0.5 // change 2 to desired number of seconds
             DispatchQueue.main.asyncAfter(deadline: when) {
                 self.setupCamera()
             }
             
-        }
+        }*/
         // Do any additional setup after loading the view.
     }
     
