@@ -307,7 +307,7 @@ class FBDatabase {
     */
     class func getAllUsersByRegion(region: String, equal_to value: String, with_max_query number: Int, with_ref ref: DatabaseReference, with_completion completion: @escaping (_ users: [User]) -> ()) {
         ref.child(USER_NODE).queryOrdered(byChild: region).queryEqual(toValue: value).observeSingleEvent(of: .value, with: {(snapshot) in
-            print(snapshot.value)
+            print("Query by region = \(snapshot.value)")
             var userList: [User] = []
             if let usersNode = snapshot.value as? NSDictionary {
                 for node in usersNode {
