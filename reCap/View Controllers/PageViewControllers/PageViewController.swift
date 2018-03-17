@@ -45,8 +45,8 @@ class PageViewController: PageboyViewController, PageboyViewControllerDataSource
         //cameraVC.user = self.user
         //leaderboardsVC.user = self.user
         leaderboardsVC.mode = LeaderboardsFriendsVC.LEADERBOARD_MODE
-        //self.viewControllersArray = [mapVC, cameraNav, leaderboardsNav]
-        self.viewControllersArray = [cameraNav, leaderboardsNav]
+        self.viewControllersArray = [mapVC, cameraNav, leaderboardsNav]
+        //self.viewControllersArray = [cameraNav, leaderboardsNav]
         self.dataSource = self
     }
     
