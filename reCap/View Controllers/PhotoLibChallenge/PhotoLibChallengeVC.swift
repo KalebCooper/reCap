@@ -51,15 +51,22 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
     override func viewDidLoad() {
         super.viewDidLoad()
         applyBlurEffect(image: #imageLiteral(resourceName: "Gradient"))
-        if user != nil, mode != nil {
-            tableSectionArray = []
-            collectionDictionaryData = [:]
+        tableSectionArray = []
+        collectionDictionaryData = [:]
+        if mode != nil {
             photoLibChalReference = Database.database().reference()
             if mode == PhotoLibChallengeVC.PHOTO_LIB_MODE {
                 setupPhotoLib()
             }
             else if mode == PhotoLibChallengeVC.CHALLENGE_MODE {
-                setupChallenge()
+                let ref = Database.database().reference()
+                let id = FBDatabase.getSignedInUserID()!
+                FBDatabase.getUserOnce(with_id: id, ref: ref, with_completion: {(user) in
+                    if let activeUser = user {
+                        self.user = activeUser
+                        self.setupChallenge()
+                    }
+                })
             }
             else if mode == PhotoLibChallengeVC.FRIENDS_PHOTO_LIB_MODE {
                 setupFriendsPicLib()

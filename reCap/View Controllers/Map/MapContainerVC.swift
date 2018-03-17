@@ -63,7 +63,7 @@ class MapContainerVC: UIViewController {
             let desination = segue.destination as! UINavigationController
             let challengeVC = desination.topViewController as! PhotoLibChallengeVC
             challengeVC.mode = PhotoLibChallengeVC.CHALLENGE_MODE
-            challengeVC.user = self.user
+            //challengeVC.user = self.user
         }
         else if id == "MapSegue" {
             let desination = segue.destination as! MapVC
