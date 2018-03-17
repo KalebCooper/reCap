@@ -601,6 +601,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
             if let activeUser = user {
                 self.user = activeUser
                 self.setupProfileImage()
+                self.setupActiveChallengeData()
                 self.setupUserLocation()
                 self.setupPreviousPicture()
                 self.setupLocation()
