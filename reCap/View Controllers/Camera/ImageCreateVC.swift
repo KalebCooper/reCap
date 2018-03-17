@@ -22,7 +22,6 @@ class ImageCreateVC: UIViewController {
     var isAtChallengeLocation: Bool!
     var previousPic: PictureData!
     var user: User!
-    
     var challengePoints: String?
     
     @IBOutlet weak var imageBackground: UIImageView!
@@ -62,6 +61,7 @@ class ImageCreateVC: UIViewController {
                 
             })
             print("User earned \(self.user.activeChallengePoints) points")
+            self.challengePoints = self.user.activeChallengePoints
         }
         else {
             print("root picture")
@@ -70,7 +70,6 @@ class ImageCreateVC: UIViewController {
         }
         let pictureData = PictureData(name: self.titleOutlet.text, description: self.descriptionOutlet.text!, gpsCoordinates: [self.lat!, self.long!], orientation: PictureData.ORIENTATION_PORTRAIT, owner: self.user.id, time: currentDate, locationName: self.locationNameOutlet.text!, id: pictureID, isRootPicture: isRoot, groupID: groupID, isMostRecentPicture: true)
         self.user.pictures.append(pictureData.id)
-        self.challengePoints = self.user.activeChallengePoints
         self.user.activeChallengeID = ""
         self.user.activeChallengePoints = ""
         FBDatabase.addPicture(image: self.image!, pictureData: pictureData, with_completion: {(error) in
@@ -79,14 +78,21 @@ class ImageCreateVC: UIViewController {
                 print(actualError)
             }
             else {
-                print("Added picture for user in ImageCreateVC")
-                FBDatabase.addUpdatePictureData(pictureData: pictureData, with_completion: {(error) in
+                // No error
+                if self.isAtChallengeLocation {
+                    self.displayChallengeComplete()
+                }
+                else {
+                    self.displayPictureAdded(pictureData: pictureData)
+                }
+                FBDatabase.addUpdateUser(user: self.user, with_completion: {(error) in
                     if let actualError = error {
                         print(actualError)
                     }
                     else {
-                        // No error
-                        print("Added picture data for user in ImageCreateVC")
+                        print("Updated user in ImageCreate VC")
+                        self.navigationController?.setToolbarHidden(true, animated: true)
+                        self.navigationController?.popToRootViewController(animated: true)
                     }
                 })
                 print("Added picture for user in ImageCreateVC")
@@ -97,15 +103,8 @@ class ImageCreateVC: UIViewController {
                     }
                     else {
                         // No error
-                        if self.isAtChallengeLocation {
-                            self.displayChallengeComplete()
-                        }
-                        else {
-                            self.displayPictureAdded(pictureData: pictureData)
-                        }
-                        print("Updated user in ImageCreate VC")
+                        print("Added picture data for user in ImageCreateVC")
                     }
-                    
                 })
             }
         })
@@ -114,34 +113,17 @@ class ImageCreateVC: UIViewController {
     private func displayChallengeComplete() {
         
         let challengePoints = self.challengePoints!
-        let totalPoints: Int = self.user.points!
+        let totalPoints: Int = self.user.points
         
         let titleString = "+\(challengePoints) Points"
-        
-        let alert = FCAlertView()
-        alert.makeAlertTypeSuccess()
-        alert.dismissOnOutsideTouch = false
-        alert.darkTheme = true
-        alert.bounceAnimations = true
-        
-        
         let subtitleString = "Good Job! You now have \(totalPoints) points!"
         
-        alert.showAlert(withTitle: titleString, withSubtitle: subtitleString, withCustomImage: nil, withDoneButtonTitle: "Hooray!", andButtons: nil)
-        
-        alert.doneActionBlock {
-            print("Added picture data for user in ImageCreateVC")
-            self.navigationController?.setToolbarHidden(true, animated: true)
-            self.navigationController?.popToRootViewController(animated: true)
-        }
-        
-        //FCAlertView.displayAlert(title: titleString, message: subtitleString, buttonTitle: "Hooray!", type: "success", view: self, blur: true)
-        
+        FCAlertView.displayAlert(title: titleString, message: subtitleString, buttonTitle: "Hooray!", type: "success", view: self, blur: true)
         
     }
     
     private func displayPictureAdded(pictureData: PictureData) {
-
+        
         let titleString = "Picture Added"
         let subtitleString = "Good Job! You now have added \(pictureData.name!) to your library"
         

@@ -483,16 +483,19 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
                                         let picLat = self.activeChallengePicData.gpsCoordinates[PictureData.LATTITUDE_INDEX]
                                         let longDiff = abs(picLong - long)
                                         let latDiff = abs(picLat - lat)
+                                        
+                                        print("LongDiff: \(longDiff)")
+                                        print("LatDiff: \(latDiff)")
 
-                                        if longDiff > self.chalBestCoordThreshold, latDiff > self.chalBestCoordThreshold {
+                                        if longDiff > self.chalBestCoordThreshold || latDiff > self.chalBestCoordThreshold {
                                             self.locationOutlet.textColor = UIColor.white
                                             self.isAtChallengeLocation = false
                                         }
-                                        else if longDiff <= self.chalBestCoordThreshold, latDiff <= self.chalBestCoordThreshold {
+                                        else if longDiff <= self.chalBestCoordThreshold && latDiff <= self.chalBestCoordThreshold {
                                             self.locationOutlet.textColor = UIColor.green
                                             self.isAtChallengeLocation = true
                                         }
-                                        else if longDiff <= self.chalCloseCoordThreshold, latDiff <= self.chalCloseCoordThreshold {
+                                        else if longDiff <= self.chalCloseCoordThreshold && latDiff <= self.chalCloseCoordThreshold {
                                             self.locationOutlet.textColor = UIColor.yellow
                                             self.isAtChallengeLocation = true
                                         }
