@@ -27,7 +27,7 @@ class SignInVC: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        
+        print("Sign in loaded")
         //createUser()
         // Do any additional setup after loading the view.
     }
