@@ -96,6 +96,22 @@ open class StyleManager: NSObject {
         resetTimeOfDayTimer()
     }
     
+    func applyStyle(type styleType: StyleType) {
+        guard currentStyleType != styleType else { return }
+        
+        NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(timeOfDayChanged), object: nil)
+        
+        for style in styles {
+            if style.styleType == styleType {
+                style.apply()
+                currentStyleType = styleType
+                delegate?.styleManager?(self, didApply: style)
+            }
+        }
+        
+        forceRefreshAppearance()
+    }
+    
     func applyStyle() {
         guard let location = delegate?.locationFor(styleManager: self) else {
             // We can't calculate sunset or sunrise w/o a location so just apply the first style
@@ -116,24 +132,17 @@ open class StyleManager: NSObject {
         }
         
         let styleTypeForTimeOfDay = styleType(for: location)
-        
-        for style in styles {
-            if style.styleType == styleTypeForTimeOfDay {
-                style.apply()
-                currentStyleType = style.styleType
-                delegate?.styleManager?(self, didApply: style)
-            }
-        }
+        applyStyle(type: styleTypeForTimeOfDay)
     }
     
     func styleType(for location: CLLocation) -> StyleType {
         guard let solar = Solar(date: date, coordinate: location.coordinate),
             let sunrise = solar.sunrise,
             let sunset = solar.sunset else {
-                return .dayStyle
+                return .day
         }
         
-        return solar.date.isNighttime(sunrise: sunrise, sunset: sunset) ? .nightStyle : .dayStyle
+        return solar.date.isNighttime(sunrise: sunrise, sunset: sunset) ? .night : .day
     }
     
     func forceRefreshAppearanceIfNeeded() {
@@ -144,7 +153,10 @@ open class StyleManager: NSObject {
         }
         
         applyStyle()
-        
+        forceRefreshAppearance()
+    }
+    
+    func forceRefreshAppearance() {
         for window in UIApplication.shared.windows {
             for view in window.subviews {
                 view.removeFromSuperview()

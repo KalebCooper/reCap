@@ -21,6 +21,7 @@ target 'reCap' do
   pod 'IHKeyboardAvoiding'
   pod 'SwiftyOnboard'
   pod 'FCAlertView'
+  pod  'RealmSwift'
 
   target 'reCapTests' do
     inherit! :search_paths

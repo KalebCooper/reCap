@@ -103,7 +103,15 @@ open class Directions: NSObject {
         If the request was canceled or there was an error obtaining the routes, this parameter is `nil`. This is not to be confused with the situation in which no results were found, in which case the array is present but empty.
      - parameter error: The error that occurred, or `nil` if the placemarks were obtained successfully.
      */
-    public typealias CompletionHandler = (_ waypoints: [Waypoint]?, _ routes: [Route]?, _ error: NSError?) -> Void
+    public typealias RouteCompletionHandler = (_ waypoints: [Waypoint]?, _ routes: [Route]?, _ error: NSError?) -> Void
+    
+    /**
+     A closure (block) to be called when a map matching request is complete.
+     
+     If the request was canceled or there was an error obtaining the matches, this parameter is `nil`. This is not to be confused with the situation in which no matches were found, in which case the array is present but empty.
+     - parameter error: The error that occurred, or `nil` if the placemarks were obtained successfully.
+     */
+    public typealias MatchCompletionHandler = (_ matches: [Match]?, _ error: NSError?) -> Void
     
     // MARK: Creating a Directions Object
     
@@ -164,10 +172,60 @@ open class Directions: NSObject {
      - returns: The data task used to perform the HTTP request. If, while waiting for the completion handler to execute, you no longer want the resulting routes, cancel this task.
      */
     @objc(calculateDirectionsWithOptions:completionHandler:)
-    @discardableResult open func calculate(_ options: RouteOptions, completionHandler: @escaping CompletionHandler) -> URLSessionDataTask {
+    @discardableResult open func calculate(_ options: RouteOptions, completionHandler: @escaping RouteCompletionHandler) -> URLSessionDataTask {
         let url = self.url(forCalculating: options)
         let task = dataTask(with: url, completionHandler: { (json) in
             let response = options.response(from: json)
+            if let routes = response.1 {
+                for route in routes {
+                    route.accessToken = self.accessToken
+                    route.apiEndpoint = self.apiEndpoint
+                    route.routeIdentifier = json["uuid"] as? String
+                }
+            }
+            completionHandler(response.0, response.1, nil)
+        }) { (error) in
+            completionHandler(nil, nil, error)
+        }
+        task.resume()
+        return task
+    }
+    
+    /**
+     Begins asynchronously calculating a match using the given options and delivers the results to a closure.
+     
+     
+     - parameter options: A `MatchOptions` object specifying the requirements for the resulting match.
+     - parameter completionHandler: The closure (block) to call with the resulting routes. This closure is executed on the application’s main thread.
+     - returns: The data task used to perform the HTTP request. If, while waiting for the completion handler to execute, you no longer want the resulting routes, cancel this task.
+     */
+    @objc(calculateMatchesWithOptions:completionHandler:)
+    @discardableResult open func calculate(_ options: MatchOptions, completionHandler: @escaping MatchCompletionHandler) -> URLSessionDataTask {
+        let url = self.url(forCalculating: options)
+        let data = options.encodedParam.data(using: .utf8)
+        let task = dataTask(with: url, data: data, completionHandler: { (json) in
+            let response = options.response(from: json)
+            if let matches = response {
+                for match in matches {
+                    match.accessToken = self.accessToken
+                    match.apiEndpoint = self.apiEndpoint
+                    match.routeIdentifier = json["uuid"] as? String
+                }
+            }
+            completionHandler(response, nil)
+        }) { (error) in
+            completionHandler(nil, error)
+        }
+        task.resume()
+        return task
+    }
+    
+    @objc(calculateRoutesMatchingOptions:completionHandler:)
+    @discardableResult open func calculateRoutes(matching options: MatchOptions, completionHandler: @escaping RouteCompletionHandler) -> URLSessionDataTask {
+        let url = self.url(forCalculating: options)
+        let data = options.encodedParam.data(using: .utf8)
+        let task = dataTask(with: url, data: data, completionHandler: { (json) in
+            let response = options.response(containingRoutesFrom: json)
             if let routes = response.1 {
                 for route in routes {
                     route.accessToken = self.accessToken
@@ -192,10 +250,17 @@ open class Directions: NSObject {
      - returns: The data task for the URL.
      - postcondition: The caller must resume the returned task.
      */
-    fileprivate func dataTask(with url: URL, completionHandler: @escaping (_ json: JSONDictionary) -> Void, errorHandler: @escaping (_ error: NSError) -> Void) -> URLSessionDataTask {
+    fileprivate func dataTask(with url: URL, data: Data? = nil, completionHandler: @escaping (_ json: JSONDictionary) -> Void, errorHandler: @escaping (_ error: NSError) -> Void) -> URLSessionDataTask {
         
         var request = URLRequest(url: url)
         request.setValue(userAgent, forHTTPHeaderField: "User-Agent")
+        
+        if let data = data {
+            request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+            request.httpMethod = "POST"
+            request.httpBody = data
+        }
+        
         return URLSession.shared.dataTask(with: request as URLRequest) { (data, response, error) in
             var json: JSONDictionary = [:]
             if let data = data, response?.mimeType == "application/json" {
@@ -228,7 +293,7 @@ open class Directions: NSObject {
      After requesting the URL returned by this method, you can parse the JSON data in the response and pass it into the `Route.init(json:waypoints:profileIdentifier:)` initializer.
      */
     @objc(URLForCalculatingDirectionsWithOptions:)
-    open func url(forCalculating options: RouteOptions) -> URL {
+    open func url(forCalculating options: DirectionsOptions) -> URL {
         let params = options.params + [
             URLQueryItem(name: "access_token", value: accessToken),
         ]

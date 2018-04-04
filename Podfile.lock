@@ -3,16 +3,16 @@ PODS:
   - ClusterKit/MapKit (0.3.3):
     - ClusterKit/Core
   - FCAlertView (1.4.0)
-  - Firebase/Auth (4.10.1):
+  - Firebase/Auth (4.11.0):
     - Firebase/Core
-    - FirebaseAuth (= 4.4.4)
-  - Firebase/Core (4.10.1):
+    - FirebaseAuth (= 4.5.0)
+  - Firebase/Core (4.11.0):
     - FirebaseAnalytics (= 4.1.0)
-    - FirebaseCore (= 4.0.17)
-  - Firebase/Database (4.10.1):
+    - FirebaseCore (= 4.0.18)
+  - Firebase/Database (4.11.0):
     - Firebase/Core
     - FirebaseDatabase (= 4.1.5)
-  - Firebase/Storage (4.10.1):
+  - Firebase/Storage (4.11.0):
     - Firebase/Core
     - FirebaseStorage (= 2.1.3)
   - FirebaseAnalytics (4.1.0):
@@ -20,17 +20,17 @@ PODS:
     - FirebaseInstanceID (~> 2.0)
     - GoogleToolboxForMac/NSData+zlib (~> 2.1)
     - nanopb (~> 0.3)
-  - FirebaseAuth (4.4.4):
+  - FirebaseAuth (4.5.0):
     - FirebaseAnalytics (~> 4.1)
     - GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)
     - GTMSessionFetcher/Core (~> 1.1)
-  - FirebaseCore (4.0.17):
+  - FirebaseCore (4.0.18):
     - GoogleToolboxForMac/NSData+zlib (~> 2.1)
   - FirebaseDatabase (4.1.5):
     - FirebaseAnalytics (~> 4.1)
     - FirebaseCore (~> 4.0)
     - leveldb-library (~> 1.18)
-  - FirebaseInstanceID (2.0.9):
+  - FirebaseInstanceID (2.0.10):
     - FirebaseCore (~> 4.0)
   - FirebaseStorage (2.1.3):
     - FirebaseAnalytics (~> 4.1)
@@ -51,17 +51,17 @@ PODS:
   - IHKeyboardAvoiding (4.2)
   - leveldb-library (1.20)
   - Mapbox-iOS-SDK (3.7.6)
-  - MapboxCoreNavigation (0.15.0):
-    - MapboxDirections.swift (~> 0.17.0)
+  - MapboxCoreNavigation (0.16.0):
+    - MapboxDirections.swift (~> 0.19.0)
     - MapboxMobileEvents (~> 0.3)
     - Turf (~> 0.0.4)
-  - MapboxDirections.swift (0.17.0):
+  - MapboxDirections.swift (0.19.0):
     - Polyline (~> 4.2)
-  - MapboxGeocoder.swift (0.8.0)
+  - MapboxGeocoder.swift (0.8.1)
   - MapboxMobileEvents (0.3.1)
-  - MapboxNavigation (0.15.0):
+  - MapboxNavigation (0.16.0):
     - Mapbox-iOS-SDK (~> 3.6)
-    - MapboxCoreNavigation (= 0.15.0)
+    - MapboxCoreNavigation (= 0.16.0)
     - MapboxSpeech (~> 0.0.1)
     - Solar (~> 2.1)
     - Turf (~> 0.0.4)
@@ -73,9 +73,14 @@ PODS:
   - nanopb/encode (0.3.8)
   - Pageboy (2.4.0)
   - Polyline (4.2.0)
-  - SkyFloatingLabelTextField (3.4.0)
+  - Realm (3.3.2):
+    - Realm/Headers (= 3.3.2)
+  - Realm/Headers (3.3.2)
+  - RealmSwift (3.3.2):
+    - Realm (= 3.3.2)
+  - SkyFloatingLabelTextField (3.4.1)
   - Solar (2.1.0)
-  - SwiftLocation (3.1.0):
+  - SwiftLocation (3.2.3):
     - SwiftyJSON (~> 4.0.0-alpha.1)
   - SwiftyJSON (4.0.0)
   - SwiftyOnboard (1.3.6)
@@ -94,6 +99,7 @@ DEPENDENCIES:
   - MapboxGeocoder.swift
   - MapboxNavigation
   - Pageboy
+  - RealmSwift
   - SkyFloatingLabelTextField
   - SwiftLocation
   - SwiftyOnboard
@@ -101,12 +107,12 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   ClusterKit: 52177be19bda5d9c09cb172e61842185268e6b5c
   FCAlertView: fdddd63381898c1d1a5a20c9f084fbd2c6d12f8b
-  Firebase: 92c6ba593e32db0defde464a9adc981d5cb49f97
+  Firebase: cc13dfab1038c8b45d7903e01fc690451d6d0b24
   FirebaseAnalytics: 3dfae28d4a5e06f86c4fae830efc2ad3fadb19bc
-  FirebaseAuth: d040bb7a9db6dfc29d0e7ec82d48be51352b2581
-  FirebaseCore: 872307b001bbefda1dfa0dbfffa50a6919023d4a
+  FirebaseAuth: 147bf340a0706b44ca1753d6b41ebafd9687cfe6
+  FirebaseCore: b981f47e5254cbcfdeb483355300d743f6fcab2c
   FirebaseDatabase: 5f0bc6134c5c237cf55f9e1249d406770a75eafd
-  FirebaseInstanceID: d2058a35e9bebda1b6dd42486b84917bde552a9d
+  FirebaseInstanceID: 8d20d890d65c917f9f7d9950b6e10a760ad34321
   FirebaseStorage: 9a863a2bb96c406958eeff7c2f1dfa9f44c44a13
   GoogleToolboxForMac: 2501e2ad72a52eb3dfe7bd9aee7dad11b858bd20
   GTMSessionFetcher: 390ea358e5a0d0133153806f744662dad933d06b
@@ -114,22 +120,24 @@ SPEC CHECKSUMS:
   IHKeyboardAvoiding: 9fbf816b7c3c84911964802ff110d12caf40ebef
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   Mapbox-iOS-SDK: 23ececda1d90c3b436b45e2c88e9677f025303c0
-  MapboxCoreNavigation: 9151b0ba49246a1784ec18e338e1131dca100c6f
-  MapboxDirections.swift: e116692023c0e42b21d037273edbd2065babe3a9
-  MapboxGeocoder.swift: 16e8488bbb81a5036b9a11d4d7714200337db86b
+  MapboxCoreNavigation: 0ebb72a3253af35695f2b2bd7c919d67ad354fb5
+  MapboxDirections.swift: 28c683ee94b12c0da7849ec5e579150623180fee
+  MapboxGeocoder.swift: 354fccd4834bae4c5b792428559eb87d994d2cf5
   MapboxMobileEvents: 0f11c4ca8fed019926611a9486d414ad12bee2fa
-  MapboxNavigation: 1b51b6ffc44f5af42227e9be2118a5f89d330f24
+  MapboxNavigation: 6fc118df531264d75f6b22b459ed9271a941b0b7
   MapboxSpeech: 6cc9b3d53adc2988af3ebc704dd17907b84a3f9f
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   Pageboy: b04cee5c1315a865fb49321129d12635e8465144
   Polyline: 3d69f75bb136357e27291d439d0436c6ebda57a4
-  SkyFloatingLabelTextField: 703aa1420b697392b1e7dba25571180dde018477
+  Realm: d927fbf66df5532cfafc08afb5f7e53ded37b894
+  RealmSwift: 4e903a494e05d866581d69ad6f7e7b879d446baf
+  SkyFloatingLabelTextField: 8085f20f57f74a00cfcae58099299faa1a971035
   Solar: 2dc6e7cc39186cb0c8228fa08df76fb50c7d8f24
-  SwiftLocation: 8f5ef4f510a45e43239de57a3145b3669301e898
+  SwiftLocation: a3c3bc2023118171ef3572188a31def94aa0892c
   SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
   SwiftyOnboard: 8dec41d4725b3e6ebcae276dd206d7f74c1b7f61
   Turf: 6c169618fa671e3f8a7b764b5b3332053ad6110e
 
-PODFILE CHECKSUM: d71e21948966a218b1d3a6b5f670d4505f10b168
+PODFILE CHECKSUM: 5be8a12ac94bbea4a736958c83df5ecde886dc0d
 
 COCOAPODS: 1.4.0

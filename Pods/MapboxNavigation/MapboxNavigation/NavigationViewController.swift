@@ -304,7 +304,11 @@ public class NavigationViewController: UIViewController {
      */
     @objc public var annotatesSpokenInstructions = false
     
-    let progressBar = ProgressBar()
+    /**
+     A Boolean value that indicates whether the dark style should apply when a route controller enters a tunnel.
+     */
+    @objc public var usesNightStyleInsideTunnels: Bool = false
+    
     var styleManager: StyleManager!
     
     required public init?(coder aDecoder: NSCoder) {
@@ -360,7 +364,6 @@ public class NavigationViewController: UIViewController {
     override public func viewDidLoad() {
         super.viewDidLoad()
         resumeNotifications()
-        progressBar.dock(on: view)
         view.clipsToBounds = true
     }
     
@@ -406,8 +409,15 @@ public class NavigationViewController: UIViewController {
         let secondsRemaining = routeProgress.currentLegProgress.currentStepProgress.durationRemaining
 
         mapViewController?.notifyDidChange(routeProgress: routeProgress, location: location, secondsRemaining: secondsRemaining)
-        
-        progressBar.setProgress(routeProgress.currentLegProgress.userHasArrivedAtWaypoint ? 1 : CGFloat(routeProgress.fractionTraveled), animated: true)
+
+        if usesNightStyleInsideTunnels, let currentIntersection = routeProgress.currentLegProgress.currentStepProgress.currentIntersection,
+            let classes = currentIntersection.outletRoadClasses {
+                if classes.contains(.tunnel) {
+                    styleManager.applyStyle(type: .night)
+                } else {
+                    styleManager.timeOfDayChanged()
+                }
+        }
     }
     
     @objc func didPassInstructionPoint(notification: NSNotification) {
@@ -482,11 +492,11 @@ extension NavigationViewController: RouteMapViewControllerDelegate {
         return delegate?.navigationMapView?(mapView, shapeFor: waypoints)
     }
     
-    func navigationMapView(_ mapView: MGLMapView, imageFor annotation: MGLAnnotation) -> MGLAnnotationImage? {
+    public func navigationMapView(_ mapView: MGLMapView, imageFor annotation: MGLAnnotation) -> MGLAnnotationImage? {
         return delegate?.navigationMapView?(mapView, imageFor: annotation)
     }
     
-    func navigationMapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
+    public func navigationMapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
         return delegate?.navigationMapView?(mapView, viewFor: annotation)
     }
     
