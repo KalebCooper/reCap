@@ -488,7 +488,6 @@
 				344C93E320226E280025E4C5 /* Frameworks */,
 				344C93E420226E280025E4C5 /* Resources */,
 				094BF00E2C04316FA0C1E2DF /* [CP] Embed Pods Frameworks */,
-				E138EA84D49DA44F7E229C48 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -507,8 +506,6 @@
 				344C93F920226E280025E4C5 /* Sources */,
 				344C93FA20226E280025E4C5 /* Frameworks */,
 				344C93FB20226E280025E4C5 /* Resources */,
-				C90CAE8BB1ED54E7C2AFDBB9 /* [CP] Embed Pods Frameworks */,
-				69A0B94A7F7EC89CCC1D66B9 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -528,8 +525,6 @@
 				344C940420226E280025E4C5 /* Sources */,
 				344C940520226E280025E4C5 /* Frameworks */,
 				344C940620226E280025E4C5 /* Resources */,
-				1591320382C717450F87D843 /* [CP] Embed Pods Frameworks */,
-				F0F2C0EF7A57CCC6273BC18F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -723,21 +718,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		1591320382C717450F87D843 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-reCapUITests/Pods-reCapUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		3F5F6AD7F5875CE95513C6EA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -754,66 +734,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		69A0B94A7F7EC89CCC1D66B9 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-reCapTests/Pods-reCapTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C90CAE8BB1ED54E7C2AFDBB9 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-reCapTests/Pods-reCapTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E138EA84D49DA44F7E229C48 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-reCap/Pods-reCap-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F0F2C0EF7A57CCC6273BC18F /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-reCapUITests/Pods-reCapUITests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F5AD435BC0DFA58D41751021 /* [CP] Check Pods Manifest.lock */ = {
