@@ -11,6 +11,7 @@ import Hero
 import SkyFloatingLabelTextField
 import Firebase
 import FCAlertView
+import RealmSwift
 
 class CreateAccountVC: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     
@@ -68,7 +69,28 @@ class CreateAccountVC: UITableViewController, UIImagePickerControllerDelegate, U
     // MARK: - Outlet Actions
     
     @IBAction func addPressed(_ sender: Any) {
-        if let name = fullNameOutlet.text, let email = emailOutlet.text, let username = usernameOutlet.text, let password = passwordOutlet.text, let verifyPass = verifyPasswordOutlet.text, let image = imageView.image, password == verifyPass {
+        if let name = fullNameOutlet.text, let username = usernameOutlet.text, let password = passwordOutlet.text, let verifyPass = verifyPasswordOutlet.text, let image = imageView.image, password == verifyPass {
+            // If all fields are filled out
+            print("Creating user")
+            FCAlertView.displayAlert(title: "Creating Account...", message: "", buttonTitle: "", type: "progress", view: self, blur: true)
+            let creds = SyncCredentials.usernamePassword(username: username, password: password, register: true)
+            SyncUser.logIn(with: creds, server: RealmConstants.AUTH_URL, onCompletion: {(user, err) in
+                if let error = err {
+                    print(error.localizedDescription)
+                    self.displayErrorAlert(message: error.localizedDescription)
+                }
+                else {
+                    let activeUser = user
+                    print("Created user and logged in")
+                }
+            })
+        }
+        else {
+            print("Fill out all fields")
+            displayErrorAlert(message: "Please fill out all fields.")
+        }
+        
+        /*if let name = fullNameOutlet.text, let email = emailOutlet.text, let username = usernameOutlet.text, let password = passwordOutlet.text, let verifyPass = verifyPasswordOutlet.text, let image = imageView.image, password == verifyPass {
             // If all fields are filled out
             print("Creating user")
             
@@ -115,7 +137,7 @@ class CreateAccountVC: UITableViewController, UIImagePickerControllerDelegate, U
                                     print("Wrote user to database in SignInVC")
                                 }
                             })
-
+                            
                             
                             let pageViewVC = UIStoryboard(name: "PageView", bundle: nil).instantiateInitialViewController() as! PageViewController
                             pageViewVC.user = user
@@ -133,7 +155,7 @@ class CreateAccountVC: UITableViewController, UIImagePickerControllerDelegate, U
         else {
             print("Fill out all fields")
             displayErrorAlert(message: "Please fill out all fields.")
-        }
+        }*/
     }
     
     

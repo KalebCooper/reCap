@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import SkyFloatingLabelTextField
 import FCAlertView
+import RealmSwift
 
 class SignInVC: UIViewController, UITextFieldDelegate {
     
@@ -94,7 +95,27 @@ class SignInVC: UIViewController, UITextFieldDelegate {
      is pressed
      */
     @IBAction func loginInPressed(_ sender: Any) {
-        if let emailUsername = emailUsernameOutlet.text, let password = passwordOutlet.text, emailUsername != "", password != "nil" {
+        if let username = emailUsernameOutlet.text, let password = passwordOutlet.text, username != "", password != "nil" {
+            // If fields are filled out
+            let creds = SyncCredentials.usernamePassword(username: username, password: password)
+            SyncUser.logIn(with: creds, server: RealmConstants.AUTH_URL, onCompletion: {(user, err) in
+                if let error = err {
+                    // Error logging in
+                    print(error.localizedDescription)
+                    self.displayErrorAlert(message: error.localizedDescription)
+                }
+                else {
+                    print("Logged in user")
+                }
+            })
+        }
+        else {
+            // Not all fields are filled out
+            print("All Fields are not filled out")
+            displayErrorAlert(message: "All Fields are not filled out")
+        }
+        
+        /*if let emailUsername = emailUsernameOutlet.text, let password = passwordOutlet.text, emailUsername != "", password != "nil" {
             // If fields are filled out
             if emailUsername.contains("@") {
                 // User has entered an email
@@ -109,7 +130,8 @@ class SignInVC: UIViewController, UITextFieldDelegate {
             // Not all fields are filled out
             print("All Fields are not filled out")
             displayErrorAlert(message: "All Fields are not filled out")
-        }
+        }*/
+
     }
     
     /*

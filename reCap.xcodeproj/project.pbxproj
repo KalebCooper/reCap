@@ -39,6 +39,7 @@
 		7A3B468C202AB3FC001D19B6 /* EdgeShadowLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3B468B202AB3FC001D19B6 /* EdgeShadowLayer.swift */; };
 		7A3B468E202AB407001D19B6 /* SignIn.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A3B468D202AB407001D19B6 /* SignIn.storyboard */; };
 		7A3C5538207AFDDD009A8036 /* HorizontalDial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3C5537207AFDDD009A8036 /* HorizontalDial.swift */; };
+		7A3C553A207B029D009A8036 /* RealmConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3C5539207B029D009A8036 /* RealmConstants.swift */; };
 		7A3C60112027B99A00ABC9E1 /* PageView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A3C60102027B99A00ABC9E1 /* PageView.storyboard */; };
 		7A3C60132027BAE300ABC9E1 /* MapContainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3C60122027BAE200ABC9E1 /* MapContainerVC.swift */; };
 		7A4D8A3A20277E4F0043878E /* CreateAccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4D8A3920277E4F0043878E /* CreateAccountVC.swift */; };
@@ -137,6 +138,7 @@
 		7A3B468B202AB3FC001D19B6 /* EdgeShadowLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EdgeShadowLayer.swift; sourceTree = "<group>"; };
 		7A3B468D202AB407001D19B6 /* SignIn.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SignIn.storyboard; sourceTree = "<group>"; };
 		7A3C5537207AFDDD009A8036 /* HorizontalDial.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorizontalDial.swift; sourceTree = "<group>"; };
+		7A3C5539207B029D009A8036 /* RealmConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmConstants.swift; sourceTree = "<group>"; };
 		7A3C60102027B99A00ABC9E1 /* PageView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PageView.storyboard; sourceTree = "<group>"; };
 		7A3C60122027BAE200ABC9E1 /* MapContainerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapContainerVC.swift; sourceTree = "<group>"; };
 		7A4D8A3920277E4F0043878E /* CreateAccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountVC.swift; sourceTree = "<group>"; };
@@ -414,6 +416,7 @@
 			isa = PBXGroup;
 			children = (
 				7AE375662037C6D900CA9946 /* FBDatabase.swift */,
+				7A3C5539207B029D009A8036 /* RealmConstants.swift */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -797,6 +800,7 @@
 				7AE375672037C6DA00CA9946 /* FBDatabase.swift in Sources */,
 				7A5358AD205B6EE10047F410 /* TutorialTransitionVC.swift in Sources */,
 				7AF3594E2038FB6700713EA3 /* Username.swift in Sources */,
+				7A3C553A207B029D009A8036 /* RealmConstants.swift in Sources */,
 				7A4D8A3A20277E4F0043878E /* CreateAccountVC.swift in Sources */,
 				7AF10F552058A49800019C70 /* CameraContainerVC.swift in Sources */,
 				7A5358AE205B6EE10047F410 /* TutorialWelcomeVC.swift in Sources */,
@@ -964,7 +968,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = iOSAppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = VPT5835T5T;
+				DEVELOPMENT_TEAM = CZ7R6F7L6H;
 				INFOPLIST_FILE = reCap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Kaleb-Cooper-Team-Red.reCap";
@@ -981,7 +985,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = iOSAppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = VPT5835T5T;
+				DEVELOPMENT_TEAM = CZ7R6F7L6H;
 				INFOPLIST_FILE = reCap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Kaleb-Cooper-Team-Red.reCap";
