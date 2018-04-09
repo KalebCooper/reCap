@@ -13,8 +13,11 @@ import SwiftLocation
 import Hero
 import Firebase
 import CoreLocation
+import CoreMotion
+import FCAlertView
 
-class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate {
+
+class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate, HorizontalDialDelegate {
     
     @IBOutlet weak var cameraButton: UIButton!
     @IBOutlet weak var locationOutlet: UILabel!
@@ -26,6 +29,8 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     
     @IBOutlet weak var previewView: UIView!
     
+    @IBOutlet weak var bearingPickerOutlet: HorizontalDial!
+    @IBOutlet weak var bearingOutlet: UILabel!
     
     var imageToPass: UIImage?
     var latToPass: Double?
@@ -49,6 +54,8 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     var previousImageView: UIImageView?
     var previousImageContentMode: UIViewContentMode?
     
+    var motionManager = CMMotionManager()
+    
     
     let blackColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
     var user: User!
@@ -62,24 +69,36 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     
     @IBAction func buttonPressed(_ sender: Any) {
         
-        self.stillImageOutput?.capturePhoto(with: self.photoSetting, delegate: self)
+        print("Button Pressed")
         
-        DispatchQueue.main.asyncAfter(deadline: .now()) {
-            
-            let inputs = self.session?.inputs
-            for oldInput:AVCaptureInput in inputs! {
-                self.session?.removeInput(oldInput)
-            }
-            
-            let outputs = self.session?.outputs
-            for oldOutput:AVCaptureOutput in outputs! {
-                self.session?.removeOutput(oldOutput)
-            }
-            
-            self.session?.stopRunning()
-            self.locationManager.stopUpdatingHeading()
-            print("Camera Session Stopping")
+
+        if cameraButton.layer.borderColor == UIColor.red.cgColor {
+
+            FCAlertView.displayAlert(title: "Error", message: "Please make sure the camera is perpendicular to the ground.", buttonTitle: "Okay", type: "warning", view: self, blur: true)
+
         }
+        else {
+            self.stillImageOutput?.capturePhoto(with: self.photoSetting, delegate: self)
+            
+            DispatchQueue.main.asyncAfter(deadline: .now()) {
+                
+                let inputs = self.session?.inputs
+                for oldInput:AVCaptureInput in inputs! {
+                    self.session?.removeInput(oldInput)
+                }
+                
+                let outputs = self.session?.outputs
+                for oldOutput:AVCaptureOutput in outputs! {
+                    self.session?.removeOutput(oldOutput)
+                }
+                
+                self.session?.stopRunning()
+                self.locationManager.stopUpdatingHeading()
+                print("Camera Session Stopping")
+            
+            }
+        }
+        
         
     }
     @IBAction func albumAction(_ sender: Any) {
@@ -146,6 +165,78 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         setupCamera(clear: false)
         configureButton()
         setupGestures()
+        
+        setupDial()
+    }
+    
+    
+    func setupDial() {
+        
+        bearingPickerOutlet?.delegate = self
+        bearingPickerOutlet?.animateOption = .easeOutElastic
+        bearingPickerOutlet?.enableRange = true
+        bearingPickerOutlet?.minimumValue = 0
+        bearingPickerOutlet?.maximumValue = 359
+        bearingPickerOutlet?.value = 90
+        bearingPickerOutlet?.tick = 10
+        bearingPickerOutlet?.centerMarkWidth = 3
+        bearingPickerOutlet?.centerMarkRadius = 3.0
+        bearingPickerOutlet.centerMarkHeightRatio = 0.75
+        bearingPickerOutlet?.markColor = UIColor.white
+        bearingPickerOutlet.centerMarkColor = UIColor.red
+        bearingPickerOutlet?.markWidth = 1.0
+        //bearingPickerOutlet?.markRadius = 0.5
+        bearingPickerOutlet?.markCount = 10
+        bearingPickerOutlet?.padding = 16
+        bearingPickerOutlet?.verticalAlign = "top"
+        bearingPickerOutlet?.backgroundColor = UIColor.clear
+        
+        
+    }
+    
+    
+    func horizontalDialDidValueChanged(_ horizontalDial: HorizontalDial) {
+        
+        let value = horizontalDial.value.truncate(places: 3)
+        
+        let roundedValue = value.round(nearest: 1)
+        
+        if roundedValue.truncatingRemainder(dividingBy: 1) == 0 {
+            
+            if UIDevice.current.orientation == .landscapeLeft {
+                if roundedValue + 90.0 > 360 {
+                    
+                    bearingOutlet.text = String((roundedValue + 90.0) - 360) + "°"
+                    
+                }
+                else {
+                    bearingOutlet.text = String(roundedValue + 90.0) + "°"
+                }
+                
+            }
+            else if UIDevice.current.orientation == .landscapeRight {
+                if roundedValue + 90.0 > 360 {
+                    
+                    bearingOutlet.text = String((roundedValue - 90.0) - 360) + "°"
+                    
+                }
+                else {
+                    bearingOutlet.text = String(roundedValue - 90.0) + "°"
+                }
+            }
+            else {
+                bearingOutlet.text = String(roundedValue) + "°"
+            }
+            
+            
+        }
+    }
+    
+    func updateHorizontalDialValue(value: Double) {
+        
+        bearingPickerOutlet.value = value
+        
+        
     }
     
 
@@ -339,6 +430,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         backCamera?.unlockForConfiguration()
         
         
+        
         var error: NSError?
         var input: AVCaptureDeviceInput!
         do {
@@ -398,11 +490,45 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         cameraButton.layer.borderWidth = 2
         cameraButton.layer.cornerRadius = 40
         
+        
+        // Ensure to keep a strong reference to the motion manager otherwise you won't get updates
+        motionManager = CMMotionManager()
+        if motionManager.isDeviceMotionAvailable == true {
+            
+            motionManager.deviceMotionUpdateInterval = 0.25;
+            
+            let queue = OperationQueue()
+            //motionManager.startDeviceMotionUpdates(to: queue, withHandler: { [weak self] (motion, error) -> Void in
+            motionManager.startDeviceMotionUpdates(using: CMAttitudeReferenceFrame.xArbitraryCorrectedZVertical, to: queue) { (motion, error) in
+                
+                let gravityZ: Double = motion!.gravity.z
+                
+                DispatchQueue.main.async {
+                    
+                    if (Swift.abs(gravityZ) < 0.25) {
+                            self.cameraButton.layer.borderColor = UIColor.green.cgColor
+                    }
+                    else {
+                            self.cameraButton.layer.borderColor = UIColor.red.cgColor
+                    }
+            
+                }
+                
+            }
+            
+            print("Device motion started")
+        }
+        else {
+            print("Device motion unavailable");
+        }
+        
     }
     
     
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        
+        
         
         UIView.animate(withDuration: 0.25, animations: {
             self.previousImageView?.alpha = 0.0
@@ -537,9 +663,12 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     
     
     func locationManager(_ manager: CLLocationManager, didUpdateHeading heading: CLHeading) {
+        updateHorizontalDialValue(value: heading.magneticHeading)
         UIView.animate(withDuration: 0.25, animations: {
             self.arrowOutlet.transform = CGAffineTransform(rotationAngle: CGFloat((self.destinationAngle! - heading.magneticHeading) * Double.pi / 180))
         })
+        
+        
     }
     
     
@@ -656,7 +785,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         if error == nil {
             
-            
+                
             let imageData = photo.fileDataRepresentation()
             
             var orientation: UIImageOrientation? = UIImageOrientation.right

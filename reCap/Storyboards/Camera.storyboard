@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14105" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ZCF-ix-wCu">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14111" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ZCF-ix-wCu">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -44,13 +44,13 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NavArrowWhite" translatesAutoresizingMaskIntoConstraints="NO" id="H1a-lg-RtO">
-                                <rect key="frame" x="162.66666666666666" y="610" width="50" height="50"/>
+                                <rect key="frame" x="163.33333333333334" y="610" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="npE-Nb-5YX"/>
                                     <constraint firstAttribute="height" constant="50" id="rUd-gQ-gwd"/>
                                 </constraints>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" tag="10" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo Text Wide" translatesAutoresizingMaskIntoConstraints="NO" id="PPX-Rz-LL0">
+                            <imageView userInteractionEnabled="NO" tag="10" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NewLogoText" translatesAutoresizingMaskIntoConstraints="NO" id="PPX-Rz-LL0">
                                 <rect key="frame" x="137.66666666666666" y="54" width="100" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="cYu-XK-gxu"/>
@@ -67,6 +67,42 @@
                                     <segue destination="4eq-Id-h8l" kind="show" identifier="toProfileSegue" id="lYe-g1-6Ij"/>
                                 </connections>
                             </button>
+                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zHA-9B-EOR" customClass="HorizontalDial" customModule="reCap" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="102" width="375" height="75"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="cLg-Oz-nw7"/>
+                                    <constraint firstAttribute="height" constant="75" id="n7k-Rj-liO"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="cLg-Oz-nw7"/>
+                                        <exclude reference="n7k-Rj-liO"/>
+                                    </mask>
+                                </variation>
+                                <variation key="widthClass=compact">
+                                    <mask key="constraints">
+                                        <exclude reference="cLg-Oz-nw7"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=compact-widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="cLg-Oz-nw7"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="n7k-Rj-liO"/>
+                                    </mask>
+                                </variation>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="180°" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vc6-hV-6ru">
+                                <rect key="frame" x="0.66666666666665719" y="169" width="375" height="25"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                                <color key="shadowColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <size key="shadowOffset" width="0.0" height="1"/>
+                            </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5ki-EW-e73">
                                 <rect key="frame" x="285" y="54" width="40" height="40"/>
                                 <constraints>
@@ -148,11 +184,15 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                                 <color key="shadowColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <size key="shadowOffset" width="0.0" height="1"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="vc6-hV-6ru" firstAttribute="top" secondItem="zHA-9B-EOR" secondAttribute="bottom" constant="-8" id="0KA-xA-cy7"/>
                             <constraint firstAttribute="bottom" secondItem="zzR-PA-LKL" secondAttribute="bottom" id="16e-CY-YcQ"/>
+                            <constraint firstItem="h5t-gw-Uin" firstAttribute="trailing" secondItem="zHA-9B-EOR" secondAttribute="trailing" id="4K4-va-k4n"/>
+                            <constraint firstItem="zHA-9B-EOR" firstAttribute="top" secondItem="PPX-Rz-LL0" secondAttribute="bottom" constant="8" id="5rO-If-LMi"/>
                             <constraint firstItem="FOv-tB-rnB" firstAttribute="leading" secondItem="h5t-gw-Uin" secondAttribute="leading" constant="40" id="6sR-H0-8bj"/>
                             <constraint firstItem="zzR-PA-LKL" firstAttribute="leading" secondItem="Ili-fW-OPC" secondAttribute="leading" id="8bH-Xj-eGN"/>
                             <constraint firstItem="gc9-NS-DgZ" firstAttribute="trailing" secondItem="h5t-gw-Uin" secondAttribute="trailing" id="8iY-dD-ljB"/>
@@ -165,12 +205,15 @@
                             <constraint firstItem="5ki-EW-e73" firstAttribute="bottom" secondItem="PPX-Rz-LL0" secondAttribute="bottom" id="Ii0-Pp-HQb"/>
                             <constraint firstItem="H1a-lg-RtO" firstAttribute="centerX" secondItem="oeN-Wr-Wxk" secondAttribute="centerX" id="P36-oL-X3d"/>
                             <constraint firstItem="oeN-Wr-Wxk" firstAttribute="top" secondItem="H1a-lg-RtO" secondAttribute="bottom" id="QP3-ia-aUc"/>
+                            <constraint firstItem="vc6-hV-6ru" firstAttribute="width" secondItem="zHA-9B-EOR" secondAttribute="width" id="QSW-wj-9oV"/>
                             <constraint firstItem="gc9-NS-DgZ" firstAttribute="top" secondItem="oeN-Wr-Wxk" secondAttribute="bottom" constant="8" id="STT-Pa-E9x"/>
                             <constraint firstItem="h5t-gw-Uin" firstAttribute="bottom" secondItem="Ykf-Zg-DG4" secondAttribute="bottom" constant="10" id="WP2-XP-ALb"/>
                             <constraint firstItem="oeN-Wr-Wxk" firstAttribute="leading" secondItem="h5t-gw-Uin" secondAttribute="leading" id="aLp-wS-ppy"/>
+                            <constraint firstItem="vc6-hV-6ru" firstAttribute="centerX" secondItem="zHA-9B-EOR" secondAttribute="centerX" id="aPl-Sx-fTv"/>
                             <constraint firstItem="Ykf-Zg-DG4" firstAttribute="centerX" secondItem="gc9-NS-DgZ" secondAttribute="centerX" id="dHL-l8-gIO"/>
                             <constraint firstItem="Nhb-hh-UNR" firstAttribute="centerY" secondItem="5ki-EW-e73" secondAttribute="centerY" id="hBX-Uo-VXz"/>
                             <constraint firstItem="h5t-gw-Uin" firstAttribute="bottom" secondItem="gc9-NS-DgZ" secondAttribute="bottom" id="j57-jJ-Bik"/>
+                            <constraint firstItem="zHA-9B-EOR" firstAttribute="leading" secondItem="h5t-gw-Uin" secondAttribute="leading" id="jor-89-uir"/>
                             <constraint firstItem="gc9-NS-DgZ" firstAttribute="top" secondItem="oeN-Wr-Wxk" secondAttribute="bottom" constant="8" id="kZc-hP-zoE"/>
                             <constraint firstItem="zzR-PA-LKL" firstAttribute="trailing" secondItem="Ili-fW-OPC" secondAttribute="trailing" id="m3u-5g-aFb"/>
                             <constraint firstItem="h5t-gw-Uin" firstAttribute="trailing" secondItem="oeN-Wr-Wxk" secondAttribute="trailing" id="nhS-Wg-zfN"/>
@@ -226,6 +269,8 @@
                     <connections>
                         <outlet property="albumOutlet" destination="Ykf-Zg-DG4" id="2Gt-1J-qQ2"/>
                         <outlet property="arrowOutlet" destination="H1a-lg-RtO" id="20g-fj-LYL"/>
+                        <outlet property="bearingOutlet" destination="vc6-hV-6ru" id="eJW-nf-MmJ"/>
+                        <outlet property="bearingPickerOutlet" destination="zHA-9B-EOR" id="TEN-sJ-mnd"/>
                         <outlet property="cameraButton" destination="gc9-NS-DgZ" id="69z-h1-QT4"/>
                         <outlet property="locationOutlet" destination="oeN-Wr-Wxk" id="zxR-Tq-8UW"/>
                         <outlet property="logoText" destination="PPX-Rz-LL0" id="IoR-CC-TNj"/>
@@ -393,7 +438,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="KA9-3D-ilP" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                        <rect key="frame" x="8" y="144.33333333333337" width="359" height="48.666666666666657"/>
+                                        <rect key="frame" x="8" y="126" width="359" height="31"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <fontDescription key="fontDescription" name="Triomphe-Light" family="Triomphe" pointSize="18"/>
@@ -435,7 +480,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="O7M-hv-fHF" customClass="SkyFloatingLabelTextField" customModule="SkyFloatingLabelTextField">
-                                        <rect key="frame" x="8" y="59.999999999999993" width="359" height="76.333333333333314"/>
+                                        <rect key="frame" x="8" y="60" width="359" height="58"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <fontDescription key="fontDescription" name="Triomphe-Bold" family="Triomphe" pointSize="36"/>
@@ -597,8 +642,8 @@
     </scenes>
     <resources>
         <image name="Album" width="256" height="256"/>
-        <image name="Logo Text Wide" width="682" height="233"/>
         <image name="NavArrowWhite" width="256" height="256"/>
+        <image name="NewLogoText" width="432" height="155"/>
         <image name="PreviousPhoto" width="320" height="320"/>
         <image name="imageView:Ccn-g8-PMf:image" width="682" height="682">
             <mutableData key="keyedArchiveRepresentation">

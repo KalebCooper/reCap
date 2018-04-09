@@ -17,6 +17,12 @@ extension Double
     {
         return Double(floor(pow(10.0, Double(places)) * self)/pow(10.0, Double(places)))
     }
+    
+    func round(nearest: Double) -> Double {
+        let n = 1 / nearest
+        let numberToRound = self * n
+        return numberToRound.rounded() / n
+    }
 }
 
 extension String

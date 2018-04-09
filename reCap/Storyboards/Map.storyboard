@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14105" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="mFD-Q5-NGh">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14111" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="mFD-Q5-NGh">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -41,7 +41,7 @@
                                     <constraint firstAttribute="width" secondItem="oMv-Hh-yoh" secondAttribute="height" multiplier="5:203" id="XFb-1F-3bJ"/>
                                 </constraints>
                             </view>
-                            <imageView userInteractionEnabled="NO" tag="10" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo Text Wide" translatesAutoresizingMaskIntoConstraints="NO" id="VUu-8o-Y32">
+                            <imageView userInteractionEnabled="NO" tag="10" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NewLogoText" translatesAutoresizingMaskIntoConstraints="NO" id="VUu-8o-Y32">
                                 <rect key="frame" x="137.66666666666666" y="52" width="100" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="dQK-10-wcG"/>
@@ -204,6 +204,6 @@
     <resources>
         <image name="CenterChallengeIcon" width="150" height="150"/>
         <image name="Challenges" width="512" height="512"/>
-        <image name="Logo Text Wide" width="682" height="233"/>
+        <image name="NewLogoText" width="432" height="155"/>
     </resources>
 </document>

@@ -17,6 +17,7 @@
 		345FB83920363BE300C59FDB /* SignInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 345FB83820363BE300C59FDB /* SignInVC.swift */; };
 		347A06A4202A14BB00961024 /* SignInTransitionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347A06A3202A14BB00961024 /* SignInTransitionVC.swift */; };
 		347B20FE2058C935001B72A0 /* ChallengeViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 347B20FD2058C935001B72A0 /* ChallengeViewVC.swift */; };
+		3481AFA5207AF61F00939CC1 /* HorizontalDial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3481AFA4207AF61F00939CC1 /* HorizontalDial.swift */; };
 		34A7ACA8202787DA00ACFB12 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34A7ACA7202787DA00ACFB12 /* PageViewController.swift */; };
 		34A7ACB42027A4EB00ACFB12 /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34A7ACB32027A4EB00ACFB12 /* Map.storyboard */; };
 		34A7ACB62027A4F500ACFB12 /* Camera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 34A7ACB52027A4F500ACFB12 /* Camera.storyboard */; };
@@ -115,6 +116,7 @@
 		345FB83820363BE300C59FDB /* SignInVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInVC.swift; sourceTree = "<group>"; };
 		347A06A3202A14BB00961024 /* SignInTransitionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInTransitionVC.swift; sourceTree = "<group>"; };
 		347B20FD2058C935001B72A0 /* ChallengeViewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeViewVC.swift; sourceTree = "<group>"; };
+		3481AFA4207AF61F00939CC1 /* HorizontalDial.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HorizontalDial.swift; path = "../../../../../../kaleb/Documents/SideProjects/reCap/reCap/View Controllers/HorizontalDial.swift"; sourceTree = "<group>"; };
 		348591F6203A23C4003E3704 /* Tutorial.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Tutorial.storyboard; path = ../../../../../../kaleb/Documents/SideProjects/reCap/reCap/Storyboards/Tutorial.storyboard; sourceTree = "<group>"; };
 		34A7ACA7202787DA00ACFB12 /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		34A7ACB32027A4EB00ACFB12 /* Map.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Map.storyboard; sourceTree = "<group>"; };
@@ -378,6 +380,7 @@
 		7A4D8A3820277DFF0043878E /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				3481AFA4207AF61F00939CC1 /* HorizontalDial.swift */,
 				7A5358A3205ADF150047F410 /* AppLoadingVC.swift */,
 				7AF10F502058A47B00019C70 /* ProfileMenuVC.swift */,
 				7AF359492038CDE500713EA3 /* SettingsVC.swift */,
@@ -764,6 +767,7 @@
 				7A4D8A46202780A00043878E /* RecentPicturesVC.swift in Sources */,
 				7A5878472030D22700F36A56 /* Extensions.swift in Sources */,
 				7A120DD12041F4B50003EE1F /* ImageButtonDelegate.swift in Sources */,
+				3481AFA5207AF61F00939CC1 /* HorizontalDial.swift in Sources */,
 				345FB83920363BE300C59FDB /* SignInVC.swift in Sources */,
 				7A5358B0205B77DE0047F410 /* MapVC.swift in Sources */,
 				347B20FE2058C935001B72A0 /* ChallengeViewVC.swift in Sources */,
@@ -957,10 +961,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6E7F0BE298641A4C1885D691 /* Pods-reCap.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = iOSAppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = CZ7R6F7L6H;
+				DEVELOPMENT_TEAM = VPT5835T5T;
 				INFOPLIST_FILE = reCap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Kaleb-Cooper-Team-Red.reCap";
@@ -974,10 +978,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FD711CD9070EBA00B0CC489C /* Pods-reCap.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = iOSAppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = CZ7R6F7L6H;
+				DEVELOPMENT_TEAM = VPT5835T5T;
 				INFOPLIST_FILE = reCap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Kaleb-Cooper-Team-Red.reCap";

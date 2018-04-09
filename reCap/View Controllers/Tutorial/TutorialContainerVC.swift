@@ -38,7 +38,7 @@ class TutorialContainerVC: UIViewController, SwiftyOnboardDelegate, SwiftyOnboar
                                    "Using reCapp for crowd sourcing lets us study our world better than ever before.",
                                    "Follow your fellow researchers and compete against others to contribute the most!",
                                    "See where people are contributing and get turn by turn navigation directions to any challenge you want!",
-                                   "see how our world is changing right before our eyes."
+                                   "See how our world is changing right before our eyes."
     ]
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -108,9 +108,6 @@ class TutorialContainerVC: UIViewController, SwiftyOnboardDelegate, SwiftyOnboar
             else {
                 print("Sending to Sign In")
                 UserDefaults.standard.set(true, forKey: "launchedBefore")
-//                let signInStoryboard = UIStoryboard(name: "SignIn", bundle: nil)
-//
-//                self.window?.rootViewController = signInStoryboard.instantiateInitialViewController()
                 
                 let storyboard = UIStoryboard(name: "SignIn", bundle: nil)
                 let controller = storyboard.instantiateInitialViewController()
@@ -184,7 +181,7 @@ class TutorialContainerVC: UIViewController, SwiftyOnboardDelegate, SwiftyOnboar
         overlay?.skip.addTarget(self, action: #selector(handleSkip), for: .touchUpInside)
         overlay?.buttonContinue.addTarget(self, action: #selector(handleContinue), for: .touchUpInside)
         overlay?.contentControl.numberOfPages = pageCount
-        overlay?.image.image = #imageLiteral(resourceName: "Logo Text Wide")
+        overlay?.image.image = #imageLiteral(resourceName: "NewLogoText")
         
         //Return the overlay view:
         return overlay
