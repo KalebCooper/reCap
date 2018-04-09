@@ -46,7 +46,7 @@ PODS:
     - GoogleToolboxForMac/Defines (= 2.1.3)
     - GoogleToolboxForMac/NSString+URLArguments (= 2.1.3)
   - GoogleToolboxForMac/NSString+URLArguments (2.1.3)
-  - GTMSessionFetcher/Core (1.1.14)
+  - GTMSessionFetcher/Core (1.1.15)
   - Hero (1.1.0)
   - IHKeyboardAvoiding (4.2)
   - leveldb-library (1.20)
@@ -55,10 +55,10 @@ PODS:
     - MapboxDirections.swift (~> 0.19.0)
     - MapboxMobileEvents (~> 0.3)
     - Turf (~> 0.0.4)
-  - MapboxDirections.swift (0.19.0):
+  - MapboxDirections.swift (0.19.1):
     - Polyline (~> 4.2)
   - MapboxGeocoder.swift (0.8.1)
-  - MapboxMobileEvents (0.3.1)
+  - MapboxMobileEvents (0.4.0)
   - MapboxNavigation (0.16.0):
     - Mapbox-iOS-SDK (~> 3.6)
     - MapboxCoreNavigation (= 0.16.0)
@@ -71,7 +71,7 @@ PODS:
     - nanopb/encode (= 0.3.8)
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
-  - Pageboy (2.4.0)
+  - Pageboy (2.5.0)
   - Polyline (4.2.0)
   - Realm (3.3.2):
     - Realm/Headers (= 3.3.2)
@@ -115,19 +115,19 @@ SPEC CHECKSUMS:
   FirebaseInstanceID: 8d20d890d65c917f9f7d9950b6e10a760ad34321
   FirebaseStorage: 9a863a2bb96c406958eeff7c2f1dfa9f44c44a13
   GoogleToolboxForMac: 2501e2ad72a52eb3dfe7bd9aee7dad11b858bd20
-  GTMSessionFetcher: 390ea358e5a0d0133153806f744662dad933d06b
+  GTMSessionFetcher: 5fa5b80fd20e439ef5f545fb2cb3ca6c6714caa2
   Hero: ce59e81c79390613d97b43da7179e2c5e1017e04
   IHKeyboardAvoiding: 9fbf816b7c3c84911964802ff110d12caf40ebef
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   Mapbox-iOS-SDK: 23ececda1d90c3b436b45e2c88e9677f025303c0
   MapboxCoreNavigation: 0ebb72a3253af35695f2b2bd7c919d67ad354fb5
-  MapboxDirections.swift: 28c683ee94b12c0da7849ec5e579150623180fee
+  MapboxDirections.swift: 3d902e3dc35f14cc6a322785e07f2ee6197237dc
   MapboxGeocoder.swift: 354fccd4834bae4c5b792428559eb87d994d2cf5
-  MapboxMobileEvents: 0f11c4ca8fed019926611a9486d414ad12bee2fa
+  MapboxMobileEvents: e71cf788a95fa0c01ad6ce17fd5efd13140af5ff
   MapboxNavigation: 6fc118df531264d75f6b22b459ed9271a941b0b7
   MapboxSpeech: 6cc9b3d53adc2988af3ebc704dd17907b84a3f9f
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
-  Pageboy: b04cee5c1315a865fb49321129d12635e8465144
+  Pageboy: 00985df8245ab2d4b4ef6959a0722d64b09aafee
   Polyline: 3d69f75bb136357e27291d439d0436c6ebda57a4
   Realm: d927fbf66df5532cfafc08afb5f7e53ded37b894
   RealmSwift: 4e903a494e05d866581d69ad6f7e7b879d446baf

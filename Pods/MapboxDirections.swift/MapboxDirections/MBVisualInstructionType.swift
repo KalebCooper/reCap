@@ -14,7 +14,7 @@ public enum VisualInstructionComponentType: Int, CustomStringConvertible {
     case delimiter
     
     /**
-     The component bears an exit number or the name of a place or street.
+     The component bears the name of a place or street.
      */
     case text
     
@@ -22,6 +22,18 @@ public enum VisualInstructionComponentType: Int, CustomStringConvertible {
      Component contains an image that should be rendered.
      */
     case image
+    
+    /**
+     The compoment contains the localized word for "exit".
+     
+     This component may appear before or after an `.exitNumber` component, depending on the language.
+     */
+    case exit
+    
+    /**
+     A component contains an exit number.
+     */
+    case exitCode
     
     public init?(description: String) {
         let type: VisualInstructionComponentType
@@ -32,6 +44,10 @@ public enum VisualInstructionComponentType: Int, CustomStringConvertible {
             type = .image
         case "text":
             type = .text
+        case "exit":
+            type = .exit
+        case "exit-number":
+            type = .exitCode
         default:
             return nil
         }
@@ -46,6 +62,10 @@ public enum VisualInstructionComponentType: Int, CustomStringConvertible {
             return "icon"
         case .text:
             return "text"
+        case .exit:
+            return "exit"
+        case .exitCode:
+            return "exit-number"
         }
     }
 }
