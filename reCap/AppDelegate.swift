@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //Database.database().isPersistenceEnabled = true
         UIApplication.shared.statusBarStyle = .lightContent
         
-        if FBDatabase.getSignedInUserID() != nil {
+        /*if FBDatabase.getSignedInUserID() != nil {
             // If a user is signed in
             FBDatabase.signInAutomaticUser(with_completion: {(id, error) in
                 if id != nil {
@@ -39,8 +39,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         else {
             self.setRootAsSignIn()
-        }
-        //self.setRootAsSignIn()
+        }*/
+        self.setRootAsSignIn()
         return true
     }
     
