@@ -106,6 +106,9 @@ class SignInVC: UIViewController, UITextFieldDelegate {
                 }
                 else {
                     print("Logged in user")
+                    let activeUser = user!
+                    let config = SyncConfiguration(user: activeUser, realmURL: RealmConstants.REALM_URL)
+                    Realm.Configuration.defaultConfiguration = Realm.Configuration(syncConfiguration: config, objectTypes:[UserData.self, Picture.self])
                 }
             })
         }

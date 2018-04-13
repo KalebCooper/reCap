@@ -40,6 +40,8 @@
 		7A3B468E202AB407001D19B6 /* SignIn.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A3B468D202AB407001D19B6 /* SignIn.storyboard */; };
 		7A3C5538207AFDDD009A8036 /* HorizontalDial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3C5537207AFDDD009A8036 /* HorizontalDial.swift */; };
 		7A3C553A207B029D009A8036 /* RealmConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3C5539207B029D009A8036 /* RealmConstants.swift */; };
+		7A3C553C207B0949009A8036 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3C553B207B0949009A8036 /* UserData.swift */; };
+		7A3C553E207B1082009A8036 /* Picture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3C553D207B1082009A8036 /* Picture.swift */; };
 		7A3C60112027B99A00ABC9E1 /* PageView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A3C60102027B99A00ABC9E1 /* PageView.storyboard */; };
 		7A3C60132027BAE300ABC9E1 /* MapContainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3C60122027BAE200ABC9E1 /* MapContainerVC.swift */; };
 		7A4D8A3A20277E4F0043878E /* CreateAccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4D8A3920277E4F0043878E /* CreateAccountVC.swift */; };
@@ -139,6 +141,8 @@
 		7A3B468D202AB407001D19B6 /* SignIn.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SignIn.storyboard; sourceTree = "<group>"; };
 		7A3C5537207AFDDD009A8036 /* HorizontalDial.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorizontalDial.swift; sourceTree = "<group>"; };
 		7A3C5539207B029D009A8036 /* RealmConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmConstants.swift; sourceTree = "<group>"; };
+		7A3C553B207B0949009A8036 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
+		7A3C553D207B1082009A8036 /* Picture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Picture.swift; sourceTree = "<group>"; };
 		7A3C60102027B99A00ABC9E1 /* PageView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PageView.storyboard; sourceTree = "<group>"; };
 		7A3C60122027BAE200ABC9E1 /* MapContainerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapContainerVC.swift; sourceTree = "<group>"; };
 		7A4D8A3920277E4F0043878E /* CreateAccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountVC.swift; sourceTree = "<group>"; };
@@ -428,6 +432,8 @@
 				7A4D8A55202783090043878E /* User.swift */,
 				7A4D8A57202789AA0043878E /* PictureData.swift */,
 				7AF3594D2038FB6700713EA3 /* Username.swift */,
+				7A3C553B207B0949009A8036 /* UserData.swift */,
+				7A3C553D207B1082009A8036 /* Picture.swift */,
 			);
 			path = "Custom Objects";
 			sourceTree = "<group>";
@@ -786,6 +792,7 @@
 				7A0162CA204E3D91000539E0 /* DateGetter.swift in Sources */,
 				347A06A4202A14BB00961024 /* SignInTransitionVC.swift in Sources */,
 				34B359A920583F9B0093D02C /* CustomOverlay.swift in Sources */,
+				7A3C553E207B1082009A8036 /* Picture.swift in Sources */,
 				7AF3594A2038CDE500713EA3 /* SettingsVC.swift in Sources */,
 				7AF10F5A2059EEF500019C70 /* Sort.swift in Sources */,
 				7A5358A4205ADF150047F410 /* AppLoadingVC.swift in Sources */,
@@ -797,6 +804,7 @@
 				7A3B468C202AB3FC001D19B6 /* EdgeShadowLayer.swift in Sources */,
 				7AF10F512058A47B00019C70 /* ProfileMenuVC.swift in Sources */,
 				7AF10F532058A48B00019C70 /* TutorialContainerVC.swift in Sources */,
+				7A3C553C207B0949009A8036 /* UserData.swift in Sources */,
 				7AE375672037C6DA00CA9946 /* FBDatabase.swift in Sources */,
 				7A5358AD205B6EE10047F410 /* TutorialTransitionVC.swift in Sources */,
 				7AF3594E2038FB6700713EA3 /* Username.swift in Sources */,

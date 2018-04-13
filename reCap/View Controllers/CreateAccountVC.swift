@@ -74,14 +74,26 @@ class CreateAccountVC: UITableViewController, UIImagePickerControllerDelegate, U
             print("Creating user")
             FCAlertView.displayAlert(title: "Creating Account...", message: "", buttonTitle: "", type: "progress", view: self, blur: true)
             let creds = SyncCredentials.usernamePassword(username: username, password: password, register: true)
-            SyncUser.logIn(with: creds, server: RealmConstants.AUTH_URL, onCompletion: {(user, err) in
+            let c = SyncCredentials.nickname(username, isAdmin: true)
+            SyncUser.logIn(with: c, server: RealmConstants.AUTH_URL, onCompletion: {(user, err) in
                 if let error = err {
                     print(error.localizedDescription)
                     self.displayErrorAlert(message: error.localizedDescription)
                 }
                 else {
-                    let activeUser = user
                     print("Created user and logged in")
+                    let activeUser = user!
+                    let config = SyncConfiguration(user: activeUser, realmURL: RealmConstants.REALM_URL)
+                    Realm.Configuration.defaultConfiguration = Realm.Configuration(syncConfiguration: config, objectTypes:[UserData.self, Picture.self])
+                    let realm = try! Realm(configuration: Realm.Configuration(syncConfiguration: config, objectTypes:[UserData.self]))
+                    let userData = UserData(id: activeUser.identity!, name: name, username: username)
+                    let item = Item()
+                    item.body = "Hello"
+                    print("user id is \(userData.id)")
+                    try! realm.write {
+                        realm.add(userData)
+                        print("Wrote user to realm")
+                    }
                 }
             })
         }

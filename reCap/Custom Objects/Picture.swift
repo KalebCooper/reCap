@@ -1,4 +1,12 @@
 //
+//  Picture.swift
+//  reCap
+//
+//  Created by Jackson Delametter on 4/8/18.
+//  Copyright © 2018 Kaleb Cooper. All rights reserved.
+//
+
+//
 //  PictureData.swift
 //  reCap
 //
@@ -7,7 +15,7 @@
 //
 import Foundation
 import RealmSwift
-class PictureData {
+class Picture: Object {
     
     // MARK: - Constants
     static let ORIENTATION_PORTRAIT = 0
@@ -17,7 +25,8 @@ class PictureData {
     
     // MARK: - Properties
     var name: String!
-    var description: String!
+    var info: String!
+    //var description: String!
     var id: String!
     var gpsCoordinates: [Double]!
     var orientation: Int!
@@ -29,7 +38,7 @@ class PictureData {
     var isMostRecentPicture: Bool!
     
     // MARK: - Initializers
-    public init(name: String!, description: String, gpsCoordinates: [Double], orientation: Int, owner: String, time: String, locationName: String, id: String, isRootPicture: Bool, groupID: String, isMostRecentPicture: Bool) {
+    /*public init(name: String!, description: String, gpsCoordinates: [Double], orientation: Int, owner: String, time: String, locationName: String, id: String, isRootPicture: Bool, groupID: String, isMostRecentPicture: Bool) {
         self.name = name
         self.description = description
         self.gpsCoordinates = []
@@ -42,7 +51,7 @@ class PictureData {
         self.isRootPicture = isRootPicture
         self.groupID = groupID
         self.isMostRecentPicture = isMostRecentPicture
-    }
+    }*/
     
     /*
      Returns an id for picture data
@@ -53,3 +62,4 @@ class PictureData {
         return id
     }
 }
+
