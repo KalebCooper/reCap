@@ -686,48 +686,24 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        /*let ref = Database.database().reference()
-        let id = FBDatabase.getSignedInUserID()!
-        FBDatabase.getUserOnce(with_id: id, ref: ref, with_completion: {(user) in
-            if let activeUser = user {
-                self.user = activeUser
-                self.setupProfileImage()
-                self.setupActiveChallengeData()
-                self.setupUserLocation()
-                self.setupPreviousPicture()
-                self.setupLocation()
-                print("Got user in camera container vc")
-                DispatchQueue.main.asyncAfter(deadline: .now()) {
-                    if self.videoPreviewLayer != nil {
-                        self.setupOrientation()
-                        if self.session?.inputs.count == 0 {
-                            print("TESTING CAMERA")
-                            self.setupCamera(clear: false)
-                        }
-                        self.locationManager.startUpdatingHeading()
-                        print("Camera Session Resuming")
-                    }
+        //self.user = activeUser
+        //self.setupProfileImage()
+        //self.setupActiveChallengeData()
+        //self.setupUserLocation()
+        //self.setupPreviousPicture()
+        self.setupLocation()
+        print("Got user in camera container vc")
+        DispatchQueue.main.asyncAfter(deadline: .now()) {
+            if self.videoPreviewLayer != nil {
+                self.setupOrientation()
+                if self.session?.inputs.count == 0 {
+                    print("TESTING CAMERA")
+                    self.setupCamera(clear: false)
                 }
+                self.locationManager.startUpdatingHeading()
+                print("Camera Session Resuming")
             }
-            else {
-                print("Did not get active user in Camera container")
-            }
-        })*/
-        
-        setup()
-        /*if self.user != nil {
-            DispatchQueue.main.asyncAfter(deadline: .now()) {
-                if self.videoPreviewLayer != nil {
-                    self.setupOrientation()
-                    if self.session?.inputs.count == 0 {
-                        print("TESTING CAMERA")
-                        self.setupCamera(clear: false)
-                    }
-                    self.locationManager.startUpdatingHeading()
-                    print("Camera Session Resuming")
-                }
-            }
-        }*/
+        }
     }
     
     private func setup() {
