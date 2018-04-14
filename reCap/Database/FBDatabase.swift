@@ -496,7 +496,7 @@ class FBDatabase {
     /*
      Puts a profile image in the database
      */
-    class func addProfilePicture(with_image image: UIImage, for_user user: User, with_completion completion: @escaping (_ error: String?) -> ()) {
+    class func addProfilePicture(with_image image: UIImage, for_user user: UserData, with_completion completion: @escaping (_ error: String?) -> ()) {
         let storageRef = Storage.storage().reference(forURL: "gs://recap-78bda.appspot.com").child(PROFILE_PICTURE_NODE).child(user.id)
         savePicture(storageRef: storageRef, image: image, completion: completion)
     }

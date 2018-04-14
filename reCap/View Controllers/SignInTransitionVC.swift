@@ -14,9 +14,7 @@ class SignInTransitionVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         createGradientLayer()
-        
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
             
             self.performSegue(withIdentifier: "SignInTransition", sender: self)

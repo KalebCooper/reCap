@@ -26,13 +26,14 @@ class CreateAccountVC: UITableViewController, UIImagePickerControllerDelegate, U
     
     // MARK: - Properties
     var gradientLayer: CAGradientLayer!
+    var pickedImageUrl: URL!
     
     // MARK: - View Controller Methods
 
     override func viewDidLoad() {
         super.viewDidLoad()
         let duration: TimeInterval = TimeInterval(exactly: 0.5)!
-        
+        signInAdmin()
         setup()
         
         // Do any additional setup after loading the view.
@@ -72,102 +73,51 @@ class CreateAccountVC: UITableViewController, UIImagePickerControllerDelegate, U
         if let name = fullNameOutlet.text, let username = usernameOutlet.text, let password = passwordOutlet.text, let verifyPass = verifyPasswordOutlet.text, let image = imageView.image, password == verifyPass {
             // If all fields are filled out
             print("Creating user")
-            FCAlertView.displayAlert(title: "Creating Account...", message: "", buttonTitle: "", type: "progress", view: self, blur: true)
+            let alert = FCAlertView()
+            alert.makeAlertTypeProgress()
+            alert.dismissOnOutsideTouch = false
+            let titleString = "Creating account"
+            alert.showAlert(inView: self,
+                            withTitle: titleString,
+                            withSubtitle: nil,
+                            withCustomImage: nil,
+                            withDoneButtonTitle: nil,
+                            andButtons: nil)
             let creds = SyncCredentials.usernamePassword(username: username, password: password, register: true)
-            let c = SyncCredentials.nickname(username, isAdmin: true)
-            SyncUser.logIn(with: c, server: RealmConstants.AUTH_URL, onCompletion: {(user, err) in
+            SyncUser.logIn(with: creds, server: RealmConstants.AUTH_URL, onCompletion: {(user, err) in
                 if let error = err {
                     print(error.localizedDescription)
+                    alert.dismiss()
                     self.displayErrorAlert(message: error.localizedDescription)
                 }
                 else {
                     print("Created user and logged in")
+                    alert.dismiss()
                     let activeUser = user!
                     let config = SyncConfiguration(user: activeUser, realmURL: RealmConstants.REALM_URL)
                     Realm.Configuration.defaultConfiguration = Realm.Configuration(syncConfiguration: config, objectTypes:[UserData.self, Picture.self])
-                    let realm = try! Realm(configuration: Realm.Configuration(syncConfiguration: config, objectTypes:[UserData.self]))
+                    let realm = try! Realm()
                     let userData = UserData(id: activeUser.identity!, name: name, username: username)
-                    let item = Item()
-                    item.body = "Hello"
                     print("user id is \(userData.id)")
                     try! realm.write {
                         realm.add(userData)
                         print("Wrote user to realm")
                     }
-                }
-            })
-        }
-        else {
-            print("Fill out all fields")
-            displayErrorAlert(message: "Please fill out all fields.")
-        }
-        
-        /*if let name = fullNameOutlet.text, let email = emailOutlet.text, let username = usernameOutlet.text, let password = passwordOutlet.text, let verifyPass = verifyPasswordOutlet.text, let image = imageView.image, password == verifyPass {
-            // If all fields are filled out
-            print("Creating user")
-            
-            
-            FCAlertView.displayAlert(title: "Creating Account...", message: "", buttonTitle: "", type: "progress", view: self, blur: true)
-            
-            FBDatabase.createUserAuth(email: email, password: password, with_completion: {(id, error) in
-                if let activeID = id {
-                    print("Got id in SignIn VC")
-                    let user = User(id: activeID, name: name, email: email, username: username, state: "state", country: "country")
-                    FBDatabase.setAutomaticSignIn(with_email: email, with_password: password, with_id: activeID)
-                    let usernameObj = Username(username: username, email: email, id: id!)
-                    FBDatabase.addProfilePicture(with_image: image, for_user: user, with_completion: {(error) in
-                        if let actualError = error {
-                            // An error occured
-                            print("Did not write profile picture in database")
-                            print(actualError)
-                            self.displayErrorAlert(message: actualError)
+                    FBDatabase.addProfilePicture(with_image: image, for_user: userData, with_completion: {(err) in
+                        if let error = err {
+                            print(error)
                         }
                         else {
-                            // No error occured
-                            print("Added profile picture to database")
-                            FBDatabase.addUpdateUsername(with_username: usernameObj, with_completion:{(error) in
-                                if let actualError = error {
-                                    // Error occured
-                                    print("Did not write Username to database")
-                                    print(actualError)
-                                    self.displayErrorAlert(message: actualError)
-                                }
-                                else {
-                                    // No error
-                                    print("Wrote Username in database")
-                                }
-                            })
-                            FBDatabase.addUpdateUser(user: user, with_completion: {(error) in
-                                if let realError = error {
-                                    // Error
-                                    print("Did not write user to database in SignInVC")
-                                    print(realError)
-                                    self.displayErrorAlert(message: realError)
-                                }
-                                else {
-                                    // No error
-                                    print("Wrote user to database in SignInVC")
-                                }
-                            })
-                            
-                            
-                            let pageViewVC = UIStoryboard(name: "PageView", bundle: nil).instantiateInitialViewController() as! PageViewController
-                            pageViewVC.user = user
-                            self.present(pageViewVC, animated: true, completion: nil)
+                            print("Added profile picture")
                         }
                     })
                 }
-                else {
-                    print("Did not get id in SignIn VC")
-                    print(error!)
-                    self.displayErrorAlert(message: error!)
-                }
             })
         }
         else {
             print("Fill out all fields")
             displayErrorAlert(message: "Please fill out all fields.")
-        }*/
+        }
     }
     
     
@@ -291,6 +241,28 @@ class CreateAccountVC: UITableViewController, UIImagePickerControllerDelegate, U
                         withCustomImage: nil,
                         withDoneButtonTitle: "Try Again",
                         andButtons: nil)
+    }
+    
+    // MARK: - Misc
+    private func signInAdmin(){
+        let creds = SyncCredentials.nickname("reCapp-admin", isAdmin: true)
+        SyncUser.logIn(with: creds, server: RealmConstants.AUTH_URL, onCompletion: {(user, err) in
+            if let error = err {
+                print(error.localizedDescription)
+            }
+            else {
+                let admin = user!
+                let permissions = SyncPermission(realmPath: "/reCapp", identity: "*", accessLevel: .write)
+                admin.apply(permissions, callback: {(err) in
+                    if let error = err {
+                        print(error.localizedDescription)
+                    }
+                    else {
+                        print("Wrote permissions")
+                    }
+                })
+            }
+        })
     }
     
     

@@ -29,7 +29,6 @@ class SignInVC: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         setup()
         print("Sign in loaded")
-        //createUser()
         // Do any additional setup after loading the view.
     }
     
@@ -95,8 +94,19 @@ class SignInVC: UIViewController, UITextFieldDelegate {
      is pressed
      */
     @IBAction func loginInPressed(_ sender: Any) {
-        if let username = emailUsernameOutlet.text, let password = passwordOutlet.text, username != "", password != "nil" {
+        if let username = emailUsernameOutlet.text, let password = passwordOutlet.text, username != "", password != "" {
             // If fields are filled out
+            let alert = FCAlertView()
+            alert.makeAlertTypeProgress()
+            alert.dismissOnOutsideTouch = false
+            let titleString = "Signing In"
+            
+            alert.showAlert(inView: self,
+                            withTitle: titleString,
+                            withSubtitle: nil,
+                            withCustomImage: nil,
+                            withDoneButtonTitle: nil,
+                            andButtons: nil)
             let creds = SyncCredentials.usernamePassword(username: username, password: password)
             SyncUser.logIn(with: creds, server: RealmConstants.AUTH_URL, onCompletion: {(user, err) in
                 if let error = err {
@@ -106,6 +116,7 @@ class SignInVC: UIViewController, UITextFieldDelegate {
                 }
                 else {
                     print("Logged in user")
+                    alert.dismiss()
                     let activeUser = user!
                     let config = SyncConfiguration(user: activeUser, realmURL: RealmConstants.REALM_URL)
                     Realm.Configuration.defaultConfiguration = Realm.Configuration(syncConfiguration: config, objectTypes:[UserData.self, Picture.self])
@@ -117,78 +128,8 @@ class SignInVC: UIViewController, UITextFieldDelegate {
             print("All Fields are not filled out")
             displayErrorAlert(message: "All Fields are not filled out")
         }
-        
-        /*if let emailUsername = emailUsernameOutlet.text, let password = passwordOutlet.text, emailUsername != "", password != "nil" {
-            // If fields are filled out
-            if emailUsername.contains("@") {
-                // User has entered an email
-                loginWithEmail(email: emailUsername, password: password)
-            }
-            else {
-                // User has entered a username
-                loginWithUsername(username: emailUsername, password: password)
-            }
-        }
-        else {
-            // Not all fields are filled out
-            print("All Fields are not filled out")
-            displayErrorAlert(message: "All Fields are not filled out")
-        }*/
+    }
 
-    }
-    
-    /*
-     Used when user enters username
-    */
-    private func loginWithUsername(username: String, password: String) {
-        let ref = Database.database().reference()
-        FBDatabase.getUsername(with_ref: ref, with_username: username, with_completion: {(username) in
-            if let usernameObj = username {
-                print("Got username in Sign In VC")
-                let email = usernameObj.email
-                self.loginWithEmail(email: email, password: password)
-            }
-            else {
-                print("Didnt get username in Sign In VC")
-                self.displayErrorAlert(message: "Username or Password is not recognized.")
-            }
-        })
-    }
-    
-    /*
-     Used when user enters email
-    */
-    private func loginWithEmail(email: String, password: String) {
-        let alert = FCAlertView()
-        alert.makeAlertTypeProgress()
-        alert.dismissOnOutsideTouch = false
-        
-        
-        let titleString = "Signing In"
-        
-        alert.showAlert(inView: self,
-                        withTitle: titleString,
-                        withSubtitle: nil,
-                        withCustomImage: nil,
-                        withDoneButtonTitle: nil,
-                        andButtons: nil)
-        FBDatabase.signInUser(email: email, password: password, with_completion: {(id, error) in
-            if let activeID = id {
-                print("Got user id in sign in VC")
-                FBDatabase.setAutomaticSignIn(with_email: email, with_password: password, with_id: activeID)
-                //let ref = Database.database().reference()
-                alert.dismiss()
-                self.performSegue(withIdentifier: "PageViewSegue", sender: nil)
-            }
-            else {
-                print("Did not get user id in sign in VC")
-                print(error!)
-                self.displayErrorAlert(message: error!)
-            }
-        })
-    }
-    
-    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool
     {
         // Try to find next responder
