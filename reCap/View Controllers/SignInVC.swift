@@ -173,12 +173,7 @@ class SignInVC: UIViewController, UITextFieldDelegate {
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
      // Get the new view controller using segue.destinationViewController.
      // Pass the selected object to the new view controller.
-        let segueID = segue.identifier
-        if segueID == SignInVC.PAGE_VIEW_SEGUE {
-            //let user = sender as! User
-            //let pageViewNav = segue.destination as! UINavigationController
-            //let pageViewVC = pageViewNav.topViewController as! PageViewController
-        }
+        
      }
     
     

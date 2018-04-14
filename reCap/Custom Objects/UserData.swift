@@ -13,23 +13,22 @@ class UserData: Object {
     // MARK: - Properties
     @objc dynamic var id: String!
     @objc dynamic var name: String!
-    @objc dynamic var username: String!
     @objc dynamic var points = 0
-    //var pictures: [String]
     var pictures = List<Picture>()
-    //var email: String!
-    //var friendsID: [String]!
+    @objc dynamic var email: String!
     var friends = List<UserData>()
-    //var activeChallengeID: String!
-    //var activeChallengePoints: String!
-    //var state: String!
-    //var country: String!
+    var activeChallengeID: String!
+    var activeChallengePoints: Int!
+    @objc dynamic var state: String!
+    @objc dynamic var country: String!
     
-    convenience required init(id: String, name: String, username: String) {
+    convenience required init(id: String, name: String, email: String) {
         self.init()
         self.id = id
         self.name = name
-        self.username = username
+        self.email = email
+        self.activeChallengeID = ""
+        self.activeChallengePoints = 0
     }
     
     override static func primaryKey() -> String? {

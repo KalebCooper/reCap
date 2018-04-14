@@ -8,18 +8,14 @@
 
 import UIKit
 import Pageboy
-import Firebase
 
 class PageViewController: PageboyViewController, PageboyViewControllerDataSource {
     
     // MARK: - Properties
-    var user: User!
     private var viewControllersArray: [UIViewController]!
     private var mapVC: MapContainerVC!
     private var cameraVC: CameraContainerVC!
     private var leaderboardsVC: LeaderboardsFriendsVC!
-    private var ref: DatabaseReference!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,7 +47,7 @@ class PageViewController: PageboyViewController, PageboyViewControllerDataSource
     }
     
     func defaultPage(for pageboyViewController: PageboyViewController) -> PageboyViewController.Page? {
-        return PageboyViewController.Page.at(index: 1)
+        return PageboyViewController.Page.at(index: 0)
     }
     
     

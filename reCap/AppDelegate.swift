@@ -40,6 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         else {
             self.setRootAsSignIn()
         }*/
+        makeRealmPublic()
         self.setRootAsSignIn()
         return true
     }
@@ -52,7 +53,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 print("Got user in app delegate")
                 let pageViewStoryboard = UIStoryboard(name: "PageView", bundle: nil)
                 let pageViewVC = pageViewStoryboard.instantiateInitialViewController() as! PageViewController
-                pageViewVC.user = activeUser
+                //pageViewVC.user = activeUser
                 self.window?.rootViewController = pageViewVC
             }
             else {
@@ -76,6 +77,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         
+    }
+    
+    private func makeRealmPublic() {
+        let creds = SyncCredentials.nickname("reCapp-admin", isAdmin: true)
+        SyncUser.logIn(with: creds, server: RealmConstants.AUTH_URL, onCompletion: {(user, err) in
+            if let error = err {
+                print(error.localizedDescription)
+            }
+            else {
+                let admin = user!
+                let permissions = SyncPermission(realmPath: "/reCapp", identity: "*", accessLevel: .write)
+                admin.apply(permissions, callback: {(err) in
+                    if let error = err {
+                        print(error.localizedDescription)
+                    }
+                    else {
+                        print("Wrote permissions")
+                        admin.logOut()
+                    }
+                })
+            }
+        })
     }
     
     /// set orientations you want to be allowed in this property by default

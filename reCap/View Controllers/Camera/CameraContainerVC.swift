@@ -15,7 +15,7 @@ import Firebase
 import CoreLocation
 import CoreMotion
 import FCAlertView
-
+import RealmSwift
 
 class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavigationControllerDelegate, CLLocationManagerDelegate, HorizontalDialDelegate {
     
@@ -39,6 +39,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     private var isAtChallengeLocation: Bool!
     let locationManager = CLLocationManager()
     var destinationAngle: Double? = 0
+    private var userData: UserData!
     
     var profileImage: UIImage?
     
@@ -165,7 +166,6 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         setupCamera(clear: false)
         configureButton()
         setupGestures()
-        
         setupDial()
     }
     
@@ -252,7 +252,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     
     func setupProfileImage() {
         
-        FBDatabase.getProfilePicture(for_user: user!, with_progress: { (progress, total)  in
+        FBDatabase.getProfilePicture(for_user: userData, with_progress: { (progress, total)  in
             
         }, with_completion: { (image) in
             if let actualImage = image {
@@ -269,66 +269,47 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
             self.profileOutlet.clipsToBounds = true
             self.profileOutlet.contentMode = .scaleAspectFill
         })
-        self.setupActiveChallengeData()
+        //self.setupActiveChallengeData()
     }
     
     
     func setupUserLocation() {
-        
-        
-        
         Locator.requestAuthorizationIfNeeded(.always)
-
         let request = Locator.subscribePosition(accuracy: .room, onUpdate: { location in
-            
             print("Getting user location")
-                                    
             let lat = location.coordinate.latitude.truncate(places: 6)
             let long = location.coordinate.longitude.truncate(places: 6)
-        
             let location = CLLocation(latitude: lat, longitude: long)
-            
             let geocoder = CLGeocoder()
-            
-            
             geocoder.reverseGeocodeLocation(location) { (placemarks, error) in
-                
                 print("Getting geocoder")
-                
                 if error == nil {
-                    self.user.state = placemarks?.last?.administrativeArea
-                    self.user.country = placemarks?.last?.country
+                    self.userData.state = placemarks?.last?.administrativeArea
+                    self.userData.country = placemarks?.last?.country
                 }
                 else {
-                    self.user.state = ""
-                    self.user.country = ""
+                    self.userData.state = ""
+                    self.userData.country = ""
                 }
                 
                 let when = DispatchTime.now() + 5 // change 2 to desired number of seconds
                 DispatchQueue.main.asyncAfter(deadline: when) {
-                    FBDatabase.addUpdateUser(user: self.user, with_completion: { (error) in
-                    })
+                    /*FBDatabase.addUpdateUser(user: self.user, with_completion: { (error) in
+                    })*/
                     
                     geocoder.cancelGeocode()
                 }
                 
             }
-        
-        
-        
         }, onFail: { (error, last) in
             print(error)
             print("DID NOT GET LOCATION")
-            
         })
         
         let when = DispatchTime.now() + 0.5 // change 2 to desired number of seconds
         DispatchQueue.main.asyncAfter(deadline: when) {
             Locator.stopRequest(request)
         }
-        
-        
-
     }
     
     /*
@@ -337,9 +318,8 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
      of the gps coordinates when on the exact location
      */
     private func setupActiveChallengeData() {
-        let id = self.user.activeChallengeID
+        let id = self.userData.activeChallengeID
         if id != "" {
-            
             // If there is an actual id and not just the place holder
             let ref = Database.database().reference()
             FBDatabase.getPictureData(id: id!, ref: ref, with_completion: {(pictureData) in
@@ -562,33 +542,20 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     
     
     func setupLocation() {
-        
-        
-        
-        
-        
         Locator.requestAuthorizationIfNeeded(.always)
         Locator.requestAuthorizationIfNeeded(.whenInUse)
-        
-        
         // Azimuth
         if (CLLocationManager.headingAvailable()) {
             locationManager.headingFilter = 1
             locationManager.startUpdatingHeading()
             locationManager.delegate = self
         }
-        
-        
-        Locator.subscribePosition(accuracy: .room,
-                                  onUpdate: { location in
-                                    
+        Locator.subscribePosition(accuracy: .room, onUpdate: { location in
                                     let lat = location.coordinate.latitude.truncate(places: 6)
                                     let long = location.coordinate.longitude.truncate(places: 6)
                                 
-                                    
-                                    
-                                    if self.user.activeChallengeID != "" {
-                                        let activeChallengeID = String(self.user.activeChallengeID)
+                                    /*if self.userData.activeChallengeID != "" {
+                                        let activeChallengeID = String(self.userData.activeChallengeID)
                                         var destination: CLLocation? = CLLocation(latitude: 0, longitude: 0)
                                         var angle: Double = 0
                                         
@@ -604,24 +571,16 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
                                                 self.previousOutlet.isEnabled = true
                                                 self.arrowOutlet.isHidden = false
                                                 self.destinationAngle = angle
-                                                
                                             }
-
                                         })
-                                        
-                                        
                                     }
                                     else {
                                         self.previousOutlet.isEnabled = false
                                         self.arrowOutlet.isHidden = true
-                                    }
-                                    
-                                    
-                                    
+                                    }*/
+            
                                     let gpsString = String.convertGPSCoordinatesToOutput(coordinates: [lat, long])
-                                    
                                     self.locationOutlet.text = gpsString
-                                    
                                     self.latToPass = lat
                                     self.longToPass = long
                                     self.locationToPass = gpsString
@@ -651,13 +610,9 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
                                         self.isAtChallengeLocation = false
                                     }
                                     
-        },
-                                  onFail: { (error, last) in
-                                    
-                                    print(error)
-        }
-        )
-        
+                },onFail: { (error, last) in
+                    print(error)
+                })
     }
     
     
@@ -731,7 +686,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        let ref = Database.database().reference()
+        /*let ref = Database.database().reference()
         let id = FBDatabase.getSignedInUserID()!
         FBDatabase.getUserOnce(with_id: id, ref: ref, with_completion: {(user) in
             if let activeUser = user {
@@ -757,8 +712,9 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
             else {
                 print("Did not get active user in Camera container")
             }
-        })
+        })*/
         
+        setup()
         /*if self.user != nil {
             DispatchQueue.main.asyncAfter(deadline: .now()) {
                 if self.videoPreviewLayer != nil {
@@ -772,6 +728,17 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
                 }
             }
         }*/
+    }
+    
+    private func setup() {
+        let realm = try! Realm()
+        self.userData = realm.object(ofType: UserData.self, forPrimaryKey: UserData.primaryKey())
+        if self.userData != nil {
+            // Got user data from realm database
+            setupProfileImage()
+            setupUserLocation()
+            setupLocation()
+        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {

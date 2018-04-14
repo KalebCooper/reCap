@@ -543,6 +543,11 @@ class FBDatabase {
         getPictureFromDatabase(storageRef: storageRef, with_progress: progress, with_completion: completion)
     }
     
+    class func getProfilePicture(for_user user: UserData, with_progress progress: @escaping (_ progress: Int64, _ total: Int64) -> (), with_completion completion: @escaping (_ image: UIImage?) -> ()) {
+        let storageRef = Storage.storage().reference(forURL: "gs://recap-78bda.appspot.com").child(PROFILE_PICTURE_NODE).child(user.id)
+        getPictureFromDatabase(storageRef: storageRef, with_progress: progress, with_completion: completion)
+    }
+    
     /*
      Gets picture from DB
      */

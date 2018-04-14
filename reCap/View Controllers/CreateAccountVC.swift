@@ -36,9 +36,7 @@ class CreateAccountVC: UITableViewController, UIImagePickerControllerDelegate, U
     override func viewDidLoad() {
         super.viewDidLoad()
         let duration: TimeInterval = TimeInterval(exactly: 0.5)!
-        signInAdmin()
         setup()
-        
         // Do any additional setup after loading the view.
     }
     
@@ -73,7 +71,7 @@ class CreateAccountVC: UITableViewController, UIImagePickerControllerDelegate, U
     // MARK: - Outlet Actions
     
     @IBAction func addPressed(_ sender: Any) {
-        if let name = fullNameOutlet.text, let username = usernameOutlet.text, let password = passwordOutlet.text, let verifyPass = verifyPasswordOutlet.text, let image = imageView.image, password == verifyPass {
+        if let name = fullNameOutlet.text, let email = emailOutlet.text, let password = passwordOutlet.text, let verifyPass = verifyPasswordOutlet.text, let image = imageView.image, password == verifyPass {
             // If all fields are filled out
             print("Creating user")
             let alert = FCAlertView()
@@ -86,7 +84,7 @@ class CreateAccountVC: UITableViewController, UIImagePickerControllerDelegate, U
                             withCustomImage: nil,
                             withDoneButtonTitle: nil,
                             andButtons: nil)
-            let creds = SyncCredentials.usernamePassword(username: username, password: password, register: true)
+            let creds = SyncCredentials.usernamePassword(username: email, password: password, register: true)
             SyncUser.logIn(with: creds, server: RealmConstants.AUTH_URL, onCompletion: {(user, err) in
                 if let error = err {
                     print(error.localizedDescription)
@@ -100,7 +98,7 @@ class CreateAccountVC: UITableViewController, UIImagePickerControllerDelegate, U
                     let config = SyncConfiguration(user: activeUser, realmURL: RealmConstants.REALM_URL)
                     Realm.Configuration.defaultConfiguration = Realm.Configuration(syncConfiguration: config, objectTypes:[UserData.self, Picture.self])
                     let realm = try! Realm()
-                    let userData = UserData(id: activeUser.identity!, name: name, username: username)
+                    let userData = UserData(id: activeUser.identity!, name: name, email: email)
                     print("user id is \(userData.id)")
                     try! realm.write {
                         realm.add(userData)
@@ -246,29 +244,6 @@ class CreateAccountVC: UITableViewController, UIImagePickerControllerDelegate, U
                         withDoneButtonTitle: "Try Again",
                         andButtons: nil)
     }
-    
-    // MARK: - Misc
-    private func signInAdmin(){
-        let creds = SyncCredentials.nickname("reCapp-admin", isAdmin: true)
-        SyncUser.logIn(with: creds, server: RealmConstants.AUTH_URL, onCompletion: {(user, err) in
-            if let error = err {
-                print(error.localizedDescription)
-            }
-            else {
-                let admin = user!
-                let permissions = SyncPermission(realmPath: "/reCapp", identity: "*", accessLevel: .write)
-                admin.apply(permissions, callback: {(err) in
-                    if let error = err {
-                        print(error.localizedDescription)
-                    }
-                    else {
-                        print("Wrote permissions")
-                    }
-                })
-            }
-        })
-    }
-    
     
     // MARK: - Navigation
 
