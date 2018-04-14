@@ -24,49 +24,20 @@ class PageViewController: PageboyViewController, PageboyViewControllerDataSource
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewControllers()
-        /*if user != nil {
-            setupViewControllers()
-            //setupUserListener()
-        }*/
     }
     
     private func setupViewControllers() {
         let mapStoryboard = UIStoryboard(name: "Map", bundle: Bundle.main)
         let cameraStoryboard = UIStoryboard(name: "Camera", bundle: Bundle.main)
         let leaderboardsStoryboard = UIStoryboard(name: "LeaderboardsFriends", bundle: Bundle.main)
-        
         mapVC = mapStoryboard.instantiateViewController(withIdentifier: "MapContainerVC") as! MapContainerVC
         let cameraNav = cameraStoryboard.instantiateViewController(withIdentifier: "CameraNav") as! UINavigationController
-        cameraVC = cameraNav.topViewController as! CameraContainerVC
         let leaderboardsNav = leaderboardsStoryboard.instantiateViewController(withIdentifier: "LeaderboardsFriendsNav") as! UINavigationController
         leaderboardsVC = leaderboardsNav.topViewController as! LeaderboardsFriendsVC
-        
-        //mapVC.user = self.user
-        //cameraVC.user = self.user
-        //leaderboardsVC.user = self.user
         leaderboardsVC.mode = LeaderboardsFriendsVC.LEADERBOARD_MODE
-        self.viewControllersArray = [mapVC, cameraNav, leaderboardsNav]
-        //self.viewControllersArray = [cameraNav, leaderboardsNav]
+        self.viewControllersArray = [cameraNav]
         self.dataSource = self
     }
-    
-    private func setupUserListener() {
-        ref = Database.database().reference()
-        let id = FBDatabase.getSignedInUserID()!
-        FBDatabase.getUser(with_id: id, ref: ref, with_completion: {(user) in
-            if let activeUser = user {
-                //self.cameraVC.user = activeUser
-                //self.cameraVC.userUpdated()
-                //self.mapVC.user = activeUser
-                //self.leaderboardsVC.user = activeUser
-                print("Got updated user in Page View Controller")
-            }
-            else {
-                print("Did not get update user in Page View Controller")
-            }
-        })
-    }
-    
     
     //Pageboy Datasource Functions
     

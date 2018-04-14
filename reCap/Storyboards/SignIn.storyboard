@@ -28,7 +28,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BbG-DW-KEz">
-                                <rect key="frame" x="8" y="449" width="359" height="48"/>
+                                <rect key="frame" x="8" y="459.33333333333331" width="359" height="40"/>
                                 <fontDescription key="fontDescription" name="Triomphe-Bold" family="Triomphe" pointSize="24"/>
                                 <state key="normal" title="Log In">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -41,7 +41,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dHh-eP-Ouv">
-                                <rect key="frame" x="8" y="745" width="359" height="33"/>
+                                <rect key="frame" x="8" y="749" width="359" height="29"/>
                                 <fontDescription key="fontDescription" name="Triomphe-Light" family="Triomphe" pointSize="14"/>
                                 <state key="normal" title="Don't have an account? Create one">
                                     <color key="titleColor" white="1" alpha="0.75346779336734693" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -51,7 +51,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5oT-Ia-d59">
-                                <rect key="frame" x="8" y="709" width="359" height="33"/>
+                                <rect key="frame" x="8" y="717" width="359" height="29"/>
                                 <fontDescription key="fontDescription" name="Triomphe-Light" family="Triomphe" pointSize="14"/>
                                 <state key="normal" title="New to reCapp? Learn More">
                                     <color key="titleColor" white="1" alpha="0.75105628188775508" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -127,7 +127,7 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="zPy-fa-acs" customClass="SkyFloatingLabelTextFieldWithIcon" customModule="SkyFloatingLabelTextField">
-                                <rect key="frame" x="8" y="401" width="359" height="40"/>
+                                <rect key="frame" x="8" y="401" width="359" height="50.333333333333314"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <fontDescription key="fontDescription" name="Triomphe-Bold" family="Triomphe" pointSize="24"/>

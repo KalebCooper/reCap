@@ -67,7 +67,6 @@
 		7A58785E20310A0100F36A56 /* CreateAccount.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A58785D20310A0100F36A56 /* CreateAccount.storyboard */; };
 		7AA8EE8C2054AD3F0043B73C /* ChallengeView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AA8EE8B2054AD3F0043B73C /* ChallengeView.storyboard */; };
 		7AA8EE922055A5000043B73C /* ImageCreateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA8EE912055A5000043B73C /* ImageCreateVC.swift */; };
-		7AB6994020819FEE0022F5CC /* album.png in Resources */ = {isa = PBXBuildFile; fileRef = 7AB6993F20819FEE0022F5CC /* album.png */; };
 		7ABF80CE203A63F800BCE787 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7ABF80CD203A63F800BCE787 /* Settings.storyboard */; };
 		7ABF80D0203A64D300BCE787 /* Photo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7ABF80CF203A64D300BCE787 /* Photo.storyboard */; };
 		7AE3755F2037C56000CA9946 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AE3755E2037C56000CA9946 /* Launch Screen.storyboard */; };
@@ -169,7 +168,6 @@
 		7A58785D20310A0100F36A56 /* CreateAccount.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CreateAccount.storyboard; sourceTree = "<group>"; };
 		7AA8EE8B2054AD3F0043B73C /* ChallengeView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ChallengeView.storyboard; sourceTree = "<group>"; };
 		7AA8EE912055A5000043B73C /* ImageCreateVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCreateVC.swift; sourceTree = "<group>"; };
-		7AB6993F20819FEE0022F5CC /* album.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = album.png; sourceTree = "<group>"; };
 		7AB6A13E203E68EA00933F30 /* ImageConfirmVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageConfirmVC.swift; sourceTree = "<group>"; };
 		7AB6A140203E68F700933F30 /* ImageCreateVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCreateVC.swift; sourceTree = "<group>"; };
 		7ABF80CD203A63F800BCE787 /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
@@ -259,7 +257,6 @@
 		344C93E820226E280025E4C5 /* reCap */ = {
 			isa = PBXGroup;
 			children = (
-				7AB6993F20819FEE0022F5CC /* album.png */,
 				7AF10F582059EED500019C70 /* Sorting */,
 				7A0162C8204E3D6D000539E0 /* Getter Classes */,
 				7AE3755D2037C51D00CA9946 /* Custom Fonts */,
@@ -630,7 +627,6 @@
 				344C93EF20226E280025E4C5 /* Main.storyboard in Resources */,
 				7A5878512030D25900F36A56 /* triomphe-italic-autoinstr.ttf in Resources */,
 				7A58784F2030D25900F36A56 /* triomphe-bold-autoinstr.ttf in Resources */,
-				7AB6994020819FEE0022F5CC /* album.png in Resources */,
 				7A120DC7203E6EB10003EE1F /* Tutorial.storyboard in Resources */,
 				7ABF80CE203A63F800BCE787 /* Settings.storyboard in Resources */,
 			);
@@ -660,9 +656,6 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-reCap/Pods-reCap-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/AWSCognito/AWSCognito.framework",
-				"${BUILT_PRODUCTS_DIR}/AWSCore/AWSCore.framework",
-				"${BUILT_PRODUCTS_DIR}/AWSS3/AWSS3.framework",
 				"${BUILT_PRODUCTS_DIR}/ClusterKit/ClusterKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FCAlertView/FCAlertView.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
@@ -692,9 +685,6 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSCognito.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSCore.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSS3.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ClusterKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FCAlertView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",

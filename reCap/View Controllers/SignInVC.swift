@@ -23,6 +23,9 @@ class SignInVC: UIViewController, UITextFieldDelegate {
     // MARK: - Properties
     var gradientLayer: CAGradientLayer!
     
+    // MARK: - Constants
+    private static let PAGE_VIEW_SEGUE = "PageViewSegue"
+    
     // MARK: - View Controller Methods
     
     override func viewDidLoad() {
@@ -120,6 +123,7 @@ class SignInVC: UIViewController, UITextFieldDelegate {
                     let activeUser = user!
                     let config = SyncConfiguration(user: activeUser, realmURL: RealmConstants.REALM_URL)
                     Realm.Configuration.defaultConfiguration = Realm.Configuration(syncConfiguration: config, objectTypes:[UserData.self, Picture.self])
+                    self.performSegue(withIdentifier: SignInVC.PAGE_VIEW_SEGUE, sender: nil)
                 }
             })
         }
@@ -170,11 +174,10 @@ class SignInVC: UIViewController, UITextFieldDelegate {
      // Get the new view controller using segue.destinationViewController.
      // Pass the selected object to the new view controller.
         let segueID = segue.identifier
-        if segueID == "PageViewSegue" {
+        if segueID == SignInVC.PAGE_VIEW_SEGUE {
             //let user = sender as! User
             //let pageViewNav = segue.destination as! UINavigationController
             //let pageViewVC = pageViewNav.topViewController as! PageViewController
-            let pageViewVC = segue.destination as! PageViewController
         }
      }
     

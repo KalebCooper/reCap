@@ -1,9 +1,4 @@
 PODS:
-  - AWSCognito (2.6.14):
-    - AWSCore (= 2.6.14)
-  - AWSCore (2.6.14)
-  - AWSS3 (2.6.14):
-    - AWSCore (= 2.6.14)
   - ClusterKit/Core (0.3.3)
   - ClusterKit/MapKit (0.3.3):
     - ClusterKit/Core
@@ -92,9 +87,6 @@ PODS:
   - Turf (0.0.4)
 
 DEPENDENCIES:
-  - AWSCognito
-  - AWSCore
-  - AWSS3
   - ClusterKit/MapKit
   - FCAlertView
   - Firebase/Auth
@@ -113,9 +105,6 @@ DEPENDENCIES:
   - SwiftyOnboard
 
 SPEC CHECKSUMS:
-  AWSCognito: 12fcffc5751f65a39a65dbb9ab413134fd580cfb
-  AWSCore: 8c883c2623d314dd82cca3809527784e1d1a02e5
-  AWSS3: a8cf89448c74637e34c46839ce5b5f7850f206e6
   ClusterKit: 52177be19bda5d9c09cb172e61842185268e6b5c
   FCAlertView: fdddd63381898c1d1a5a20c9f084fbd2c6d12f8b
   Firebase: cc13dfab1038c8b45d7903e01fc690451d6d0b24
@@ -149,6 +138,6 @@ SPEC CHECKSUMS:
   SwiftyOnboard: 8dec41d4725b3e6ebcae276dd206d7f74c1b7f61
   Turf: 6c169618fa671e3f8a7b764b5b3332053ad6110e
 
-PODFILE CHECKSUM: 2b322846ea4faaf8c6ff58550eddbe45875882ce
+PODFILE CHECKSUM: 5be8a12ac94bbea4a736958c83df5ecde886dc0d
 
 COCOAPODS: 1.4.0

@@ -22,9 +22,6 @@ target 'reCap' do
   pod 'SwiftyOnboard'
   pod 'FCAlertView'
   pod  'RealmSwift'
-  pod 'AWSS3'
-  pod 'AWSCore'
-  pod 'AWSCognito'
 
   target 'reCapTests' do
     inherit! :search_paths

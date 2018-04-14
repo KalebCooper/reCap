@@ -28,6 +28,9 @@ class CreateAccountVC: UITableViewController, UIImagePickerControllerDelegate, U
     var gradientLayer: CAGradientLayer!
     var pickedImageUrl: URL!
     
+    // MARK: - Contansts
+    private static let PAGE_VIEW_SEGUE = "PageViewSegue"
+    
     // MARK: - View Controller Methods
 
     override func viewDidLoad() {
@@ -111,6 +114,7 @@ class CreateAccountVC: UITableViewController, UIImagePickerControllerDelegate, U
                             print("Added profile picture")
                         }
                     })
+                    self.performSegue(withIdentifier: CreateAccountVC.PAGE_VIEW_SEGUE, sender: nil)
                 }
             })
         }
