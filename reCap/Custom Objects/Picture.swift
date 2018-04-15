@@ -24,28 +24,29 @@ class Picture: Object {
     static let LATTITUDE_INDEX = 0
     
     // MARK: - Properties
-    var name: String!
-    var info: String!
-    var id: String!
-    var gpsCoordinates: [Double]!
-    var orientation: Int!
-    var owner = LinkingObjects(fromType: UserData.self, property: "pictures")
-    //var owner: String!
-    var time: String!
-    var locationName: String!
-    var isRootPicture: Bool!
-    var isMostRecentPicture: Bool!
-    var groupID: String!
+    @objc dynamic var name: String!
+    @objc dynamic var info: String!
+    @objc dynamic var id: String!
+    @objc dynamic var latitude = 0.0
+    @objc dynamic var longitude = 0.0
+    @objc dynamic var orientation = Picture.ORIENTATION_PORTRAIT
+    @objc dynamic var owner: UserData!
+    @objc dynamic var time: String!
+    @objc dynamic var locationName: String!
+    @objc dynamic var isRootPicture = true
+    @objc dynamic var isMostRecentPicture = true
+    @objc dynamic var groupID: String!
     
     // MARK: - Initializers
-    convenience required init(name: String!, info: String, gpsCoordinates: [Double], orientation: Int, time: String, locationName: String, id: String, isRootPicture: Bool, groupID: String, isMostRecentPicture: Bool) {
+    convenience required init(name: String!, info: String, owner: UserData, latitude: Double, longitude: Double, orientation: Int, time: String, locationName: String, id: String, isRootPicture: Bool, groupID: String, isMostRecentPicture: Bool) {
         self.init()
         self.name = name
         self.info = info
-        self.gpsCoordinates = []
-        self.gpsCoordinates = gpsCoordinates
         self.orientation = orientation
+        self.latitude = latitude
+        self.longitude = longitude
         self.time = time
+        self.owner = owner
         self.locationName = locationName
         self.id = id
         self.isRootPicture = isRootPicture

@@ -70,16 +70,13 @@ class ImageCreateVC: UIViewController {
             isRoot = true
             groupID = pictureID
         }
-        let pictureData = Picture(name: self.titleOutlet.text, info: self.descriptionOutlet.text!, gpsCoordinates: [self.lat!, self.long!], orientation: PictureData.ORIENTATION_PORTRAIT, owner: self.user.id, time: currentDate, locationName: self.locationNameOutlet.text!, id: pictureID, isRootPicture: isRoot, groupID: groupID, isMostRecentPicture: true)
+        let pictureData = Picture(name: self.titleOutlet.text, info: self.descriptionOutlet.text!, owner: self.userData, latitude: self.lat!,longitude: self.long!,orientation: PictureData.ORIENTATION_PORTRAIT, time: currentDate, locationName: self.locationNameOutlet.text!, id: pictureID, isRootPicture: isRoot, groupID: groupID, isMostRecentPicture: true)
         try! realm.write {
             realm.add(pictureData)
             self.userData.pictures.append(pictureData)
             self.userData.activeChallengeID = ""
             self.userData.activeChallengePoints = 0
         }
-        /*user?.pictures.append(pictureData.id)
-        user?.activeChallengeID = ""
-        user?.activeChallengePoints = ""*/
         FBDatabase.addPicture(image: self.image!, pictureData: pictureData, with_completion: {(error) in
             if let actualError = error {
                 // There was an error
