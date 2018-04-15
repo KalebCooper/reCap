@@ -14,7 +14,7 @@ class UserData: Object {
     @objc dynamic var id: String!
     @objc dynamic var name: String!
     @objc dynamic var points = 0
-    var pictures = List<Picture>()
+    var pictures = List<PictureData>()
     @objc dynamic var email: String!
     var friends = List<UserData>()
     var activeChallengeID: String!

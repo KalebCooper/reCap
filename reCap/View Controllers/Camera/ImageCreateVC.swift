@@ -49,7 +49,7 @@ class ImageCreateVC: UIViewController {
         var isRoot: Bool!
         var groupID: String!
         let currentDate = Int((Date().timeIntervalSince1970)).description
-        let pictureID = Picture.createPictureDataID(userData: self.userData)
+        let pictureID = PictureData.createPictureDataID(userData: self.userData)
         let realm = try! Realm()
         
         FCAlertView.displayAlert(title: "Saving Picture...", message: "Adding your picture to the database...", buttonTitle: "", type: "progress", view: self)
@@ -70,7 +70,7 @@ class ImageCreateVC: UIViewController {
             isRoot = true
             groupID = pictureID
         }
-        let pictureData = Picture(name: self.titleOutlet.text, info: self.descriptionOutlet.text!, owner: self.userData, latitude: self.lat!,longitude: self.long!,orientation: PictureData.ORIENTATION_PORTRAIT, time: currentDate, locationName: self.locationNameOutlet.text!, id: pictureID, isRootPicture: isRoot, groupID: groupID, isMostRecentPicture: true)
+        let pictureData = PictureData(name: self.titleOutlet.text, info: self.descriptionOutlet.text!, owner: self.userData, latitude: self.lat!,longitude: self.long!,orientation: PictureData.ORIENTATION_PORTRAIT, time: currentDate, locationName: self.locationNameOutlet.text!, id: pictureID, isRootPicture: isRoot, groupID: groupID, isMostRecentPicture: true)
         try! realm.write {
             realm.add(pictureData)
             self.userData.pictures.append(pictureData)
@@ -108,7 +108,7 @@ class ImageCreateVC: UIViewController {
         
     }
     
-    private func displayPictureAdded(pictureData: Picture) {
+    private func displayPictureAdded(pictureData: PictureData) {
         
         let titleString = "Picture Added"
         let subtitleString = "Good Job! You now have added \(pictureData.name!) to your library"

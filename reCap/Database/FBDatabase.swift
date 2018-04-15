@@ -356,7 +356,7 @@ class FBDatabase {
     
 
     class func addUpdatePictureData(pictureData: PictureData, with_completion completion: @escaping (_ error: String?) -> ()) {
-        let jsonObject: [String : Any] = [PICTURE_DATA_NAME : pictureData.name, PICTURE_DESCRIPTION : pictureData.description, PICTURE_DATA_GPS : pictureData.gpsCoordinates, PICTURE_DATA_ORIENTATION : pictureData.orientation, PICTURE_DATA_OWNER : pictureData.owner, PICTURE_DATA_TIME : pictureData.time, PICTURE_DATA_LOCATION_NAME : pictureData.locationName, PICTURE_DATA_ID : pictureData.id, PICTURE_GROUP_ID : pictureData.groupID, PICTURE_IS_ROOT : pictureData.isRootPicture, PICTURE_DATA_IS_MOST_RECENT_PIC : pictureData.isMostRecentPicture]
+        /*let jsonObject: [String : Any] = [PICTURE_DATA_NAME : pictureData.name, PICTURE_DESCRIPTION : pictureData.description, PICTURE_DATA_GPS : pictureData.gpsCoordinates, PICTURE_DATA_ORIENTATION : pictureData.orientation, PICTURE_DATA_OWNER : pictureData.owner, PICTURE_DATA_TIME : pictureData.time, PICTURE_DATA_LOCATION_NAME : pictureData.locationName, PICTURE_DATA_ID : pictureData.id, PICTURE_GROUP_ID : pictureData.groupID, PICTURE_IS_ROOT : pictureData.isRootPicture, PICTURE_DATA_IS_MOST_RECENT_PIC : pictureData.isMostRecentPicture]
         let ref = Database.database().reference()
         ref.child(PICTURE_DATA_NODE).child(pictureData.id).setValue(jsonObject, withCompletionBlock: {(error, ref) in
             if let actualError = error {
@@ -367,27 +367,13 @@ class FBDatabase {
                 // No error
                 completion(nil)
             }
-        })
+        })*/
     }
     
     /*
      
     */
-    private class func parsePictureData(from_dictionary pictureDataNode: NSDictionary) ->PictureData {
-        let name = pictureDataNode[PICTURE_DATA_NAME] as! String
-        let description = pictureDataNode[PICTURE_DESCRIPTION] as! String
-        let coordinates = pictureDataNode[PICTURE_DATA_GPS] as! [Double]
-        let orientation = pictureDataNode[PICTURE_DATA_ORIENTATION] as! Int
-        let owner = pictureDataNode[PICTURE_DATA_OWNER] as! String
-        let time = pictureDataNode[PICTURE_DATA_TIME] as! String
-        let locationName = pictureDataNode[PICTURE_DATA_LOCATION_NAME] as! String
-        let id = pictureDataNode[PICTURE_DATA_ID] as! String
-        let groupID = pictureDataNode[PICTURE_GROUP_ID] as! String
-        let isRoot = pictureDataNode[PICTURE_IS_ROOT] as! Bool
-        let isMostRecentPicture = pictureDataNode[PICTURE_DATA_IS_MOST_RECENT_PIC] as! Bool
-        let pictureData = PictureData(name: name, description: description, gpsCoordinates: coordinates, orientation: orientation, owner: owner, time: time, locationName: locationName, id: id, isRootPicture: isRoot, groupID: groupID, isMostRecentPicture: isMostRecentPicture)
-        return pictureData
-    }
+    
     
     /*
      Gets picture data from database
@@ -395,7 +381,7 @@ class FBDatabase {
     class func getPictureData(id: String, ref: DatabaseReference, with_completion completion: @escaping (_ pictureData: PictureData?) -> ()) {
         ref.child(PICTURE_DATA_NODE).child(id).observeSingleEvent(of: .value, with: {(snapshot) in
             if let pictureDataNode = snapshot.value as? NSDictionary {
-                completion(parsePictureData(from_dictionary: pictureDataNode))
+                //completion(parsePictureData(from_dictionary: pictureDataNode))
             }
             else {
                 // Database does not have picture data in it
@@ -414,7 +400,7 @@ class FBDatabase {
             if let pictureDataNodes = snapshot.value as? NSDictionary {
                 for node in pictureDataNodes {
                     let pictureDataNode = node.value as! NSDictionary
-                    pictureDataList.append(parsePictureData(from_dictionary: pictureDataNode))
+                    //pictureDataList.append(parsePictureData(from_dictionary: pictureDataNode))
                 }
             }
             completion(pictureDataList)
@@ -430,7 +416,7 @@ class FBDatabase {
             if let pictureDataNodes = snapshot.value as? NSDictionary {
                 for node in pictureDataNodes {
                     let pictureDataNode = node.value as! NSDictionary
-                    pictureDataList.append(parsePictureData(from_dictionary: pictureDataNode))
+                    //pictureDataList.append(parsePictureData(from_dictionary: pictureDataNode))
                 }
             }
             completion(pictureDataList)
@@ -467,7 +453,7 @@ class FBDatabase {
             if let pictureDataNodes = snapshot.value as? NSDictionary {
                 for node in pictureDataNodes {
                     let pictureDataNode = node.value as! NSDictionary
-                    pictureDataList.append(parsePictureData(from_dictionary: pictureDataNode))
+                    //pictureDataList.append(parsePictureData(from_dictionary: pictureDataNode))
                 }
             }
             completion(pictureDataList)
@@ -484,12 +470,13 @@ class FBDatabase {
                 // Database has picture data in it
                 for node in pictureDataNodes {
                     let pictureDataNode = node.value as! NSDictionary
-                    pictureDataList.append(parsePictureData(from_dictionary: pictureDataNode))
+                    //pictureDataList.append(parsePictureData(from_dictionary: pictureDataNode))
                 }
             }
             completion(pictureDataList)
         })
     }
+    
     
     // MARK: - Storage Methods
     
@@ -505,11 +492,6 @@ class FBDatabase {
      Puts a picture in the database
      */
     class func addPicture(image: UIImage, pictureData: PictureData, with_completion completion: @escaping (_ error: String?) -> ()) {
-        let storageRef = Storage.storage().reference(forURL: "gs://recap-78bda.appspot.com").child(PICTURE_NODE).child(pictureData.id)
-        savePicture(storageRef: storageRef, image: image, completion: completion)
-    }
-    
-    class func addPicture(image: UIImage, pictureData: Picture, with_completion completion: @escaping (_ error: String?) -> ()) {
         let storageRef = Storage.storage().reference(forURL: "gs://recap-78bda.appspot.com").child(PICTURE_NODE).child(pictureData.id)
         savePicture(storageRef: storageRef, image: image, completion: completion)
     }

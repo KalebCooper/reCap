@@ -1,4 +1,12 @@
 //
+//  Picture.swift
+//  reCap
+//
+//  Created by Jackson Delametter on 4/8/18.
+//  Copyright © 2018 Kaleb Cooper. All rights reserved.
+//
+
+//
 //  PictureData.swift
 //  reCap
 //
@@ -7,7 +15,7 @@
 //
 import Foundation
 import RealmSwift
-class PictureData {
+class PictureData: Object {
     
     // MARK: - Constants
     static let ORIENTATION_PORTRAIT = 0
@@ -16,27 +24,29 @@ class PictureData {
     static let LATTITUDE_INDEX = 0
     
     // MARK: - Properties
-    var name: String!
-    var description: String!
-    var id: String!
-    var gpsCoordinates: [Double]!
-    var orientation: Int!
-    var owner: String!
-    var time: String!
-    var locationName: String!
-    var isRootPicture: Bool!
-    var groupID: String!
-    var isMostRecentPicture: Bool!
+    @objc dynamic var name: String!
+    @objc dynamic var info: String!
+    @objc dynamic var id: String!
+    @objc dynamic var latitude = 0.0
+    @objc dynamic var longitude = 0.0
+    @objc dynamic var orientation = PictureData.ORIENTATION_PORTRAIT
+    @objc dynamic var owner: UserData!
+    @objc dynamic var time: String!
+    @objc dynamic var locationName: String!
+    @objc dynamic var isRootPicture = true
+    @objc dynamic var isMostRecentPicture = true
+    @objc dynamic var groupID: String!
     
     // MARK: - Initializers
-    public init(name: String!, description: String, gpsCoordinates: [Double], orientation: Int, owner: String, time: String, locationName: String, id: String, isRootPicture: Bool, groupID: String, isMostRecentPicture: Bool) {
+    convenience required init(name: String!, info: String, owner: UserData, latitude: Double, longitude: Double, orientation: Int, time: String, locationName: String, id: String, isRootPicture: Bool, groupID: String, isMostRecentPicture: Bool) {
+        self.init()
         self.name = name
-        self.description = description
-        self.gpsCoordinates = []
-        self.gpsCoordinates = gpsCoordinates
+        self.info = info
         self.orientation = orientation
-        self.owner = owner
+        self.latitude = latitude
+        self.longitude = longitude
         self.time = time
+        self.owner = owner
         self.locationName = locationName
         self.id = id
         self.isRootPicture = isRootPicture
@@ -47,9 +57,11 @@ class PictureData {
     /*
      Returns an id for picture data
      */
-    class func createPictureDataID() -> String {
+    class func createPictureDataID(userData: UserData) -> String {
         var id = UUID().uuidString
+        id = id + userData.id
         id = id.replacingOccurrences(of: "-", with: "")
         return id
     }
 }
+

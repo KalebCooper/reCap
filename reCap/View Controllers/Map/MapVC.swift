@@ -72,8 +72,8 @@ class MapVC: UIViewController, MGLMapViewDelegate {
         
         if self.user.activeChallengeID != "" {
             FBDatabase.getPictureData(id: self.user.activeChallengeID, ref: ref) { (pictureData) in
-                let lat = pictureData?.gpsCoordinates[0]
-                let long = pictureData?.gpsCoordinates[1]
+                let lat = pictureData?.latitude
+                let long = pictureData?.longitude
                 let coordinate = CLLocationCoordinate2DMake(lat!, long!)
                 self.mapView.setCenter(coordinate, zoomLevel: self.mapView.zoomLevel, direction: 0, animated: true)
             }
@@ -198,7 +198,7 @@ class MapVC: UIViewController, MGLMapViewDelegate {
                 for rawPictureData in rawPictureDataArray {
                     
                     let pin = MGLPointAnnotation()
-                    pin.coordinate = CLLocationCoordinate2D(latitude: (rawPictureData.gpsCoordinates[0]), longitude: (rawPictureData.gpsCoordinates[1]))
+                    pin.coordinate = CLLocationCoordinate2D(latitude: (rawPictureData.latitude), longitude: (rawPictureData.longitude))
                     pin.title = rawPictureData.name
                     pin.subtitle = rawPictureData.locationName
                     
@@ -250,7 +250,7 @@ class MapVC: UIViewController, MGLMapViewDelegate {
             for picture in pictureDataArray {
                 
                 if picture.id == self.user.activeChallengeID {
-                    if (annotation.coordinate.latitude == picture.gpsCoordinates[0]) && annotation.coordinate.longitude == picture.gpsCoordinates[1] {
+                    if (annotation.coordinate.latitude == picture.latitude) && annotation.coordinate.longitude == picture.longitude {
                         annotationView!.backgroundColor = UIColor(red: 204/255, green: 51/255, blue: 51/255, alpha: 1.0)
                         return annotationView
                     }
@@ -341,7 +341,7 @@ class MapVC: UIViewController, MGLMapViewDelegate {
                 
                 for picture in pictureArray {
                     
-                    if (annotation.coordinate.latitude == picture.gpsCoordinates[0]) && annotation.coordinate.longitude == picture.gpsCoordinates[1] {
+                    if (annotation.coordinate.latitude == picture.latitude) && annotation.coordinate.longitude == picture.longitude {
                         self.addChallengeToUser(pictureData: picture)
                         
                         self.centerButton.isHidden = false
@@ -475,8 +475,8 @@ class MapVC: UIViewController, MGLMapViewDelegate {
             }
         })
         
-        let lat = pictureData.gpsCoordinates[0]
-        let long = pictureData.gpsCoordinates[1]
+        let lat = pictureData.latitude
+        let long = pictureData.longitude
         let coordinate = CLLocationCoordinate2DMake(lat, long)
         self.mapView.setCenter(coordinate, zoomLevel: self.mapView.zoomLevel, direction: 0, animated: true)
     }
@@ -497,7 +497,7 @@ class MapVC: UIViewController, MGLMapViewDelegate {
             //let destination = segue.destination as! ChallengeViewVC
             let pictureData = pictureDataToPass
             let picture = imageToPass
-            destination.pictureData = pictureData
+            //destination.pictureData = pictureData
             destination.image = picture
             print("Segue Done")
         }

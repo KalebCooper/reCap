@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import FCAlertView
+import RealmSwift
 
 class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICollectionViewDataSource, ImageButtonDelegate {
     
@@ -16,9 +17,12 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
     
     // MARK: - Properties
     private var tableSectionArray: [String]!
-    private var collectionDictionaryData: [String : [PictureData]]!
+    //private var collectionDictionaryData: [String : [PictureData]]!
+    private var collectionDictionaryData: [String : List<PictureData>]!
     private var photoLibChalReference: DatabaseReference!
     var user: User!
+    var userData: UserData!
+    var realm: Realm!
     var mode: Int!
     
     // MARK: - Constants
@@ -50,11 +54,12 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.realm = try! Realm()
         applyBlurEffect(image: #imageLiteral(resourceName: "Gradient"))
         tableSectionArray = []
         collectionDictionaryData = [:]
         if self.mode == PhotoLibChallengeVC.FRIENDS_PHOTO_LIB_MODE {
-            self.setupFriendsPicLib()
+            self.setupPhotoLib()
         }
         else  {
             let ref = Database.database().reference()
@@ -105,7 +110,7 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
 
     
     private func setupPhotoLib() {
-        let username = self.user.username!
+        /*let username = self.user.username!
         let ref = Database.database().reference()
         self.title = "\(username)'s Photos"
         self.tableView.allowsSelection = false
@@ -127,14 +132,37 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
                 }
             }
             self.tableView.reloadData()
-        })
+            
+        })*/
+        
+        let username = self.userData.name!
+        self.title = "\(username)'s Photos"
+        self.tableView.allowsSelection = false
+        let userPictures = self.userData.pictures
+        for pictureData in userPictures {
+            if pictureData.isMostRecentPicture {
+                // Only display photos that are the most recent
+                let location = pictureData.locationName
+                if !self.tableSectionArray.contains(location!) {
+                    // Location is not in the locations array
+                    // Add it to the array and initialize
+                    // an empty array for the key location
+                    self.tableSectionArray.append(location!)
+                    self.collectionDictionaryData[location!] = List<PictureData>()
+                }
+                let pictureDataArray = self.collectionDictionaryData[location!]!
+                pictureDataArray.append(pictureData)
+                self.collectionDictionaryData[location!] = pictureDataArray
+            }
+        }
+        self.tableView.reloadData()
     }
     
     /*
      Used to setup when viewing
      a friends photo library
      */
-    private func setupFriendsPicLib() {
+    /*private func setupFriendsPicLib() {
         let username = self.user.username!
         let ref = Database.database().reference()
         self.title = "\(username)'s Photos"
@@ -156,12 +184,12 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
             }
             self.tableView.reloadData()
         })
-    }
+    }*/
     
     private func setupChallenge() {
         self.title = "Challenges"
         self.dispatchGroup = DispatchGroup()
-        self.collectionDictionaryData = [PhotoLibChallengeVC.TAKE_PIC_FROM_RECENT : [], PhotoLibChallengeVC.TAKE_PIC_FROM_WEEK : [], PhotoLibChallengeVC.TAKE_PIC_FROM_MONTH : [], PhotoLibChallengeVC.TAKE_PIC_FROM_YEAR : []]
+        self.collectionDictionaryData = [PhotoLibChallengeVC.TAKE_PIC_FROM_RECENT : List<PictureData>(), PhotoLibChallengeVC.TAKE_PIC_FROM_WEEK : List<PictureData>(), PhotoLibChallengeVC.TAKE_PIC_FROM_MONTH : List<PictureData>(), PhotoLibChallengeVC.TAKE_PIC_FROM_YEAR : List<PictureData>()]
         var unsortedChallenges: [String : [PictureData]] = [PhotoLibChallengeVC.TAKE_PIC_FROM_RECENT : [], PhotoLibChallengeVC.TAKE_PIC_FROM_WEEK : [], PhotoLibChallengeVC.TAKE_PIC_FROM_MONTH : [], PhotoLibChallengeVC.TAKE_PIC_FROM_YEAR : []]
         self.tableView.allowsSelection = false
         let currentDate = Date()
@@ -201,7 +229,7 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
     
     private func runChallengeSortingThread(section: String, unsortedChallenges: [String : [PictureData]]) {
         DispatchQueue.global().async {
-            self.collectionDictionaryData[section] = Sort.SortPictureDataByDescendingOrder(dataList: unsortedChallenges[section]!)
+            //self.collectionDictionaryData[section] = Sort.SortPictureDataByDescendingOrder(dataList: unsortedChallenges[section]!)
             self.dispatchGroup.leave()
         }
     }
@@ -212,7 +240,7 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
         if mode == PhotoLibChallengeVC.CHALLENGE_MODE {
             let alert = UIAlertController(title: nil, message: "What would you like to do with this challenge?", preferredStyle: .actionSheet)
             let withoutNav = UIAlertAction(title: "Make Active", style: .default, handler: {(action) in
-                self.addChallengeToUser(pictureData: pictureData)
+                //self.addChallengeToUser(pictureData: pictureData)
                 self.navigationController?.dismiss(animated: true, completion: nil)
                 self.displaySuccessAlert(message: "You just set your active challenge! Make sure to navigate to the pin when you're ready to begin!")
             })
@@ -459,7 +487,7 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
             let infoArray = sender as! [Any]
             let pictureData = infoArray[PhotoLibChallengeVC.PHOTO_SEGUE_PICTURE_DATA_INDEX] as! PictureData
             let picture = infoArray[PhotoLibChallengeVC.PHOTO_SEGUE_PICTURE_INDEX] as! UIImage
-            photoView.pictureData = pictureData
+            //photoView.pictureData = pictureData
             photoView.image = picture
         }
         
@@ -472,7 +500,7 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
             let pictureData = infoArray[PhotoLibChallengeVC.PHOTO_SEGUE_PICTURE_DATA_INDEX] as! PictureData
             let picture = infoArray[PhotoLibChallengeVC.PHOTO_SEGUE_PICTURE_INDEX] as! UIImage
             print("Test")
-            destination.pictureData = pictureData
+            //destination.pictureData = pictureData
             destination.image = picture
             print("Segue Done")
         }

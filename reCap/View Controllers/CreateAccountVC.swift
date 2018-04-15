@@ -96,7 +96,7 @@ class CreateAccountVC: UITableViewController, UIImagePickerControllerDelegate, U
                     alert.dismiss()
                     let activeUser = user!
                     let config = SyncConfiguration(user: activeUser, realmURL: RealmConstants.REALM_URL)
-                    Realm.Configuration.defaultConfiguration = Realm.Configuration(syncConfiguration: config, objectTypes:[UserData.self, Picture.self])
+                    Realm.Configuration.defaultConfiguration = Realm.Configuration(syncConfiguration: config, objectTypes:[UserData.self, PictureData.self])
                     let realm = try! Realm()
                     let userData = UserData(id: activeUser.identity!, name: name, email: email)
                     print("user id is \(userData.id)")

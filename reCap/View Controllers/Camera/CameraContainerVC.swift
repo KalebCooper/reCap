@@ -588,8 +588,8 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
                                     self.locationToPass = gpsString
                                     if self.activeChallengePicData != nil {
                                         // There is a active challenge
-                                        let picLong = self.activeChallengePicData.gpsCoordinates[PictureData.LONGITUDE_INDEX]
-                                        let picLat = self.activeChallengePicData.gpsCoordinates[PictureData.LATTITUDE_INDEX]
+                                        let picLong = self.activeChallengePicData.longitude
+                                        let picLat = self.activeChallengePicData.latitude
                                         let longDiff = abs(picLong - long)
                                         let latDiff = abs(picLat - lat)
                                         
@@ -840,7 +840,8 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         else if segueID == "PhotoLibSegue" {
             let destination = segue.destination as! UINavigationController
             let photoLibVC = destination.topViewController as! PhotoLibChallengeVC
-            photoLibVC.user = self.user
+            //photoLibVC.user = self.user
+            photoLibVC.userData = self.userData
             photoLibVC.mode = PhotoLibChallengeVC.PHOTO_LIB_MODE
         }
         

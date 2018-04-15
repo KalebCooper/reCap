@@ -122,7 +122,7 @@ class SignInVC: UIViewController, UITextFieldDelegate {
                     alert.dismiss()
                     let activeUser = user!
                     let config = SyncConfiguration(user: activeUser, realmURL: RealmConstants.REALM_URL)
-                    Realm.Configuration.defaultConfiguration = Realm.Configuration(syncConfiguration: config, objectTypes:[UserData.self, Picture.self])
+                    Realm.Configuration.defaultConfiguration = Realm.Configuration(syncConfiguration: config, objectTypes:[UserData.self, PictureData.self])
                     self.performSegue(withIdentifier: SignInVC.PAGE_VIEW_SEGUE, sender: nil)
                 }
             })

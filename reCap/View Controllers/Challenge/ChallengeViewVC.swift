@@ -56,7 +56,7 @@ class ChallengeViewVC: UIViewController, UICollectionViewDelegate, UICollectionV
         self.navigationController?.toolbar.isHidden = false
         self.navigationController?.navigationBar.isHidden = true
         
-        locationOutlet.text = String.convertGPSCoordinatesToOutput(coordinates: pictureData.gpsCoordinates)
+        /*locationOutlet.text = String.convertGPSCoordinatesToOutput(coordinates: pictureData.gpsCoordinates)
         let coordinates = CLLocationCoordinate2D(latitude: pictureData.gpsCoordinates[0], longitude: pictureData.gpsCoordinates[1])
         Locator.location(fromCoordinates: coordinates, using: .apple, onSuccess: { places in
             print(places)
@@ -65,7 +65,7 @@ class ChallengeViewVC: UIViewController, UICollectionViewDelegate, UICollectionV
             print(err)
         }
         titleOutlet.text = pictureData.name
-        descriptionOutlet.text = pictureData.description
+        descriptionOutlet.text = pictureData.description*/
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -103,7 +103,7 @@ class ChallengeViewVC: UIViewController, UICollectionViewDelegate, UICollectionV
         FBDatabase.getPictureData(in_group: groupID!, ref: ref) { (array) in
             
             //Set all pictureData obtained to the
-            self.pictureArray = Sort.SortPictureDataByDescendingOrder(dataList: array)
+            //self.pictureArray = Sort.SortPictureDataByDescendingOrder(dataList: array)
             //self.pictureArray = array
             //TEMPORARY Reverse array to get then in order
             //self.pictureArray.reverse()
