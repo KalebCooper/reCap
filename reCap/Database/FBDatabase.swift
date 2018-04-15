@@ -509,6 +509,11 @@ class FBDatabase {
         savePicture(storageRef: storageRef, image: image, completion: completion)
     }
     
+    class func addPicture(image: UIImage, pictureData: Picture, with_completion completion: @escaping (_ error: String?) -> ()) {
+        let storageRef = Storage.storage().reference(forURL: "gs://recap-78bda.appspot.com").child(PICTURE_NODE).child(pictureData.id)
+        savePicture(storageRef: storageRef, image: image, completion: completion)
+    }
+    
     /*
      Saves the given image in the database
      */

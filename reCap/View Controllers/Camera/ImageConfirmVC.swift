@@ -18,6 +18,7 @@ class ImageConfirmVC: UIViewController {
     var isAtChallengeLocation: Bool!
     var previousPic: PictureData!
     var user: User!
+    var userData: UserData!
 
     @IBOutlet weak var imageView: UIImageView!
     @IBAction func cancelButton(_ sender: Any) {
@@ -81,7 +82,8 @@ class ImageConfirmVC: UIViewController {
             vc.lat = self.latToPass
             vc.long = self.longToPass
             vc.location = self.locationToPass
-            vc.user = self.user
+            //vc.user = self.user
+            vc.userData = self.userData
             vc.previousPic = self.previousPic
         }
     }

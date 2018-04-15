@@ -12,6 +12,7 @@ import Firebase
 import SwiftLocation
 import CoreLocation
 import FCAlertView
+import RealmSwift
 
 class ImageCreateVC: UIViewController {
     
@@ -22,6 +23,7 @@ class ImageCreateVC: UIViewController {
     var isAtChallengeLocation: Bool!
     var previousPic: PictureData!
     var user: User!
+    var userData: UserData!
     var challengePoints: String?
     
     @IBOutlet weak var imageBackground: UIImageView!
@@ -47,19 +49,19 @@ class ImageCreateVC: UIViewController {
         var isRoot: Bool!
         var groupID: String!
         let currentDate = Int((Date().timeIntervalSince1970)).description
-        let pictureID = PictureData.createPictureDataID()
+        let pictureID = Picture.createPictureDataID(userData: self.userData)
+        let realm = try! Realm()
         
         FCAlertView.displayAlert(title: "Saving Picture...", message: "Adding your picture to the database...", buttonTitle: "", type: "progress", view: self)
         
         if self.isAtChallengeLocation {
             // If the user took the picture at the challenge coordinates, there is an active challenge
-            self.user.points = self.user.points + Int(self.user.activeChallengePoints)!
+            try! realm.write {
+                self.userData.points = self.user.points + Int(self.user.activeChallengePoints)!
+                self.previousPic.isMostRecentPicture = false
+            }
             isRoot = false
             groupID = self.previousPic.groupID
-            self.previousPic.isMostRecentPicture = false
-            FBDatabase.addUpdatePictureData(pictureData: self.previousPic, with_completion: {(error) in
-                
-            })
             print("User earned \(self.user.activeChallengePoints) points")
             self.challengePoints = self.user.activeChallengePoints
         }
@@ -68,11 +70,16 @@ class ImageCreateVC: UIViewController {
             isRoot = true
             groupID = pictureID
         }
-        let pictureData = PictureData(name: self.titleOutlet.text, description: self.descriptionOutlet.text!, gpsCoordinates: [self.lat!, self.long!], orientation: PictureData.ORIENTATION_PORTRAIT, owner: self.user.id, time: currentDate, locationName: self.locationNameOutlet.text!, id: pictureID, isRootPicture: isRoot, groupID: groupID, isMostRecentPicture: true)
-        let user = self.user
-        user?.pictures.append(pictureData.id)
+        let pictureData = Picture(name: self.titleOutlet.text, info: self.descriptionOutlet.text!, gpsCoordinates: [self.lat!, self.long!], orientation: PictureData.ORIENTATION_PORTRAIT, owner: self.user.id, time: currentDate, locationName: self.locationNameOutlet.text!, id: pictureID, isRootPicture: isRoot, groupID: groupID, isMostRecentPicture: true)
+        try! realm.write {
+            realm.add(pictureData)
+            self.userData.pictures.append(pictureData)
+            self.userData.activeChallengeID = ""
+            self.userData.activeChallengePoints = 0
+        }
+        /*user?.pictures.append(pictureData.id)
         user?.activeChallengeID = ""
-        user?.activeChallengePoints = ""
+        user?.activeChallengePoints = ""*/
         FBDatabase.addPicture(image: self.image!, pictureData: pictureData, with_completion: {(error) in
             if let actualError = error {
                 // There was an error
@@ -86,31 +93,8 @@ class ImageCreateVC: UIViewController {
                 else {
                     self.displayPictureAdded(pictureData: pictureData)
                 }
-                FBDatabase.addUpdateUser(user: user!, with_completion: {(error) in
-                    if let actualError = error {
-                        print(actualError)
-                    }
-                    else {
-                        
-                        print("Added picture for user in ImageCreateVC")
-                        FBDatabase.addUpdatePictureData(pictureData: pictureData, with_completion: {(error) in
-                            if let actualError = error {
-                                // Error
-                                print(actualError)
-                            }
-                            else {
-                                // No error
-                                print("Added picture data for user in ImageCreateVC")
-                                print("Updated user in ImageCreate VC")
-                                self.navigationController?.setToolbarHidden(true, animated: true)
-                                self.navigationController?.popToRootViewController(animated: true)
-                            }
-                        })
-                        
-                        
-                    }
-                })
-                
+                self.navigationController?.setToolbarHidden(true, animated: true)
+                self.navigationController?.popToRootViewController(animated: true)
             }
         })
     }
@@ -127,7 +111,7 @@ class ImageCreateVC: UIViewController {
         
     }
     
-    private func displayPictureAdded(pictureData: PictureData) {
+    private func displayPictureAdded(pictureData: Picture) {
         
         let titleString = "Picture Added"
         let subtitleString = "Good Job! You now have added \(pictureData.name!) to your library"

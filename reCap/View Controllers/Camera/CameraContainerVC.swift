@@ -40,6 +40,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     let locationManager = CLLocationManager()
     var destinationAngle: Double? = 0
     private var userData: UserData!
+    private var realm: Realm!
     
     var profileImage: UIImage?
     
@@ -69,10 +70,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     
     
     @IBAction func buttonPressed(_ sender: Any) {
-        
         print("Button Pressed")
-        
-
         if cameraButton.layer.borderColor == UIColor.red.cgColor {
 
             FCAlertView.displayAlert(title: "Error", message: "Please make sure the camera is perpendicular to the ground.", buttonTitle: "Okay", type: "warning", view: self, blur: true)
@@ -284,12 +282,16 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
             geocoder.reverseGeocodeLocation(location) { (placemarks, error) in
                 print("Getting geocoder")
                 if error == nil {
-                    self.userData.state = placemarks?.last?.administrativeArea
-                    self.userData.country = placemarks?.last?.country
+                    try! self.realm.write {
+                        self.userData.state = placemarks?.last?.administrativeArea
+                        self.userData.country = placemarks?.last?.country
+                    }
                 }
                 else {
-                    self.userData.state = ""
-                    self.userData.country = ""
+                    try! self.realm.write {
+                        self.userData.state = ""
+                        self.userData.country = ""
+                    }
                 }
                 
                 let when = DispatchTime.now() + 5 // change 2 to desired number of seconds
@@ -686,12 +688,13 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        setup()
         //self.user = activeUser
         //self.setupProfileImage()
         //self.setupActiveChallengeData()
         //self.setupUserLocation()
         //self.setupPreviousPicture()
-        self.setupLocation()
+        /*self.setupLocation()
         print("Got user in camera container vc")
         DispatchQueue.main.asyncAfter(deadline: .now()) {
             if self.videoPreviewLayer != nil {
@@ -703,17 +706,32 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
                 self.locationManager.startUpdatingHeading()
                 print("Camera Session Resuming")
             }
-        }
+        }*/
     }
     
     private func setup() {
-        let realm = try! Realm()
-        self.userData = realm.object(ofType: UserData.self, forPrimaryKey: UserData.primaryKey())
+        self.realm = try! Realm()
+        self.userData = realm.object(ofType: UserData.self, forPrimaryKey: SyncUser.current?.identity!)
         if self.userData != nil {
             // Got user data from realm database
+            print("Got user data")
             setupProfileImage()
             setupUserLocation()
             setupLocation()
+        }
+        else {
+            print("Did not get user data")
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now()) {
+            if self.videoPreviewLayer != nil {
+                self.setupOrientation()
+                if self.session?.inputs.count == 0 {
+                    print("TESTING CAMERA")
+                    self.setupCamera(clear: false)
+                }
+                self.locationManager.startUpdatingHeading()
+                print("Camera Session Resuming")
+            }
         }
     }
     
@@ -810,7 +828,8 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
             vc.latToPass = self.latToPass
             vc.longToPass = self.longToPass
             vc.locationToPass = self.locationToPass
-            vc.user = self.user
+            //vc.user = self.user
+            vc.userData = self.userData
             vc.previousPic = self.activeChallengePicData
         }
         else if segueID == "toProfileSegue" {

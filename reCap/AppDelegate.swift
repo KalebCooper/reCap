@@ -94,7 +94,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     }
                     else {
                         print("Wrote permissions")
-                        admin.logOut()
+                        let users = SyncUser.all
+                        for user in users {
+                            // Logs all users out
+                            user.value.logOut()
+                        }
                     }
                 })
             }
