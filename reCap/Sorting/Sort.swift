@@ -46,8 +46,8 @@ class Sort {
             }
             let currentPictureData = pictureDataList[currentIndex]
             let nextPictureData = pictureDataList[currentIndex + 1]
-            let currentPicTime = Int(currentPictureData.time)!
-            let nextPicTime = Int(nextPictureData.time)!
+            let currentPicTime = currentPictureData.time
+            let nextPicTime = nextPictureData.time
             if currentPicTime < nextPicTime {
                 // Current index needs to be sorted, loop back through
                 pictureDataList[currentIndex] = nextPictureData

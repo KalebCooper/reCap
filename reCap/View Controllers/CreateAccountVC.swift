@@ -95,24 +95,43 @@ class CreateAccountVC: UITableViewController, UIImagePickerControllerDelegate, U
                     print("Created user and logged in")
                     alert.dismiss()
                     let activeUser = user!
-                    let config = SyncConfiguration(user: activeUser, realmURL: RealmConstants.REALM_URL)
-                    Realm.Configuration.defaultConfiguration = Realm.Configuration(syncConfiguration: config, objectTypes:[UserData.self, PictureData.self])
-                    let realm = try! Realm()
-                    let userData = UserData(id: activeUser.identity!, name: name, email: email)
-                    print("user id is \(userData.id)")
-                    try! realm.write {
-                        realm.add(userData)
-                        print("Wrote user to realm")
-                    }
-                    FBDatabase.addProfilePicture(with_image: image, for_user: userData, with_completion: {(err) in
+                    let adminCreds = SyncCredentials.nickname("reCapp-admin", isAdmin: true)
+                    SyncUser.logIn(with: adminCreds, server: RealmConstants.AUTH_URL, onCompletion: {(user, err) in
                         if let error = err {
-                            print(error)
+                            print(error.localizedDescription)
                         }
                         else {
-                            print("Added profile picture")
+                            let admin = user!
+                            let permissions = SyncPermission(realmPath: "/reCapp", identity: activeUser.identity!, accessLevel: .write)
+                            admin.apply(permissions, callback: {(err) in
+                                if let error = err {
+                                    print(error.localizedDescription)
+                                }
+                                else {
+                                    print("Create Account: Wrote permissions")
+                                    admin.logOut()
+                                    let config = SyncConfiguration(user: activeUser, realmURL: RealmConstants.REALM_URL)
+                                    Realm.Configuration.defaultConfiguration = Realm.Configuration(syncConfiguration: config, objectTypes:[UserData.self, PictureData.self])
+                                    let realm = try! Realm()
+                                    let userData = UserData(id: activeUser.identity!, name: name, email: email)
+                                    print("user id is \(userData.id)")
+                                    try! realm.write {
+                                        realm.add(userData)
+                                        print("Create Account: Wrote user to realm")
+                                    }
+                                    FBDatabase.addProfilePicture(with_image: image, for_user: userData, with_completion: {(err) in
+                                        if let error = err {
+                                            print(error)
+                                        }
+                                        else {
+                                            print("Create Account: Added profile picture")
+                                        }
+                                    })
+                                    self.performSegue(withIdentifier: CreateAccountVC.PAGE_VIEW_SEGUE, sender: nil)
+                                }
+                            })
                         }
                     })
-                    self.performSegue(withIdentifier: CreateAccountVC.PAGE_VIEW_SEGUE, sender: nil)
                 }
             })
         }

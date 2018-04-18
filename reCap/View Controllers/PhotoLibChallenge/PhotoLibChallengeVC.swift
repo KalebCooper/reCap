@@ -17,8 +17,7 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
     
     // MARK: - Properties
     private var tableSectionArray: [String]!
-    //private var collectionDictionaryData: [String : [PictureData]]!
-    private var collectionDictionaryData: [String : List<PictureData>]!
+    private var collectionDictionaryData: [String : [PictureData]]!
     private var photoLibChalReference: DatabaseReference!
     var user: User!
     var userData: UserData!
@@ -138,22 +137,19 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
         let username = self.userData.name!
         self.title = "\(username)'s Photos"
         self.tableView.allowsSelection = false
-        let userPictures = self.userData.pictures
+        let userPictures = self.userData.pictures.filter("isMostRecentPicture = true")
         for pictureData in userPictures {
-            if pictureData.isMostRecentPicture {
-                // Only display photos that are the most recent
-                let location = pictureData.locationName
-                if !self.tableSectionArray.contains(location!) {
-                    // Location is not in the locations array
-                    // Add it to the array and initialize
-                    // an empty array for the key location
-                    self.tableSectionArray.append(location!)
-                    self.collectionDictionaryData[location!] = List<PictureData>()
-                }
-                let pictureDataArray = self.collectionDictionaryData[location!]!
-                pictureDataArray.append(pictureData)
-                self.collectionDictionaryData[location!] = pictureDataArray
+            let location = pictureData.locationName
+            if !self.tableSectionArray.contains(location!) {
+                // Location is not in the locations array
+                // Add it to the array and initialize
+                // an empty array for the key location
+                self.tableSectionArray.append(location!)
+                self.collectionDictionaryData[location!] = []
             }
+            //let pictureDataArray = self.collectionDictionaryData[location!]!
+            //pictureDataArray.append(pictureData)
+            self.collectionDictionaryData[location!]?.append(pictureData)
         }
         self.tableView.reloadData()
     }
@@ -189,7 +185,7 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
     private func setupChallenge() {
         self.title = "Challenges"
         self.dispatchGroup = DispatchGroup()
-        self.collectionDictionaryData = [PhotoLibChallengeVC.TAKE_PIC_FROM_RECENT : List<PictureData>(), PhotoLibChallengeVC.TAKE_PIC_FROM_WEEK : List<PictureData>(), PhotoLibChallengeVC.TAKE_PIC_FROM_MONTH : List<PictureData>(), PhotoLibChallengeVC.TAKE_PIC_FROM_YEAR : List<PictureData>()]
+        self.collectionDictionaryData = [PhotoLibChallengeVC.TAKE_PIC_FROM_RECENT : [], PhotoLibChallengeVC.TAKE_PIC_FROM_WEEK : [], PhotoLibChallengeVC.TAKE_PIC_FROM_MONTH : [], PhotoLibChallengeVC.TAKE_PIC_FROM_YEAR : []]
         var unsortedChallenges: [String : [PictureData]] = [PhotoLibChallengeVC.TAKE_PIC_FROM_RECENT : [], PhotoLibChallengeVC.TAKE_PIC_FROM_WEEK : [], PhotoLibChallengeVC.TAKE_PIC_FROM_MONTH : [], PhotoLibChallengeVC.TAKE_PIC_FROM_YEAR : []]
         self.tableView.allowsSelection = false
         let currentDate = Date()
@@ -287,7 +283,7 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
      */
     private func getPicChallengeCategory(pictureData: PictureData, currentDate: Date) -> String {
         //let pictureDate = DateGetter.getDateFromString(string: pictureData.time)
-        let dateDiffSec = Int(abs(TimeInterval(pictureData.time)! - currentDate.timeIntervalSince1970))
+        let dateDiffSec = Int(abs(TimeInterval(pictureData.time) - currentDate.timeIntervalSince1970))
         //let dateDiffSec = Int(abs(pictureDate.timeIntervalSince(currentDate)))
         if dateDiffSec >= PhotoLibChallengeVC.SECONDS_IN_YEAR {
             return PhotoLibChallengeVC.TAKE_PIC_FROM_YEAR
@@ -487,7 +483,7 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
             let infoArray = sender as! [Any]
             let pictureData = infoArray[PhotoLibChallengeVC.PHOTO_SEGUE_PICTURE_DATA_INDEX] as! PictureData
             let picture = infoArray[PhotoLibChallengeVC.PHOTO_SEGUE_PICTURE_INDEX] as! UIImage
-            //photoView.pictureData = pictureData
+            photoView.pictureData = pictureData
             photoView.image = picture
         }
         

@@ -11,6 +11,7 @@ import Firebase
 import SwiftLocation
 import CoreLocation
 import FCAlertView
+import RealmSwift
 
 class LeaderboardsFriendsVC: UITableViewController, FCAlertViewDelegate {
     
@@ -26,16 +27,19 @@ class LeaderboardsFriendsVC: UITableViewController, FCAlertViewDelegate {
     static var FRIENDS_LIST_MODE = 1
     var mode: Int!
     var user: User!
-    private var friendsList: [User]!
-    private var leaderboardsList: [User]!
+    var userData: UserData!
+    //private var friendsList: [User]!
+    private var friendsList: [UserData]!
+    private var leaderboardsList: List<UserData>!
+    private var realm: Realm!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         applyBlurEffect(image: #imageLiteral(resourceName: "Gradient"))
-        print("Leaderboards loaded")
-        leaderboardsList = []
+        self.realm = try! Realm()
+        leaderboardsList = List<UserData>()
         friendsList = []
-        if mode != nil, user != nil {
+        if mode != nil, userData != nil {
             // If the mode has been selected
             if mode == LeaderboardsFriendsVC.FRIENDS_LIST_MODE {
                 // Friends list mode has been picked
@@ -46,7 +50,7 @@ class LeaderboardsFriendsVC: UITableViewController, FCAlertViewDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        let ref = Database.database().reference()
+        /*let ref = Database.database().reference()
         let id = FBDatabase.getSignedInUserID()
         FBDatabase.getUserOnce(with_id: id!, ref: ref, with_completion: {(user) in
             if let activeUser = user {
@@ -59,7 +63,7 @@ class LeaderboardsFriendsVC: UITableViewController, FCAlertViewDelegate {
                 }
             }
             
-        })
+        })*/
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -100,7 +104,6 @@ class LeaderboardsFriendsVC: UITableViewController, FCAlertViewDelegate {
         
         
         
-        leaderboardsList = []
         var unsortedList: [User] = []
         
         
@@ -126,7 +129,7 @@ class LeaderboardsFriendsVC: UITableViewController, FCAlertViewDelegate {
                 for user in users {
                     unsortedList.append(user)
                 }
-                self.leaderboardsList = Sort.SortUsersByDescendingOrder(users: unsortedList)
+                //self.leaderboardsList = Sort.SortUsersByDescendingOrder(users: unsortedList)
                 self.tableView.reloadData()
             })
             
@@ -137,7 +140,7 @@ class LeaderboardsFriendsVC: UITableViewController, FCAlertViewDelegate {
                 for user in users {
                     unsortedList.append(user)
                 }
-                self.leaderboardsList = Sort.SortUsersByDescendingOrder(users: unsortedList)
+                //self.leaderboardsList = Sort.SortUsersByDescendingOrder(users: unsortedList)
                 self.tableView.reloadData()
             })
             
@@ -148,7 +151,7 @@ class LeaderboardsFriendsVC: UITableViewController, FCAlertViewDelegate {
                 for user in users {
                     unsortedList.append(user)
                 }
-                self.leaderboardsList = Sort.SortUsersByDescendingOrder(users: unsortedList)
+                //self.leaderboardsList = Sort.SortUsersByDescendingOrder(users: unsortedList)
                 self.tableView.reloadData()
             })
             
@@ -159,41 +162,29 @@ class LeaderboardsFriendsVC: UITableViewController, FCAlertViewDelegate {
     private func setupFriendsList() {
         self.title = "Friends List"
         self.locationControl.isHidden = true
-        self.friendsList = []
-        let friendsIDList = user.friendsID
-        let ref = Database.database().reference()
-        for id in friendsIDList! {
-            // Searches through the logged in users friends list
-            FBDatabase.getUserOnce(with_id: id, ref: ref, with_completion: {(user) in
-                if let activeUser = user {
-                    self.friendsList.append(activeUser)
-                    self.tableView.reloadData()
-                }
-                else {
-                    // Did not get a user in the friends list
-                    print("Did not get a user on the friends list in leaderboardsFriendsVC")
-                }
-            })
+        for friends in self.userData.friends {
+            self.friendsList.append(friends)
         }
+        self.tableView.reloadData()
     }
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CustomCell", for: indexPath) as! LeaderboardFriendsTableCell
-        let user: User!
+        let user: UserData!
         if mode == LeaderboardsFriendsVC.FRIENDS_LIST_MODE {
             user = friendsList[indexPath.row]
-            cell.pointsOutlet.text = "\(user.points!) points"
+            cell.pointsOutlet.text = "\(user.points) points"
         }
         else if mode == LeaderboardsFriendsVC.LEADERBOARD_MODE {
             user = leaderboardsList[indexPath.row]
-            cell.pointsOutlet.text = "\(user.points!) points"
+            cell.pointsOutlet.text = "\(user.points) points"
         }
         else {
             return cell
         }
         cell.fullNameOutlet.text = user.name
-        cell.usernameOutlet.text = user.username
+        cell.usernameOutlet.text = user.email
         FBDatabase.getProfilePicture(for_user: user, with_progress: {(progress, total) in
             
         }, with_completion: {(image) in
@@ -217,68 +208,29 @@ class LeaderboardsFriendsVC: UITableViewController, FCAlertViewDelegate {
         alert.dismissOnOutsideTouch = false
         alert.darkTheme = true
         alert.bounceAnimations = true
-        alert.addTextField(withPlaceholder: "Enter Friends Username") { (username) in
-            
-            if username != "" {
-                
+        alert.addTextField(withPlaceholder: "Enter Friends Username") { (email) in
+            if email != "", email != self.userData.email {
                 FCAlertView.displayAlert(title: "Adding...", message: "Adding friend to your friends list...", buttonTitle: "Dismiss", type: "progress", view: self)
-
-                if username != self.user.username {
-                    // The user did not entered there own username
-                    let ref = Database.database().reference()
-                    FBDatabase.getUsername(with_ref: ref, with_username: username!, with_completion: {(username) in
-                        if let usernameObj = username {
-                            print("Got username in LeaderboardsFriends VC")
-                            let id = usernameObj.id
-                            self.user.friendsID.append(id!)
-                            let ref = Database.database().reference()
-                            FBDatabase.getUserOnce(with_id: id!, ref: ref, with_completion: {(user) in
-                                if let activeUser = user {
-                                    print("Got new user in LeaderboardFriends VC")
-                                    self.friendsList.append(activeUser)
-                                    self.tableView.beginUpdates()
-                                    let index = IndexPath(row: self.friendsList.count-1, section: 0)
-                                    self.tableView.insertRows(at: [index], with: .automatic)
-                                    self.tableView.endUpdates()
-                                }
-                                else {
-                                    print("Did not get new user in LeaderboardsFriends VC")
-                                }
-                            })
-                            FBDatabase.addUpdateUser(user: self.user, with_completion: {(error) in
-                                if let actualError = error {
-                                    print(actualError)
-                                    FCAlertView.displayAlert(title: "Uh Oh!", message: actualError, buttonTitle: "Dismiss", type: "warning", view: self)
-                                }
-                                else {
-                                    print("Updated user in LeaderboardFriends VC")
-                                    FCAlertView.displayAlert(title: "Success!", message: "Your friend is now added to your friends list!", buttonTitle: "Dismiss", type: "success", view: self)
-                                    // All the users are updated again, reloading the table view. remove all users from friends list array
-                                }
-                            })
-                        }
-                        else {
-                            print("Did not get username in LeaderboardsFriends VC")
-                            FCAlertView.displayAlert(title: "Uh Oh!", message: "Username does not exist.", buttonTitle: "Dismiss", type: "warning", view: self)
-                        }
-                    })
+                if let friend = self.realm.objects(UserData.self).filter("email = '\(email!.description)'").first {
+                    // The user exists
+                    self.friendsList.append(friend)
+                    self.tableView.beginUpdates()
+                    let index = IndexPath(row: self.friendsList.count-1, section: 0)
+                    self.tableView.insertRows(at: [index], with: .automatic)
+                    self.tableView.endUpdates()
+                    try! self.realm.write {
+                        self.userData.friends.append(friend)
+                    }
                 }
-                
-                
-                
+                else {
+                    FCAlertView.displayAlert(title: "Oops!", message: "Please make sure to type a email", buttonTitle: "Got It!", type: "warning", view: self)
+                }
             }
-            else {
-                FCAlertView.displayAlert(title: "Oops!", message: "Please make sure to type a username", buttonTitle: "Got It!", type: "warning", view: self)
-            }
-            
-            
         }
-        
         alert.addButton("Cancel") {
             
         }
         alert.showAlert(withTitle: "Add Friend", withSubtitle: "Please enter your friends username.", withCustomImage: nil, withDoneButtonTitle: "Add", andButtons: nil)
-        
         
     }
     
@@ -361,10 +313,10 @@ class LeaderboardsFriendsVC: UITableViewController, FCAlertViewDelegate {
         // Pass the selected object to the new view controller.
         let segueID = segue.identifier
         if segueID == "PhotoLibSegue" {
-            let friend = sender as! User
+            let friend = sender as! UserData
             let destination = segue.destination as! UINavigationController
             let photoLibVC = destination.topViewController as! PhotoLibChallengeVC
-            photoLibVC.user = friend
+            photoLibVC.userData = friend
             photoLibVC.mode = PhotoLibChallengeVC.FRIENDS_PHOTO_LIB_MODE
         }
     }

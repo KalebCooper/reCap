@@ -26,6 +26,7 @@ class ProfileMenuVC: UIViewController {
     
     // MARK: - Properties
     var user: User!
+    var userData: UserData!
     
     @IBAction func backAction(_ sender: Any) {
         print("Back to Camera")
@@ -36,25 +37,15 @@ class ProfileMenuVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupOutlets()
         setupProfileImage()
         setupHero()
         setupGestures()
         setupBlurEffect(image: image!)
+        AppUtility.lockOrientation(.portrait)
         // Do any additional setup after loading the view.
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        let id = FBDatabase.getSignedInUserID()!
-        let ref = Database.database().reference()
-        FBDatabase.getUserOnce(with_id: id, ref: ref, with_completion: {(user) in
-            if let activeUser = user {
-                self.user = activeUser
-                self.setupOutlets()
-                AppUtility.lockOrientation(.portrait)
-            }
-        })
-    }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         AppUtility.lockOrientation(.all)
@@ -123,8 +114,8 @@ class ProfileMenuVC: UIViewController {
     }
     
     func setupOutlets() {
-        let name = self.user.name
-        let points = self.user.points.description
+        let name = self.userData.name
+        let points = self.userData.points.description
         self.nameOutlet.text = name
         self.pointsOutlet.text = "Points: \(points)"
     }
@@ -191,13 +182,17 @@ class ProfileMenuVC: UIViewController {
         else if segueID == "FriendsListSegue" {
             let desination = segue.destination as! UINavigationController
             let friendsVC = desination.topViewController as! LeaderboardsFriendsVC
-            friendsVC.user = self.user
+            friendsVC.userData = self.userData
             friendsVC.mode = LeaderboardsFriendsVC.FRIENDS_LIST_MODE
         }
         else if segueID == "TutorialSegue" {
             let desination = segue.destination as! UINavigationController
             let tutorialVC = desination.topViewController as! TutorialContainerVC
-            
+        }
+        else if segueID == "SettingsSegue" {
+            let destination = segue.destination as! UINavigationController
+            let settings = destination.topViewController as! SettingsVC
+            settings.userData = self.userData
         }
     }
     

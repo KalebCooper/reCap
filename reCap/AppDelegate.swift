@@ -40,26 +40,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         else {
             self.setRootAsSignIn()
         }*/
-        makeRealmPublic()
-        self.setRootAsSignIn()
+        if let activeUser = SyncUser.current {
+            // User logged in
+            let config = SyncConfiguration(user: activeUser, realmURL: RealmConstants.REALM_URL)
+            Realm.Configuration.defaultConfiguration = Realm.Configuration(syncConfiguration: config, objectTypes:[UserData.self, PictureData.self])
+            setRootAsPageView()
+        }
+        else {
+            // User not logged in
+            setRootAsSignIn()
+        }
         return true
     }
     
     private func setRootAsPageView() {
-        let id = FBDatabase.getSignedInUserID()!
-        let ref = Database.database().reference()
-        FBDatabase.getUserOnce(with_id: id, ref: ref, with_completion: {(user) in
-            if let activeUser = user {
-                print("Got user in app delegate")
-                let pageViewStoryboard = UIStoryboard(name: "PageView", bundle: nil)
-                let pageViewVC = pageViewStoryboard.instantiateInitialViewController() as! PageViewController
-                //pageViewVC.user = activeUser
-                self.window?.rootViewController = pageViewVC
-            }
-            else {
-                print("Did not get user in app delegate")
-            }
-        })
+        let pageViewStoryboard = UIStoryboard(name: "PageView", bundle: nil)
+        let pageViewVC = pageViewStoryboard.instantiateInitialViewController() as! PageViewController
+        self.window?.rootViewController = pageViewVC
     }
     
     private func setRootAsSignIn() {
@@ -94,6 +91,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     }
                     else {
                         print("Wrote permissions")
+                        admin.logOut()
                         let users = SyncUser.all
                         for user in users {
                             // Logs all users out

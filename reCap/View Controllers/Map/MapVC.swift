@@ -429,7 +429,7 @@ class MapVC: UIViewController, MGLMapViewDelegate {
     
     private func getPicChallengeCategory(pictureData: PictureData, currentDate: Date) -> String {
         //let pictureDate = DateGetter.getDateFromString(string: pictureData.time)
-        let dateDiffSec = Int(abs(TimeInterval(pictureData.time)! - currentDate.timeIntervalSince1970))
+        let dateDiffSec = Int(abs(TimeInterval(pictureData.time) - currentDate.timeIntervalSince1970))
         //let dateDiffSec = Int(abs(pictureDate.timeIntervalSince(currentDate)))
         if dateDiffSec >= MapVC.SECONDS_IN_YEAR {
             return MapVC.TAKE_PIC_FROM_YEAR

@@ -12,15 +12,14 @@ import Hero
 import SwiftLocation
 import CoreLocation
 import Firebase
+import RealmSwift
 
 class ChallengeViewVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, ImageButtonDelegate {
     
-    
-    
     var image: UIImage!
     var pictureData: PictureData!
-    var pictureArray: [PictureData] = []
-    
+    //var pictureArray: [PictureData] = []
+    var pictureArray: Results<PictureData>!
     var imageToPass: UIImage?
     var pictureDataToPass: PictureData?
     
@@ -56,6 +55,7 @@ class ChallengeViewVC: UIViewController, UICollectionViewDelegate, UICollectionV
         self.navigationController?.toolbar.isHidden = false
         self.navigationController?.navigationBar.isHidden = true
         
+        
         /*locationOutlet.text = String.convertGPSCoordinatesToOutput(coordinates: pictureData.gpsCoordinates)
         let coordinates = CLLocationCoordinate2D(latitude: pictureData.gpsCoordinates[0], longitude: pictureData.gpsCoordinates[1])
         Locator.location(fromCoordinates: coordinates, using: .apple, onSuccess: { places in
@@ -63,9 +63,9 @@ class ChallengeViewVC: UIViewController, UICollectionViewDelegate, UICollectionV
             self.locationNameOutlet.text = "\(places[0])"
         }) { err in
             print(err)
-        }
+        }*/
         titleOutlet.text = pictureData.name
-        descriptionOutlet.text = pictureData.description*/
+        descriptionOutlet.text = pictureData.info
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -86,35 +86,21 @@ class ChallengeViewVC: UIViewController, UICollectionViewDelegate, UICollectionV
         
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
-        getPictureData()
-        
+        //getPictureData()
+        let groupID = pictureData.groupID!
+        let realm = try! Realm()
+        self.pictureArray = realm.objects(PictureData.self).filter("groupID = '\(groupID.description)'").sorted(byKeyPath: "time")
+        self.collectionView.reloadData()
     }
     
     func getPictureData() {
-        let ref = Database.database().reference()
-        
         //Make sure pictureArray is empty
-        self.pictureArray = []
         
         //Set groupID
-        let groupID = pictureData.groupID
-        
-        //Get pictureData that's passed in, and grab all pictureData using groupID
-        FBDatabase.getPictureData(in_group: groupID!, ref: ref) { (array) in
-            
-            //Set all pictureData obtained to the
-            //self.pictureArray = Sort.SortPictureDataByDescendingOrder(dataList: array)
-            //self.pictureArray = array
-            //TEMPORARY Reverse array to get then in order
-            //self.pictureArray.reverse()
-            //Refresh collectionView
-            self.collectionView.reloadData()
-            
-        }
-
-        
-        
-        
+        let groupID = pictureData.groupID!
+        let realm = try! Realm()
+        self.pictureArray = realm.objects(PictureData.self).filter("groupID = '\(groupID.description)'").sorted(byKeyPath: "time")
+        self.collectionView.reloadData()
     }
     
     // MARK: - Collection View Methods

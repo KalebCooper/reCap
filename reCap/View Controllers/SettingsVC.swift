@@ -9,12 +9,14 @@
 import UIKit
 import Firebase
 import FCAlertView
+import RealmSwift
 
 class SettingsVC: UITableViewController, UITextFieldDelegate, FCAlertViewDelegate {
     
-    var user: User!
-    var userData: [String]? = []
+    var userData: UserData!
+    var userDataValues: [String]!
     let limitLength = 18
+    private var realm: Realm!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,28 +24,16 @@ class SettingsVC: UITableViewController, UITextFieldDelegate, FCAlertViewDelegat
         self.title = "Settings"
         // Uncomment the following line to preserve selection between presentations
         self.clearsSelectionOnViewWillAppear = false
-        
-        setupUser()
-
+        self.realm = try! Realm()
+        setup()
     }
 
-    func setupUser() {
-        
-        let id = FBDatabase.getSignedInUserID()!
-        let ref = Database.database().reference()
-        FBDatabase.getUser(with_id: id, ref: ref, with_completion: {(user) in
-            ref.removeAllObservers()
-            if let activeUser = user {
-                self.user = activeUser
-                self.userData?.append(activeUser.name)
-                self.userData?.append(activeUser.username)
-                self.userData?.append(activeUser.email)
-                self.tableView.reloadData()
-            }
-            else {
-                print("Did not get user in app delegate")
-            }
-        })
+    func setup() {
+        self.userDataValues = []
+        self.userDataValues?.append(self.userData.name)
+        self.userDataValues?.append(self.userData.email)
+        self.userDataValues?.append(userData.email)
+        self.tableView.reloadData()
         
     }
 
@@ -61,29 +51,22 @@ class SettingsVC: UITableViewController, UITextFieldDelegate, FCAlertViewDelegat
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
-
         let cellName = cell.textLabel?.text!
-        
-        
-        
-        if self.userData?.count == 3 {
+        if self.userDataValues?.count == 3 {
             print("cellForRowAt")
             if cellName == "Full Name" {
                 print("Full Name tapped")
-                cell.detailTextLabel?.text = userData?[0]
+                cell.detailTextLabel?.text = userDataValues?[0]
             }
             else if cellName == "Username" {
                 print("Username tapped")
-                cell.detailTextLabel?.text = userData?[1]
+                cell.detailTextLabel?.text = userDataValues?[1]
             }
             else if cellName == "Email" {
                 print("Email tapped")
-                cell.detailTextLabel?.text = userData?[2]
+                cell.detailTextLabel?.text = userDataValues?[2]
             }
         }
-        
-        
-        
         return cell
         
     }
@@ -98,39 +81,21 @@ class SettingsVC: UITableViewController, UITextFieldDelegate, FCAlertViewDelegat
         let cell = tableView.cellForRow(at: indexPath)
         let cellName = cell?.textLabel?.text!
         if cellName == "Full Name" {
-
             let alert = FCAlertView()
             alert.makeAlertTypeCaution()
             alert.dismissOnOutsideTouch = false
             alert.darkTheme = true
             alert.bounceAnimations = true
             alert.addTextField(withPlaceholder: "Enter Name") { (name) in
-                
-                
                 if name != "" {
-                    
                     FCAlertView.displayAlert(title: "Changing...", message: "Your name is being changed...", buttonTitle: "Dismiss", type: "progress", view: self)
-                    
-                    let newName = name
-                    
-                    self.user.name = newName
-                    
-                    FBDatabase.addUpdateUser(user: self.user, with_completion: { (error) in
-                        if error == nil {
-                            FCAlertView.displayAlert(title: "Success!", message: "Your name has been changed.", buttonTitle: "Dismiss", type: "success", view: self)
-                        }
-                        else {
-                            FCAlertView.displayAlert(title: "Uh Oh!", message: error!, buttonTitle: "Dismiss", type: "warning", view: self)
-                        }
-                    })
-                    
-                    
+                    try! self.realm.write {
+                        self.userData.name = name
+                    }
                 }
                 else {
                     FCAlertView.displayAlert(title: "Oops!", message: "Please make sure to type a name", buttonTitle: "Got It!", type: "warning", view: self)
                 }
-                
-                
             }
             
             alert.addButton("Cancel") {
@@ -138,10 +103,8 @@ class SettingsVC: UITableViewController, UITextFieldDelegate, FCAlertViewDelegat
             }
             alert.showAlert(withTitle: "Update Name", withSubtitle: "Please enter a new name.", withCustomImage: nil, withDoneButtonTitle: "Update", andButtons: nil)
 
-            
-            
         }
-        else if cellName == "Username" {
+        /*else if cellName == "Username" {
             print("Username tapped")
             
             let alert = FCAlertView()
@@ -202,7 +165,7 @@ class SettingsVC: UITableViewController, UITextFieldDelegate, FCAlertViewDelegat
             
             
             
-        }
+        }*/
         else if cellName == "Logout" {
             // Logout pressed
             logoutPressed()
@@ -219,20 +182,11 @@ class SettingsVC: UITableViewController, UITextFieldDelegate, FCAlertViewDelegat
         print("Logout pressed")
         let alert = UIAlertController(title: "Logout", message: "Are you sure you want to logout", preferredStyle: .alert)
         let ok = UIAlertAction(title: "Logout", style: .destructive, handler: {(okAction) in
-            FBDatabase.signOutUser(with_completion: {(error) in
-                if let realError = error {
-                    print(realError)
-                }
-                else {
-                    // No error
-                    print("Logged user out")
-                    FBDatabase.removeAutomaticSignIn()
-                    let signInVC = UIStoryboard(name: "SignIn", bundle: nil).instantiateInitialViewController()
-                    let appDelege = UIApplication.shared.delegate as! AppDelegate
-                    appDelege.window?.rootViewController = signInVC
-                    appDelege.window?.rootViewController?.dismiss(animated: true, completion: nil)
-                }
-            })
+            SyncUser.current?.logOut()
+            let signInVC = UIStoryboard(name: "SignIn", bundle: nil).instantiateInitialViewController()
+            let appDelege = UIApplication.shared.delegate as! AppDelegate
+            appDelege.window?.rootViewController = signInVC
+            appDelege.window?.rootViewController?.dismiss(animated: true, completion: nil)
         })
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alert.addAction(ok)

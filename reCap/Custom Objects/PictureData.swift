@@ -31,14 +31,14 @@ class PictureData: Object {
     @objc dynamic var longitude = 0.0
     @objc dynamic var orientation = PictureData.ORIENTATION_PORTRAIT
     @objc dynamic var owner: UserData!
-    @objc dynamic var time: String!
+    @objc dynamic var time = 0
     @objc dynamic var locationName: String!
     @objc dynamic var isRootPicture = true
     @objc dynamic var isMostRecentPicture = true
     @objc dynamic var groupID: String!
     
     // MARK: - Initializers
-    convenience required init(name: String!, info: String, owner: UserData, latitude: Double, longitude: Double, orientation: Int, time: String, locationName: String, id: String, isRootPicture: Bool, groupID: String, isMostRecentPicture: Bool) {
+    convenience required init(name: String!, info: String, owner: UserData, latitude: Double, longitude: Double, orientation: Int, time: Int, locationName: String, id: String, isRootPicture: Bool, groupID: String, isMostRecentPicture: Bool) {
         self.init()
         self.name = name
         self.info = info
@@ -62,6 +62,14 @@ class PictureData: Object {
         id = id + userData.id
         id = id.replacingOccurrences(of: "-", with: "")
         return id
+    }
+    
+    override static func primaryKey() -> String? {
+        return "id"
+    }
+    
+    override static func indexedProperties() -> [String] {
+        return ["groupID", "isRootPicture", "isMostRecentPicture"]
     }
 }
 

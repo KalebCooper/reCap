@@ -48,7 +48,7 @@ class ImageCreateVC: UIViewController {
         print("Confirmed Pressed")
         var isRoot: Bool!
         var groupID: String!
-        let currentDate = Int((Date().timeIntervalSince1970)).description
+        let currentDate = Int((Date().timeIntervalSince1970))
         let pictureID = PictureData.createPictureDataID(userData: self.userData)
         let realm = try! Realm()
         

@@ -151,15 +151,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     override func viewDidLoad() {
         super.viewDidLoad()
         print("Camera container loaded")
-        /*if user != nil {
-            setupProfileImage()
-            setupUserLocation()
-            setupHero()
-            setupCamera(clear: false)
-            configureButton()
-            setupGestures()
-            print("Finished setting up camera container")
-        }*/
+        setup()
         setupHero()
         setupCamera(clear: false)
         configureButton()
@@ -689,29 +681,12 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         setup()
-        //self.user = activeUser
-        //self.setupProfileImage()
-        //self.setupActiveChallengeData()
-        //self.setupUserLocation()
-        //self.setupPreviousPicture()
-        /*self.setupLocation()
-        print("Got user in camera container vc")
-        DispatchQueue.main.asyncAfter(deadline: .now()) {
-            if self.videoPreviewLayer != nil {
-                self.setupOrientation()
-                if self.session?.inputs.count == 0 {
-                    print("TESTING CAMERA")
-                    self.setupCamera(clear: false)
-                }
-                self.locationManager.startUpdatingHeading()
-                print("Camera Session Resuming")
-            }
-        }*/
     }
     
     private func setup() {
         self.realm = try! Realm()
-        self.userData = realm.object(ofType: UserData.self, forPrimaryKey: SyncUser.current?.identity!)
+        let id = SyncUser.current?.identity
+        self.userData = realm.object(ofType: UserData.self, forPrimaryKey: id)
         if self.userData != nil {
             // Got user data from realm database
             print("Got user data")
@@ -835,7 +810,8 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         else if segueID == "toProfileSegue" {
             let vc = segue.destination as! ProfileMenuVC
             vc.image = self.profileOutlet.image
-            vc.user = self.user
+            //vc.user = self.user
+            vc.userData = self.userData
         }
         else if segueID == "PhotoLibSegue" {
             let destination = segue.destination as! UINavigationController
