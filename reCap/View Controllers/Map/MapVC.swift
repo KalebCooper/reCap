@@ -31,7 +31,8 @@ class MapVC: UIViewController, MGLMapViewDelegate {
     private var locations: [String]!
     private var locationDictionary: [String : [PictureData]]!
     
-    var user: User!
+//    var user: User!
+    var user: UserData!
     let ref = Database.database().reference()
     var mapView: NavigationMapView!
     var pins: [MGLPointAnnotation]! = []
@@ -83,27 +84,15 @@ class MapVC: UIViewController, MGLMapViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let id = FBDatabase.getSignedInUserID()!
-        let ref = Database.database().reference()
-        FBDatabase.getUserOnce(with_id: id, ref: ref, with_completion: {(user) in
-            if let activeUser = user {
-                self.user = activeUser
-                self.setupMap()
-                let when = DispatchTime.now() + 0.5 // change 2 to desired number of seconds
-                DispatchQueue.main.asyncAfter(deadline: when) {
-                    self.setupCamera()
-                }
-            }
-        })
-        /*if user != nil {
-            setupMap()
-            let when = DispatchTime.now() + 0.5 // change 2 to desired number of seconds
-            DispatchQueue.main.asyncAfter(deadline: when) {
-                self.setupCamera()
-            }
-            
-        }*/
-        // Do any additional setup after loading the view.
+        
+        self.user = RealmHelper.getUser()
+
+        self.setupMap()
+        let when = DispatchTime.now() + 0.5 // change 2 to desired number of seconds
+        DispatchQueue.main.asyncAfter(deadline: when) {
+            self.setupCamera()
+        }
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -191,25 +180,23 @@ class MapVC: UIViewController, MGLMapViewDelegate {
         }
         
         
+        let rawPictureDataArray = RealmHelper.getAllPictureData()
         
-        FBDatabase.getAllMostRecentPictureData(ref: ref) { (rawPictureDataArray) in
-            
-            if rawPictureDataArray.count > 0 {
-                for rawPictureData in rawPictureDataArray {
-                    
-                    let pin = MGLPointAnnotation()
-                    pin.coordinate = CLLocationCoordinate2D(latitude: (rawPictureData.latitude), longitude: (rawPictureData.longitude))
-                    pin.title = rawPictureData.name
-                    pin.subtitle = rawPictureData.locationName
-                    
-                    self.pictureIDArray.append((rawPictureData.id)!)
-                    self.pictureDataArray.append(rawPictureData)
-                    
-                    self.pins.append(pin)
-
-                    if rawPictureData.id == rawPictureDataArray.last?.id {
-                        self.setupPins()
-                    }
+        if rawPictureDataArray.count > 0 {
+            for rawPictureData in rawPictureDataArray {
+                
+                let pin = MGLPointAnnotation()
+                pin.coordinate = CLLocationCoordinate2D(latitude: (rawPictureData.latitude), longitude: (rawPictureData.longitude))
+                pin.title = rawPictureData.name
+                pin.subtitle = rawPictureData.locationName
+                
+                self.pictureIDArray.append((rawPictureData.id)!)
+                self.pictureDataArray.append(rawPictureData)
+                
+                self.pins.append(pin)
+                
+                if rawPictureData.id == rawPictureDataArray.last?.id {
+                    self.setupPins()
                 }
             }
             
@@ -223,10 +210,7 @@ class MapVC: UIViewController, MGLMapViewDelegate {
     }
     
     func mapViewDidFinishLoadingMap(_ mapView: MGLMapView) {
-        
-        
-        
-        
+
     }
     
     
@@ -239,8 +223,6 @@ class MapVC: UIViewController, MGLMapViewDelegate {
         
         // For better performance, always try to reuse existing annotations.
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
-        
-        
         
         // If there’s no reusable annotation view available, initialize a new one.
         if annotationView == nil {
@@ -278,9 +260,22 @@ class MapVC: UIViewController, MGLMapViewDelegate {
         for i in 0 ..< pins.count {
             if (annotation.coordinate.latitude == pins[i].coordinate.latitude) && annotation.coordinate.longitude == pins[i].coordinate.longitude {
                 let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 60, height: 50))
+                
+                print(pictureIDArray[i])
+                
                 FBDatabase.getPictureData(id: pictureIDArray[i], ref: ref) { (pictureData) in
+                    
+                    print(pictureData?.id)
+                    
                     if let realPictureData = pictureData{
+                        
+                        print("--------------------------")
+                        print("TEST")
+                        print("--------------------------")
+                        
                         FBDatabase.getPicture(pictureData: realPictureData, with_progress: {(progress, total) in
+                            
+                            
                             
                         }, with_completion: {(image) in
                             if let realImage = image {
@@ -446,39 +441,39 @@ class MapVC: UIViewController, MGLMapViewDelegate {
     }
     
     private func addChallengeToUser(pictureData: PictureData) {
-        let challengeCategory = getPicChallengeCategory(pictureData: pictureData, currentDate: Date())
-        var points = 0
-        if challengeCategory == MapVC.TAKE_PIC_FROM_WEEK {
-            points = MapVC.CHALLENGE_WEEK_POINTS
-        }
-        else if challengeCategory == MapVC.TAKE_PIC_FROM_MONTH {
-            points = MapVC.CHALLENGE_MONTH_POINTS
-        }
-        else if challengeCategory == MapVC.TAKE_PIC_FROM_YEAR {
-            points = MapVC.CHALLENGE_YEAR_POINTS
-        }
-        else if challengeCategory == MapVC.TAKE_PIC_FROM_RECENT {
-            points = MapVC.CHALLENGE_RECENT_POINTS
-        }
-        let user = self.user
-        user?.activeChallengeID = pictureData.id
-        user?.activeChallengePoints = points.description
-        self.user.activeChallengeID = pictureData.id
-        self.user.activeChallengePoints = points.description
-        FBDatabase.addUpdateUser(user: user!, with_completion: {(error) in
-            if let actualError = error {
-                print(actualError)
-            }
-            else {
-                print("Added challenge to user")
-                
-            }
-        })
-        
-        let lat = pictureData.latitude
-        let long = pictureData.longitude
-        let coordinate = CLLocationCoordinate2DMake(lat, long)
-        self.mapView.setCenter(coordinate, zoomLevel: self.mapView.zoomLevel, direction: 0, animated: true)
+//        let challengeCategory = getPicChallengeCategory(pictureData: pictureData, currentDate: Date())
+//        var points = 0
+//        if challengeCategory == MapVC.TAKE_PIC_FROM_WEEK {
+//            points = MapVC.CHALLENGE_WEEK_POINTS
+//        }
+//        else if challengeCategory == MapVC.TAKE_PIC_FROM_MONTH {
+//            points = MapVC.CHALLENGE_MONTH_POINTS
+//        }
+//        else if challengeCategory == MapVC.TAKE_PIC_FROM_YEAR {
+//            points = MapVC.CHALLENGE_YEAR_POINTS
+//        }
+//        else if challengeCategory == MapVC.TAKE_PIC_FROM_RECENT {
+//            points = MapVC.CHALLENGE_RECENT_POINTS
+//        }
+//        let user = self.user
+//        user?.activeChallengeID = pictureData.id
+//        user?.activeChallengePoints = "\(points.description)"
+//        self.user.activeChallengeID = pictureData.id
+//        self.user.activeChallengePoints = String(points.description)
+//        FBDatabase.addUpdateUser(user: user!, with_completion: {(error) in
+//            if let actualError = error {
+//                print(actualError)
+//            }
+//            else {
+//                print("Added challenge to user")
+//
+//            }
+//        })
+//
+//        let lat = pictureData.latitude
+//        let long = pictureData.longitude
+//        let coordinate = CLLocationCoordinate2DMake(lat, long)
+//        self.mapView.setCenter(coordinate, zoomLevel: self.mapView.zoomLevel, direction: 0, animated: true)
     }
     
 

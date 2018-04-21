@@ -29,6 +29,7 @@ class PictureData: Object {
     @objc dynamic var id: String!
     @objc dynamic var latitude = 0.0
     @objc dynamic var longitude = 0.0
+    @objc dynamic var bearing = 0.0
     @objc dynamic var orientation = PictureData.ORIENTATION_PORTRAIT
     @objc dynamic var owner: UserData!
     @objc dynamic var time = 0

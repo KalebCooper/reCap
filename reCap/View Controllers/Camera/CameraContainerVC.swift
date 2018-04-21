@@ -266,13 +266,11 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     func setupUserLocation() {
         Locator.requestAuthorizationIfNeeded(.always)
         let request = Locator.subscribePosition(accuracy: .room, onUpdate: { location in
-            print("Getting user location")
             let lat = location.coordinate.latitude.truncate(places: 6)
             let long = location.coordinate.longitude.truncate(places: 6)
             let location = CLLocation(latitude: lat, longitude: long)
             let geocoder = CLGeocoder()
             geocoder.reverseGeocodeLocation(location) { (placemarks, error) in
-                print("Getting geocoder")
                 if error == nil {
                     try! self.realm.write {
                         self.userData.state = placemarks?.last?.administrativeArea
@@ -383,8 +381,6 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     
     public func setupCamera(clear: Bool) {
         
-        print("Setting up camera")
-        
         photoSetting = AVCapturePhotoSettings.init(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])
         photoSetting.isAutoStillImageStabilizationEnabled = true
         photoSetting.flashMode = .off
@@ -489,8 +485,6 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
                 }
                 
             }
-            
-            print("Device motion started")
         }
         else {
             print("Device motion unavailable");
@@ -513,14 +507,12 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
             
             if UIDevice.current.orientation == .landscapeLeft || UIDevice.current.orientation == .landscapeRight {
                 
-                print("Setting to scaleAspectFit")
                 self.previousImageView?.frame = self.previewView.frame
                 self.previousImageView?.contentMode = .center
                 self.previousOutlet.isEnabled = false
                 
             }
             else {
-                print("Setting to scaleToFill")
                 self.previousImageView?.contentMode = .scaleToFill
                 self.previousOutlet.isEnabled = true
             }
@@ -689,7 +681,6 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         self.userData = realm.object(ofType: UserData.self, forPrimaryKey: id)
         if self.userData != nil {
             // Got user data from realm database
-            print("Got user data")
             setupProfileImage()
             setupUserLocation()
             setupLocation()
@@ -701,11 +692,9 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
             if self.videoPreviewLayer != nil {
                 self.setupOrientation()
                 if self.session?.inputs.count == 0 {
-                    print("TESTING CAMERA")
                     self.setupCamera(clear: false)
                 }
                 self.locationManager.startUpdatingHeading()
-                print("Camera Session Resuming")
             }
         }
     }
@@ -727,27 +716,21 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
             var orientation: UIImageOrientation? = UIImageOrientation.right
             
             if UIDevice.current.orientation == .portrait {
-                print("Picture taken in Portrait")
                 orientation = UIImageOrientation.right
             }
             else if UIDevice.current.orientation == .landscapeLeft {
-                print("Picture taken in left")
                 orientation = UIImageOrientation.up
             }
             else if UIDevice.current.orientation == .landscapeRight {
-                print("Picture taken in right")
                 orientation = UIImageOrientation.down
             }
             else if UIDevice.current.orientation == .portraitUpsideDown {
-                print("Picture taken in down")
                 orientation = UIImageOrientation.left
             }
             else if UIDevice.current.orientation == .faceDown {
-                print("Picture taken in down")
                 orientation = UIImageOrientation.down
             }
             else if UIDevice.current.orientation == .faceUp {
-                print("Picture taken in down")
                 orientation = UIImageOrientation.up
             }
             

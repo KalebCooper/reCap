@@ -26,12 +26,13 @@ class PageViewController: PageboyViewController, PageboyViewControllerDataSource
         let mapStoryboard = UIStoryboard(name: "Map", bundle: Bundle.main)
         let cameraStoryboard = UIStoryboard(name: "Camera", bundle: Bundle.main)
         let leaderboardsStoryboard = UIStoryboard(name: "LeaderboardsFriends", bundle: Bundle.main)
+        
         mapVC = mapStoryboard.instantiateViewController(withIdentifier: "MapContainerVC") as! MapContainerVC
         let cameraNav = cameraStoryboard.instantiateViewController(withIdentifier: "CameraNav") as! UINavigationController
         let leaderboardsNav = leaderboardsStoryboard.instantiateViewController(withIdentifier: "LeaderboardsFriendsNav") as! UINavigationController
         leaderboardsVC = leaderboardsNav.topViewController as! LeaderboardsFriendsVC
         leaderboardsVC.mode = LeaderboardsFriendsVC.LEADERBOARD_MODE
-        self.viewControllersArray = [cameraNav]
+        self.viewControllersArray = [mapVC, cameraNav]
         self.dataSource = self
     }
     
@@ -47,7 +48,7 @@ class PageViewController: PageboyViewController, PageboyViewControllerDataSource
     }
     
     func defaultPage(for pageboyViewController: PageboyViewController) -> PageboyViewController.Page? {
-        return PageboyViewController.Page.at(index: 0)
+        return PageboyViewController.Page.at(index: 1)
     }
     
     
