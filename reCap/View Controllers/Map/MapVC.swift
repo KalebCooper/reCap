@@ -262,35 +262,23 @@ class MapVC: UIViewController, MGLMapViewDelegate {
                 let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 60, height: 50))
                 
                 print(pictureIDArray[i])
-                
-                FBDatabase.getPictureData(id: pictureIDArray[i], ref: ref) { (pictureData) in
-                    
-                    print(pictureData?.id)
-                    
-                    if let realPictureData = pictureData{
+                let pictureData = pictureDataArray[i]
                         
-                        print("--------------------------")
-                        print("TEST")
-                        print("--------------------------")
-                        
-                        FBDatabase.getPicture(pictureData: realPictureData, with_progress: {(progress, total) in
-                            
-                            
-                            
-                        }, with_completion: {(image) in
-                            if let realImage = image {
-                                imageView.image = realImage
-                                imageView.contentMode = .scaleAspectFit
-                                self.pictureDataToPass = realPictureData
-                                self.imageToPass = realImage
-                                imageView.hero.id = "imageID"
-                            }
-                            else {
-                            }
-                        })
-                        
+                FBDatabase.getPicture(pictureData: pictureData, with_progress: {(progress, total) in
+
+                }, with_completion: {(image) in
+                    if let realImage = image {
+                        imageView.image = realImage
+                        imageView.contentMode = .scaleAspectFit
+                        self.pictureDataToPass = pictureData
+                        self.imageToPass = realImage
+                        imageView.hero.id = "imageID"
                     }
-                }
+                    else {
+                    }
+                })
+                
+                
                 return imageView
             }
         }
@@ -492,7 +480,7 @@ class MapVC: UIViewController, MGLMapViewDelegate {
             //let destination = segue.destination as! ChallengeViewVC
             let pictureData = pictureDataToPass
             let picture = imageToPass
-            //destination.pictureData = pictureData
+            destination.pictureData = pictureData
             destination.image = picture
             print("Segue Done")
         }
