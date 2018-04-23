@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import FCAlertView
 import RealmSwift
+import SwiftLocation
 
 class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICollectionViewDataSource, ImageButtonDelegate {
     
@@ -23,6 +24,9 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
     var userData: UserData!
     var realm: Realm!
     var mode: Int!
+    
+    var userLat: Double!
+    var userLong: Double!
     
     // MARK: - Constants
     private static let PHOTO_SEGUE = "PhotoSegue"
@@ -53,6 +57,9 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        getLocation()
+        
         self.realm = try! Realm()
         applyBlurEffect(image: #imageLiteral(resourceName: "Gradient"))
         tableSectionArray = []
@@ -467,6 +474,21 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
         self.tableView.backgroundView = blurredView
         
         
+    }
+    
+    
+    func getLocation() {
+        Locator.requestAuthorizationIfNeeded(.whenInUse)
+        Locator.currentPosition(accuracy: .room, onSuccess: { location in
+            self.userLat = location.coordinate.latitude
+            self.userLong = location.coordinate.longitude
+            
+            print(self.userLat)
+            print(self.userLong)
+            
+        },onFail: { (error, last) in
+            print(error)
+        })
     }
     
     
