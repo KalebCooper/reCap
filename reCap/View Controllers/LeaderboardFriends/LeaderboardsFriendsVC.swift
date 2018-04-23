@@ -19,7 +19,17 @@ class LeaderboardsFriendsVC: UITableViewController, FCAlertViewDelegate {
     @IBOutlet weak var locationControl: UISegmentedControl!
     
     @IBAction func locationFilterChanged(_ sender: Any) {
-        setupLeaderboards()
+        let currentLocationIndex = self.locationControl.selectedSegmentIndex
+        if currentLocationIndex == LeaderboardsFriendsVC.STATE_FILTER {
+            self.leaderboardsList = self.stateLeaderboards
+        }
+        else if currentLocationIndex == LeaderboardsFriendsVC.COUNTRY_FILTER {
+            self.leaderboardsList = self.countryLeaderboards
+        }
+        else if currentLocationIndex == LeaderboardsFriendsVC.GLOBAL_FILTER {
+            self.leaderboardsList = self.globalLeaderboards
+        }
+        self.tableView.reloadData()
     }
     
     // MARK: - Properties
@@ -28,42 +38,37 @@ class LeaderboardsFriendsVC: UITableViewController, FCAlertViewDelegate {
     var mode: Int!
     var user: User!
     var userData: UserData!
-    //private var friendsList: [User]!
     private var friendsList: [UserData]!
-    private var leaderboardsList: List<UserData>!
+    private var leaderboardsList: [UserData]!
+    private var stateLeaderboards: [UserData]!
+    private var countryLeaderboards: [UserData]!
+    private var globalLeaderboards: [UserData]!
     private var realm: Realm!
+    
+    private static let STATE_FILTER = 0
+    private static let COUNTRY_FILTER = 1
+    private static let GLOBAL_FILTER = 2
     
     override func viewDidLoad() {
         super.viewDidLoad()
         applyBlurEffect(image: #imageLiteral(resourceName: "Gradient"))
         self.realm = try! Realm()
-        leaderboardsList = List<UserData>()
         friendsList = []
-        if mode != nil, userData != nil {
+        leaderboardsList = []
+        stateLeaderboards = []
+        countryLeaderboards = []
+        globalLeaderboards = []
+        if mode != nil {
             // If the mode has been selected
-            if mode == LeaderboardsFriendsVC.FRIENDS_LIST_MODE {
+            if mode == LeaderboardsFriendsVC.FRIENDS_LIST_MODE, userData != nil {
                 // Friends list mode has been picked
                 setupFriendsList()
             }
-        }
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        /*let ref = Database.database().reference()
-        let id = FBDatabase.getSignedInUserID()
-        FBDatabase.getUserOnce(with_id: id!, ref: ref, with_completion: {(user) in
-            if let activeUser = user {
-                print("Got user in leaderboards Friends vc")
-                self.user = activeUser
-                if self.mode != nil {
-                    if self.mode == LeaderboardsFriendsVC.LEADERBOARD_MODE {
-                        self.setupLeaderboards()
-                    }
-                }
+            else if mode == LeaderboardsFriendsVC.LEADERBOARD_MODE {
+                self.userData = realm.object(ofType: UserData.self, forPrimaryKey: SyncUser.current?.identity)
+                setupLeaderboards()
             }
-            
-        })*/
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -100,63 +105,48 @@ class LeaderboardsFriendsVC: UITableViewController, FCAlertViewDelegate {
         self.title = "Leaderboards"
         self.navigationItem.leftBarButtonItem = nil
         self.navigationItem.rightBarButtonItem = nil
-        
-        
-        
-        
-        var unsortedList: [User] = []
-        
-        
-        
-        let ref = Database.database().reference()
-        
-        var filter: String = ""
-        
-        if self.locationControl.selectedSegmentIndex == 0 {
-            filter = "State"
+        let stateResults = realm.objects(UserData.self).filter("state = '\(userData.state!)'").sorted(byKeyPath: "points", ascending: false)
+        let countryResults = realm.objects(UserData.self).filter("country = '\(userData.country!)'").sorted(byKeyPath: "points", ascending: false)
+        let globalResults = realm.objects(UserData.self).sorted(byKeyPath: "points", ascending: false)
+        var count = 0
+        let maximum = 50
+        for userData in stateResults {
+            if count < maximum {
+                // Can still take users in leaderboards
+                self.stateLeaderboards.append(userData)
+                count = count + 1
+            }
+            else {
+                // Not 50 users
+                break
+            }
         }
-        else if self.locationControl.selectedSegmentIndex == 1 {
-            filter = "Country"
+        count = 0
+        for userData in countryResults {
+            if count < 50 {
+                // Can still take users in leaderboards
+                self.countryLeaderboards.append(userData)
+                count = count + 1
+            }
+            else {
+                // Not 50 users
+                break
+            }
         }
-        else {
-            filter = ""
+        count = 0
+        for userData in globalResults {
+            if count < 50 {
+                // Can still take users in leaderboards
+                self.globalLeaderboards.append(userData)
+                count = count + 1
+            }
+            else {
+                // Not 50 users
+                break
+            }
         }
-        
-        
-        if filter == "State" {
-            
-            FBDatabase.getAllUsersByRegion(region: "State", equal_to: self.user.state, with_max_query: 50, with_ref: ref, with_completion: {(users) in
-                for user in users {
-                    unsortedList.append(user)
-                }
-                //self.leaderboardsList = Sort.SortUsersByDescendingOrder(users: unsortedList)
-                self.tableView.reloadData()
-            })
-            
-        }
-        else if filter == "Country" {
-            
-            FBDatabase.getAllUsersByRegion(region: FBDatabase.USER_COUNTRY, equal_to: self.user.country, with_max_query: 50, with_ref: ref, with_completion: {(users) in
-                for user in users {
-                    unsortedList.append(user)
-                }
-                //self.leaderboardsList = Sort.SortUsersByDescendingOrder(users: unsortedList)
-                self.tableView.reloadData()
-            })
-            
-        }
-        else {
-            
-            FBDatabase.getAllUsers(query_by: FBDatabase.USER_POINTS, with_max_query: 50, with_ref: ref, with_completion: {(users) in
-                for user in users {
-                    unsortedList.append(user)
-                }
-                //self.leaderboardsList = Sort.SortUsersByDescendingOrder(users: unsortedList)
-                self.tableView.reloadData()
-            })
-            
-        }
-        
+        self.leaderboardsList = self.stateLeaderboards
+        self.tableView.reloadData()
     }
     
     private func setupFriendsList() {

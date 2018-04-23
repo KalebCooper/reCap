@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		3422D37F20226FE600570374 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3422D37E20226FE600570374 /* GoogleService-Info.plist */; };
-		342736BF208BC214001590D0 /* RealmHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 342736BE208BC214001590D0 /* RealmHelper.swift */; };
 		344C93EA20226E280025E4C5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 344C93E920226E280025E4C5 /* AppDelegate.swift */; };
 		344C93EF20226E280025E4C5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 344C93ED20226E280025E4C5 /* Main.storyboard */; };
 		344C93F220226E280025E4C5 /* reCap.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 344C93F020226E280025E4C5 /* reCap.xcdatamodeld */; };
@@ -46,6 +45,7 @@
 		7A3C553E207B1082009A8036 /* PictureData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3C553D207B1082009A8036 /* PictureData.swift */; };
 		7A3C60112027B99A00ABC9E1 /* PageView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A3C60102027B99A00ABC9E1 /* PageView.storyboard */; };
 		7A3C60132027BAE300ABC9E1 /* MapContainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A3C60122027BAE200ABC9E1 /* MapContainerVC.swift */; };
+		7A494E5F208D48EB00A72AA8 /* RealmHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A494E5E208D48EB00A72AA8 /* RealmHelper.swift */; };
 		7A4D8A3A20277E4F0043878E /* CreateAccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4D8A3920277E4F0043878E /* CreateAccountVC.swift */; };
 		7A4D8A442027801E0043878E /* NavigationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4D8A432027801E0043878E /* NavigationVC.swift */; };
 		7A4D8A46202780A00043878E /* RecentPicturesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4D8A45202780A00043878E /* RecentPicturesVC.swift */; };
@@ -104,7 +104,6 @@
 		0A855F58760B4E1DE5F6226D /* Pods_reCapTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_reCapTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		33F49E39B3F66D85845EA247 /* Pods-reCapTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-reCapTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-reCapTests/Pods-reCapTests.debug.xcconfig"; sourceTree = "<group>"; };
 		3422D37E20226FE600570374 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		342736BE208BC214001590D0 /* RealmHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RealmHelper.swift; path = ../../../../../../kaleb/Documents/SideProjects/reCap/reCap/Database/RealmHelper.swift; sourceTree = "<group>"; };
 		344C93E620226E280025E4C5 /* reCap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = reCap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		344C93E920226E280025E4C5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		344C93EE20226E280025E4C5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -147,6 +146,7 @@
 		7A3C553D207B1082009A8036 /* PictureData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureData.swift; sourceTree = "<group>"; };
 		7A3C60102027B99A00ABC9E1 /* PageView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PageView.storyboard; sourceTree = "<group>"; };
 		7A3C60122027BAE200ABC9E1 /* MapContainerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapContainerVC.swift; sourceTree = "<group>"; };
+		7A494E5E208D48EB00A72AA8 /* RealmHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmHelper.swift; sourceTree = "<group>"; };
 		7A4D8A3920277E4F0043878E /* CreateAccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountVC.swift; sourceTree = "<group>"; };
 		7A4D8A432027801E0043878E /* NavigationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationVC.swift; sourceTree = "<group>"; };
 		7A4D8A45202780A00043878E /* RecentPicturesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentPicturesVC.swift; sourceTree = "<group>"; };
@@ -419,9 +419,9 @@
 		7A4D8A50202782480043878E /* Database */ = {
 			isa = PBXGroup;
 			children = (
+				7A494E5E208D48EB00A72AA8 /* RealmHelper.swift */,
 				7AE375662037C6D900CA9946 /* FBDatabase.swift */,
 				7A3C5539207B029D009A8036 /* RealmConstants.swift */,
-				342736BE208BC214001590D0 /* RealmHelper.swift */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -858,7 +858,6 @@
 				7A120DD12041F4B50003EE1F /* ImageButtonDelegate.swift in Sources */,
 				7A3C5538207AFDDD009A8036 /* HorizontalDial.swift in Sources */,
 				345FB83920363BE300C59FDB /* SignInVC.swift in Sources */,
-				342736BF208BC214001590D0 /* RealmHelper.swift in Sources */,
 				7A5358B0205B77DE0047F410 /* MapVC.swift in Sources */,
 				347B20FE2058C935001B72A0 /* ChallengeViewVC.swift in Sources */,
 				344C93F220226E280025E4C5 /* reCap.xcdatamodeld in Sources */,
@@ -882,6 +881,7 @@
 				7A38A275202AB56100DF239F /* PhotoChallengeTableCell.swift in Sources */,
 				7A3B468C202AB3FC001D19B6 /* EdgeShadowLayer.swift in Sources */,
 				7AF10F512058A47B00019C70 /* ProfileMenuVC.swift in Sources */,
+				7A494E5F208D48EB00A72AA8 /* RealmHelper.swift in Sources */,
 				7AF10F532058A48B00019C70 /* TutorialContainerVC.swift in Sources */,
 				7A3C553C207B0949009A8036 /* UserData.swift in Sources */,
 				7AE375672037C6DA00CA9946 /* FBDatabase.swift in Sources */,
@@ -1056,7 +1056,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = iOSAppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = VPT5835T5T;
+				DEVELOPMENT_TEAM = CZ7R6F7L6H;
 				INFOPLIST_FILE = reCap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Kaleb-Cooper-Team-Red.reCap";
@@ -1073,7 +1073,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = iOSAppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = VPT5835T5T;
+				DEVELOPMENT_TEAM = CZ7R6F7L6H;
 				INFOPLIST_FILE = reCap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Kaleb-Cooper-Team-Red.reCap";

@@ -116,31 +116,6 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
 
     
     private func setupPhotoLib() {
-        /*let username = self.user.username!
-        let ref = Database.database().reference()
-        self.title = "\(username)'s Photos"
-        self.tableView.allowsSelection = false
-        FBDatabase.getPictureData(for_user: user, ref: ref, with_completion: {(pictureDataList) in
-            for pictureData in pictureDataList {
-                if pictureData.isMostRecentPicture {
-                    // Only display photos that are root pictures
-                    let location = pictureData.locationName
-                    if !self.tableSectionArray.contains(location!) {
-                        // Location is not in the locations array
-                        // Add it to the array and initialize
-                        // an empty array for the key location
-                        self.tableSectionArray.append(location!)
-                        self.collectionDictionaryData[location!] = []
-                    }
-                    var pictureDataArray = self.collectionDictionaryData[location!]!
-                    pictureDataArray.append(pictureData)
-                    self.collectionDictionaryData[location!] = pictureDataArray
-                }
-            }
-            self.tableView.reloadData()
-            
-        })*/
-        
         let username = self.userData.name!
         self.title = "\(username)'s Photos"
         self.tableView.allowsSelection = false
@@ -161,34 +136,6 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
         self.tableView.reloadData()
     }
     
-    /*
-     Used to setup when viewing
-     a friends photo library
-     */
-    /*private func setupFriendsPicLib() {
-        let username = self.user.username!
-        let ref = Database.database().reference()
-        self.title = "\(username)'s Photos"
-        //self.title = "Photo Library"
-        self.tableView.allowsSelection = false
-        FBDatabase.getPictureData(for_user: user, ref: ref, with_completion: {(pictureDataList) in
-            for pictureData in pictureDataList {
-                let location = pictureData.locationName
-                if !self.tableSectionArray.contains(location!) {
-                    // Location is not in the locations array
-                    // Add it to the array and initialize
-                    // an empty array for the key location
-                    self.tableSectionArray.append(location!)
-                    self.collectionDictionaryData[location!] = []
-                }
-                var pictureDataArray = self.collectionDictionaryData[location!]!
-                pictureDataArray.append(pictureData)
-                self.collectionDictionaryData[location!] = pictureDataArray
-            }
-            self.tableView.reloadData()
-        })
-    }*/
-    
     private func setupChallenge() {
         self.title = "Challenges"
         self.dispatchGroup = DispatchGroup()
@@ -196,7 +143,7 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
         var unsortedChallenges: [String : [PictureData]] = [PhotoLibChallengeVC.TAKE_PIC_FROM_RECENT : [], PhotoLibChallengeVC.TAKE_PIC_FROM_WEEK : [], PhotoLibChallengeVC.TAKE_PIC_FROM_MONTH : [], PhotoLibChallengeVC.TAKE_PIC_FROM_YEAR : []]
         self.tableView.allowsSelection = false
         let currentDate = Date()
-        let ref = Database.database().reference()
+        /*let ref = Database.database().reference()
         FBDatabase.getAllMostRecentPictureData(ref: ref, with_completion: {(pictureDataList) in
             for pictureData in pictureDataList {
                 let challengeCategory = self.getPicChallengeCategory(pictureData: pictureData, currentDate: currentDate)
@@ -227,7 +174,7 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
                 }
                 self.tableView.reloadData()
             })
-        })
+        })*/
     }
     
     private func runChallengeSortingThread(section: String, unsortedChallenges: [String : [PictureData]]) {

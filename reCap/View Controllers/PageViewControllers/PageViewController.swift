@@ -32,7 +32,7 @@ class PageViewController: PageboyViewController, PageboyViewControllerDataSource
         let leaderboardsNav = leaderboardsStoryboard.instantiateViewController(withIdentifier: "LeaderboardsFriendsNav") as! UINavigationController
         leaderboardsVC = leaderboardsNav.topViewController as! LeaderboardsFriendsVC
         leaderboardsVC.mode = LeaderboardsFriendsVC.LEADERBOARD_MODE
-        self.viewControllersArray = [mapVC, cameraNav]
+        self.viewControllersArray = [mapVC, cameraNav, leaderboardsNav]
         self.dataSource = self
     }
     
