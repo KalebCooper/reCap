@@ -424,15 +424,12 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
     }
     
     
-    func getLocation() {
+    func getLocation() -> [Double]{
         Locator.requestAuthorizationIfNeeded(.whenInUse)
         Locator.currentPosition(accuracy: .room, onSuccess: { location in
             self.userLat = location.coordinate.latitude
             self.userLong = location.coordinate.longitude
-            
-            print(self.userLat)
-            print(self.userLong)
-            
+            let array = [self.userLat, self.userLong]
         },onFail: { (error, last) in
             print(error)
         })
