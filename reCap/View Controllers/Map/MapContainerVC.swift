@@ -8,16 +8,19 @@
 
 import UIKit
 import Firebase
+import RealmSwift
 
 class MapContainerVC: UIViewController {
     
     // MARK: - Properties
-    var user: UserData!
+    var userData: UserData!
     private static let CHALLENGE_SEGUE = "ChallengeSegue"
 
     override func viewDidLoad() {
         super.viewDidLoad()
         print("Map container loaded")
+        let realm = try! Realm()
+        self.userData = realm.object(ofType: UserData.self, forPrimaryKey: SyncUser.current?.identity)
         // Do any additional setup after loading the view.
     }
     
@@ -36,10 +39,6 @@ class MapContainerVC: UIViewController {
         self.performSegue(withIdentifier: "ChallengeSegue", sender: nil)
     }
     
-    // MARK: - Misc.
-    public func updateViewController(user: UserData) {
-        self.user = user
-    }
     
     // MARK: - Navigation
 
@@ -52,11 +51,11 @@ class MapContainerVC: UIViewController {
             let desination = segue.destination as! UINavigationController
             let challengeVC = desination.topViewController as! PhotoLibChallengeVC
             challengeVC.mode = PhotoLibChallengeVC.CHALLENGE_MODE
-            //challengeVC.user = self.user
+            challengeVC.userData = self.userData
         }
         else if id == "MapSegue" {
             let desination = segue.destination as! MapVC
-            desination.user = self.user
+            //desination.user = self.user
         }
     }
 
