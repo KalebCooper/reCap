@@ -11,8 +11,9 @@ import Firebase
 import FCAlertView
 import RealmSwift
 import SwiftLocation
+import CoreLocation
 
-class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICollectionViewDataSource, ImageButtonDelegate {
+class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICollectionViewDataSource, CLLocationManagerDelegate, ImageButtonDelegate {
     
     // MARK: - Outlets
     
@@ -27,6 +28,7 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
     
     var userLat: Double!
     var userLong: Double!
+    let locationManager = CLLocationManager()
     
     // MARK: - Constants
     private static let PHOTO_SEGUE = "PhotoSegue"
@@ -139,15 +141,25 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
     }
     
     private func setupChallenge() {
+        
+        
+        
         self.title = "Challenges"
         self.dispatchGroup = DispatchGroup()
         self.collectionDictionaryData = [PhotoLibChallengeVC.TAKE_PIC_FROM_RECENT : [], PhotoLibChallengeVC.TAKE_PIC_FROM_WEEK : [], PhotoLibChallengeVC.TAKE_PIC_FROM_MONTH : [], PhotoLibChallengeVC.TAKE_PIC_FROM_YEAR : []]
         self.tableView.allowsSelection = false
         Locator.requestAuthorizationIfNeeded(.whenInUse)
-        Locator.currentPosition(accuracy: .room, onSuccess: { location in
+        
+        print("Test")
+        Locator.currentPosition(accuracy: .city, onSuccess: { location in
+            print("Part 2")
             let lat = location.coordinate.latitude
             let long = location.coordinate.longitude
             //let degreeThresh = ((1/69)*PhotoLibChallengeVC.MILE_THRESH) / 2
+            
+            print(lat)
+            print(long)
+            
             let degreeThresh = 1.0
             let latHigh = lat + degreeThresh
             let latLow = lat - degreeThresh
