@@ -54,6 +54,8 @@ class FBDatabase {
     public static let USER_SIGNED_IN_LOCALLY = 1
     public static let USER_NOT_SIGNED_IN = 2
     
+    private static let imageCache = NSCache<NSString, UIImage>()
+    
     /*
      Cant Create an instance of FBDatabase,
      only use class functions
@@ -518,8 +520,13 @@ class FBDatabase {
      Get picture from database
      */
     class func getPicture(pictureData: PictureData, with_progress progress: @escaping (_ progress: Int64, _ total: Int64) -> (), with_completion completion: @escaping (_ image: UIImage?) -> ()) {
-        let storageRef = Storage.storage().reference(forURL: "gs://recap-78bda.appspot.com").child(PICTURE_NODE).child(pictureData.id)
-        getPictureFromDatabase(storageRef: storageRef, with_progress: progress, with_completion: completion)
+        if let image = imageCache.object(forKey: pictureData.id! as NSString) {
+            completion(image)
+        }
+        else {
+            let storageRef = Storage.storage().reference(forURL: "gs://recap-78bda.appspot.com").child(PICTURE_NODE).child(pictureData.id)
+            getPictureFromDatabase(storageRef: storageRef, with_progress: progress, with_completion: completion, key: pictureData.id)
+        }
     }
     
     /*
@@ -527,22 +534,28 @@ class FBDatabase {
      */
     class func getProfilePicture(for_user user: User, with_progress progress: @escaping (_ progress: Int64, _ total: Int64) -> (), with_completion completion: @escaping (_ image: UIImage?) -> ()) {
         let storageRef = Storage.storage().reference(forURL: "gs://recap-78bda.appspot.com").child(PROFILE_PICTURE_NODE).child(user.id)
-        getPictureFromDatabase(storageRef: storageRef, with_progress: progress, with_completion: completion)
+        getPictureFromDatabase(storageRef: storageRef, with_progress: progress, with_completion: completion, key: user.id)
     }
     
     class func getProfilePicture(for_user user: UserData, with_progress progress: @escaping (_ progress: Int64, _ total: Int64) -> (), with_completion completion: @escaping (_ image: UIImage?) -> ()) {
-        let storageRef = Storage.storage().reference(forURL: "gs://recap-78bda.appspot.com").child(PROFILE_PICTURE_NODE).child(user.id)
-        getPictureFromDatabase(storageRef: storageRef, with_progress: progress, with_completion: completion)
+        if let image = imageCache.object(forKey: user.id! as NSString) {
+            completion(image)
+        }
+        else {
+            let storageRef = Storage.storage().reference(forURL: "gs://recap-78bda.appspot.com").child(PROFILE_PICTURE_NODE).child(user.id)
+            getPictureFromDatabase(storageRef: storageRef, with_progress: progress, with_completion: completion, key: user.id)
+        }
     }
     
     /*
      Gets picture from DB
      */
-    class func getPictureFromDatabase(storageRef: StorageReference, with_progress progress: @escaping (_ progress: Int64, _ total: Int64) -> (), with_completion completion: @escaping (_ image: UIImage?) -> ()) {
+    class func getPictureFromDatabase(storageRef: StorageReference, with_progress progress: @escaping (_ progress: Int64, _ total: Int64) -> (), with_completion completion: @escaping (_ image: UIImage?) -> (), key: String) {
         let downloadTask = storageRef.getData(maxSize: 1 * 1024 * 1024) { (data, error) -> Void in
             if data != nil {
                 // Got picture in database
                 let pic = UIImage(data: data!)
+                imageCache.setObject(pic!, forKey: key as NSString)
                 completion(pic)
             }
             else {
