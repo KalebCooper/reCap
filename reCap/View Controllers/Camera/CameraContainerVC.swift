@@ -801,7 +801,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
             let photoLibVC = destination.topViewController as! PhotoLibChallengeVC
             //photoLibVC.user = self.user
             photoLibVC.userData = self.userData
-            photoLibVC.mode = PhotoLibChallengeVC.PHOTO_LIB_MODE
+            photoLibVC.mode = PhotoLibChallengeVC.FRIENDS_PHOTO_LIB_MODE
         }
         
     }
