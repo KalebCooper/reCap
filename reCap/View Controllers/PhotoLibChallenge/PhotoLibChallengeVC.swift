@@ -141,88 +141,46 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
     }
     
     private func setupChallenge() {
-        
-        
-        
         self.title = "Challenges"
         self.dispatchGroup = DispatchGroup()
         self.collectionDictionaryData = [PhotoLibChallengeVC.TAKE_PIC_FROM_RECENT : [], PhotoLibChallengeVC.TAKE_PIC_FROM_WEEK : [], PhotoLibChallengeVC.TAKE_PIC_FROM_MONTH : [], PhotoLibChallengeVC.TAKE_PIC_FROM_YEAR : []]
         self.tableView.allowsSelection = false
-        Locator.requestAuthorizationIfNeeded(.whenInUse)
-        
-        print("Test")
-        Locator.currentPosition(accuracy: .city, onSuccess: { location in
-            print("Part 2")
-            let lat = location.coordinate.latitude
-            let long = location.coordinate.longitude
-            //let degreeThresh = ((1/69)*PhotoLibChallengeVC.MILE_THRESH) / 2
-            
-            print(lat)
-            print(long)
-            
-            let degreeThresh = 1.0
-            let latHigh = lat + degreeThresh
-            let latLow = lat - degreeThresh
-            let longHigh = long + degreeThresh
-            let longLow = long - degreeThresh
-            let coordinatesPredicate = NSPredicate(format: "latitude <= \(latHigh) AND latitude >= \(latLow) AND longitude <= \(longHigh) AND longitude >= \(longLow)")
-            let mostRecentPredicate = NSPredicate(format: "isMostRecent = true")
-            let recentResults = self.realm.objects(PictureData.self).filter(coordinatesPredicate).filter(mostRecentPredicate).filter("time <= \(PhotoLibChallengeVC.SECONDS_IN_WEEK)").sorted(byKeyPath: "time", ascending: false)
-            let weekResults = self.realm.objects(PictureData.self).filter(coordinatesPredicate).filter(mostRecentPredicate).filter("time >= \(PhotoLibChallengeVC.SECONDS_IN_WEEK) AND time <= \(PhotoLibChallengeVC.SECONDS_IN_MONTH)").sorted(byKeyPath: "time", ascending: false)
-            let monthResults = self.realm.objects(PictureData.self).filter(coordinatesPredicate).filter(mostRecentPredicate).filter("time >= \(PhotoLibChallengeVC.SECONDS_IN_MONTH) AND time = \(PhotoLibChallengeVC.SECONDS_IN_YEAR)")
-            let yearResults = self.realm.objects(PictureData.self).filter(coordinatesPredicate).filter(mostRecentPredicate).filter("time >= \(PhotoLibChallengeVC.SECONDS_IN_YEAR)")
-            self.collectionDictionaryData[PhotoLibChallengeVC.TAKE_PIC_FROM_RECENT] = self.getFiftyChallenges(results: recentResults)
-            self.collectionDictionaryData[PhotoLibChallengeVC.TAKE_PIC_FROM_WEEK] = self.getFiftyChallenges(results: weekResults)
-            self.collectionDictionaryData[PhotoLibChallengeVC.TAKE_PIC_FROM_MONTH] = self.getFiftyChallenges(results: monthResults)
-            self.collectionDictionaryData[PhotoLibChallengeVC.TAKE_PIC_FROM_YEAR] = self.getFiftyChallenges(results: yearResults)
-            if self.collectionDictionaryData[PhotoLibChallengeVC.TAKE_PIC_FROM_RECENT]?.count != 0 {
-                self.tableSectionArray.append(PhotoLibChallengeVC.TAKE_PIC_FROM_RECENT)
-            }
-            if self.collectionDictionaryData[PhotoLibChallengeVC.TAKE_PIC_FROM_WEEK]?.count != 0 {
-                self.tableSectionArray.append(PhotoLibChallengeVC.TAKE_PIC_FROM_WEEK)
-            }
-            if self.collectionDictionaryData[PhotoLibChallengeVC.TAKE_PIC_FROM_MONTH]?.count != 0 {
-                self.tableSectionArray.append(PhotoLibChallengeVC.TAKE_PIC_FROM_MONTH)
-            }
-            if self.collectionDictionaryData[PhotoLibChallengeVC.TAKE_PIC_FROM_YEAR]?.count != 0 {
-                self.tableSectionArray.append(PhotoLibChallengeVC.TAKE_PIC_FROM_YEAR)
-            }
-            self.tableView.reloadData()
-        },onFail: { (error, last) in
-            print(error)
-        })
-        /*let ref = Database.database().reference()
-        FBDatabase.getAllMostRecentPictureData(ref: ref, with_completion: {(pictureDataList) in
-            for pictureData in pictureDataList {
-                let challengeCategory = self.getPicChallengeCategory(pictureData: pictureData, currentDate: currentDate)
-                //self.collectionDictionaryData[challengeCategory]?.append(pictureData)
-                unsortedChallenges[challengeCategory]?.append(pictureData)
-            }
-            self.dispatchGroup = DispatchGroup()
-            self.dispatchGroup.enter()
-            self.runChallengeSortingThread(section: PhotoLibChallengeVC.TAKE_PIC_FROM_RECENT, unsortedChallenges: unsortedChallenges)
-            self.dispatchGroup.enter()
-            self.runChallengeSortingThread(section: PhotoLibChallengeVC.TAKE_PIC_FROM_WEEK, unsortedChallenges: unsortedChallenges)
-            self.dispatchGroup.enter()
-            self.runChallengeSortingThread(section: PhotoLibChallengeVC.TAKE_PIC_FROM_MONTH, unsortedChallenges: unsortedChallenges)
-            self.dispatchGroup.enter()
-            self.runChallengeSortingThread(section: PhotoLibChallengeVC.TAKE_PIC_FROM_YEAR, unsortedChallenges: unsortedChallenges)
-            self.dispatchGroup.notify(queue: .main, execute: {
-                if self.collectionDictionaryData[PhotoLibChallengeVC.TAKE_PIC_FROM_RECENT]?.count != 0 {
-                    self.tableSectionArray.append(PhotoLibChallengeVC.TAKE_PIC_FROM_RECENT)
-                }
-                if self.collectionDictionaryData[PhotoLibChallengeVC.TAKE_PIC_FROM_WEEK]?.count != 0 {
-                    self.tableSectionArray.append(PhotoLibChallengeVC.TAKE_PIC_FROM_WEEK)
-                }
-                if self.collectionDictionaryData[PhotoLibChallengeVC.TAKE_PIC_FROM_MONTH]?.count != 0 {
-                    self.tableSectionArray.append(PhotoLibChallengeVC.TAKE_PIC_FROM_MONTH)
-                }
-                if self.collectionDictionaryData[PhotoLibChallengeVC.TAKE_PIC_FROM_YEAR]?.count != 0 {
-                    self.tableSectionArray.append(PhotoLibChallengeVC.TAKE_PIC_FROM_YEAR)
-                }
-                self.tableView.reloadData()
-            })
-        })*/
+        print("Part 2")
+        let lat = self.userData.latitude
+        let long = self.userData.longitude
+        let degreeThresh = ((1/69)*PhotoLibChallengeVC.MILE_THRESH) / 2
+        //let degreeThresh = 1.0
+        let latHigh = lat + degreeThresh
+        let latLow = lat - degreeThresh
+        let longHigh = long + degreeThresh
+        let longLow = long - degreeThresh
+        let currentTime = Int(Date().timeIntervalSince1970)
+        let weekTime = currentTime + PhotoLibChallengeVC.SECONDS_IN_WEEK
+        let monthTime = currentTime + PhotoLibChallengeVC.SECONDS_IN_MONTH
+        let yearTime = currentTime + PhotoLibChallengeVC.SECONDS_IN_YEAR
+        let coordinatesPredicate = NSPredicate(format: "latitude <= \(latHigh) AND latitude >= \(latLow) AND longitude <= \(longHigh) AND longitude >= \(longLow)")
+        let mostRecentPredicate = NSPredicate(format: "isMostRecentPicture = true")
+        let recentResults = self.realm.objects(PictureData.self).filter(coordinatesPredicate).filter(mostRecentPredicate).filter("time <= \(weekTime)").sorted(byKeyPath: "time", ascending: false)
+        let weekResults = self.realm.objects(PictureData.self).filter(coordinatesPredicate).filter(mostRecentPredicate).filter("time >= \(weekTime) AND time <= \(monthTime)").sorted(byKeyPath: "time", ascending: false)
+        let monthResults = self.realm.objects(PictureData.self).filter(coordinatesPredicate).filter(mostRecentPredicate).filter("time >= \(monthTime) AND time <= \(yearTime)")
+        let yearResults = self.realm.objects(PictureData.self).filter(coordinatesPredicate).filter(mostRecentPredicate).filter("time >= \(yearTime)")
+        self.collectionDictionaryData[PhotoLibChallengeVC.TAKE_PIC_FROM_RECENT] = self.getFiftyChallenges(results: recentResults)
+        self.collectionDictionaryData[PhotoLibChallengeVC.TAKE_PIC_FROM_WEEK] = self.getFiftyChallenges(results: weekResults)
+        self.collectionDictionaryData[PhotoLibChallengeVC.TAKE_PIC_FROM_MONTH] = self.getFiftyChallenges(results: monthResults)
+        self.collectionDictionaryData[PhotoLibChallengeVC.TAKE_PIC_FROM_YEAR] = self.getFiftyChallenges(results: yearResults)
+        if self.collectionDictionaryData[PhotoLibChallengeVC.TAKE_PIC_FROM_RECENT]?.count != 0 {
+            self.tableSectionArray.append(PhotoLibChallengeVC.TAKE_PIC_FROM_RECENT)
+        }
+        if self.collectionDictionaryData[PhotoLibChallengeVC.TAKE_PIC_FROM_WEEK]?.count != 0 {
+            self.tableSectionArray.append(PhotoLibChallengeVC.TAKE_PIC_FROM_WEEK)
+        }
+        if self.collectionDictionaryData[PhotoLibChallengeVC.TAKE_PIC_FROM_MONTH]?.count != 0 {
+            self.tableSectionArray.append(PhotoLibChallengeVC.TAKE_PIC_FROM_MONTH)
+        }
+        if self.collectionDictionaryData[PhotoLibChallengeVC.TAKE_PIC_FROM_YEAR]?.count != 0 {
+            self.tableSectionArray.append(PhotoLibChallengeVC.TAKE_PIC_FROM_YEAR)
+        }
+        self.tableView.reloadData()
     }
     
     private func runChallengeSortingThread(section: String, unsortedChallenges: [String : [PictureData]]) {
@@ -239,6 +197,9 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
             let alert = UIAlertController(title: nil, message: "What would you like to do with this challenge?", preferredStyle: .actionSheet)
             let withoutNav = UIAlertAction(title: "Make Active", style: .default, handler: {(action) in
                 //self.addChallengeToUser(pictureData: pictureData)
+                try! self.realm.write {
+                    self.userData.activeChallengeID = pictureData
+                }
                 self.navigationController?.dismiss(animated: true, completion: nil)
                 self.displaySuccessAlert(message: "You just set your active challenge! Make sure to navigate to the pin when you're ready to begin!")
             })
@@ -252,10 +213,7 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
             alert.addAction(cancel)
             self.present(alert, animated: true, completion: nil)
         }
-        else if mode == PhotoLibChallengeVC.PHOTO_LIB_MODE || mode == PhotoLibChallengeVC.FRIENDS_PHOTO_LIB_MODE{
-            self.performSegue(withIdentifier: "PhotoSegue", sender: [pictureData, image])
-        }
-        else if mode == PhotoLibChallengeVC.FRIENDS_PHOTO_LIB_MODE {
+        else if mode == PhotoLibChallengeVC.FRIENDS_PHOTO_LIB_MODE || mode == PhotoLibChallengeVC.FRIENDS_PHOTO_LIB_MODE{
             self.performSegue(withIdentifier: "PhotoSegue", sender: [pictureData, image])
         }
     }
@@ -490,17 +448,13 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
         }
         
         if segueID == PhotoLibChallengeVC.VIEW_CHALLENGE_SEGUE {
-            print("Test")
             let nav = segue.destination as! UINavigationController
             let destination = nav.topViewController as! ChallengeViewVC
-            print("Test")
             let infoArray = sender as! [Any]
             let pictureData = infoArray[PhotoLibChallengeVC.PHOTO_SEGUE_PICTURE_DATA_INDEX] as! PictureData
             let picture = infoArray[PhotoLibChallengeVC.PHOTO_SEGUE_PICTURE_INDEX] as! UIImage
-            print("Test")
-            //destination.pictureData = pictureData
+            destination.pictureData = pictureData
             destination.image = picture
-            print("Segue Done")
         }
     }
     

@@ -17,17 +17,18 @@ class UserData: Object {
     var pictures = List<PictureData>()
     @objc dynamic var email: String!
     var friends = List<UserData>()
-    var activeChallengeID: String!
-    var activeChallengePoints: Int!
+    @objc dynamic var activeChallengeID: PictureData?
+    @objc dynamic var activeChallengePoints = 0
     @objc dynamic var state: String!
     @objc dynamic var country: String!
+    @objc dynamic var longitude = 0.0
+    @objc dynamic var latitude = 0.0
     
     convenience required init(id: String, name: String, email: String) {
         self.init()
         self.id = id
         self.name = name
         self.email = email
-        self.activeChallengeID = ""
         self.activeChallengePoints = 0
     }
     

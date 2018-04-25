@@ -74,7 +74,6 @@ class ImageCreateVC: UIViewController {
         try! realm.write {
             realm.add(pictureData)
             self.userData.pictures.append(pictureData)
-            self.userData.activeChallengeID = ""
             self.userData.activeChallengePoints = 0
         }
         FBDatabase.addPicture(image: self.image!, pictureData: pictureData, with_completion: {(error) in

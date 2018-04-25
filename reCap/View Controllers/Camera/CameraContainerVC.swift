@@ -41,6 +41,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     var destinationAngle: Double? = 0
     private var userData: UserData!
     private var realm: Realm!
+    private var hasUpdateUserLocation = false
     
     var profileImage: UIImage?
     
@@ -229,15 +230,9 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         
     }
     
-
-    
-    func userUpdated() {
-        self.setupActiveChallengeData()
-        self.setupPreviousPicture()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        //print("The users active challenge is \(self.user.activeChallengeID)")
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.hasUpdateUserLocation = false
     }
     
     func setupProfileImage() {
@@ -309,30 +304,35 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
      picture challenges. Used to change the color
      of the gps coordinates when on the exact location
      */
-    private func setupActiveChallengeData() {
-        let id = self.userData.activeChallengeID
-        if id != "" {
-            // If there is an actual id and not just the place holder
-            let ref = Database.database().reference()
-            FBDatabase.getPictureData(id: id!, ref: ref, with_completion: {(pictureData) in
-                
-                if pictureData != nil {
-                    if let activePictureData = pictureData {
-                        self.activeChallengePicData = activePictureData
-                        print("Got challenge pic data in Camera Container VC")
+    private func setupActiveChallenge() {
+        self.activeChallengePicData = self.userData.activeChallengeID
+        if self.activeChallengePicData != nil {
+            // There is an active challenge
+            self.previousOutlet.isEnabled = true
+            self.arrowOutlet.isHidden = false
+            FBDatabase.getPicture(pictureData: self.activeChallengePicData, with_progress: { (progress, total) in
+                }, with_completion: { (image) in
+                    if let realImage = image {
+                        self.previousImageView = UIImageView(frame: self.view.frame)
+                        self.previousImageView?.image = realImage
+                        self.previousImageView?.alpha = 0.0
+                        
+                    if realImage.imageOrientation == .left || realImage.imageOrientation == .right {
+                        self.previousImageView?.contentMode = .scaleToFill
+                        self.previousImageContentMode = .scaleToFill
                     }
                     else {
-                        print("Did not get challenge pic data in camera container VC")
+                        self.previousImageView?.contentMode = .scaleAspectFill
+                        self.previousImageContentMode = .scaleAspectFill
                     }
-                    
+                    self.previewView.addSubview(self.previousImageView!)
                 }
-                
+                else {
+                    // Could not get image
+                    self.previousOutlet.isEnabled = false
+                    self.arrowOutlet.isHidden = true
+                }
             })
-        }
-        else {
-            // There is not an active challenge, make sure the active challenge is set to nil
-            print("There is not an active challenge in camera container VC")
-            self.activeChallengePicData = nil
         }
     }
     
@@ -537,68 +537,45 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
             locationManager.delegate = self
         }
         Locator.subscribePosition(accuracy: .room, onUpdate: { location in
-                                    let lat = location.coordinate.latitude.truncate(places: 6)
-                                    let long = location.coordinate.longitude.truncate(places: 6)
-                                
-                                    /*if self.userData.activeChallengeID != "" {
-                                        let activeChallengeID = String(self.userData.activeChallengeID)
-                                        var destination: CLLocation? = CLLocation(latitude: 0, longitude: 0)
-                                        var angle: Double = 0
-                                        
-                                        let ref = Database.database().reference()
-                                        FBDatabase.getPictureData(id: activeChallengeID, ref: ref, with_completion: { (pictureData) in
-                                            
-                                            if pictureData != nil {
-                                                
-                                                let destinationArray = pictureData?.gpsCoordinates
-                                                destination = CLLocation(latitude: destinationArray![0], longitude: destinationArray![1])
-                                                angle = self.getBearingBetweenTwoPoints1(point1: location, point2: destination!)
-                                                
-                                                self.previousOutlet.isEnabled = true
-                                                self.arrowOutlet.isHidden = false
-                                                self.destinationAngle = angle
-                                            }
-                                        })
-                                    }
-                                    else {
-                                        self.previousOutlet.isEnabled = false
-                                        self.arrowOutlet.isHidden = true
-                                    }*/
-            
-                                    let gpsString = String.convertGPSCoordinatesToOutput(coordinates: [lat, long])
-                                    self.locationOutlet.text = gpsString
-                                    self.latToPass = lat
-                                    self.longToPass = long
-                                    self.locationToPass = gpsString
-                                    if self.activeChallengePicData != nil {
-                                        // There is a active challenge
-                                        let picLong = self.activeChallengePicData.longitude
-                                        let picLat = self.activeChallengePicData.latitude
-                                        let longDiff = abs(picLong - long)
-                                        let latDiff = abs(picLat - lat)
-                                        
-
-                                        if longDiff > self.chalCloseCoordThreshold || latDiff > self.chalCloseCoordThreshold {
-                                            self.locationOutlet.textColor = UIColor.white
-                                            self.isAtChallengeLocation = false
-                                        }
-                                        else if longDiff < self.chalBestCoordThreshold && latDiff < self.chalBestCoordThreshold {
-                                            self.locationOutlet.textColor = UIColor.green
-                                            self.isAtChallengeLocation = true
-                                        }
-                                        else if longDiff <= self.chalCloseCoordThreshold && latDiff <= self.chalCloseCoordThreshold {
-                                            self.locationOutlet.textColor = UIColor.yellow
-                                            self.isAtChallengeLocation = true
-                                        }
-                                    }
-                                    else {
-                                        self.locationOutlet.textColor = UIColor.white
-                                        self.isAtChallengeLocation = false
-                                    }
-                                    
-                },onFail: { (error, last) in
-                    print(error)
-                })
+            let lat = location.coordinate.latitude.truncate(places: 6)
+            let long = location.coordinate.longitude.truncate(places: 6)
+            if !self.hasUpdateUserLocation {
+                try! self.realm.write {
+                    self.userData.longitude = long
+                    self.userData.latitude = lat
+                }
+                self.hasUpdateUserLocation = true
+            }
+            if self.activeChallengePicData != nil {
+                let picLong = self.activeChallengePicData.longitude
+                let picLat = self.activeChallengePicData.latitude
+                var destination: CLLocation? = CLLocation(latitude: 0, longitude: 0)
+                var angle: Double = 0
+                destination = CLLocation(latitude: picLat, longitude: picLong)
+                angle = self.getBearingBetweenTwoPoints1(point1: location, point2: destination!)
+                self.destinationAngle = angle
+                let longDiff = abs(picLong - long)
+                let latDiff = abs(picLat - lat)
+                if longDiff > self.chalCloseCoordThreshold || latDiff > self.chalCloseCoordThreshold {
+                    self.locationOutlet.textColor = UIColor.white
+                    self.isAtChallengeLocation = false
+                }
+                else if longDiff < self.chalBestCoordThreshold && latDiff < self.chalBestCoordThreshold {
+                    self.locationOutlet.textColor = UIColor.green
+                    self.isAtChallengeLocation = true
+                }
+                else if longDiff <= self.chalCloseCoordThreshold && latDiff <= self.chalCloseCoordThreshold {
+                    self.locationOutlet.textColor = UIColor.yellow
+                    self.isAtChallengeLocation = true
+                }
+            }
+            else {
+                self.locationOutlet.textColor = UIColor.white
+                self.isAtChallengeLocation = false
+            }
+        },onFail: { (error, last) in
+            print(error)
+        })
     }
     
     
@@ -631,45 +608,6 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         
     }
     
-    func setupPreviousPicture() {
-        let challengeID = self.user.activeChallengeID
-        let ref = Database.database().reference()
-        if challengeID != "" {
-            FBDatabase.getPictureData(id: challengeID!, ref: ref) { (pictureData) in
-                if pictureData != nil {
-                    FBDatabase.getPicture(pictureData: pictureData!, with_progress: { (progress, total) in
-                        
-                    }, with_completion: { (image) in
-                        
-                        self.previousImageView = UIImageView(frame: self.view.frame)
-                        self.previousImageView?.image = image
-                        self.previousImageView?.alpha = 0.0
-                        
-                        if image?.imageOrientation == .left || image?.imageOrientation == .right {
-                            self.previousImageView?.contentMode = .scaleToFill
-                            self.previousImageContentMode = .scaleToFill
-                        }
-                        else {
-                            self.previousImageView?.contentMode = .scaleAspectFill
-                            self.previousImageContentMode = .scaleAspectFill
-                        }
-                        
-                        self.previewView.addSubview(self.previousImageView!)
-                        
-                    }
-                    )
-                }
-                else {
-                    
-                    self.previousOutlet.isEnabled = false
-                    self.previousOutlet.isHidden = true
-                    
-                }
-            }
-        }
-    }
-    
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         setup()
@@ -682,6 +620,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         if self.userData != nil {
             // Got user data from realm database
             setupProfileImage()
+            setupActiveChallenge()
             setupUserLocation()
             setupLocation()
         }

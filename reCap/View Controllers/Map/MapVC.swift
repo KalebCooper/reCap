@@ -71,14 +71,14 @@ class MapVC: UIViewController, MGLMapViewDelegate {
     }
     @IBAction func centerAction(_ sender: Any) {
         
-        if self.user.activeChallengeID != "" {
+        /*if self.user.activeChallengeID != "" {
             FBDatabase.getPictureData(id: self.user.activeChallengeID, ref: ref) { (pictureData) in
                 let lat = pictureData?.latitude
                 let long = pictureData?.longitude
                 let coordinate = CLLocationCoordinate2DMake(lat!, long!)
                 self.mapView.setCenter(coordinate, zoomLevel: self.mapView.zoomLevel, direction: 0, animated: true)
             }
-        }
+        }*/
     }
     
     
@@ -109,12 +109,12 @@ class MapVC: UIViewController, MGLMapViewDelegate {
         
         let when = DispatchTime.now() + 1.5 // change 2 to desired number of seconds
         DispatchQueue.main.asyncAfter(deadline: when) {
-            if self.user.activeChallengeID == "" {
+            /*if self.user.activeChallengeID == "" {
                 self.centerButton.isHidden = true
             }
             else {
                 self.centerButton.isHidden = false
-            }
+            }*/
         }
         
     }
@@ -231,12 +231,12 @@ class MapVC: UIViewController, MGLMapViewDelegate {
             
             for picture in pictureDataArray {
                 
-                if picture.id == self.user.activeChallengeID {
+                /*if picture.id == self.user.activeChallengeID {
                     if (annotation.coordinate.latitude == picture.latitude) && annotation.coordinate.longitude == picture.longitude {
                         annotationView!.backgroundColor = UIColor(red: 204/255, green: 51/255, blue: 51/255, alpha: 1.0)
                         return annotationView
                     }
-                }
+                }*/
                 
                 if picture.id == pictureDataArray.last?.id {
                     annotationView!.backgroundColor = UIColor(red: 99/255, green: 207/255, blue: 155/255, alpha: 1.0)
