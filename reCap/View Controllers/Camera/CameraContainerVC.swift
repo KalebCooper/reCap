@@ -539,6 +539,13 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         Locator.subscribePosition(accuracy: .room, onUpdate: { location in
             let lat = location.coordinate.latitude.truncate(places: 6)
             let long = location.coordinate.longitude.truncate(places: 6)
+            
+            let gpsString = String.convertGPSCoordinatesToOutput(coordinates: [lat, long])
+            self.locationOutlet.text = gpsString
+            self.latToPass = lat
+            self.longToPass = long
+            self.locationToPass = gpsString
+            
             if !self.hasUpdateUserLocation {
                 try! self.realm.write {
                     self.userData.longitude = long
@@ -546,6 +553,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
                 }
                 self.hasUpdateUserLocation = true
             }
+            
             if self.activeChallengePicData != nil {
                 let picLong = self.activeChallengePicData.longitude
                 let picLat = self.activeChallengePicData.latitude
