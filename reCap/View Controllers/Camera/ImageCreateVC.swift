@@ -58,6 +58,7 @@ class ImageCreateVC: UIViewController {
             // If the user took the picture at the challenge coordinates, there is an active challenge
             try! realm.write {
                 self.userData.points = self.user.points + Int(self.user.activeChallengePoints)!
+                self.userData.activeChallengeID = nil
                 self.previousPic.isMostRecentPicture = false
             }
             isRoot = false
@@ -74,7 +75,6 @@ class ImageCreateVC: UIViewController {
         try! realm.write {
             realm.add(pictureData)
             self.userData.pictures.append(pictureData)
-            self.userData.activeChallengePoints = 0
         }
         FBDatabase.addPicture(image: self.image!, pictureData: pictureData, with_completion: {(error) in
             if let actualError = error {

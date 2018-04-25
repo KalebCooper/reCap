@@ -12,6 +12,7 @@ import MapboxCoreNavigation
 import MapboxNavigation
 import MapboxDirections
 import Firebase
+import RealmSwift
 
 class MapVC: UIViewController, MGLMapViewDelegate {
     
@@ -38,6 +39,8 @@ class MapVC: UIViewController, MGLMapViewDelegate {
     var pins: [MGLPointAnnotation]! = []
     var pictureDataArray: [PictureData]! = []
     var userPictureDataArray: [PictureData]! = []
+    var activeChallengePicData: PictureData!
+    private var realm: Realm!
     
     
     var pictureIDArray: [String]! = []
@@ -71,22 +74,19 @@ class MapVC: UIViewController, MGLMapViewDelegate {
     }
     @IBAction func centerAction(_ sender: Any) {
         
-        /*if self.user.activeChallengeID != "" {
-            FBDatabase.getPictureData(id: self.user.activeChallengeID, ref: ref) { (pictureData) in
-                let lat = pictureData?.latitude
-                let long = pictureData?.longitude
-                let coordinate = CLLocationCoordinate2DMake(lat!, long!)
-                self.mapView.setCenter(coordinate, zoomLevel: self.mapView.zoomLevel, direction: 0, animated: true)
-            }
-        }*/
+        if self.activeChallengePicData != nil {
+            let lat = self.activeChallengePicData.latitude
+            let long = self.activeChallengePicData.longitude
+            let coordinate = CLLocationCoordinate2DMake(lat, long)
+            self.mapView.setCenter(coordinate, zoomLevel: self.mapView.zoomLevel, direction: 0, animated: true)
+        }
     }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.user = RealmHelper.getUser()
-
+        self.activeChallengePicData = self.user.activeChallengeID
         self.setupMap()
         let when = DispatchTime.now() + 0.5 // change 2 to desired number of seconds
         DispatchQueue.main.asyncAfter(deadline: when) {
@@ -104,17 +104,15 @@ class MapVC: UIViewController, MGLMapViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        
         setupPictures()
-        
         let when = DispatchTime.now() + 1.5 // change 2 to desired number of seconds
         DispatchQueue.main.asyncAfter(deadline: when) {
-            /*if self.user.activeChallengeID == "" {
+            if self.activeChallengePicData != nil {
                 self.centerButton.isHidden = true
             }
             else {
                 self.centerButton.isHidden = false
-            }*/
+            }
         }
         
     }
@@ -223,6 +221,7 @@ class MapVC: UIViewController, MGLMapViewDelegate {
         
         // For better performance, always try to reuse existing annotations.
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
+        let activeChallengePicData = self.user.activeChallengeID
         
         // If there’s no reusable annotation view available, initialize a new one.
         if annotationView == nil {
@@ -231,12 +230,12 @@ class MapVC: UIViewController, MGLMapViewDelegate {
             
             for picture in pictureDataArray {
                 
-                /*if picture.id == self.user.activeChallengeID {
+                if activeChallengePicData != nil, picture.id == activeChallengePicData?.id {
                     if (annotation.coordinate.latitude == picture.latitude) && annotation.coordinate.longitude == picture.longitude {
                         annotationView!.backgroundColor = UIColor(red: 204/255, green: 51/255, blue: 51/255, alpha: 1.0)
                         return annotationView
                     }
-                }*/
+                }
                 
                 if picture.id == pictureDataArray.last?.id {
                     annotationView!.backgroundColor = UIColor(red: 99/255, green: 207/255, blue: 155/255, alpha: 1.0)
@@ -318,9 +317,8 @@ class MapVC: UIViewController, MGLMapViewDelegate {
             self.beginNavigation()
         }))
         alert.addAction(UIAlertAction(title: "Set as Active Challenge", style: .default, handler: { (action) in
-            // Calculate the route from the user's location to the set destination
             
-            FBDatabase.getAllMostRecentPictureData(ref: self.ref, with_completion: { (pictureArray) in
+            /*FBDatabase.getAllMostRecentPictureData(ref: self.ref, with_completion: { (pictureArray) in
                 
                 for picture in pictureArray {
                     
@@ -331,10 +329,7 @@ class MapVC: UIViewController, MGLMapViewDelegate {
                     }
                 }
                 
-            })
-            
-            
-            
+            })*/
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)
