@@ -107,7 +107,7 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
         let username = self.userData.name!
         self.title = "\(username)'s Photos"
         self.tableView.allowsSelection = false
-        let userPictures = self.userData.pictures.filter("isMostRecentPicture = true")
+        let userPictures = self.userData.pictures.filter("isMostRecentPicture = true").sorted(byKeyPath: "time", ascending: false)
         for pictureData in userPictures {
             let location = pictureData.locationName
             if !self.tableSectionArray.contains(location!) {
@@ -117,8 +117,6 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
                 self.tableSectionArray.append(location!)
                 self.collectionDictionaryData[location!] = []
             }
-            //let pictureDataArray = self.collectionDictionaryData[location!]!
-            //pictureDataArray.append(pictureData)
             self.collectionDictionaryData[location!]?.append(pictureData)
         }
         self.tableView.reloadData()
@@ -196,10 +194,7 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
         if mode == PhotoLibChallengeVC.CHALLENGE_MODE {
             let alert = UIAlertController(title: nil, message: "What would you like to do with this challenge?", preferredStyle: .actionSheet)
             let withoutNav = UIAlertAction(title: "Make Active", style: .default, handler: {(action) in
-                //self.addChallengeToUser(pictureData: pictureData)
-                try! self.realm.write {
-                    self.userData.activeChallengeID = pictureData
-                }
+                self.addChallengeToUser(pictureData: pictureData)
                 self.navigationController?.dismiss(animated: true, completion: nil)
                 self.displaySuccessAlert(message: "You just set your active challenge! Make sure to navigate to the pin when you're ready to begin!")
             })
@@ -274,16 +269,10 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
         else if challengeCategory == PhotoLibChallengeVC.TAKE_PIC_FROM_RECENT {
             points = PhotoLibChallengeVC.CHALLENGE_RECENT_POINTS
         }
-        self.user.activeChallengeID = pictureData.id
-        self.user.activeChallengePoints = points.description
-        FBDatabase.addUpdateUser(user: self.user, with_completion: {(error) in
-            if let actualError = error {
-                print(actualError)
-            }
-            else {
-                print("Added challenge to user")
-            }
-        })
+        try! realm.write {
+            self.userData.activeChallengeID = pictureData
+            self.userData.activeChallengePoints = points
+        }
     }
     
     // MARK: - Table view data source

@@ -22,7 +22,6 @@ class ImageCreateVC: UIViewController {
     var location: String?
     var isAtChallengeLocation: Bool!
     var previousPic: PictureData!
-    var user: User!
     var userData: UserData!
     var challengePoints: String?
     
@@ -57,14 +56,14 @@ class ImageCreateVC: UIViewController {
         if self.isAtChallengeLocation {
             // If the user took the picture at the challenge coordinates, there is an active challenge
             try! realm.write {
-                self.userData.points = self.user.points + Int(self.user.activeChallengePoints)!
+                self.userData.points = self.userData.points + Int(self.userData.activeChallengePoints)
                 self.userData.activeChallengeID = nil
                 self.previousPic.isMostRecentPicture = false
             }
             isRoot = false
             groupID = self.previousPic.groupID
-            print("User earned \(self.user.activeChallengePoints) points")
-            self.challengePoints = self.user.activeChallengePoints
+            print("User earned \(self.userData.activeChallengePoints) points")
+            self.challengePoints = self.userData.activeChallengePoints.description
         }
         else {
             print("root picture")
@@ -98,7 +97,7 @@ class ImageCreateVC: UIViewController {
     private func displayChallengeComplete() {
         
         let challengePoints = self.challengePoints!
-        let totalPoints: Int = self.user.points
+        let totalPoints: Int = self.userData.points
         
         let titleString = "+\(challengePoints) Points"
         let subtitleString = "Good Job! You now have \(totalPoints) points!"
