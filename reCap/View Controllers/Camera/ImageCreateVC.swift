@@ -13,12 +13,14 @@ import SwiftLocation
 import CoreLocation
 import FCAlertView
 import RealmSwift
+import Pageboy
 
-class ImageCreateVC: UIViewController {
+class ImageCreateVC: UIViewController, PageboyViewControllerDelegate {
     
     var image: UIImage?
     var lat: Double?
     var long: Double?
+    var bearing: Double?
     var location: String?
     var isAtChallengeLocation: Bool!
     var previousPic: PictureData!
@@ -70,7 +72,7 @@ class ImageCreateVC: UIViewController {
             isRoot = true
             groupID = pictureID
         }
-        let pictureData = PictureData(name: self.titleOutlet.text, info: self.descriptionOutlet.text!, owner: self.userData, latitude: self.lat!,longitude: self.long!,orientation: PictureData.ORIENTATION_PORTRAIT, time: currentDate, locationName: self.locationNameOutlet.text!, id: pictureID, isRootPicture: isRoot, groupID: groupID, isMostRecentPicture: true)
+        let pictureData = PictureData(name: self.titleOutlet.text, info: self.descriptionOutlet.text!, owner: self.userData, latitude: self.lat!,longitude: self.long!, bearing: self.bearing! ,orientation: PictureData.ORIENTATION_PORTRAIT, time: currentDate, locationName: self.locationNameOutlet.text!, id: pictureID, isRootPicture: isRoot, groupID: groupID, isMostRecentPicture: true)
         try! realm.write {
             realm.add(pictureData)
             self.userData.pictures.append(pictureData)
@@ -131,6 +133,7 @@ class ImageCreateVC: UIViewController {
         }) { err in
             print(err)
         }
+        
         
         
         imageView.image = image

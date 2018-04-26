@@ -14,6 +14,7 @@ class ImageConfirmVC: UIViewController {
     var image: UIImage?
     var latToPass:  Double?
     var longToPass: Double?
+    var bearingToPass: Double?
     var locationToPass: String?
     var isAtChallengeLocation: Bool!
     var previousPic: PictureData!
@@ -81,6 +82,7 @@ class ImageConfirmVC: UIViewController {
             vc.image = self.image
             vc.lat = self.latToPass
             vc.long = self.longToPass
+            vc.bearing = self.bearingToPass
             vc.location = self.locationToPass
             //vc.user = self.user
             vc.userData = self.userData

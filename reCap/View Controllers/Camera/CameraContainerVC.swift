@@ -35,6 +35,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     var imageToPass: UIImage?
     var latToPass: Double?
     var longToPass: Double?
+    var bearingToPass: Double?
     var locationToPass: String?
     private var isAtChallengeLocation: Bool!
     let locationManager = CLLocationManager()
@@ -196,12 +197,12 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
             
             if UIDevice.current.orientation == .landscapeLeft {
                 if roundedValue + 90.0 > 360 {
-                    
                     bearingOutlet.text = String((roundedValue + 90.0) - 360) + "°"
-                    
+                    self.bearingToPass = (roundedValue + 90.0) - 360
                 }
                 else {
                     bearingOutlet.text = String(roundedValue + 90.0) + "°"
+                    self.bearingToPass = roundedValue + 90.0
                 }
                 
             }
@@ -209,14 +210,17 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
                 if roundedValue + 90.0 > 360 {
                     
                     bearingOutlet.text = String((roundedValue - 90.0) - 360) + "°"
+                    self.bearingToPass = (roundedValue - 90.0) - 360
                     
                 }
                 else {
                     bearingOutlet.text = String(roundedValue - 90.0) + "°"
+                    self.bearingToPass = roundedValue - 90.0
                 }
             }
             else {
                 bearingOutlet.text = String(roundedValue) + "°"
+                self.bearingToPass = roundedValue
             }
             
             
@@ -333,6 +337,10 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
                     self.arrowOutlet.isHidden = true
                 }
             })
+        }
+        else {
+            self.previousOutlet.isEnabled = false
+            self.arrowOutlet.isHidden = true
         }
     }
     
@@ -553,7 +561,6 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
                 }
                 self.hasUpdateUserLocation = true
             }
-            
             if self.activeChallengePicData != nil {
                 let picLong = self.activeChallengePicData.longitude
                 let picLat = self.activeChallengePicData.latitude
@@ -657,7 +664,6 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         if error == nil {
             
-                
             let imageData = photo.fileDataRepresentation()
             
             var orientation: UIImageOrientation? = UIImageOrientation.right
@@ -732,6 +738,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
             vc.image = self.imageToPass
             vc.latToPass = self.latToPass
             vc.longToPass = self.longToPass
+            vc.bearingToPass = self.bearingToPass
             vc.locationToPass = self.locationToPass
             //vc.user = self.user
             vc.userData = self.userData

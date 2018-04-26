@@ -15,6 +15,7 @@
 //
 import Foundation
 import RealmSwift
+
 class PictureData: Object {
     
     // MARK: - Constants
@@ -39,13 +40,14 @@ class PictureData: Object {
     @objc dynamic var groupID: String!
     
     // MARK: - Initializers
-    convenience required init(name: String!, info: String, owner: UserData, latitude: Double, longitude: Double, orientation: Int, time: Int, locationName: String, id: String, isRootPicture: Bool, groupID: String, isMostRecentPicture: Bool) {
+    convenience required init(name: String!, info: String, owner: UserData, latitude: Double, longitude: Double, bearing: Double, orientation: Int, time: Int, locationName: String, id: String, isRootPicture: Bool, groupID: String, isMostRecentPicture: Bool) {
         self.init()
         self.name = name
         self.info = info
         self.orientation = orientation
         self.latitude = latitude
         self.longitude = longitude
+        self.bearing = bearing
         self.time = time
         self.owner = owner
         self.locationName = locationName

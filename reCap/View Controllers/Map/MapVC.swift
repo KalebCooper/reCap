@@ -180,7 +180,7 @@ class MapVC: UIViewController, MGLMapViewDelegate {
         }
         
         
-        let rawPictureDataArray = RealmHelper.getAllPictureData()
+        let rawPictureDataArray = RealmHelper.getAllPictureData(onlyRecent: true)
         
         if rawPictureDataArray.count > 0 {
             for rawPictureData in rawPictureDataArray {
@@ -257,30 +257,31 @@ class MapVC: UIViewController, MGLMapViewDelegate {
     
     
     func mapView(_ mapView: MGLMapView, leftCalloutAccessoryViewFor annotation: MGLAnnotation) -> UIView? {
-        for i in 0 ..< pins.count {
-            if (annotation.coordinate.latitude == pins[i].coordinate.latitude) && annotation.coordinate.longitude == pins[i].coordinate.longitude {
-                let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 60, height: 50))
+        
+        let lat = annotation.coordinate.latitude
+        let long = annotation.coordinate.longitude
+        
+        if let pictureData = RealmHelper.getPictureData(withLat: lat, withLong: long, onlyRecent: true) {
+            
+            let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 60, height: 50))
+            
+            FBDatabase.getPicture(pictureData: pictureData, with_progress: {(progress, total) in
                 
-                print(pictureIDArray[i])
-                let pictureData = pictureDataArray[i]
-                        
-                FBDatabase.getPicture(pictureData: pictureData, with_progress: {(progress, total) in
-
-                }, with_completion: {(image) in
-                    if let realImage = image {
-                        imageView.image = realImage
-                        imageView.contentMode = .scaleAspectFit
-                        self.pictureDataToPass = pictureData
-                        self.imageToPass = realImage
-                        imageView.hero.id = "imageID"
-                    }
-                    else {
-                    }
-                })
-                
-                
-                return imageView
-            }
+            }, with_completion: {(image) in
+                if let realImage = image {
+                    
+                    imageView.image = realImage
+                    imageView.contentMode = .scaleAspectFit
+                    self.pictureDataToPass = pictureData
+                    self.imageToPass = realImage
+                    imageView.hero.id = "imageID"
+                }
+                else {
+                    
+                }
+            })
+            return imageView
+            
         }
         return nil
     }
@@ -320,19 +321,29 @@ class MapVC: UIViewController, MGLMapViewDelegate {
         alert.addAction(UIAlertAction(title: "Set as Active Challenge", style: .default, handler: { (action) in
             // Calculate the route from the user's location to the set destination
             
-            FBDatabase.getAllMostRecentPictureData(ref: self.ref, with_completion: { (pictureArray) in
-                
-                for picture in pictureArray {
-                    
-                    if (annotation.coordinate.latitude == picture.latitude) && annotation.coordinate.longitude == picture.longitude {
-                        self.addChallengeToUser(pictureData: picture)
-                        
-                        self.centerButton.isHidden = false
-                    }
-                }
-                
-            })
+//            FBDatabase.getAllMostRecentPictureData(ref: self.ref, with_completion: { (pictureArray) in
+//                
+//                for picture in pictureArray {
+//                    
+//                    if (annotation.coordinate.latitude == picture.latitude) && annotation.coordinate.longitude == picture.longitude {
+//                        self.addChallengeToUser(pictureData: picture)
+//                        
+//                        self.centerButton.isHidden = false
+//                    }
+//                }
+//                
+//            })
             
+            
+            let lat = annotation.coordinate.latitude
+            let long = annotation.coordinate.longitude
+            
+            if let pictureData = RealmHelper.getPictureData(withLat: lat, withLong: long, onlyRecent: true) {
+             
+                self.addChallengeToUser(pictureData: pictureData)
+                self.centerButton.isHidden = false
+                
+            }
             
             
         }))
