@@ -234,29 +234,27 @@ class MapVC: UIViewController, MGLMapViewDelegate {
         
         // For better performance, always try to reuse existing annotations.
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
-        let activeChallengePicData = self.user.activeChallengeID
         
         // If there’s no reusable annotation view available, initialize a new one.
         if annotationView == nil {
             annotationView = CustomAnnotationView(reuseIdentifier: reuseIdentifier)
             annotationView!.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
             
-            for picture in pictureDataArray {
-                
-                if activeChallengePicData != nil, picture.id == activeChallengePicData?.id {
-                    if (annotation.coordinate.latitude == picture.latitude) && annotation.coordinate.longitude == picture.longitude {
-                        annotationView!.backgroundColor = UIColor(red: 204/255, green: 51/255, blue: 51/255, alpha: 1.0)
-                        return annotationView
+            let lat = annotation.coordinate.latitude
+            let long = annotation.coordinate.longitude
+            
+            if let pictureData = RealmHelper.getPictureData(withLat: lat, withLong: long, onlyRecent: true) {
+                if let user = self.user {
+                    if let challenge = user.activeChallengeID {
+                        if pictureData.id == challenge.id {
+                            annotationView!.backgroundColor = UIColor(red: 204/255, green: 51/255, blue: 51/255, alpha: 1.0)
+                            return annotationView
+                        }
                     }
                 }
-                
-                if picture.id == pictureDataArray.last?.id {
-                    annotationView!.backgroundColor = UIColor(red: 99/255, green: 207/255, blue: 155/255, alpha: 1.0)
-                    return annotationView
-                }
-                
             }
             
+            annotationView!.backgroundColor = UIColor(red: 99/255, green: 207/255, blue: 155/255, alpha: 1.0)
             return annotationView
         }
         return annotationView
@@ -308,8 +306,7 @@ class MapVC: UIViewController, MGLMapViewDelegate {
         else {
             return UIButton(type: .detailDisclosure)
         }
-        
-        
+ 
     }
     
     func mapView(_ mapView: MGLMapView, annotation: MGLAnnotation, calloutAccessoryControlTapped control: UIControl) {

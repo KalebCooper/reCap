@@ -14,7 +14,7 @@ import CoreLocation
 import Firebase
 import RealmSwift
 
-class ChallengeViewVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, ImageButtonDelegate {
+class ChallengeViewVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIScrollViewDelegate, ImageButtonDelegate {
     
     var image: UIImage!
     var pictureData: PictureData!
@@ -52,25 +52,34 @@ class ChallengeViewVC: UIViewController, UICollectionViewDelegate, UICollectionV
         setupCollectionView()
         applyBlurEffect(image: image)
         
+        
         self.navigationController?.toolbar.isHidden = false
         self.navigationController?.navigationBar.isHidden = true
         
-        let coordinatesToPass = [pictureData.latitude, pictureData.longitude]
+        setupUI(index: 0)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.setToolbarHidden(false, animated: true)
+    }
+    
+    
+    func setupUI(index: Int) {
+        
+        
+        let coordinatesToPass = [pictureArray[index].latitude, pictureArray[index].longitude]
         
         locationOutlet.text = String.convertGPSCoordinatesToOutput(coordinates: coordinatesToPass)
-        let coordinates = CLLocationCoordinate2D(latitude: pictureData.latitude, longitude: pictureData.longitude)
+        let coordinates = CLLocationCoordinate2D(latitude: coordinatesToPass[0], longitude: coordinatesToPass[1])
         Locator.location(fromCoordinates: coordinates, using: .apple, onSuccess: { places in
             print(places)
             self.locationNameOutlet.text = "\(places[0])"
         }) { err in
             print(err)
         }
-        titleOutlet.text = pictureData.name
-        descriptionOutlet.text = pictureData.info
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.setToolbarHidden(false, animated: true)
+        titleOutlet.text = pictureArray[index].name
+        descriptionOutlet.text = pictureArray[index].info
+        
     }
     
     func applyBlurEffect(image: UIImage){
@@ -135,7 +144,24 @@ class ChallengeViewVC: UIViewController, UICollectionViewDelegate, UICollectionV
 //    }
     
     
-
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        snapToCenter()
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if !decelerate {
+            snapToCenter()
+        }
+    }
+    
+    func snapToCenter() {
+        let centerPoint = view.convert(view.center, to: collectionView)
+        if let centerIndexPath = collectionView.indexPathForItem(at: centerPoint) {
+            collectionView.scrollToItem(at: centerIndexPath, at: .centeredHorizontally, animated: true)
+            setupUI(index: centerIndexPath.row)
+        }
+        
+    }
 
     
     
@@ -166,3 +192,7 @@ class ChallengeViewVC: UIViewController, UICollectionViewDelegate, UICollectionV
     }
     
 }
+
+
+
+
