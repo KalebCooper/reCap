@@ -24,7 +24,6 @@ class ImageCreateVC: UIViewController, PageboyViewControllerDelegate {
     var location: String?
     var isAtChallengeLocation: Bool!
     var previousPic: PictureData!
-    var user: User!
     var userData: UserData!
     var challengePoints: String?
     
@@ -59,13 +58,14 @@ class ImageCreateVC: UIViewController, PageboyViewControllerDelegate {
         if self.isAtChallengeLocation {
             // If the user took the picture at the challenge coordinates, there is an active challenge
             try! realm.write {
-                self.userData.points = self.user.points + Int(self.user.activeChallengePoints)!
+                self.userData.points = self.userData.points + Int(self.userData.activeChallengePoints)
+                self.userData.activeChallengeID = nil
                 self.previousPic.isMostRecentPicture = false
             }
             isRoot = false
             groupID = self.previousPic.groupID
-            print("User earned \(self.user.activeChallengePoints) points")
-            self.challengePoints = self.user.activeChallengePoints
+            print("User earned \(self.userData.activeChallengePoints) points")
+            self.challengePoints = self.userData.activeChallengePoints.description
         }
         else {
             print("root picture")
@@ -76,7 +76,6 @@ class ImageCreateVC: UIViewController, PageboyViewControllerDelegate {
         try! realm.write {
             realm.add(pictureData)
             self.userData.pictures.append(pictureData)
-            self.userData.activeChallengePoints = 0
         }
         FBDatabase.addPicture(image: self.image!, pictureData: pictureData, with_completion: {(error) in
             if let actualError = error {
@@ -100,7 +99,7 @@ class ImageCreateVC: UIViewController, PageboyViewControllerDelegate {
     private func displayChallengeComplete() {
         
         let challengePoints = self.challengePoints!
-        let totalPoints: Int = self.user.points
+        let totalPoints: Int = self.userData.points
         
         let titleString = "+\(challengePoints) Points"
         let subtitleString = "Good Job! You now have \(totalPoints) points!"

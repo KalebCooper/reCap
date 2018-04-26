@@ -89,17 +89,7 @@ class ChallengeViewVC: UIViewController, UICollectionViewDelegate, UICollectionV
         //getPictureData()
         let groupID = pictureData.groupID!
         let realm = try! Realm()
-        self.pictureArray = realm.objects(PictureData.self).filter("groupID = '\(groupID.description)'").sorted(byKeyPath: "time")
-        self.collectionView.reloadData()
-    }
-    
-    func getPictureData() {
-        //Make sure pictureArray is empty
-        
-        //Set groupID
-        let groupID = pictureData.groupID!
-        let realm = try! Realm()
-        self.pictureArray = realm.objects(PictureData.self).filter("groupID = '\(groupID.description)'").sorted(byKeyPath: "time")
+        self.pictureArray = realm.objects(PictureData.self).filter("groupID = '\(groupID.description)'").sorted(byKeyPath: "time", ascending: false)
         self.collectionView.reloadData()
     }
     
@@ -114,6 +104,7 @@ class ChallengeViewVC: UIViewController, UICollectionViewDelegate, UICollectionV
         cell.setImageViewDelegate(delegate: self)
         let row = indexPath.row
         let cellPictureData = pictureArray[row]
+        //print(cellPictureData)
         cell.pictureData = cellPictureData
         FBDatabase.getPicture(pictureData: cellPictureData, with_progress: {(progress, total) in
             

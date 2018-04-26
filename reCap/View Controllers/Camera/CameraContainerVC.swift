@@ -153,7 +153,6 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     override func viewDidLoad() {
         super.viewDidLoad()
         print("Camera container loaded")
-        setup()
         setupHero()
         setupCamera(clear: false)
         configureButton()
@@ -240,16 +239,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     }
     
     func setupProfileImage() {
-        
-        FBDatabase.getProfilePicture(for_user: userData, with_progress: { (progress, total)  in
-            
-        }, with_completion: { (image) in
-            if let actualImage = image {
-                self.profileImage = actualImage
-            }
-            else {
-                print("Did not get profile picture in Camera Container VC")
-            }
+        if self.profileImage != nil {
             self.profileOutlet.image = self.profileImage
             self.profileOutlet.layer.borderWidth = 1
             self.profileOutlet.layer.borderColor = UIColor.white.cgColor
@@ -257,8 +247,26 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
             self.profileOutlet.layer.masksToBounds = false
             self.profileOutlet.clipsToBounds = true
             self.profileOutlet.contentMode = .scaleAspectFill
-        })
-        //self.setupActiveChallengeData()
+        }
+        else {
+            FBDatabase.getProfilePicture(for_user: userData, with_progress: { (progress, total)  in
+                
+            }, with_completion: { (image) in
+                if let actualImage = image {
+                    self.profileImage = actualImage
+                }
+                else {
+                    print("Did not get profile picture in Camera Container VC")
+                }
+                self.profileOutlet.image = self.profileImage
+                self.profileOutlet.layer.borderWidth = 1
+                self.profileOutlet.layer.borderColor = UIColor.white.cgColor
+                self.profileOutlet.layer.cornerRadius = self.profileOutlet.layer.frame.width / 2
+                self.profileOutlet.layer.masksToBounds = false
+                self.profileOutlet.clipsToBounds = true
+                self.profileOutlet.contentMode = .scaleAspectFill
+            })
+        }
     }
     
     
