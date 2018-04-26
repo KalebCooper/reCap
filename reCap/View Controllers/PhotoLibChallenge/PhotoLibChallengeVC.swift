@@ -107,7 +107,9 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
         let username = self.userData.name!
         self.title = "\(username)'s Photos"
         self.tableView.allowsSelection = false
-        let userPictures = self.userData.pictures.filter("isMostRecentPicture = true").sorted(byKeyPath: "time", ascending: false)
+        var groupIDArray: [String] = []
+        // Get all user pictures and sort them by time, the most recent will be at the start
+        let userPictures = self.userData.pictures.sorted(byKeyPath: "time", ascending: false)
         for pictureData in userPictures {
             let location = pictureData.locationName
             if !self.tableSectionArray.contains(location!) {
@@ -117,7 +119,11 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
                 self.tableSectionArray.append(location!)
                 self.collectionDictionaryData[location!] = []
             }
-            self.collectionDictionaryData[location!]?.append(pictureData)
+            if !groupIDArray.contains(pictureData.groupID) {
+                // If the picture in a group has not yet been added
+                groupIDArray.append(pictureData.groupID)
+                self.collectionDictionaryData[location!]?.append(pictureData)
+            }
         }
         self.tableView.reloadData()
     }

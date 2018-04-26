@@ -127,7 +127,7 @@ class CreateAccountVC: UITableViewController, UIImagePickerControllerDelegate, U
                                             print("Create Account: Added profile picture")
                                         }
                                     })
-                                    self.performSegue(withIdentifier: CreateAccountVC.PAGE_VIEW_SEGUE, sender: nil)
+                                    self.performSegue(withIdentifier: CreateAccountVC.PAGE_VIEW_SEGUE, sender: image)
                                 }
                             })
                         }
@@ -270,9 +270,10 @@ class CreateAccountVC: UITableViewController, UIImagePickerControllerDelegate, U
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        
-        
+        if segue.identifier == CreateAccountVC.PAGE_VIEW_SEGUE {
+            let image = sender as! UIImage
+            let destination = segue.destination as! PageViewController
+            destination.profileImage = image
+        }
     }
-    
-
 }

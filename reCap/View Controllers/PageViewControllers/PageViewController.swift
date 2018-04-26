@@ -13,9 +13,7 @@ class PageViewController: PageboyViewController, PageboyViewControllerDataSource
     
     // MARK: - Properties
     private var viewControllersArray: [UIViewController]!
-    private var mapVC: MapContainerVC!
-    private var cameraVC: CameraContainerVC!
-    private var leaderboardsVC: LeaderboardsFriendsVC!
+    var profileImage: UIImage!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,10 +25,14 @@ class PageViewController: PageboyViewController, PageboyViewControllerDataSource
         let cameraStoryboard = UIStoryboard(name: "Camera", bundle: Bundle.main)
         let leaderboardsStoryboard = UIStoryboard(name: "LeaderboardsFriends", bundle: Bundle.main)
         
-        mapVC = mapStoryboard.instantiateViewController(withIdentifier: "MapContainerVC") as! MapContainerVC
+        let mapVC = mapStoryboard.instantiateViewController(withIdentifier: "MapContainerVC") as! MapContainerVC
         let cameraNav = cameraStoryboard.instantiateViewController(withIdentifier: "CameraNav") as! UINavigationController
+        let cameraContainer = cameraNav.topViewController as! CameraContainerVC
+        if profileImage != nil {
+            cameraContainer.profileImage = profileImage
+        }
         let leaderboardsNav = leaderboardsStoryboard.instantiateViewController(withIdentifier: "LeaderboardsFriendsNav") as! UINavigationController
-        leaderboardsVC = leaderboardsNav.topViewController as! LeaderboardsFriendsVC
+        let leaderboardsVC = leaderboardsNav.topViewController as! LeaderboardsFriendsVC
         leaderboardsVC.mode = LeaderboardsFriendsVC.LEADERBOARD_MODE
         self.viewControllersArray = [mapVC, cameraNav, leaderboardsNav]
         self.dataSource = self
