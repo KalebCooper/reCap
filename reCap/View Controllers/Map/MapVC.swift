@@ -74,17 +74,26 @@ class MapVC: UIViewController, MGLMapViewDelegate {
     }
     @IBAction func centerAction(_ sender: Any) {
         
-        if self.activeChallengePicData != nil {
-            let lat = self.activeChallengePicData.latitude
-            let long = self.activeChallengePicData.longitude
-            let coordinate = CLLocationCoordinate2DMake(lat, long)
-            self.mapView.setCenter(coordinate, zoomLevel: self.mapView.zoomLevel, direction: 0, animated: true)
+        if let user = self.user {
+            
+            if let challenge = user.activeChallengeID {
+                
+                let lat = challenge.latitude
+                let long = challenge.longitude
+                
+                print(lat, long)
+                
+                let coordinate = CLLocationCoordinate2DMake(lat, long)
+                self.mapView.setCenter(coordinate, zoomLevel: self.mapView.zoomLevel, direction: 0, animated: true)
+                
+            }
         }
     }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.realm = try! Realm()
         self.user = RealmHelper.getUser()
         self.activeChallengePicData = self.user.activeChallengeID
         self.setupMap()
@@ -105,14 +114,18 @@ class MapVC: UIViewController, MGLMapViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         setupPictures()
-        let when = DispatchTime.now() + 1.5 // change 2 to desired number of seconds
-        DispatchQueue.main.asyncAfter(deadline: when) {
-            if self.activeChallengePicData != nil {
-                self.centerButton.isHidden = true
+        
+        
+        if let user = self.user {
+            if let challenge = user.activeChallengeID {
+                centerButton.isHidden = false
             }
             else {
-                self.centerButton.isHidden = false
+                self.centerButton.isHidden = true
             }
+        }
+        else {
+            self.centerButton.isHidden = true
         }
         
     }
@@ -319,8 +332,6 @@ class MapVC: UIViewController, MGLMapViewDelegate {
         }))
         alert.addAction(UIAlertAction(title: "Set as Active Challenge", style: .default, handler: { (action) in
             
-            
-            
             let lat = annotation.coordinate.latitude
             let long = annotation.coordinate.longitude
             
@@ -425,39 +436,31 @@ class MapVC: UIViewController, MGLMapViewDelegate {
     }
     
     private func addChallengeToUser(pictureData: PictureData) {
-//        let challengeCategory = getPicChallengeCategory(pictureData: pictureData, currentDate: Date())
-//        var points = 0
-//        if challengeCategory == MapVC.TAKE_PIC_FROM_WEEK {
-//            points = MapVC.CHALLENGE_WEEK_POINTS
-//        }
-//        else if challengeCategory == MapVC.TAKE_PIC_FROM_MONTH {
-//            points = MapVC.CHALLENGE_MONTH_POINTS
-//        }
-//        else if challengeCategory == MapVC.TAKE_PIC_FROM_YEAR {
-//            points = MapVC.CHALLENGE_YEAR_POINTS
-//        }
-//        else if challengeCategory == MapVC.TAKE_PIC_FROM_RECENT {
-//            points = MapVC.CHALLENGE_RECENT_POINTS
-//        }
-//        let user = self.user
-//        user?.activeChallengeID = pictureData.id
-//        user?.activeChallengePoints = "\(points.description)"
-//        self.user.activeChallengeID = pictureData.id
-//        self.user.activeChallengePoints = String(points.description)
-//        FBDatabase.addUpdateUser(user: user!, with_completion: {(error) in
-//            if let actualError = error {
-//                print(actualError)
-//            }
-//            else {
-//                print("Added challenge to user")
-//
-//            }
-//        })
-//
-//        let lat = pictureData.latitude
-//        let long = pictureData.longitude
-//        let coordinate = CLLocationCoordinate2DMake(lat, long)
-//        self.mapView.setCenter(coordinate, zoomLevel: self.mapView.zoomLevel, direction: 0, animated: true)
+        let challengeCategory = getPicChallengeCategory(pictureData: pictureData, currentDate: Date())
+        var points = 0
+        if challengeCategory == MapVC.TAKE_PIC_FROM_WEEK {
+            points = MapVC.CHALLENGE_WEEK_POINTS
+        }
+        else if challengeCategory == MapVC.TAKE_PIC_FROM_MONTH {
+            points = MapVC.CHALLENGE_MONTH_POINTS
+        }
+        else if challengeCategory == MapVC.TAKE_PIC_FROM_YEAR {
+            points = MapVC.CHALLENGE_YEAR_POINTS
+        }
+        else if challengeCategory == MapVC.TAKE_PIC_FROM_RECENT {
+            points = MapVC.CHALLENGE_RECENT_POINTS
+        }
+        
+        
+        try! realm.write {
+            self.user.activeChallengeID = pictureData
+            self.user.activeChallengePoints = points
+        }
+
+        let lat = pictureData.latitude
+        let long = pictureData.longitude
+        let coordinate = CLLocationCoordinate2DMake(lat, long)
+        self.mapView.setCenter(coordinate, zoomLevel: self.mapView.zoomLevel, direction: 0, animated: true)
     }
     
 

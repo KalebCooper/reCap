@@ -55,15 +55,16 @@ class ChallengeViewVC: UIViewController, UICollectionViewDelegate, UICollectionV
         self.navigationController?.toolbar.isHidden = false
         self.navigationController?.navigationBar.isHidden = true
         
+        let coordinatesToPass = [pictureData.latitude, pictureData.longitude]
         
-        /*locationOutlet.text = String.convertGPSCoordinatesToOutput(coordinates: pictureData.gpsCoordinates)
-        let coordinates = CLLocationCoordinate2D(latitude: pictureData.gpsCoordinates[0], longitude: pictureData.gpsCoordinates[1])
+        locationOutlet.text = String.convertGPSCoordinatesToOutput(coordinates: coordinatesToPass)
+        let coordinates = CLLocationCoordinate2D(latitude: pictureData.latitude, longitude: pictureData.longitude)
         Locator.location(fromCoordinates: coordinates, using: .apple, onSuccess: { places in
             print(places)
             self.locationNameOutlet.text = "\(places[0])"
         }) { err in
             print(err)
-        }*/
+        }
         titleOutlet.text = pictureData.name
         descriptionOutlet.text = pictureData.info
     }

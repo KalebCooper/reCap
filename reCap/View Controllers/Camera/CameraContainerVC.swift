@@ -64,11 +64,8 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
     let blackColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
     var user: User!
     private var activeChallengePicData: PictureData!
-    //private let Threshold = 0.000017
     private let chalBestCoordThreshold = 0.0001
     private let chalCloseCoordThreshold = 0.005
-//    private let chalBestCoordThreshold = 1.0
-//    private let chalCloseCoordThreshold = 1.0
     
     
     @IBAction func buttonPressed(_ sender: Any) {
@@ -77,6 +74,9 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
 
             FCAlertView.displayAlert(title: "Error", message: "Please make sure the camera is perpendicular to the ground.", buttonTitle: "Okay", type: "warning", view: self, blur: true)
 
+        }
+        else if bearingOutlet.textColor != UIColor.green && bearingOutlet.textColor != UIColor.white && bearingOutlet.textColor != UIColor.yellow && bearingOutlet.textColor != UIColor.orange {
+            FCAlertView.displayAlert(title: "Error", message: "Please make sure the bearing is as close to \(self.userData.activeChallengeID!.bearing)°.", buttonTitle: "Okay", type: "warning", view: self, blur: true)
         }
         else {
             self.stillImageOutput?.capturePhoto(with: self.photoSetting, delegate: self)
@@ -108,15 +108,15 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
 
     
     @IBAction func previousHoldAction(_ sender: Any) {
-        print("Touching")
-        
         self.previewView.addSubview(self.previousImageView!)
         
          if self.previousImageContentMode == .scaleToFill {
             
-            if UIDevice.current.orientation == .portrait {
+            if UIDevice.current.orientation == .portrait || UIDevice.current.orientation == .faceDown || UIDevice.current.orientation == .faceUp || UIDevice.current.orientation == .portraitUpsideDown {
                 UIView.animate(withDuration: 0.25, animations: {
                     self.previousImageView?.alpha = 1.0
+                    self.bearingOutlet.isHidden = true
+                    self.bearingPickerOutlet.isHidden = true
                 })
             }
             
@@ -125,6 +125,8 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
             
             UIView.animate(withDuration: 0.25, animations: {
                 self.previousImageView?.alpha = 1.0
+                self.bearingOutlet.isHidden = true
+                self.bearingPickerOutlet.isHidden = true
             })
             
         }
@@ -134,10 +136,11 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         
         UIView.animate(withDuration: 0.25, animations: {
             self.previousImageView?.alpha = 0.0
+            self.bearingOutlet.isHidden = false
+            self.bearingPickerOutlet.isHidden = false
         })
         
         //self.previousImageView?.removeFromSuperview()
-        print("Touching ended inside")
         
         
     }
@@ -145,9 +148,9 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         
         UIView.animate(withDuration: 0.25, animations: {
             self.previousImageView?.alpha = 0.0
+            self.bearingOutlet.isHidden = false
+            self.bearingPickerOutlet.isHidden = false
         })
-        //self.previousImageView?.removeFromSuperview()
-        print("Touching ended outside")
     }
     
     override func viewDidLoad() {
@@ -191,6 +194,30 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         let value = horizontalDial.value.truncate(places: 3)
         
         let roundedValue = value.round(nearest: 1)
+        
+        
+        if let user = self.userData {
+            if let challenge = user.activeChallengeID {
+                
+                let distance = abs(roundedValue - challenge.bearing)
+                
+                if distance >= 30.0 {
+                    bearingOutlet.textColor = UIColor.red
+                }
+                else if distance >= 5 {
+                    bearingOutlet.textColor = UIColor.orange
+                }
+                else if distance >= 1 {
+                    bearingOutlet.textColor = UIColor.yellow
+                }
+                else {
+                    bearingOutlet.textColor = UIColor.green
+                }
+                
+            }
+        }
+        
+        
         
         if roundedValue.truncatingRemainder(dividingBy: 1) == 0 {
             
