@@ -52,7 +52,12 @@ class LeaderboardsFriendsVC: UITableViewController, FCAlertViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         applyBlurEffect(image: #imageLiteral(resourceName: "Gradient"))
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.realm = try! Realm()
+        self.userData = realm.object(ofType: UserData.self, forPrimaryKey: SyncUser.current?.identity)
         friendsList = []
         leaderboardsList = []
         stateLeaderboards = []
@@ -65,14 +70,9 @@ class LeaderboardsFriendsVC: UITableViewController, FCAlertViewDelegate {
                 setupFriendsList()
             }
             else if mode == LeaderboardsFriendsVC.LEADERBOARD_MODE {
-                self.userData = realm.object(ofType: UserData.self, forPrimaryKey: SyncUser.current?.identity)
                 setupLeaderboards()
             }
         }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
     }
     
     override func didReceiveMemoryWarning() {

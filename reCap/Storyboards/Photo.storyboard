@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14105" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8eq-jF-wpY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8eq-jF-wpY">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -15,6 +15,14 @@
         </array>
     </customFonts>
     <scenes>
+        <!--ChallengeView-->
+        <scene sceneID="tqn-lQ-4Vb">
+            <objects>
+                <viewControllerPlaceholder storyboardName="ChallengeView" id="9g3-Sl-NO4" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6Ev-zT-QEp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="523" y="-4"/>
+        </scene>
         <!--PhotoVC-->
         <scene sceneID="x3s-RC-zAs">
             <objects>
@@ -52,6 +60,17 @@
                                     <action selector="backPressed:" destination="8eq-jF-wpY" eventType="touchUpInside" id="D2n-8s-pOT"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MQz-ax-Ivc">
+                                <rect key="frame" x="314" y="47" width="45" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Delete">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="deletePressed:" destination="8eq-jF-wpY" eventType="touchUpInside" id="YZp-0A-aTU"/>
+                                    <segue destination="U3t-iS-9F8" kind="unwind" unwindAction="unwindSegueWithSegue:" id="Xgc-Ti-jAv"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -69,11 +88,13 @@
                         <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
+                        <outlet property="deleteButton" destination="MQz-ax-Ivc" id="JVC-oP-zh9"/>
                         <outlet property="imageBackground" destination="Die-Va-szX" id="uXx-9D-h6I"/>
                         <outlet property="imageView" destination="9HV-Hd-RWT" id="2GL-2E-5G6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tq4-wM-JWq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="U3t-iS-9F8" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1324" y="93.842364532019715"/>
         </scene>

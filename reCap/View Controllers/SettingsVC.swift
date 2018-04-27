@@ -13,10 +13,10 @@ import RealmSwift
 
 class SettingsVC: UITableViewController, UITextFieldDelegate, FCAlertViewDelegate {
     
-    var userData: UserData!
     var userDataValues: [String]!
     let limitLength = 18
     private var realm: Realm!
+    private var userData: UserData!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,14 +25,15 @@ class SettingsVC: UITableViewController, UITextFieldDelegate, FCAlertViewDelegat
         // Uncomment the following line to preserve selection between presentations
         self.clearsSelectionOnViewWillAppear = false
         self.realm = try! Realm()
-        setup()
+        self.userData = realm.object(ofType: UserData.self, forPrimaryKey: SyncUser.current?.identity)
+        //setup()
     }
 
     func setup() {
-        self.userDataValues = []
+        /*self.userDataValues = []
         self.userDataValues?.append(self.userData.name)
         self.userDataValues?.append(self.userData.email)
-        self.userDataValues?.append(userData.email)
+        self.userDataValues?.append(userData.email)*/
         self.tableView.reloadData()
         
     }
@@ -52,23 +53,18 @@ class SettingsVC: UITableViewController, UITextFieldDelegate, FCAlertViewDelegat
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
         let cellName = cell.textLabel?.text!
-        if self.userDataValues?.count == 3 {
-            print("cellForRowAt")
-            if cellName == "Full Name" {
-                print("Full Name tapped")
-                cell.detailTextLabel?.text = userDataValues?[0]
-            }
-            else if cellName == "Username" {
-                print("Username tapped")
-                cell.detailTextLabel?.text = userDataValues?[1]
-            }
-            else if cellName == "Email" {
-                print("Email tapped")
-                cell.detailTextLabel?.text = userDataValues?[2]
-            }
+        if cellName == "Full Name" {
+            cell.detailTextLabel?.text = self.userData.name
+        }
+        else if cellName == "Username" {
+            print("Username tapped")
+            //cell.detailTextLabel?.text = userDataValues?[1]
+        }
+        else if cellName == "Email" {
+            print("Email tapped")
+            cell.detailTextLabel?.text = self.userData.email
         }
         return cell
-        
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -91,6 +87,7 @@ class SettingsVC: UITableViewController, UITextFieldDelegate, FCAlertViewDelegat
                     FCAlertView.displayAlert(title: "Changing...", message: "Your name is being changed...", buttonTitle: "Dismiss", type: "progress", view: self)
                     try! self.realm.write {
                         self.userData.name = name
+                        self.tableView.reloadData()
                     }
                 }
                 else {

@@ -7,25 +7,37 @@
 //
 
 import UIKit
+import RealmSwift
 
 class PhotoVC: UIViewController {
     
     // MARK: - Outlets
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var imageBackground: UIImageView!
+    @IBOutlet weak var deleteButton: UIButton!
     
     
     // MARK: - Properties
     var image: UIImage!
     var pictureData: PictureData!
+    var userData: UserData!
+    private var realm: Realm!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.realm = try! Realm()
         self.navigationController?.setToolbarHidden(true, animated: true)
-        if image != nil, pictureData != nil {
-            applyBlurEffect(image: image)
-            setup()
+        applyBlurEffect(image: image)
+        if self.userData != nil {
+            // This is a user viewing their own picture
+            self.deleteButton.isHidden = false
+            self.deleteButton.isEnabled = true
         }
+        else {
+            self.deleteButton.isHidden = true
+            self.deleteButton.isEnabled = false
+        }
+        setup()
         // Do any additional setup after loading the view.
     }
     
@@ -39,7 +51,6 @@ class PhotoVC: UIViewController {
     private func setup() {
         self.navigationController?.setNavigationBarHidden(true, animated: true)
         imageView.image = image
-        
     }
     
     func applyBlurEffect(image: UIImage){
@@ -60,21 +71,19 @@ class PhotoVC: UIViewController {
     // MARK: - Outlet Action Methods
     
     /*
-     Edits photo
-    */
-    @IBAction func editPressed(_ sender: Any) {
-    }
-    
-    /*
-     Share photo on Facebook
-    */
-    @IBAction func sharePressed(_ sender: Any) {
-    }
-    
-    /*
      Delete button was pressed
     */
     @IBAction func deletePressed(_ sender: Any) {
+        try! self.realm.write {
+            let pictureIndex = self.userData.pictures.index(of: self.pictureData)
+            self.userData.pictures.remove(at: pictureIndex!)
+            let usersWithChallenge = realm.objects(UserData.self).filter("activeChallengeID.id == '\(self.pictureData.id)'")
+            for user in usersWithChallenge {
+                user.activeChallengeID = nil
+                user.activeChallengePoints = 0
+            }
+            self.realm.delete(self.pictureData)
+        }
     }
     
     /*

@@ -781,9 +781,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         }
         else if segueID == "toProfileSegue" {
             let vc = segue.destination as! ProfileMenuVC
-            vc.image = self.profileOutlet.image
-            //vc.user = self.user
-            vc.userData = self.userData
+            vc.image = self.profileImage
         }
         else if segueID == "PhotoLibSegue" {
             let destination = segue.destination as! UINavigationController
