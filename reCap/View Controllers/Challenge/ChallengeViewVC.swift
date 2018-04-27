@@ -18,8 +18,8 @@ class ChallengeViewVC: UIViewController, UICollectionViewDelegate, UICollectionV
     
     var image: UIImage!
     var pictureData: PictureData!
-    //var pictureArray: [PictureData] = []
-    var pictureArray: Results<PictureData>!
+    var userData: UserData!
+    var pictureArray: [PictureData]!
     var imageToPass: UIImage?
     var pictureDataToPass: PictureData?
     
@@ -93,13 +93,15 @@ class ChallengeViewVC: UIViewController, UICollectionViewDelegate, UICollectionV
     }
     
     func setupCollectionView() {
-        
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
-        //getPictureData()
+        self.pictureArray = []
         let groupID = pictureData.groupID!
         let realm = try! Realm()
-        self.pictureArray = realm.objects(PictureData.self).filter("groupID = '\(groupID.description)'").sorted(byKeyPath: "time", ascending: false)
+        let results = realm.objects(PictureData.self).filter("groupID = '\(groupID.description)'").sorted(byKeyPath: "time", ascending: false)
+        for data in results {
+            self.pictureArray.append(data)
+        }
         self.collectionView.reloadData()
     }
     
@@ -173,6 +175,14 @@ class ChallengeViewVC: UIViewController, UICollectionViewDelegate, UICollectionV
         self.performSegue(withIdentifier: "PhotoSegue", sender: infoArray)
     }
     
+    @IBAction func unwindSegue(segue:UIStoryboardSegue) {
+        // Called when a photo is deleted
+        let photoVC = segue.source as! PhotoVC
+        let pictureIndex = self.pictureArray.index(of: photoVC.pictureData)
+        self.pictureArray.remove(at: pictureIndex!)
+        self.collectionView.reloadData()
+    }
+    
     
     // MARK: - Navigation
     
@@ -186,6 +196,7 @@ class ChallengeViewVC: UIViewController, UICollectionViewDelegate, UICollectionV
             let infoArray = sender as! [Any]
             let pictureData = infoArray[0] as! PictureData
             let image = infoArray[1] as! UIImage
+            destination.userData = self.userData
             destination.pictureData = pictureData
             destination.image = image
         }

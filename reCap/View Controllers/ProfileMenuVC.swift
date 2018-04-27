@@ -9,6 +9,7 @@
 import UIKit
 import Hero
 import Firebase
+import RealmSwift
 
 class ProfileMenuVC: UIViewController {
     
@@ -23,27 +24,34 @@ class ProfileMenuVC: UIViewController {
     @IBOutlet weak var settingsOutlet: UIButton!
     @IBOutlet weak var aboutOutlet: UIButton!
     @IBOutlet weak var albumOutlet: UIButton!
+    private var realm: Realm!
     
     // MARK: - Properties
-    var user: User!
     var userData: UserData!
+    var image: UIImage?
     
     @IBAction func backAction(_ sender: Any) {
         print("Back to Camera")
         self.navigationController?.setToolbarHidden(true, animated: true)
         self.navigationController?.popViewController(animated: true)
     }
-    var image: UIImage?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupOutlets()
         setupProfileImage()
         setupHero()
         setupGestures()
         setupBlurEffect(image: image!)
         AppUtility.lockOrientation(.portrait)
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        let realm = try! Realm()
+        self.userData = realm.object(ofType: UserData.self, forPrimaryKey: SyncUser.current?.identity)
+        if self.userData != nil {
+            setupOutlets()
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -78,11 +86,11 @@ class ProfileMenuVC: UIViewController {
      Photo library button pressed
      */
     @IBAction func photoLibPressed(_ sender: Any) {
-        self.performSegue(withIdentifier: "PhotoLibSegue", sender: self.user)
+        self.performSegue(withIdentifier: "PhotoLibSegue", sender: nil)
     }
     
     @IBAction func tutorialAction(_ sender: Any) {
-        self.performSegue(withIdentifier: "TutorialSegue", sender: self.user)
+        self.performSegue(withIdentifier: "TutorialSegue", sender: nil)
     }
     
     func setupGestures() {
@@ -173,16 +181,9 @@ class ProfileMenuVC: UIViewController {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         let segueID = segue.identifier
-        if segueID == "PhotoLibSegue" {
-            let destination = segue.destination as! UINavigationController
-            let photoLibVC = destination.topViewController as! PhotoLibChallengeVC
-            photoLibVC.user = self.user
-            photoLibVC.mode = PhotoLibChallengeVC.PHOTO_LIB_MODE
-        }
-        else if segueID == "FriendsListSegue" {
+        if segueID == "FriendsListSegue" {
             let desination = segue.destination as! UINavigationController
             let friendsVC = desination.topViewController as! LeaderboardsFriendsVC
-            friendsVC.userData = self.userData
             friendsVC.mode = LeaderboardsFriendsVC.FRIENDS_LIST_MODE
         }
         else if segueID == "TutorialSegue" {
@@ -192,7 +193,6 @@ class ProfileMenuVC: UIViewController {
         else if segueID == "SettingsSegue" {
             let destination = segue.destination as! UINavigationController
             let settings = destination.topViewController as! SettingsVC
-            settings.userData = self.userData
         }
     }
     

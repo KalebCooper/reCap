@@ -438,6 +438,7 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
             let infoArray = sender as! [Any]
             let pictureData = infoArray[PhotoLibChallengeVC.PHOTO_SEGUE_PICTURE_DATA_INDEX] as! PictureData
             let picture = infoArray[PhotoLibChallengeVC.PHOTO_SEGUE_PICTURE_INDEX] as! UIImage
+            photoView.userData = self.userData
             photoView.pictureData = pictureData
             photoView.image = picture
         }
@@ -448,6 +449,7 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
             let infoArray = sender as! [Any]
             let pictureData = infoArray[PhotoLibChallengeVC.PHOTO_SEGUE_PICTURE_DATA_INDEX] as! PictureData
             let picture = infoArray[PhotoLibChallengeVC.PHOTO_SEGUE_PICTURE_INDEX] as! UIImage
+            destination.userData = self.userData
             destination.pictureData = pictureData
             destination.image = picture
         }

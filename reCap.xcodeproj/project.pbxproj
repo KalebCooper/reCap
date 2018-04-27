@@ -48,7 +48,6 @@
 		7A494E5F208D48EB00A72AA8 /* RealmHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A494E5E208D48EB00A72AA8 /* RealmHelper.swift */; };
 		7A4D8A3A20277E4F0043878E /* CreateAccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4D8A3920277E4F0043878E /* CreateAccountVC.swift */; };
 		7A4D8A442027801E0043878E /* NavigationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4D8A432027801E0043878E /* NavigationVC.swift */; };
-		7A4D8A46202780A00043878E /* RecentPicturesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4D8A45202780A00043878E /* RecentPicturesVC.swift */; };
 		7A4D8A4A2027818A0043878E /* ProfileSettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A4D8A492027818A0043878E /* ProfileSettingsVC.swift */; };
 		7A5358A4205ADF150047F410 /* AppLoadingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5358A3205ADF150047F410 /* AppLoadingVC.swift */; };
 		7A5358A8205B6E680047F410 /* LeaderboardsFriendsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A5358A7205B6E670047F410 /* LeaderboardsFriendsVC.swift */; };
@@ -149,7 +148,6 @@
 		7A494E5E208D48EB00A72AA8 /* RealmHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmHelper.swift; sourceTree = "<group>"; };
 		7A4D8A3920277E4F0043878E /* CreateAccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountVC.swift; sourceTree = "<group>"; };
 		7A4D8A432027801E0043878E /* NavigationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationVC.swift; sourceTree = "<group>"; };
-		7A4D8A45202780A00043878E /* RecentPicturesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentPicturesVC.swift; sourceTree = "<group>"; };
 		7A4D8A492027818A0043878E /* ProfileSettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSettingsVC.swift; sourceTree = "<group>"; };
 		7A5358A3205ADF150047F410 /* AppLoadingVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppLoadingVC.swift; sourceTree = "<group>"; };
 		7A5358A7205B6E670047F410 /* LeaderboardsFriendsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaderboardsFriendsVC.swift; sourceTree = "<group>"; };
@@ -400,7 +398,6 @@
 				345FB83820363BE300C59FDB /* SignInVC.swift */,
 				7A4D8A3920277E4F0043878E /* CreateAccountVC.swift */,
 				347A06A3202A14BB00961024 /* SignInTransitionVC.swift */,
-				7A4D8A45202780A00043878E /* RecentPicturesVC.swift */,
 				7A4D8A492027818A0043878E /* ProfileSettingsVC.swift */,
 				7AE375682037C8E100CA9946 /* LeaderboardFriends */,
 			);
@@ -853,7 +850,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7A4D8A46202780A00043878E /* RecentPicturesVC.swift in Sources */,
 				7A5878472030D22700F36A56 /* Extensions.swift in Sources */,
 				7A120DD12041F4B50003EE1F /* ImageButtonDelegate.swift in Sources */,
 				7A3C5538207AFDDD009A8036 /* HorizontalDial.swift in Sources */,
@@ -1056,7 +1052,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = iOSAppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = VPT5835T5T;
+				DEVELOPMENT_TEAM = CZ7R6F7L6H;
 				INFOPLIST_FILE = reCap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Kaleb-Cooper-Team-Red.reCap";
@@ -1073,7 +1069,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = iOSAppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = VPT5835T5T;
+				DEVELOPMENT_TEAM = CZ7R6F7L6H;
 				INFOPLIST_FILE = reCap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Kaleb-Cooper-Team-Red.reCap";
