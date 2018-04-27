@@ -51,10 +51,10 @@ class PhotoVC: UIViewController, UIScrollViewDelegate {
     */
     private func setup() {
         self.navigationController?.setNavigationBarHidden(true, animated: true)
-        scrollView.delegate = self
+        /*scrollView.delegate = self
         scrollView.delegate = self
         scrollView.minimumZoomScale = 1.0
-        scrollView.maximumZoomScale = 8.0
+        scrollView.maximumZoomScale = 8.0*/
     }
     
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
