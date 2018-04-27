@@ -14,31 +14,32 @@ class PhotoVC: UIViewController, UIScrollViewDelegate {
     // MARK: - Outlets
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var imageBackground: UIImageView!
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var deleteButton: UIButton!
-    
     
     // MARK: - Properties
     var image: UIImage!
     var pictureData: PictureData!
+    
     var userData: UserData!
     private var realm: Realm!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.realm = try! Realm()
         self.navigationController?.setToolbarHidden(true, animated: true)
-        applyBlurEffect(image: image)
-        if self.userData != nil {
-            // This is a user viewing their own picture
-            self.deleteButton.isHidden = false
-            self.deleteButton.isEnabled = true
+        self.realm = try! Realm()
+        if image != nil, pictureData != nil {
+            applyBlurEffect(image: image)
+            if self.userData != nil {
+                // This is a user viewing their own picture
+                self.deleteButton.isHidden = false
+                self.deleteButton.isEnabled = true
+            }
+            else {
+                self.deleteButton.isHidden = true
+                self.deleteButton.isEnabled = false
+            }
+            setup()
         }
-        else {
-            self.deleteButton.isHidden = true
-            self.deleteButton.isEnabled = false
-        }
-        setup()
-        // Do any additional setup after loading the view.
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -51,9 +52,9 @@ class PhotoVC: UIViewController, UIScrollViewDelegate {
     private func setup() {
         self.navigationController?.setNavigationBarHidden(true, animated: true)
         scrollView.delegate = self
+        scrollView.delegate = self
         scrollView.minimumZoomScale = 1.0
         scrollView.maximumZoomScale = 8.0
-        imageView.image = image
     }
     
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
@@ -116,3 +117,4 @@ class PhotoVC: UIViewController, UIScrollViewDelegate {
     */
 
 }
+
