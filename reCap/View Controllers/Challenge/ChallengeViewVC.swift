@@ -22,6 +22,7 @@ class ChallengeViewVC: UIViewController, UICollectionViewDelegate, UICollectionV
     var pictureArray: Results<PictureData>!
     var imageToPass: UIImage?
     var pictureDataToPass: PictureData?
+    private var token: NotificationToken!
     
     @IBOutlet weak var imageOutlet: UIImageView!
     @IBOutlet weak var locationOutlet: UILabel!
@@ -99,7 +100,6 @@ class ChallengeViewVC: UIViewController, UICollectionViewDelegate, UICollectionV
         let groupID = pictureData.groupID!
         let realm = try! Realm()
         self.pictureArray = realm.objects(PictureData.self).filter("groupID = '\(groupID.description)'").sorted(byKeyPath: "time", ascending: false)
-        
         /*for data in results {
             self.pictureArray.append(data)
         }*/
@@ -166,22 +166,11 @@ class ChallengeViewVC: UIViewController, UICollectionViewDelegate, UICollectionV
         
     }
 
-    
-    
-    
     // MARK: - ImageButton Methods
     func imageButtonPressed(image: UIImage, pictureData: PictureData) {
         print("Image Pressed")
         let infoArray = [pictureData, image] as [Any]
         self.performSegue(withIdentifier: "PhotoSegue", sender: infoArray)
-    }
-    
-    @IBAction func unwindSegue(segue:UIStoryboardSegue) {
-        // Called when a photo is deleted
-        let photoVC = segue.source as! PhotoVC
-        let pictureIndex = self.pictureArray.index(of: photoVC.pictureData)
-        //self.pictureArray.remove(at: pictureIndex!)
-        self.collectionView.reloadData()
     }
     
     
@@ -197,7 +186,20 @@ class ChallengeViewVC: UIViewController, UICollectionViewDelegate, UICollectionV
             let infoArray = sender as! [Any]
             let pictureData = infoArray[0] as! PictureData
             let image = infoArray[1] as! UIImage
-            destination.userData = self.userData
+            if self.userData.pictures.contains(pictureData) {
+                // The user owns the picture, add a listener to the clicked picture
+                self.token = pictureData.observe({(change) in
+                    switch change {
+                    case .deleted:
+                        print("Deleted in Challenge View")
+                        self.collectionView.reloadData()
+                        break
+                    default:
+                        print("Default")
+                    }
+                })
+                destination.userData = self.userData
+            }
             destination.pictureData = pictureData
             destination.image = image
         }

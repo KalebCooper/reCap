@@ -86,12 +86,15 @@ class PhotoVC: UIViewController, UIScrollViewDelegate {
         try! self.realm.write {
             let pictureIndex = self.userData.pictures.index(of: self.pictureData)
             self.userData.pictures.remove(at: pictureIndex!)
-            let usersWithChallenge = realm.objects(UserData.self).filter("activeChallengeID.id == '\(self.pictureData.id)'")
+            let nextRecentPic = realm.objects(PictureData.self).filter("groupID = '\(self.pictureData.groupID.description)'").sorted(byKeyPath: "time", ascending: false).first
+            nextRecentPic?.isMostRecentPicture = true
+            let usersWithChallenge = realm.objects(UserData.self).filter("activeChallengeID.id = '\(self.pictureData.id.description)'")
             for user in usersWithChallenge {
                 user.activeChallengeID = nil
                 user.activeChallengePoints = 0
             }
             self.realm.delete(self.pictureData)
+            self.navigationController?.popViewController(animated: true)
         }
     }
     

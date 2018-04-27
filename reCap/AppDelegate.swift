@@ -23,23 +23,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         //Database.database().isPersistenceEnabled = true
         UIApplication.shared.statusBarStyle = .lightContent
-        /*if FBDatabase.getSignedInUserID() != nil {
-            // If a user is signed in
-            FBDatabase.signInAutomaticUser(with_completion: {(id, error) in
-                if id != nil {
-                    print("User is signed into firebase in app delegate")
-                    self.setRootAsPageView()
-                }
-                else {
-                    print("User did not successfully sign into firebase in app delegate")
-                    FBDatabase.removeAutomaticSignIn()
-                    self.setRootAsSignIn()
-                }
-            })
-        }
-        else {
-            self.setRootAsSignIn()
-        }*/
         if let activeUser = SyncUser.current {
             // User logged in
             let config = SyncConfiguration(user: activeUser, realmURL: RealmConstants.REALM_URL)
