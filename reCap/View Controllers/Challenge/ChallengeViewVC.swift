@@ -180,7 +180,7 @@ class ChallengeViewVC: UIViewController, UICollectionViewDelegate, UICollectionV
         // Called when a photo is deleted
         let photoVC = segue.source as! PhotoVC
         let pictureIndex = self.pictureArray.index(of: photoVC.pictureData)
-        self.pictureArray.remove(at: pictureIndex!)
+        //self.pictureArray.remove(at: pictureIndex!)
         self.collectionView.reloadData()
     }
     
