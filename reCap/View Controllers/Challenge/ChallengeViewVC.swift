@@ -19,7 +19,7 @@ class ChallengeViewVC: UIViewController, UICollectionViewDelegate, UICollectionV
     var image: UIImage!
     var pictureData: PictureData!
     var userData: UserData!
-    var pictureArray: [PictureData]!
+    var pictureArray: Results<PictureData>!
     var imageToPass: UIImage?
     var pictureDataToPass: PictureData?
     
@@ -95,13 +95,14 @@ class ChallengeViewVC: UIViewController, UICollectionViewDelegate, UICollectionV
     func setupCollectionView() {
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
-        self.pictureArray = []
+        //self.pictureArray = []
         let groupID = pictureData.groupID!
         let realm = try! Realm()
-        let results = realm.objects(PictureData.self).filter("groupID = '\(groupID.description)'").sorted(byKeyPath: "time", ascending: false)
-        for data in results {
+        self.pictureArray = realm.objects(PictureData.self).filter("groupID = '\(groupID.description)'").sorted(byKeyPath: "time", ascending: false)
+        
+        /*for data in results {
             self.pictureArray.append(data)
-        }
+        }*/
         self.collectionView.reloadData()
     }
     
