@@ -43,15 +43,32 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.59632095029999999" colorSpace="custom" customColorSpace="displayP3"/>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9HV-Hd-RWT">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="imageID"/>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
-                                </userDefinedRuntimeAttributes>
-                            </imageView>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vt3-n0-r9w">
+                                <rect key="frame" x="0.0" y="88" width="375" height="690"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9HV-Hd-RWT">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="690"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="heroID" value="imageID"/>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isHeroEnabled" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="9HV-Hd-RWT" firstAttribute="top" secondItem="Vt3-n0-r9w" secondAttribute="top" id="4hw-i6-4Kz"/>
+                                    <constraint firstAttribute="trailing" secondItem="9HV-Hd-RWT" secondAttribute="trailing" id="JbB-rh-0Pr"/>
+                                    <constraint firstItem="9HV-Hd-RWT" firstAttribute="width" secondItem="Vt3-n0-r9w" secondAttribute="width" id="ZG7-iL-pbC"/>
+                                    <constraint firstItem="9HV-Hd-RWT" firstAttribute="height" secondItem="Vt3-n0-r9w" secondAttribute="height" id="hpy-Ak-udq"/>
+                                    <constraint firstAttribute="bottom" secondItem="9HV-Hd-RWT" secondAttribute="bottom" id="tpz-Ez-jmI"/>
+                                    <constraint firstItem="9HV-Hd-RWT" firstAttribute="leading" secondItem="Vt3-n0-r9w" secondAttribute="leading" id="y0A-UK-6Ta"/>
+                                </constraints>
+                            </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UYf-88-PPG">
-                                <rect key="frame" x="16" y="44" width="34" height="36"/>
+                                <rect key="frame" x="16" y="44" width="45" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="45" id="CCl-zr-g41"/>
+                                    <constraint firstAttribute="height" constant="40" id="mJS-Eo-nFf"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="Triomphe-Light" family="Triomphe" pointSize="16"/>
                                 <state key="normal" title="Back">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -74,11 +91,11 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="9HV-Hd-RWT" secondAttribute="bottom" id="33B-om-JUa"/>
-                            <constraint firstItem="9HV-Hd-RWT" firstAttribute="top" secondItem="WnU-2g-UkX" secondAttribute="top" id="6pT-Vp-FOP"/>
                             <constraint firstItem="UYf-88-PPG" firstAttribute="top" secondItem="1lx-SE-7qY" secondAttribute="top" id="7La-3M-sKL"/>
-                            <constraint firstItem="9HV-Hd-RWT" firstAttribute="leading" secondItem="WnU-2g-UkX" secondAttribute="leading" id="bh0-98-xQZ"/>
-                            <constraint firstItem="9HV-Hd-RWT" firstAttribute="trailing" secondItem="WnU-2g-UkX" secondAttribute="trailing" id="rMM-ED-M0U"/>
+                            <constraint firstItem="1lx-SE-7qY" firstAttribute="bottom" secondItem="Vt3-n0-r9w" secondAttribute="bottom" id="WAl-Nc-wgw"/>
+                            <constraint firstItem="Vt3-n0-r9w" firstAttribute="leading" secondItem="1lx-SE-7qY" secondAttribute="leading" id="WGq-bb-Iem"/>
+                            <constraint firstItem="1lx-SE-7qY" firstAttribute="trailing" secondItem="Vt3-n0-r9w" secondAttribute="trailing" id="gzQ-57-fSV"/>
+                            <constraint firstItem="Vt3-n0-r9w" firstAttribute="top" secondItem="UYf-88-PPG" secondAttribute="bottom" constant="4" id="v1f-WS-Goj"/>
                             <constraint firstItem="UYf-88-PPG" firstAttribute="leading" secondItem="1lx-SE-7qY" secondAttribute="leading" constant="16" id="zrr-ke-Ww9"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="1lx-SE-7qY"/>
@@ -91,6 +108,7 @@
                         <outlet property="deleteButton" destination="MQz-ax-Ivc" id="JVC-oP-zh9"/>
                         <outlet property="imageBackground" destination="Die-Va-szX" id="uXx-9D-h6I"/>
                         <outlet property="imageView" destination="9HV-Hd-RWT" id="2GL-2E-5G6"/>
+                        <outlet property="scrollView" destination="Vt3-n0-r9w" id="8Af-Fa-pO1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tq4-wM-JWq" userLabel="First Responder" sceneMemberID="firstResponder"/>

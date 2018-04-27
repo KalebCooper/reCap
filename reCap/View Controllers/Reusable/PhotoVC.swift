@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-class PhotoVC: UIViewController {
+class PhotoVC: UIViewController, UIScrollViewDelegate {
     
     // MARK: - Outlets
     @IBOutlet weak var imageView: UIImageView!
@@ -50,7 +50,15 @@ class PhotoVC: UIViewController {
     */
     private func setup() {
         self.navigationController?.setNavigationBarHidden(true, animated: true)
+        scrollView.delegate = self
+        scrollView.minimumZoomScale = 1.0
+        scrollView.maximumZoomScale = 8.0
         imageView.image = image
+    }
+    
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        
+        return imageView
     }
     
     func applyBlurEffect(image: UIImage){
