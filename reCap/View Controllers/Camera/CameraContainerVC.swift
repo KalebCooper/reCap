@@ -210,8 +210,11 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
                 else if distance >= 1 {
                     bearingOutlet.textColor = UIColor.yellow
                 }
-                else {
+                else if distance == 0 {
                     bearingOutlet.textColor = UIColor.green
+                }
+                else {
+                    bearingOutlet.textColor = UIColor.white
                 }
                 
             }
