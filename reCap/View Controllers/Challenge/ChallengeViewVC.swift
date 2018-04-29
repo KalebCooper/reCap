@@ -22,7 +22,9 @@ class ChallengeViewVC: UIViewController, UICollectionViewDelegate, UICollectionV
     var pictureArray: Results<PictureData>!
     var imageToPass: UIImage?
     var pictureDataToPass: PictureData?
-    private var token: NotificationToken!
+    private var didDeletePhoto = false
+    private var selectedPicToken: NotificationToken!
+    private var selectedPicIndex = -1
     
     @IBOutlet weak var imageOutlet: UIImageView!
     @IBOutlet weak var locationOutlet: UILabel!
@@ -37,9 +39,14 @@ class ChallengeViewVC: UIViewController, UICollectionViewDelegate, UICollectionV
         
         self.navigationController?.setToolbarHidden(true, animated: true)
         self.navigationController?.setNavigationBarHidden(true, animated: true)
-        self.navigationController?.popViewController(animated: true)
-        
-        dismiss(animated: true, completion: nil)
+        //self.navigationController?.popViewController(animated: true)
+        if self.didDeletePhoto {
+            self.performSegue(withIdentifier: "DeletedPicSegue", sender: nil)
+        }
+        else {
+            self.navigationController?.popViewController(animated: true)
+            self.dismiss(animated: true, completion: nil)
+        }
         
     }
     
@@ -173,6 +180,16 @@ class ChallengeViewVC: UIViewController, UICollectionViewDelegate, UICollectionV
         self.performSegue(withIdentifier: "PhotoSegue", sender: infoArray)
     }
     
+    @IBAction func photoDeletedUnwindSegue(segue: UIStoryboardSegue) {
+        // Called when a photo gets deleted in photo view
+        if self.pictureArray.count == 0 {
+            // There are no photos left in the timeline
+            self.performSegue(withIdentifier: "DeletedPicSegue", sender: nil)
+        }
+        self.didDeletePhoto = true
+        self.collectionView.reloadData()
+    }
+    
     
     // MARK: - Navigation
     
@@ -187,24 +204,26 @@ class ChallengeViewVC: UIViewController, UICollectionViewDelegate, UICollectionV
             let pictureData = infoArray[0] as! PictureData
             let image = infoArray[1] as! UIImage
             if self.userData.pictures.contains(pictureData) {
-                // The user owns the picture, add a listener to the clicked picture
-                self.token = pictureData.observe({(change) in
-                    switch change {
-                    case .deleted:
-                        print("Deleted in Challenge View")
-                        self.collectionView.reloadData()
-                        break
-                    default:
-                        print("Default")
+                // The user owns the picture, user is able to delete the photo
+                self.selectedPicIndex = self.pictureArray.index(of: pictureData)!
+                if pictureData.isMostRecentPicture {
+                    // If the selected photo is not the most recent
+                    let nextPictureIndex = self.selectedPicIndex + 1
+                    if (nextPictureIndex) != self.pictureArray.count {
+                        // The selected picture is not the only picture in the timeline
+                        destination.nextPictureData = self.pictureArray[nextPictureIndex]
                     }
-                })
+                }
                 destination.userData = self.userData
             }
-            destination.pictureData = pictureData
+            destination.selectedPictureData = pictureData
             destination.image = image
         }
     }
     
+    deinit {
+        print("Challenge view destroyed")
+    }
 }
 
 

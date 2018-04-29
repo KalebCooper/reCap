@@ -25,6 +25,7 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
     var userData: UserData!
     var realm: Realm!
     var mode: Int!
+    private var userNotification: NotificationToken!
     
     var userLat: Double!
     var userLong: Double!
@@ -60,9 +61,18 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.realm = try! Realm()
+        self.userData = realm.object(ofType: UserData.self, forPrimaryKey: SyncUser.current?.identity)
         applyBlurEffect(image: #imageLiteral(resourceName: "Gradient"))
+        setup()
+        // Uncomment the following line to preserve selection between presentations
+        // self.clearsSelectionOnViewWillAppear = false
+        
+        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+    
+    private func setup() {
         tableSectionArray = []
         collectionDictionaryData = [:]
         if self.mode == PhotoLibChallengeVC.FRIENDS_PHOTO_LIB_MODE {
@@ -71,11 +81,6 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
         else if mode == PhotoLibChallengeVC.CHALLENGE_MODE  {
             self.setupChallenge()
         }
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -84,7 +89,6 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        print("Removed all observers in PhotoLibChallenge VC")
     }
     
     override func didReceiveMemoryWarning() {
@@ -424,6 +428,11 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
         
     }
     
+    @IBAction func photoDeletedUnwindSegue(segue: UIStoryboardSegue) {
+        // Determines if a photo has been deleted, updates the view if one has
+        self.setup()
+    }
+    
     
     // MARK: - Navigation
     
@@ -455,6 +464,9 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
         }
     }
     
+    deinit {
+        print("PhotoLibChallenge destroyed")
+    }
     
 }
 

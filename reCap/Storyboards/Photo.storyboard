@@ -112,9 +112,11 @@
                         <outlet property="imageBackground" destination="Die-Va-szX" id="uXx-9D-h6I"/>
                         <outlet property="imageView" destination="9HV-Hd-RWT" id="2GL-2E-5G6"/>
                         <outlet property="scrollView" destination="zFu-fK-SGt" id="Dse-B8-sNf"/>
+                        <segue destination="WFm-zj-YUC" kind="unwind" identifier="DeletedPicSegue" unwindAction="photoDeletedUnwindSegueWithSegue:" id="et0-2y-EAm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tq4-wM-JWq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="WFm-zj-YUC" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1324" y="93.842364532019715"/>
         </scene>

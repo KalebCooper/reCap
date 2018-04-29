@@ -9,6 +9,6 @@
 import Foundation
 import UIKit
 
-protocol ImageButtonDelegate {
+protocol ImageButtonDelegate: class {
     func imageButtonPressed(image: UIImage, pictureData: PictureData)
 }

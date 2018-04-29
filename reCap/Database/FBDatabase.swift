@@ -547,6 +547,11 @@ class FBDatabase {
         }
     }
     
+    class func deletePicture(pictureData: PictureData) {
+        let storageRef = Storage.storage().reference(forURL: "gs://recap-78bda.appspot.com").child(PICTURE_NODE).child(pictureData.id)
+        storageRef.delete(completion: nil)
+    }
+    
     /*
      Gets picture from DB
      */

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14111" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="gdR-Eg-XAu">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="gdR-Eg-XAu">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -591,9 +591,11 @@
                         <outlet property="locationOutlet" destination="8O4-Tg-6IF" id="2tc-mJ-Jae"/>
                         <outlet property="titleOutlet" destination="cjA-lZ-Fdk" id="j7k-xi-hIA"/>
                         <segue destination="UJ0-fe-rxW" kind="show" identifier="PhotoSegue" id="ilw-Bo-opc"/>
+                        <segue destination="ahM-Q8-QDs" kind="unwind" identifier="DeletedPicSegue" unwindAction="photoDeletedUnwindSegueWithSegue:" id="D0l-dz-igT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="s6P-KJ-cx1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="ahM-Q8-QDs" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="5320.8000000000002" y="549.7536945812808"/>
         </scene>

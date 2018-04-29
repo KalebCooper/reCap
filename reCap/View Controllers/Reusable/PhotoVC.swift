@@ -19,7 +19,8 @@ class PhotoVC: UIViewController, UIScrollViewDelegate {
     
     // MARK: - Properties
     var image: UIImage!
-    var pictureData: PictureData!
+    var selectedPictureData: PictureData!
+    var nextPictureData: PictureData!
     
     var userData: UserData!
     private var realm: Realm!
@@ -27,7 +28,7 @@ class PhotoVC: UIViewController, UIScrollViewDelegate {
         super.viewDidLoad()
         self.navigationController?.setToolbarHidden(true, animated: true)
         self.realm = try! Realm()
-        if image != nil, pictureData != nil {
+        if image != nil, selectedPictureData != nil {
             applyBlurEffect(image: image)
             if self.userData != nil {
                 // This is a user viewing their own picture
@@ -84,17 +85,20 @@ class PhotoVC: UIViewController, UIScrollViewDelegate {
     */
     @IBAction func deletePressed(_ sender: Any) {
         try! self.realm.write {
-            let pictureIndex = self.userData.pictures.index(of: self.pictureData)
+            let pictureIndex = self.userData.pictures.index(of: self.selectedPictureData)
             self.userData.pictures.remove(at: pictureIndex!)
-            let nextRecentPic = realm.objects(PictureData.self).filter("groupID = '\(self.pictureData.groupID.description)'").sorted(byKeyPath: "time", ascending: false).first
-            nextRecentPic?.isMostRecentPicture = true
-            let usersWithChallenge = realm.objects(UserData.self).filter("activeChallengeID.id = '\(self.pictureData.id.description)'")
+            if self.nextPictureData != nil {
+                // There is another picture in the timeline, set it as the most recent picture
+                self.nextPictureData.isMostRecentPicture = true
+            }
+            let usersWithChallenge = realm.objects(UserData.self).filter("activeChallengeID.id = '\(self.selectedPictureData.id.description)'")
             for user in usersWithChallenge {
                 user.activeChallengeID = nil
                 user.activeChallengePoints = 0
             }
-            self.realm.delete(self.pictureData)
-            self.navigationController?.popViewController(animated: true)
+            FBDatabase.deletePicture(pictureData: self.selectedPictureData)
+            self.realm.delete(self.selectedPictureData)
+            self.performSegue(withIdentifier: "DeletedPicSegue", sender: nil)
         }
     }
     

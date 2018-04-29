@@ -16,7 +16,7 @@ class PhotoChalColCell: UICollectionViewCell {
     
     // MARK: - Properties
     var pictureData: PictureData!
-    private var delegate: ImageButtonDelegate!
+    private weak var delegate: ImageButtonDelegate!
     
     override func awakeFromNib() {
         super.awakeFromNib()
