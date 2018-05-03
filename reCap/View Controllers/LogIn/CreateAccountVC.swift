@@ -18,7 +18,6 @@ class CreateAccountVC: UITableViewController, UIImagePickerControllerDelegate, U
     // MARK: - Outlets
     @IBOutlet weak var fullNameOutlet: SkyFloatingLabelTextField!
     @IBOutlet weak var emailOutlet: SkyFloatingLabelTextField!
-    @IBOutlet weak var usernameOutlet: SkyFloatingLabelTextField!
     @IBOutlet weak var passwordOutlet: SkyFloatingLabelTextField!
     @IBOutlet weak var verifyPasswordOutlet: SkyFloatingLabelTextField!
     @IBOutlet weak var imageOutlet: UIButton!
@@ -71,8 +70,49 @@ class CreateAccountVC: UITableViewController, UIImagePickerControllerDelegate, U
     // MARK: - Outlet Actions
     
     @IBAction func addPressed(_ sender: Any) {
-        if let name = fullNameOutlet.text, let email = emailOutlet.text, let password = passwordOutlet.text, let verifyPass = verifyPasswordOutlet.text, let image = imageView.image, password == verifyPass {
+        let name = fullNameOutlet.text
+        let email = emailOutlet.text
+        let password = passwordOutlet.text
+        let verifyPass = verifyPasswordOutlet.text
+        if name != "", email != "", password != "", verifyPass != "" {
             // If all fields are filled out
+            let image = imageView.image
+            if image == nil {
+                // User has not selected profile picture
+                let alert = FCAlertView()
+                alert.dismissOnOutsideTouch = false
+                alert.showAlert(inView: self,
+                                withTitle: "Select an image",
+                                withSubtitle: nil,
+                                withCustomImage: nil,
+                                withDoneButtonTitle: nil,
+                                andButtons: nil)
+                return
+            }
+            else if password != verifyPass {
+                // Users passwords do not match up
+                let alert = FCAlertView()
+                alert.dismissOnOutsideTouch = false
+                alert.showAlert(inView: self,
+                                withTitle: "Password must match",
+                                withSubtitle: nil,
+                                withCustomImage: nil,
+                                withDoneButtonTitle: nil,
+                                andButtons: nil)
+                return
+            }
+            else if !isValidEmail(email: email) {
+                // Determines if the given email is valid
+                let alert = FCAlertView()
+                alert.dismissOnOutsideTouch = false
+                alert.showAlert(inView: self,
+                                withTitle: "Not a valid email",
+                                withSubtitle: nil,
+                                withCustomImage: nil,
+                                withDoneButtonTitle: nil,
+                                andButtons: nil)
+                return
+            }
             print("Creating user")
             let alert = FCAlertView()
             alert.makeAlertTypeProgress()
@@ -84,7 +124,7 @@ class CreateAccountVC: UITableViewController, UIImagePickerControllerDelegate, U
                             withCustomImage: nil,
                             withDoneButtonTitle: nil,
                             andButtons: nil)
-            let creds = SyncCredentials.usernamePassword(username: email, password: password, register: true)
+            let creds = SyncCredentials.usernamePassword(username: email!, password: password!, register: true)
             SyncUser.logIn(with: creds, server: RealmConstants.AUTH_URL, onCompletion: {(user, err) in
                 if let error = err {
                     print(error.localizedDescription)
@@ -113,13 +153,13 @@ class CreateAccountVC: UITableViewController, UIImagePickerControllerDelegate, U
                                     let config = SyncConfiguration(user: activeUser, realmURL: RealmConstants.REALM_URL)
                                     Realm.Configuration.defaultConfiguration = Realm.Configuration(syncConfiguration: config, objectTypes:[UserData.self, PictureData.self])
                                     let realm = try! Realm()
-                                    let userData = UserData(id: activeUser.identity!, name: name, email: email)
+                                    let userData = UserData(id: activeUser.identity!, name: name!, email: email!)
                                     print("user id is \(userData.id)")
                                     try! realm.write {
                                         realm.add(userData)
                                         print("Create Account: Wrote user to realm")
                                     }
-                                    FBDatabase.addProfilePicture(with_image: image, for_user: userData, with_completion: {(err) in
+                                    FBDatabase.addProfilePicture(with_image: image!, for_user: userData, with_completion: {(err) in
                                         if let error = err {
                                             print(error)
                                         }
@@ -181,7 +221,7 @@ class CreateAccountVC: UITableViewController, UIImagePickerControllerDelegate, U
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 6
+        return 5
     }
     
     
@@ -262,6 +302,18 @@ class CreateAccountVC: UITableViewController, UIImagePickerControllerDelegate, U
                         withCustomImage: nil,
                         withDoneButtonTitle: "Try Again",
                         andButtons: nil)
+    }
+    
+    // validate an email for the right format
+    func isValidEmail(email:String?) -> Bool {
+        
+        guard email != nil else { return false }
+        
+        let regEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
+        
+        let pred = NSPredicate(format:"SELF MATCHES %@", regEx)
+        let evaluate = pred.evaluate(with: email)
+        return evaluate
     }
     
     // MARK: - Navigation

@@ -280,7 +280,7 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
             points = PhotoLibChallengeVC.CHALLENGE_RECENT_POINTS
         }
         try! realm.write {
-            self.userData.activeChallengeID = pictureData
+            self.userData.activeChallenge = pictureData
             self.userData.activeChallengePoints = points
         }
     }
@@ -443,7 +443,7 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
         let segueID = segue.identifier
         if segueID == PhotoLibChallengeVC.PHOTO_SEGUE {
             let destination = segue.destination as! UINavigationController
-            let photoView = destination.topViewController as! ChallengeViewVC
+            let photoView = destination.topViewController as! PhotoTimelineVC
             let infoArray = sender as! [Any]
             let pictureData = infoArray[PhotoLibChallengeVC.PHOTO_SEGUE_PICTURE_DATA_INDEX] as! PictureData
             let picture = infoArray[PhotoLibChallengeVC.PHOTO_SEGUE_PICTURE_INDEX] as! UIImage
@@ -454,7 +454,7 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
         
         if segueID == PhotoLibChallengeVC.VIEW_CHALLENGE_SEGUE {
             let nav = segue.destination as! UINavigationController
-            let destination = nav.topViewController as! ChallengeViewVC
+            let destination = nav.topViewController as! PhotoTimelineVC
             let infoArray = sender as! [Any]
             let pictureData = infoArray[PhotoLibChallengeVC.PHOTO_SEGUE_PICTURE_DATA_INDEX] as! PictureData
             let picture = infoArray[PhotoLibChallengeVC.PHOTO_SEGUE_PICTURE_INDEX] as! UIImage

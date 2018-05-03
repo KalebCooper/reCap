@@ -76,7 +76,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
 
         }
         else if bearingOutlet.textColor != UIColor.green && bearingOutlet.textColor != UIColor.white && bearingOutlet.textColor != UIColor.yellow && bearingOutlet.textColor != UIColor.orange {
-            FCAlertView.displayAlert(title: "Error", message: "Please make sure the bearing is as close to \(self.userData.activeChallengeID!.bearing)°.", buttonTitle: "Okay", type: "warning", view: self, blur: true)
+            FCAlertView.displayAlert(title: "Error", message: "Please make sure the bearing is as close to \(self.userData.activeChallenge!.bearing)°.", buttonTitle: "Okay", type: "warning", view: self, blur: true)
         }
         else {
             self.stillImageOutput?.capturePhoto(with: self.photoSetting, delegate: self)
@@ -197,7 +197,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         
         
         if let user = self.userData {
-            if let challenge = user.activeChallengeID {
+            if let challenge = user.activeChallenge {
                 
                 let distance = abs(roundedValue - challenge.bearing)
                 
@@ -347,7 +347,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
      of the gps coordinates when on the exact location
      */
     private func setupActiveChallenge() {
-        self.activeChallengePicData = self.userData.activeChallengeID
+        self.activeChallengePicData = self.userData.activeChallenge
         if self.activeChallengePicData != nil {
             // There is an active challenge
             self.previousOutlet.isEnabled = true

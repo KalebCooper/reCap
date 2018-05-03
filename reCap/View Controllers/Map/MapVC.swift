@@ -77,7 +77,7 @@ class MapVC: UIViewController, MGLMapViewDelegate {
         
         if let user = self.user {
             
-            if let challenge = user.activeChallengeID {
+            if let challenge = user.activeChallenge {
                 
                 let lat = challenge.latitude
                 let long = challenge.longitude
@@ -97,7 +97,7 @@ class MapVC: UIViewController, MGLMapViewDelegate {
         super.viewDidLoad()
         self.realm = try! Realm()
         self.user = RealmHelper.getUser()
-        self.activeChallengePicData = self.user.activeChallengeID
+        self.activeChallengePicData = self.user.activeChallenge
         self.setupMap()
         let when = DispatchTime.now() + 0.5 // change 2 to desired number of seconds
         DispatchQueue.main.asyncAfter(deadline: when) {
@@ -210,7 +210,7 @@ class MapVC: UIViewController, MGLMapViewDelegate {
         
         
         if let user = self.user {
-            if let challenge = user.activeChallengeID {
+            if let challenge = user.activeChallenge {
                 centerButton.isHidden = false
             }
             else {
@@ -334,7 +334,7 @@ class MapVC: UIViewController, MGLMapViewDelegate {
             
             if let pictureData = RealmHelper.getPictureData(withLat: lat, withLong: long, onlyRecent: true) {
                 if let user = self.user {
-                    if let challenge = user.activeChallengeID {
+                    if let challenge = user.activeChallenge {
                         if pictureData.id == challenge.id {
                             annotationView!.backgroundColor = UIColor(red: 204/255, green: 51/255, blue: 51/255, alpha: 1.0)
                             return annotationView
@@ -539,7 +539,7 @@ class MapVC: UIViewController, MGLMapViewDelegate {
         
         
         try! realm.write {
-            self.user.activeChallengeID = pictureData
+            self.user.activeChallenge = pictureData
             self.user.activeChallengePoints = points
         }
 
@@ -560,7 +560,7 @@ class MapVC: UIViewController, MGLMapViewDelegate {
         let segueID = segue.identifier
         if segueID == "ChallengeViewSegue" {
             let nav = segue.destination as! UINavigationController
-            let destination = nav.topViewController as! ChallengeViewVC
+            let destination = nav.topViewController as! PhotoTimelineVC
             
             //let destination = segue.destination as! ChallengeViewVC
             let pictureData = pictureDataToPass

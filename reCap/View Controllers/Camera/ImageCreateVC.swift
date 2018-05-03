@@ -59,7 +59,7 @@ class ImageCreateVC: UIViewController, PageboyViewControllerDelegate {
             // If the user took the picture at the challenge coordinates, there is an active challenge
             try! realm.write {
                 self.userData.points = self.userData.points + Int(self.userData.activeChallengePoints)
-                self.userData.activeChallengeID = nil
+                self.userData.activeChallenge = nil
                 self.previousPic.isMostRecentPicture = false
             }
             isRoot = false

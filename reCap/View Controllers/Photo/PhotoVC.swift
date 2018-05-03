@@ -91,9 +91,9 @@ class PhotoVC: UIViewController, UIScrollViewDelegate {
                 // There is another picture in the timeline, set it as the most recent picture
                 self.nextPictureData.isMostRecentPicture = true
             }
-            let usersWithChallenge = realm.objects(UserData.self).filter("activeChallengeID.id = '\(self.selectedPictureData.id.description)'")
+            let usersWithChallenge = realm.objects(UserData.self).filter("activeChallenge.id = '\(self.selectedPictureData.id.description)'")
             for user in usersWithChallenge {
-                user.activeChallengeID = nil
+                user.activeChallenge = nil
                 user.activeChallengePoints = 0
             }
             FBDatabase.deletePicture(pictureData: self.selectedPictureData)

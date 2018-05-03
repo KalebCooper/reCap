@@ -14,7 +14,7 @@ import CoreLocation
 import Firebase
 import RealmSwift
 
-class ChallengeViewVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIScrollViewDelegate, ImageButtonDelegate {
+class PhotoTimelineVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIScrollViewDelegate, ImageButtonDelegate {
     
     var image: UIImage!
     var pictureData: PictureData!
@@ -39,7 +39,6 @@ class ChallengeViewVC: UIViewController, UICollectionViewDelegate, UICollectionV
         
         self.navigationController?.setToolbarHidden(true, animated: true)
         self.navigationController?.setNavigationBarHidden(true, animated: true)
-        //self.navigationController?.popViewController(animated: true)
         if self.didDeletePhoto {
             self.performSegue(withIdentifier: "DeletedPicSegue", sender: nil)
         }
