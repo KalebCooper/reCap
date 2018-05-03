@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14105" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="73b-MN-egD">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="73b-MN-egD">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -112,17 +112,16 @@
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <segue destination="BMy-HM-f6t" kind="show" identifier="PhotoSegue" id="5In-3T-9hI"/>
-                        <segue destination="BMy-HM-f6t" kind="show" identifier="ViewChallengeSegue" id="Gnd-dq-OOz"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zed-5s-mHP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="160.80000000000001" y="16.256157635467982"/>
         </scene>
-        <!--ChallengeView-->
+        <!--PhotoTimeline-->
         <scene sceneID="hFb-mh-nMZ">
             <objects>
-                <viewControllerPlaceholder storyboardName="ChallengeView" id="BMy-HM-f6t" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardName="PhotoTimeline" id="BMy-HM-f6t" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J1l-Mo-YeC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1131" y="16"/>
@@ -150,7 +149,4 @@
             <point key="canvasLocation" x="-834" y="16"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="5In-3T-9hI"/>
-    </inferredMetricsTieBreakers>
 </document>

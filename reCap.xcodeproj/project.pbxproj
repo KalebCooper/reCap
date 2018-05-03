@@ -61,7 +61,7 @@
 		7A5878532030D25900F36A56 /* triomphe-bold-italic-autoinstr.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A58784D2030D25900F36A56 /* triomphe-bold-italic-autoinstr.ttf */; };
 		7A5878542030D25900F36A56 /* triomphe-regular-autoinstr.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7A58784E2030D25900F36A56 /* triomphe-regular-autoinstr.ttf */; };
 		7A58785E20310A0100F36A56 /* CreateAccount.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7A58785D20310A0100F36A56 /* CreateAccount.storyboard */; };
-		7AA8EE8C2054AD3F0043B73C /* ChallengeView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AA8EE8B2054AD3F0043B73C /* ChallengeView.storyboard */; };
+		7AA8EE8C2054AD3F0043B73C /* PhotoTimeline.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AA8EE8B2054AD3F0043B73C /* PhotoTimeline.storyboard */; };
 		7AA8EE922055A5000043B73C /* ImageCreateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA8EE912055A5000043B73C /* ImageCreateVC.swift */; };
 		7ABF80CE203A63F800BCE787 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7ABF80CD203A63F800BCE787 /* Settings.storyboard */; };
 		7ABF80D0203A64D300BCE787 /* Photo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7ABF80CF203A64D300BCE787 /* Photo.storyboard */; };
@@ -156,7 +156,7 @@
 		7A58784D2030D25900F36A56 /* triomphe-bold-italic-autoinstr.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "triomphe-bold-italic-autoinstr.ttf"; path = "reCap/Custom Fonts/triomphe-bold-italic-autoinstr.ttf"; sourceTree = SOURCE_ROOT; };
 		7A58784E2030D25900F36A56 /* triomphe-regular-autoinstr.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "triomphe-regular-autoinstr.ttf"; path = "reCap/Custom Fonts/triomphe-regular-autoinstr.ttf"; sourceTree = SOURCE_ROOT; };
 		7A58785D20310A0100F36A56 /* CreateAccount.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CreateAccount.storyboard; sourceTree = "<group>"; };
-		7AA8EE8B2054AD3F0043B73C /* ChallengeView.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ChallengeView.storyboard; sourceTree = "<group>"; };
+		7AA8EE8B2054AD3F0043B73C /* PhotoTimeline.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PhotoTimeline.storyboard; sourceTree = "<group>"; };
 		7AA8EE912055A5000043B73C /* ImageCreateVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCreateVC.swift; sourceTree = "<group>"; };
 		7AB6A13E203E68EA00933F30 /* ImageConfirmVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageConfirmVC.swift; sourceTree = "<group>"; };
 		7AB6A140203E68F700933F30 /* ImageCreateVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCreateVC.swift; sourceTree = "<group>"; };
@@ -331,7 +331,7 @@
 				34A7ACB72027A51700ACFB12 /* LeaderboardsFriends.storyboard */,
 				7ABF80CD203A63F800BCE787 /* Settings.storyboard */,
 				7ABF80CF203A64D300BCE787 /* Photo.storyboard */,
-				7AA8EE8B2054AD3F0043B73C /* ChallengeView.storyboard */,
+				7AA8EE8B2054AD3F0043B73C /* PhotoTimeline.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -601,7 +601,7 @@
 				7AE3755F2037C56000CA9946 /* Launch Screen.storyboard in Resources */,
 				7A58785E20310A0100F36A56 /* CreateAccount.storyboard in Resources */,
 				34A7ACB42027A4EB00ACFB12 /* Map.storyboard in Resources */,
-				7AA8EE8C2054AD3F0043B73C /* ChallengeView.storyboard in Resources */,
+				7AA8EE8C2054AD3F0043B73C /* PhotoTimeline.storyboard in Resources */,
 				3422D37F20226FE600570374 /* GoogleService-Info.plist in Resources */,
 				7A5878502030D25900F36A56 /* triomphe-light-autoinstr.ttf in Resources */,
 				7ABF80D0203A64D300BCE787 /* Photo.storyboard in Resources */,
