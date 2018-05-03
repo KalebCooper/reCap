@@ -56,9 +56,9 @@ class SettingsVC: UITableViewController, UITextFieldDelegate, FCAlertViewDelegat
         if cellName == "Full Name" {
             cell.detailTextLabel?.text = self.userData.name
         }
-        else if cellName == "Username" {
+        else if cellName == "E-mail" {
             print("Username tapped")
-            //cell.detailTextLabel?.text = userDataValues?[1]
+            cell.detailTextLabel?.text = self.userData.email
         }
         else if cellName == "Email" {
             print("Email tapped")
@@ -96,73 +96,11 @@ class SettingsVC: UITableViewController, UITextFieldDelegate, FCAlertViewDelegat
             }
             
             alert.addButton("Cancel") {
-
+                alert.dismiss()
             }
             alert.showAlert(withTitle: "Update Name", withSubtitle: "Please enter a new name.", withCustomImage: nil, withDoneButtonTitle: "Update", andButtons: nil)
 
         }
-        /*else if cellName == "Username" {
-            print("Username tapped")
-            
-            let alert = FCAlertView()
-            alert.makeAlertTypeCaution()
-            alert.dismissOnOutsideTouch = false
-            alert.darkTheme = true
-            alert.bounceAnimations = true
-            alert.addTextField(withPlaceholder: "Enter Username") { (username) in
-
-                
-                if username != "" {
-                    
-                    FCAlertView.displayAlert(title: "Changing...", message: "Your username is being changed...", buttonTitle: "Dismiss", type: "progress", view: self)
-                    
-                    let newUsername = username
-                    let ref = Database.database().reference()
-                    FBDatabase.getUsername(with_ref: ref, with_username: newUsername!, with_completion: {(username) in
-                        if username == nil {
-                            // The username is not taken
-                            let oldUsernameObj = Username(username: self.user.username, email: self.user.email, id: self.user.id)
-                            let newUsernameObj = Username(username: newUsername!, email: self.user.email, id: self.user.id)
-                            FBDatabase.addUpdateUsername(with_username: newUsernameObj, with_completion: {(error) in
-                                
-                            })
-                            FBDatabase.deleteUsername(username: oldUsernameObj, with_completion: {(error) in
-                                
-                            })
-                            self.user.username = newUsername
-                            FBDatabase.addUpdateUser(user: self.user, with_completion: {(error) in
-                                if error == nil {
-                                    FCAlertView.displayAlert(title: "Success!", message: "Your username has been changed.", buttonTitle: "Dismiss", type: "success", view: self)
-                                    self.tableView.reloadData()
-                                }
-                                else {
-                                    FCAlertView.displayAlert(title: "Uh Oh!", message: error!, buttonTitle: "Dismiss", type: "warning", view: self)
-                                }
-                            })
-                        }
-                        else {
-                            
-                        }
-                    })
-                    
-                    
-                }
-                else {
-                    FCAlertView.displayAlert(title: "Oops!", message: "Please make sure to type a username", buttonTitle: "Got It!", type: "warning", view: self)
-                }
-                
-                
-            }
-            
-            alert.addButton("Cancel") {
-                alert.dismiss()
-            }
-            alert.showAlert(withTitle: "Update Username", withSubtitle: "Please enter a new username.", withCustomImage: nil, withDoneButtonTitle: "Update", andButtons: nil)
-
-            
-            
-            
-        }*/
         else if cellName == "Logout" {
             // Logout pressed
             logoutPressed()
