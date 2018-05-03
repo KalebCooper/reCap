@@ -16,16 +16,21 @@ import RealmSwift
 
 class PhotoTimelineVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIScrollViewDelegate, ImageButtonDelegate {
     
+    // Parameters
     var image: UIImage!
     var pictureData: PictureData!
     var userData: UserData!
     var pictureArray: Results<PictureData>!
     var imageToPass: UIImage?
     var pictureDataToPass: PictureData?
+    var mode: Int!
+    
+    static let PHOTO_LIB_MODE = 0
+    static let CHALLENGE_MODE = 1
+    
     private var didDeletePhoto = false
     private var selectedPicToken: NotificationToken!
     private var selectedPicIndex = -1
-    
     @IBOutlet weak var imageOutlet: UIImageView!
     @IBOutlet weak var locationOutlet: UILabel!
     @IBOutlet weak var locationNameOutlet: UILabel!
@@ -202,7 +207,7 @@ class PhotoTimelineVC: UIViewController, UICollectionViewDelegate, UICollectionV
             let infoArray = sender as! [Any]
             let pictureData = infoArray[0] as! PictureData
             let image = infoArray[1] as! UIImage
-            if self.userData.pictures.contains(pictureData) {
+            if self.userData.pictures.contains(pictureData), self.mode == PhotoTimelineVC.PHOTO_LIB_MODE {
                 // The user owns the picture, user is able to delete the photo
                 self.selectedPicIndex = self.pictureArray.index(of: pictureData)!
                 if pictureData.isMostRecentPicture {
@@ -215,6 +220,7 @@ class PhotoTimelineVC: UIViewController, UICollectionViewDelegate, UICollectionV
                 }
                 destination.userData = self.userData
             }
+            destination.mode = self.mode
             destination.selectedPictureData = pictureData
             destination.image = image
         }

@@ -789,8 +789,7 @@ class CameraContainerVC: UIViewController, AVCapturePhotoCaptureDelegate, UINavi
         else if segueID == "PhotoLibSegue" {
             let destination = segue.destination as! UINavigationController
             let photoLibVC = destination.topViewController as! PhotoLibChallengeVC
-            //photoLibVC.userData = self.userData
-            photoLibVC.mode = PhotoLibChallengeVC.FRIENDS_PHOTO_LIB_MODE
+            photoLibVC.mode = PhotoLibChallengeVC.PHOTO_LIB_MODE
         }
         
     }

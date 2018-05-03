@@ -16,6 +16,9 @@ class PhotoVC: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var imageBackground: UIImageView!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var deleteButton: UIButton!
+    var mode: Int!
+    static let PHOTO_LIB_MODE = 0
+    static let CHALLENGE_MODE = 1
     
     // MARK: - Properties
     var image: UIImage!
@@ -30,7 +33,7 @@ class PhotoVC: UIViewController, UIScrollViewDelegate {
         self.realm = try! Realm()
         if image != nil, selectedPictureData != nil {
             applyBlurEffect(image: image)
-            if self.userData != nil {
+            if self.mode == PhotoVC.PHOTO_LIB_MODE {
                 // This is a user viewing their own picture
                 self.deleteButton.isHidden = false
                 self.deleteButton.isEnabled = true

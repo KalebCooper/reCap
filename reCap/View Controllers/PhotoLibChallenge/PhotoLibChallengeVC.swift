@@ -47,9 +47,6 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
     private var dispatchGroup: DispatchGroup!
     static let PHOTO_LIB_MODE = 0
     static let CHALLENGE_MODE = 1
-    static let FRIENDS_PHOTO_LIB_MODE = 2
-    static let ACTIVE_CHALLENGE_MODE = 2
-    static let INVALID_MODE = -1
     static let SECONDS_IN_WEEK = 604800
     static let SECONDS_IN_MONTH = PhotoLibChallengeVC.SECONDS_IN_WEEK * 4
     static let SECONDS_IN_YEAR = PhotoLibChallengeVC.SECONDS_IN_MONTH * 12
@@ -75,7 +72,7 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
     private func setup() {
         tableSectionArray = []
         collectionDictionaryData = [:]
-        if self.mode == PhotoLibChallengeVC.FRIENDS_PHOTO_LIB_MODE {
+        if self.mode == PhotoLibChallengeVC.PHOTO_LIB_MODE {
             self.setupPhotoLib()
         }
         else if mode == PhotoLibChallengeVC.CHALLENGE_MODE  {
@@ -157,21 +154,20 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
         let lat = self.userData.latitude
         let long = self.userData.longitude
         let degreeThresh = ((1/69)*PhotoLibChallengeVC.MILE_THRESH) / 2
-        //let degreeThresh = 1.0
         let latHigh = lat + degreeThresh
         let latLow = lat - degreeThresh
         let longHigh = long + degreeThresh
         let longLow = long - degreeThresh
         let currentTime = Int(Date().timeIntervalSince1970)
-        let weekTime = currentTime + PhotoLibChallengeVC.SECONDS_IN_WEEK
-        let monthTime = currentTime + PhotoLibChallengeVC.SECONDS_IN_MONTH
-        let yearTime = currentTime + PhotoLibChallengeVC.SECONDS_IN_YEAR
+        let weekTime = currentTime - PhotoLibChallengeVC.SECONDS_IN_WEEK
+        let monthTime = currentTime - PhotoLibChallengeVC.SECONDS_IN_MONTH
+        let yearTime = currentTime - PhotoLibChallengeVC.SECONDS_IN_YEAR
         let coordinatesPredicate = NSPredicate(format: "latitude <= \(latHigh) AND latitude >= \(latLow) AND longitude <= \(longHigh) AND longitude >= \(longLow)")
         let mostRecentPredicate = NSPredicate(format: "isMostRecentPicture = true")
-        let recentResults = self.realm.objects(PictureData.self).filter(coordinatesPredicate).filter(mostRecentPredicate).filter("time <= \(weekTime)").sorted(byKeyPath: "time", ascending: false)
-        let weekResults = self.realm.objects(PictureData.self).filter(coordinatesPredicate).filter(mostRecentPredicate).filter("time >= \(weekTime) AND time <= \(monthTime)").sorted(byKeyPath: "time", ascending: false)
-        let monthResults = self.realm.objects(PictureData.self).filter(coordinatesPredicate).filter(mostRecentPredicate).filter("time >= \(monthTime) AND time <= \(yearTime)")
-        let yearResults = self.realm.objects(PictureData.self).filter(coordinatesPredicate).filter(mostRecentPredicate).filter("time >= \(yearTime)")
+        let recentResults = self.realm.objects(PictureData.self).filter(coordinatesPredicate).filter(mostRecentPredicate).filter("time >= \(weekTime)").sorted(byKeyPath: "time", ascending: false)
+        let weekResults = self.realm.objects(PictureData.self).filter(coordinatesPredicate).filter(mostRecentPredicate).filter("time <= \(weekTime) AND time >= \(monthTime)").sorted(byKeyPath: "time", ascending: false)
+        let monthResults = self.realm.objects(PictureData.self).filter(coordinatesPredicate).filter(mostRecentPredicate).filter("time <= \(monthTime) AND time >= \(yearTime)")
+        let yearResults = self.realm.objects(PictureData.self).filter(coordinatesPredicate).filter(mostRecentPredicate).filter("time <= \(yearTime)")
         self.collectionDictionaryData[PhotoLibChallengeVC.TAKE_PIC_FROM_RECENT] = self.getFiftyChallenges(results: recentResults)
         self.collectionDictionaryData[PhotoLibChallengeVC.TAKE_PIC_FROM_WEEK] = self.getFiftyChallenges(results: weekResults)
         self.collectionDictionaryData[PhotoLibChallengeVC.TAKE_PIC_FROM_MONTH] = self.getFiftyChallenges(results: monthResults)
@@ -191,13 +187,6 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
         self.tableView.reloadData()
     }
     
-    private func runChallengeSortingThread(section: String, unsortedChallenges: [String : [PictureData]]) {
-        DispatchQueue.global().async {
-            //self.collectionDictionaryData[section] = Sort.SortPictureDataByDescendingOrder(dataList: unsortedChallenges[section]!)
-            self.dispatchGroup.leave()
-        }
-    }
-    
     // MARK: - ImageButton Methods
     func imageButtonPressed(image: UIImage, pictureData: PictureData) {
         print("Image Pressed")
@@ -209,7 +198,7 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
                 self.displaySuccessAlert(message: "You just set your active challenge! Make sure to navigate to the pin when you're ready to begin!")
             })
             let viewChallenge = UIAlertAction(title: "View This Challenge", style: .default, handler: {(action) in
-                self.performSegue(withIdentifier: "ViewChallengeSegue", sender: [pictureData, image])
+                self.performSegue(withIdentifier: "PhotoSegue", sender: [pictureData, image])
                 
             })
             let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -218,7 +207,7 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
             alert.addAction(cancel)
             self.present(alert, animated: true, completion: nil)
         }
-        else if mode == PhotoLibChallengeVC.FRIENDS_PHOTO_LIB_MODE || mode == PhotoLibChallengeVC.FRIENDS_PHOTO_LIB_MODE{
+        else if mode == PhotoLibChallengeVC.PHOTO_LIB_MODE {
             self.performSegue(withIdentifier: "PhotoSegue", sender: [pictureData, image])
         }
     }
@@ -450,6 +439,7 @@ class PhotoLibChallengeVC: UITableViewController, UICollectionViewDelegate, UICo
             photoView.userData = self.userData
             photoView.pictureData = pictureData
             photoView.image = picture
+            photoView.mode = self.mode
         }
     }
     
